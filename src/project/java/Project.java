@@ -9,7 +9,15 @@
  */
 public class Project extends bee.api.Project {
 
-  {
-      product("com.github.teletha", "stoneforge", "1.0");
-  }
+    {
+        product("com.github.teletha", "stoneforge", "1.0");
+
+        require("com.github.teletha", "sinobu");
+        require("com.github.teletha", "stylist");
+        require("com.github.teletha", "psychopath");
+        require("com.github.teletha", "icymanipulator").atAnnotation();
+        require("com.github.teletha", "antibug").atTest();
+
+        versionControlSystem("https://github.com/teletha/stoneforge");
+    }
 }
