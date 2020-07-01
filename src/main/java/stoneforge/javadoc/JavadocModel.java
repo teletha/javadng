@@ -1,15 +1,15 @@
 /*
- * Copyright (C) 2019 Nameless Production Committee
+ * Copyright (C) 2020 stoneforge Development Team
  *
  * Licensed under the MIT License (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *          http://opensource.org/licenses/mit-license.php
+ *          https://opensource.org/licenses/MIT
  */
 package stoneforge.javadoc;
 
-import static javax.tools.StandardLocation.SOURCE_PATH;
+import static javax.tools.StandardLocation.*;
 
 import java.io.File;
 import java.net.MalformedURLException;
