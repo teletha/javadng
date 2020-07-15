@@ -9,11 +9,10 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.StandardLocation.*;
+import static javax.tools.StandardLocation.SOURCE_PATH;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.Comparator;
@@ -45,6 +44,7 @@ import jdk.javadoc.doclet.DocletEnvironment;
 import jdk.javadoc.doclet.Reporter;
 import kiss.I;
 import kiss.Variable;
+import kiss.XML;
 import psychopath.Directory;
 import psychopath.Locator;
 import stoneforge.SiteBuilder;
@@ -196,17 +196,12 @@ public abstract class JavadocModel {
         if (urls != null) {
             for (String url : urls) {
                 if (url != null && url.startsWith("http") && url.endsWith("/api/")) {
-                    try {
-                        I.signal(new URL(url + "overview-tree.html"))
-                                .map(I::xml)
-                                .retryWhen(e -> e.delay(200, TimeUnit.MILLISECONDS).take(20))
-                                .flatIterable(xml -> xml.find(".horizontal a"))
-                                .to(xml -> {
-                                    externals.put(xml.text(), url);
-                                });
-                    } catch (MalformedURLException e) {
-                        throw I.quiet(e);
-                    }
+                    I.http(url + "overview-tree.html", XML.class)
+                            .retryWhen(e -> e.delay(200, TimeUnit.MILLISECONDS).take(20))
+                            .flatIterable(xml -> xml.find(".horizontal a"))
+                            .to(xml -> {
+                                externals.put(xml.text(), url);
+                            });
                 }
             }
         }

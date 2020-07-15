@@ -336,7 +336,7 @@ public class DocumentInfo {
                     text.insert(0, "<!DOCTYPE span><span>").append("</span>");
 
                     // sanitize script and css
-                    XML xml = I.xml(text);
+                    XML xml = I.xml(text.toString());
                     xml.find("link").remove();
                     xml.find("pre").addClass("prettyprint");
 
