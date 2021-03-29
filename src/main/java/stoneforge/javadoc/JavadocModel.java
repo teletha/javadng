@@ -9,10 +9,9 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.StandardLocation.SOURCE_PATH;
+import static javax.tools.StandardLocation.*;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.Comparator;
