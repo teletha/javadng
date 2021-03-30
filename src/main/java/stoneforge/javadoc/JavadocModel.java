@@ -207,6 +207,7 @@ public abstract class JavadocModel {
                     I.http(url + "overview-tree.html", XML.class)
                             .retryWhen(e -> e.delay(200, TimeUnit.MILLISECONDS).take(20))
                             .flatIterable(xml -> xml.find(".horizontal a"))
+                            .waitForTerminate()
                             .to(xml -> {
                                 externals.put(xml.text(), url);
                             });

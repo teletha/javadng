@@ -30,7 +30,7 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.type.TypeVariable;
 import javax.lang.model.type.UnionType;
 import javax.lang.model.type.WildcardType;
-import javax.lang.model.util.SimpleTypeVisitor9;
+import javax.lang.model.util.SimpleTypeVisitor14;
 
 import com.sun.source.doctree.AttributeTree;
 import com.sun.source.doctree.AuthorTree;
@@ -569,7 +569,7 @@ public class DocumentInfo {
     /**
      * 
      */
-    private class TypeXMLBuilder extends SimpleTypeVisitor9<XML, XML> {
+    private class TypeXMLBuilder extends SimpleTypeVisitor14<XML, XML> {
 
         /**
          * Parse documetation.
