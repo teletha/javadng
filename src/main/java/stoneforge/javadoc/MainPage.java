@@ -101,7 +101,7 @@ public class MainPage extends HTML {
      */
     private interface Styles extends StyleDSL, BaseStyle {
 
-        Numeric LeftNavigationWidth = Numeric.of(15, vw);
+        Numeric LeftNavigationWidth = Numeric.of(17, vw);
 
         Style workbench = () -> {
             background.color(Color.rgb(235, 246, 247)).image(BackgroundImage.drawSlash(Color.rgb(220, 222, 225, 0.7), 3)).repeat();
@@ -150,7 +150,7 @@ public class MainPage extends HTML {
 
         Style Contents = () -> {
             flexItem.grow(1);
-            margin.left(5, rem).right(1.5, rem);
+            margin.left(3.2, rem).right(1.5, rem);
         };
 
         Style SubNavigation = () -> {

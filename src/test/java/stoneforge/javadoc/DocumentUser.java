@@ -20,6 +20,7 @@ public class DocumentUser {
                 .project("Stoneforge")
                 .version("1.0")
                 .useExternalJDKDoc()
-                .build();
+                .build()
+                .show();
     }
 }

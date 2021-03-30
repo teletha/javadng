@@ -9,6 +9,15 @@
  */
 package stoneforge.javadoc.dummy;
 
+/**
+ * Pellentesque ut odio erat. Vestibulum erat neque, semper mollis gravida vel, efficitur eu diam.
+ * Integer id varius quam. Aliquam posuere elit sed pulvinar egestas. Fusce posuere fermentum massa,
+ * vel molestie augue porta eget. Ut elit enim, tincidunt sit amet lobortis a, eleifend nec ante.
+ * Nullam vel lorem vel neque varius dictum. Morbi euismod mattis pharetra. Aenean sit amet dui quis
+ * tellus pulvinar pellentesque. Donec eu aliquet libero. Donec leo augue, suscipit at pellentesque
+ * at, sollicitudin eget nunc. Pellentesque consequat orci id ante scelerisque, quis pellentesque
+ * mauris scelerisque.
+ */
 public interface InterfaceD<T> {
 
 }

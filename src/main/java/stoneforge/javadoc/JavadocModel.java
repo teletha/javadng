@@ -11,7 +11,12 @@ package stoneforge.javadoc;
 
 import static javax.tools.StandardLocation.*;
 
+import java.awt.Desktop;
 import java.io.File;
+import java.io.OutputStream;
+import java.net.BindException;
+import java.net.InetSocketAddress;
+import java.net.URI;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.Comparator;
@@ -36,6 +41,8 @@ import javax.tools.JavaFileObject;
 import javax.tools.JavaFileObject.Kind;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
+
+import com.sun.net.httpserver.HttpServer;
 
 import icy.manipulator.Icy;
 import jdk.javadoc.doclet.Doclet;
@@ -246,6 +253,41 @@ public abstract class JavadocModel {
         Internal.model = this;
 
         return Internal.class;
+    }
+
+    /**
+     * Show the generated document in your browser.
+     * 
+     * @return
+     */
+    public final Javadoc show() {
+        try {
+            HttpServer server = HttpServer.create(new InetSocketAddress(9321), 0);
+            server.createContext("/", context -> {
+                psychopath.File file = output().file(context.getRequestURI().getPath().substring(1));
+
+                String res = file.text();
+                context.sendResponseHeaders(200, res.length());
+                OutputStream out = context.getResponseBody();
+                out.write(res.getBytes());
+                out.close();
+            });
+            server.start();
+        } catch (BindException e) {
+            // already launched
+        } catch (Exception e) {
+            throw I.quiet(e);
+        }
+
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            try {
+                Desktop.getDesktop().browse(new URI("http://localhost:9321/javadoc.html"));
+            } catch (Exception e) {
+                throw I.quiet(e);
+            }
+        }
+
+        return (Javadoc) this;
     }
 
     /**

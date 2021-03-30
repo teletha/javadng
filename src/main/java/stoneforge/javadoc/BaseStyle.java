@@ -32,7 +32,7 @@ public interface BaseStyle {
 
     Numeric FontSize = Numeric.of(12, px);
 
-    Numeric MaxWidth = Numeric.of(85, vw);
+    Numeric MaxWidth = Numeric.of(90, vw);
 
     Numeric SmallGap = Numeric.of(1, px);
 

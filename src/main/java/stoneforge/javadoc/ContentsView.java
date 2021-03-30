@@ -171,6 +171,7 @@ class ContentsView extends HTML {
         };
 
         Style TypeComment = () -> {
+            font.size(14, px);
             margin.top(2, rem).bottom(2, rem);
         };
 

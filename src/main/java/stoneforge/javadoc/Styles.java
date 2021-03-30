@@ -45,7 +45,6 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
         $.hover(() -> {
             text.decoration.underline();
             text.decorationColor.color(palette.font.opacify(-0.5));
-            text.underlineOffset.length(4, px);
             text.underlinePosition.under();
         });
     });
@@ -377,6 +376,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
             padding.vertical(0.1, rem).left(1, rem);
             cursor.pointer();
             border.radius(2, px);
+            text.whiteSpace.nowrap();
 
             $.hover(() -> {
                 background.color(Color.White).image(BackgroundImage.inherit()).repeat();
