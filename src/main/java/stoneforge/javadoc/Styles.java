@@ -45,7 +45,6 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
         $.hover(() -> {
             text.decoration.underline();
             text.decorationColor.color(palette.font.opacify(-0.5));
-            text.underlinePosition.under();
         });
     });
 

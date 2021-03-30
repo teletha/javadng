@@ -14,10 +14,10 @@ import java.io.IOException;
 public class DocumentUser {
 
     public static void main(String[] args) throws IOException {
-        Javadoc.with.sources("src/main/java", "src/test/java")
+        Javadoc.with.sources("../sinobu/src/main/java")
                 .output("docs/api")
-                .product("Stoneforge")
-                .project("Stoneforge")
+                .product("Sinobu")
+                .project("Sinobu")
                 .version("1.0")
                 .useExternalJDKDoc()
                 .build()

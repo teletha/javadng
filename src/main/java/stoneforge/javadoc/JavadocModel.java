@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.StandardLocation.*;
+import static javax.tools.StandardLocation.SOURCE_PATH;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -18,6 +18,7 @@ import java.net.BindException;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -42,6 +43,7 @@ import javax.tools.JavaFileObject.Kind;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpServer;
 
 import icy.manipulator.Icy;
@@ -265,11 +267,17 @@ public abstract class JavadocModel {
             HttpServer server = HttpServer.create(new InetSocketAddress(9321), 0);
             server.createContext("/", context -> {
                 psychopath.File file = output().file(context.getRequestURI().getPath().substring(1));
+                byte[] body = file.text().getBytes(StandardCharsets.UTF_8);
 
-                String res = file.text();
-                context.sendResponseHeaders(200, res.length());
+                // header
+                Headers headers = context.getResponseHeaders();
+                headers.set("Content-Type", mime(file));
+                context.sendResponseHeaders(200, body.length);
+
+                // body
                 OutputStream out = context.getResponseBody();
-                out.write(res.getBytes());
+                out.write(body);
+                out.flush();
                 out.close();
             });
             server.start();
@@ -288,6 +296,25 @@ public abstract class JavadocModel {
         }
 
         return (Javadoc) this;
+    }
+
+    /**
+     * Detect mime-type.
+     * 
+     * @param file
+     * @return
+     */
+    private String mime(psychopath.File file) {
+        switch (file.extension()) {
+        case "css":
+            return "text/css";
+        case "js":
+            return "application/javascript";
+        case "html":
+            return "text/html";
+        default:
+            return "text/plain";
+        }
     }
 
     /**

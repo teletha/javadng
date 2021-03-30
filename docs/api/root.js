@@ -1,269 +1,232 @@
 const root = {
 	"modules": [],
 	"packages": [
-		"stoneforge",
-		"stoneforge.javadoc",
-		"stoneforge.javadoc.analyze",
-		"stoneforge.javadoc.dummy"
+		"kiss",
+		"kiss.model"
 	],
 	"types": [
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "BaseStyle",
-			"packageName": "stoneforge.javadoc",
+			"name": "Decoder",
+			"packageName": "kiss",
+			"type": "Functional"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "Disposable",
+			"packageName": "kiss",
+			"type": "Functional"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "Encoder",
+			"packageName": "kiss",
+			"type": "Functional"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "Extensible",
+			"packageName": "kiss",
 			"type": "Interface"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "BuiltinStyles",
-			"packageName": "stoneforge",
+			"name": "ExtensionFactory",
+			"packageName": "kiss",
+			"type": "Functional"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "I",
+			"packageName": "kiss",
 			"type": "Class"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "ClassInfo",
-			"packageName": "stoneforge.javadoc.analyze",
+			"name": "JSON",
+			"packageName": "kiss",
 			"type": "Class"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "Data",
-			"packageName": "stoneforge.javadoc.analyze",
+			"name": "Lifestyle",
+			"packageName": "kiss",
+			"type": "Functional"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "Managed",
+			"packageName": "kiss",
+			"type": "Annotation"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "Model",
+			"packageName": "kiss.model",
 			"type": "Class"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "DocumentInfo",
-			"packageName": "stoneforge.javadoc.analyze",
+			"name": "Narrow",
+			"packageName": "kiss",
+			"type": "Functional"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "Observer",
+			"packageName": "kiss",
+			"type": "Functional"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "Property",
+			"packageName": "kiss.model",
 			"type": "Class"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "DocumentInfoTest",
-			"packageName": "stoneforge.javadoc.analyze",
+			"name": "Signal",
+			"packageName": "kiss",
 			"type": "Class"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "DocumentUser",
-			"packageName": "stoneforge.javadoc",
+			"name": "Signaling",
+			"packageName": "kiss",
 			"type": "Class"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "Enn",
-			"packageName": "stoneforge.javadoc.dummy",
-			"type": "Enum"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "ExecutableInfo",
-			"packageName": "stoneforge.javadoc.analyze",
+			"name": "Singleton",
+			"packageName": "kiss",
 			"type": "Class"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "ExecutableInfoTest",
-			"packageName": "stoneforge.javadoc.analyze",
-			"type": "Class"
+			"name": "Storable",
+			"packageName": "kiss",
+			"type": "Interface"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "FieldInfo",
-			"packageName": "stoneforge.javadoc.analyze",
-			"type": "Class"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "HTML",
-			"packageName": "stoneforge",
+			"name": "Tree",
+			"packageName": "kiss",
 			"type": "AbstractClass"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "InterfaceA",
-			"packageName": "stoneforge.javadoc.dummy",
-			"type": "Interface"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "InterfaceB",
-			"packageName": "stoneforge.javadoc.dummy",
-			"type": "Interface"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "InterfaceC",
-			"packageName": "stoneforge.javadoc.dummy",
-			"type": "Interface"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "InterfaceD",
-			"packageName": "stoneforge.javadoc.dummy",
-			"type": "Interface"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "InterfaceRoot",
-			"packageName": "stoneforge.javadoc.dummy",
-			"type": "Interface"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "JavadocModel",
-			"packageName": "stoneforge.javadoc",
+			"name": "TreeNode",
+			"packageName": "kiss",
 			"type": "AbstractClass"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "JavadocModel.Internal",
-			"packageName": "stoneforge.javadoc",
+			"name": "Variable",
+			"packageName": "kiss",
 			"type": "Class"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "JavadocTestSupport",
-			"packageName": "stoneforge.javadoc",
+			"name": "Wise",
+			"packageName": "kiss",
+			"type": "Functional"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "WiseBiConsumer",
+			"packageName": "kiss",
+			"type": "Functional"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "WiseBiFunction",
+			"packageName": "kiss",
+			"type": "Functional"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "WiseConsumer",
+			"packageName": "kiss",
+			"type": "Functional"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "WiseFunction",
+			"packageName": "kiss",
+			"type": "Functional"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "WiseRunnable",
+			"packageName": "kiss",
+			"type": "Functional"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "WiseSupplier",
+			"packageName": "kiss",
+			"type": "Functional"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "WiseTriConsumer",
+			"packageName": "kiss",
+			"type": "Functional"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "WiseTriFunction",
+			"packageName": "kiss",
+			"type": "Functional"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "XML",
+			"packageName": "kiss",
 			"type": "Class"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "JavadocTestSupport.NullProvider",
-			"packageName": "stoneforge.javadoc",
+			"name": "Ⅱ",
+			"packageName": "kiss",
 			"type": "Class"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "MainPage",
-			"packageName": "stoneforge.javadoc",
-			"type": "Class"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "MemberInfo",
-			"packageName": "stoneforge.javadoc.analyze",
-			"type": "AbstractClass"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "MethodInfo",
-			"packageName": "stoneforge.javadoc.analyze",
-			"type": "Class"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "MethodInfoTest",
-			"packageName": "stoneforge.javadoc.analyze",
-			"type": "Class"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "ParameterizableInfo",
-			"packageName": "stoneforge.javadoc.analyze",
-			"type": "AbstractClass"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "ParameterizableInfoTest",
-			"packageName": "stoneforge.javadoc.analyze",
-			"type": "Class"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "Parameterized",
-			"packageName": "stoneforge.javadoc.dummy",
-			"type": "AbstractClass"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "ResolvedType",
-			"packageName": "stoneforge.javadoc.analyze",
-			"type": "Class"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "SiteBuilder",
-			"packageName": "stoneforge",
-			"type": "Class"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "StructuredTypeTest",
-			"packageName": "stoneforge.javadoc.analyze",
-			"type": "Class"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "Styles",
-			"packageName": "stoneforge.javadoc",
-			"type": "Class"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "Sub1",
-			"packageName": "stoneforge.javadoc.dummy",
-			"type": "Class"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "Sub2",
-			"packageName": "stoneforge.javadoc.dummy",
-			"type": "Class"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "Sub21",
-			"packageName": "stoneforge.javadoc.dummy",
-			"type": "Class"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "TypeResolver",
-			"packageName": "stoneforge.javadoc.analyze",
-			"type": "Class"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "Util",
-			"packageName": "stoneforge.javadoc.analyze",
+			"name": "Ⅲ",
+			"packageName": "kiss",
 			"type": "Class"
 		}
 	]
