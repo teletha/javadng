@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.teletha</groupId>
 	<artifactId>stoneforge</artifactId>
-	<version>1.0</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 	<name>stoneforge</name>
 	<description/>
