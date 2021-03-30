@@ -14,7 +14,6 @@ import java.io.Serializable;
 import org.junit.jupiter.api.Test;
 
 import stoneforge.javadoc.JavadocTestSupport;
-import stoneforge.javadoc.analyze.ParameterizableInfo;
 
 public class ParameterizableInfoTest extends JavadocTestSupport {
 
@@ -34,6 +33,12 @@ public class ParameterizableInfoTest extends JavadocTestSupport {
     public <A extends Comparable & Serializable> void intersection() {
         assert checkTypeParmeterName(currentMethod(), "A");
         assert checkTypeParameter(currentMethod(), "<i>A</i><i class='extends'><i>java.lang.Comparable</i> &amp; <i>java.io.Serializable</i></i>");
+    }
+
+    @Test
+    public <A> void simple() {
+        assert checkTypeParmeterName(currentMethod(), "A");
+        assert checkTypeParameter(currentMethod(), "<i>A</i>");
     }
 
     /**

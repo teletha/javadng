@@ -15,7 +15,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import stoneforge.javadoc.JavadocTestSupport;
-import stoneforge.javadoc.analyze.MethodInfo;
 
 public class MethodInfoTest extends JavadocTestSupport {
 
