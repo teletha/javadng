@@ -25,15 +25,14 @@ public class MethodInfo extends ExecutableInfo {
     /**
      * @param e
      */
-    public MethodInfo(ExecutableElement e, TypeResolver resolver) {
-        super(e, resolver);
+    public MethodInfo(ExecutableElement e, TypeResolver resolver, DocumentInfo parent) {
+        super(e, resolver, parent);
 
         this.isVoid = e.getReturnType().getKind() == TypeKind.VOID;
         this.returnType = parseTypeAsXML(e.getReturnType());
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -42,7 +41,6 @@ public class MethodInfo extends ExecutableInfo {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -51,7 +49,6 @@ public class MethodInfo extends ExecutableInfo {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override

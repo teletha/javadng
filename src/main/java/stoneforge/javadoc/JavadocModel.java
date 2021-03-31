@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.StandardLocation.SOURCE_PATH;
+import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -439,7 +439,7 @@ public abstract class JavadocModel {
      * @param root A class or interface program element root.
      */
     private void process(TypeElement root) {
-        data.add(new ClassInfo(root, new TypeResolver(externals, internals, root)));
+        data.add(new ClassInfo(root, new TypeResolver(externals, internals, root), null));
     }
 
     /**

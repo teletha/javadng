@@ -33,8 +33,8 @@ public abstract class ParameterizableInfo extends MemberInfo {
     /**
      * @param e
      */
-    public ParameterizableInfo(Parameterizable e, TypeResolver resolver) {
-        super(e, resolver);
+    public ParameterizableInfo(Parameterizable e, TypeResolver resolver, DocumentInfo parent) {
+        super(e, resolver, parent);
 
         e.getTypeParameters().forEach(type -> {
             XML param = parseTypeAsXML(type.asType());

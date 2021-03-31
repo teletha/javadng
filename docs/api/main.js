@@ -144,8 +144,8 @@ document.addEventListener("click", event => {
 
   if (e.tagName === "A") {
     var path = e.getAttribute("href");
-
-    if (!path.startsWith("http") && !path.startsWith("#")) {
+    console.log(path + "   " +  location.pathname);
+    if (!path.startsWith("http") && !path.startsWith("#") && !path.startsWith(location.pathname)) {
       // handle internal link only
       router.push(path);
       event.preventDefault();

@@ -20,8 +20,8 @@ public class FieldInfo extends MemberInfo {
     /**
      * @param e
      */
-    FieldInfo(VariableElement e, TypeResolver resolver) {
-        super(e, resolver);
+    FieldInfo(VariableElement e, TypeResolver resolver, DocumentInfo parent) {
+        super(e, resolver, parent);
 
         this.type = parseTypeAsXML(e.asType()).addClass("return");
     }

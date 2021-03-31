@@ -9,6 +9,8 @@
  */
 package stoneforge.javadoc.analyze;
 
+import java.io.IOError;
+
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Text;
 
@@ -16,6 +18,9 @@ import kiss.XML;
 import kiss.Ⅱ;
 import stoneforge.javadoc.JavadocTestSupport;
 
+/**
+ * @text This is fatal error on Root.
+ */
 public class DocumentInfoTest extends JavadocTestSupport {
 
     /**
@@ -256,5 +261,24 @@ public class DocumentInfoTest extends JavadocTestSupport {
         ExecutableInfo info = currentMethod();
         assert sameXML(info.versionTags.get(0), "<span>1.0</span>");
         assert sameXML(info.versionTags.get(1), "<span><b>1.2</b></span>");
+    }
+
+    /**
+     * @text This is fatal error.
+     * @throws IOError {text}
+     */
+    @Test
+    public void templateTag() {
+        ExecutableInfo info = currentMethod();
+        assert sameXML(info.throwsTags.get(0).ⅱ, "<span><span>This is fatal error.</span></span>");
+    }
+
+    /**
+     * @throws IOError {text}
+     */
+    @Test
+    public void templateTagFromEnclosingElement() {
+        ExecutableInfo info = currentMethod();
+        assert sameXML(info.throwsTags.get(0).ⅱ, "<span><span>This is fatal error on Root.</span></span>");
     }
 }

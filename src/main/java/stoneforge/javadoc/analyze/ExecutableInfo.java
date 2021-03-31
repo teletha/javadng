@@ -43,14 +43,14 @@ public class ExecutableInfo extends ParameterizableInfo {
     /**
      * @param e
      */
-    ExecutableInfo(ExecutableElement e, TypeResolver resolver) {
-        super(e, resolver);
+    ExecutableInfo(ExecutableElement e, TypeResolver resolver, DocumentInfo parent) {
+        super(e, resolver, parent);
 
         StringJoiner joiner = new StringJoiner(",");
         List<? extends VariableElement> params = e.getParameters();
         for (int i = 0; i < params.size(); i++) {
             VariableElement param = params.get(i);
-            joiner.add(param.asType().toString());
+            joiner.add(simplify(param.asType().toString()));
 
             XML xml = parseTypeAsXML(param.asType());
             if (e.isVarArgs() && i + 1 == params.size()) {
@@ -67,6 +67,20 @@ public class ExecutableInfo extends ParameterizableInfo {
         }
 
         this.id = name + "(" + joiner + ")";
+    }
+
+    /**
+     * If you're referring to it from elsewhere in Javadoc, the parser won't resolve it with fully
+     * qualified names, so strip off the information on the referenced side beforehand.
+     * 
+     * @param text
+     * @return
+     */
+    private String simplify(String text) {
+        // remove type parameters
+        text = text.replaceAll("<.+>", "");
+
+        return text;
     }
 
     /**

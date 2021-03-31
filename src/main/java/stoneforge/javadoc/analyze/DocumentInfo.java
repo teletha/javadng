@@ -10,8 +10,11 @@
 package stoneforge.javadoc.analyze;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,6 +60,7 @@ import com.sun.source.doctree.SummaryTree;
 import com.sun.source.doctree.SystemPropertyTree;
 import com.sun.source.doctree.TextTree;
 import com.sun.source.doctree.ThrowsTree;
+import com.sun.source.doctree.UnknownBlockTagTree;
 import com.sun.source.doctree.UnknownInlineTagTree;
 import com.sun.source.doctree.ValueTree;
 import com.sun.source.doctree.VersionTree;
@@ -99,11 +103,15 @@ public class DocumentInfo {
     /** Tag info. */
     protected final Variable<XML> returnTag = Variable.empty();
 
+    /** Tag info. */
+    protected final TemplateStore templateTags;
+
     private final TypeResolver resolver;
 
-    protected DocumentInfo(Element e, TypeResolver resolver) {
+    protected DocumentInfo(Element e, TypeResolver resolver, DocumentInfo parent) {
         this.e = e;
         this.resolver = resolver;
+        this.templateTags = new TemplateStore(parent == null ? null : parent.templateTags);
 
         try {
             DocCommentTree docs = Util.DocUtils.getDocCommentTree(e);
@@ -299,6 +307,15 @@ public class DocumentInfo {
             versionTags.add(xml(node.getBody()));
             return p;
         }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public DocumentInfo visitUnknownBlockTag(UnknownBlockTagTree node, DocumentInfo p) {
+            templateTags.put(node.getTagName(), xml(node.getContent()));
+            return p;
+        }
     }
 
     /**
@@ -442,10 +459,10 @@ public class DocumentInfo {
 
             int index = reference.indexOf("#");
             if (index == 0) {
-                memberName = reference;
+                memberName = qualify(reference);
                 reference = resolver.resolveDocumentLocation(Util.getTopLevelTypeElement(e));
             } else if (index != -1) {
-                memberName = reference.substring(index);
+                memberName = qualify(reference.substring(index));
                 reference = resolver.resolveDocumentLocation(reference.substring(0, index));
             } else {
                 reference = resolver.resolveDocumentLocation(reference);
@@ -457,6 +474,22 @@ public class DocumentInfo {
                 text.append("<a href='").append(reference).append(memberName).append("'>").append(label).append("</a>");
             }
             return p;
+        }
+
+        private String qualify(String text) {
+            int start = text.indexOf('(');
+            if (start == -1) {
+                // field
+                return text;
+            } else {
+                // method or constructor
+                StringJoiner join = new StringJoiner(", ", text.substring(0, start) + "(", ")");
+                int end = text.indexOf(')', start);
+                for (String param : text.substring(start + 1, end).split(",")) {
+                    join.add(resolver.resolveFQCN(param.trim()));
+                }
+                return join.toString();
+            }
         }
 
         /**
@@ -545,8 +578,16 @@ public class DocumentInfo {
          */
         @Override
         public DocumentXMLBuilder visitText(TextTree node, DocumentXMLBuilder p) {
-            text.append(node.getBody());
+            text.append(I.express(node.getBody(), templateTags));
             return p;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public DocumentXMLBuilder visitUnknownBlockTag(UnknownBlockTagTree node, DocumentXMLBuilder p) {
+            return super.visitUnknownBlockTag(node, p);
         }
 
         /**
@@ -720,6 +761,19 @@ public class DocumentInfo {
             default:
             }
             return xml;
+        }
+    }
+
+    /**
+     * Hard typed {@link Map} for template.
+     */
+    private static class TemplateStore extends HashMap<String, XML> {
+        private static final long serialVersionUID = -4452932715112144902L;
+
+        private TemplateStore(TemplateStore parent) {
+            if (parent != null) {
+                putAll(parent);
+            }
         }
     }
 }
