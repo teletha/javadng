@@ -97,7 +97,7 @@ public class SiteBuilder {
     /**
      * Specify a pattern for files that you do not want to delete during initialization.
      * 
-     * @param pattern
+     * @param patterns
      * @return
      */
     public final SiteBuilder guard(String... patterns) {
@@ -136,7 +136,6 @@ public class SiteBuilder {
     /**
      * Build CSS file and return the path of the generated file.
      * 
-     * @param styles A style definition class to write.
      * @return A path to the generated file.
      */
     public final String buildCSS(String path) {
@@ -183,9 +182,6 @@ public class SiteBuilder {
 
     /**
      * Build JSON file with padding.
-     * 
-     * @param path
-     * @param html
      */
     public final String buildJSONP(String path, Object object) {
         initialize();

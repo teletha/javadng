@@ -227,7 +227,7 @@ public class DocumentInfo {
         }
 
         /**
-         * @inheritDoc
+         * {@inheritDoc}
          */
         @Override
         public DocumentInfo visitParam(ParamTree node, DocumentInfo p) {

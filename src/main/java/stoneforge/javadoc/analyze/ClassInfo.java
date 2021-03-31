@@ -66,7 +66,7 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
 
     /**
      * @param root
-     * @param data
+     * @param resolver
      */
     public ClassInfo(TypeElement root, TypeResolver resolver) {
         super(root, resolver);
@@ -249,7 +249,7 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
     }
 
     /**
-     * @param type2
+     * @param sub
      */
     public void addSub(ClassInfo sub) {
         this.subs.add(parseTypeAsXML(sub.e.asType()));

@@ -47,13 +47,9 @@ public class DocumentInfoTest extends JavadocTestSupport {
         assert sameXML(info.comment, "<span class='A'><a href=\"test.css\" type=\"stylesheet\"/></span>");
     }
 
-    /**
-     * @param name1 Description.
-     * @param name2 This is <em>NOT</em> error.
-     */
     @Test
     public void paramTag() {
-        ExecutableInfo info = currentMethod();
+        ExecutableInfo info = method("param");
         Ⅱ<String, XML> param = info.paramTags.get(0);
         assert param.ⅰ.equals("name1");
         assert sameXML(param.ⅱ, "<span>Description.</span>");
@@ -64,12 +60,15 @@ public class DocumentInfoTest extends JavadocTestSupport {
     }
 
     /**
-     * @param <T> Description.
-     * @param <NEXT> This is <em>NOT</em> error.
+     * @param name1 Description.
+     * @param name2 This is <em>NOT</em> error.
      */
+    public void param(String name1, String name2) {
+    }
+
     @Test
     public void parameterTypeTag() {
-        ExecutableInfo info = currentMethod();
+        ExecutableInfo info = method("paramType");
         Ⅱ<String, XML> param = info.typeParameterTags.get(0);
         assert param.ⅰ.equals("T");
         assert sameXML(param.ⅱ, "<span>Description.</span>");
@@ -77,6 +76,13 @@ public class DocumentInfoTest extends JavadocTestSupport {
         param = info.typeParameterTags.get(1);
         assert param.ⅰ.equals("NEXT");
         assert sameXML(param.ⅱ, "<span>This is <em>NOT</em> error.</span>");
+    }
+
+    /**
+     * @param <T> Description.
+     * @param <NEXT> This is <em>NOT</em> error.
+     */
+    public <T, NEXT> void paramType() {
     }
 
     /**
@@ -95,14 +101,18 @@ public class DocumentInfoTest extends JavadocTestSupport {
         assert sameXML(param.ⅱ, "<span>If param is <code>0</code>.</span>");
     }
 
+    @Test
+    public void returnTag() {
+        ExecutableInfo info = method("returnValue");
+        XML description = info.returnTag.exact();
+        assert sameXML(description, "<span>description</span>");
+    }
+
     /**
      * @return description
      */
-    @Test
-    public void returnTag() {
-        ExecutableInfo info = currentMethod();
-        XML description = info.returnTag.exact();
-        assert sameXML(description, "<span>description</span>");
+    public int returnValue() {
+        return 0;
     }
 
     /**
@@ -217,13 +227,13 @@ public class DocumentInfoTest extends JavadocTestSupport {
 
     /**
      * @see Text
-     * @see <b>String</b>
+     * @see String
      */
     @Test
     public void seeTag() {
         ExecutableInfo info = currentMethod();
         assert sameXML(info.seeTags.get(0), "<span>Text</span>");
-        assert sameXML(info.seeTags.get(1), "<span><b>String</b></span>");
+        assert sameXML(info.seeTags.get(1), "<span>String</span>");
     }
 
     /**
