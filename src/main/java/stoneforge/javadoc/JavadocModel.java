@@ -9,6 +9,7 @@
  */
 package stoneforge.javadoc;
 
+import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -20,6 +21,7 @@ import java.net.URI;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -37,7 +39,6 @@ import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.tools.DiagnosticListener;
 import javax.tools.DocumentationTool;
-import javax.tools.DocumentationTool.Location;
 import javax.tools.JavaFileObject;
 import javax.tools.JavaFileObject.Kind;
 import javax.tools.StandardJavaFileManager;
@@ -58,6 +59,7 @@ import psychopath.Locator;
 import stoneforge.SiteBuilder;
 import stoneforge.javadoc.analyze.ClassInfo;
 import stoneforge.javadoc.analyze.Data;
+import stoneforge.javadoc.analyze.SampleInfo;
 import stoneforge.javadoc.analyze.TypeResolver;
 import stoneforge.javadoc.analyze.Util;
 import stylist.StyleDeclarable;
@@ -68,6 +70,10 @@ public abstract class JavadocModel {
 
     /** The scanned data. */
     public final Data data = new Data();
+
+    private boolean collectingSample = false;
+
+    private List<SampleInfo> samples = new ArrayList();
 
     /** PackageName-URL pair. */
     private final Map<String, String> externals = new HashMap();
@@ -186,6 +192,36 @@ public abstract class JavadocModel {
     public abstract String version();
 
     /**
+     * Specify the directory of samples.
+     * 
+     * @return
+     */
+    @Icy.Property
+    public Directory sample() {
+        return null;
+    }
+
+    /**
+     * Specify the directory of samples.
+     * 
+     * @return
+     */
+    @Icy.Overload("sample")
+    private Directory sample(String path) {
+        return Locator.directory(path);
+    }
+
+    /**
+     * Specify the directory of samples.
+     * 
+     * @return
+     */
+    @Icy.Overload("sample")
+    private Directory sample(Path path) {
+        return Locator.directory(path);
+    }
+
+    /**
      * Use JDK as the resolvable external document.
      * 
      * @return
@@ -229,9 +265,32 @@ public abstract class JavadocModel {
                 System.out.println(o);
             };
 
+            // ========================================================
+            // Collect sample source
+            // ========================================================
+            if (sample() != null) {
+                collectingSample = true;
+
+                try (StandardJavaFileManager m = tool.getStandardFileManager(listener, Locale.getDefault(), Charset.defaultCharset())) {
+                    m.setLocation(SOURCE_PATH, I.signal(sources()).startWith(sample()).map(Directory::asJavaFile).toList());
+                    m.setLocation(CLASS_PATH, classpath().stream().map(psychopath.Location::asJavaFile).collect(Collectors.toList()));
+
+                    tool.getTask(null, m, listener, Internal.class, List.of(), I.signal(m.list(SOURCE_PATH, "", Set.of(Kind.SOURCE), true))
+                            .take(o -> o.getName().startsWith(sample().toString()))
+                            .toList()).call();
+                } catch (Throwable e) {
+                    throw I.quiet(e);
+                } finally {
+                    collectingSample = false;
+                }
+            }
+
+            // ========================================================
+            // Scan javadoc from main source
+            // ========================================================
             try (StandardJavaFileManager manager = tool.getStandardFileManager(listener, Locale.getDefault(), Charset.defaultCharset())) {
                 manager.setLocationFromPaths(SOURCE_PATH, sources().stream().map(Directory::asJavaPath).collect(Collectors.toList()));
-                manager.setLocationFromPaths(Location.DOCUMENTATION_OUTPUT, List
+                manager.setLocationFromPaths(DOCUMENTATION_OUTPUT, List
                         .of(output() == null ? Path.of("") : output().create().asJavaPath()));
                 // manager.setLocationFromPaths(StandardLocation.CLASS_PATH, classpath().stream()
                 // .map(psychopath.Location::asJavaPath)
@@ -439,7 +498,11 @@ public abstract class JavadocModel {
      * @param root A class or interface program element root.
      */
     private void process(TypeElement root) {
-        data.add(new ClassInfo(root, new TypeResolver(externals, internals, root), null));
+        if (collectingSample) {
+            SampleInfo info = new SampleInfo(root, new TypeResolver(externals, internals, root), null);
+        } else {
+            data.add(new ClassInfo(root, new TypeResolver(externals, internals, root), null));
+        }
     }
 
     /**

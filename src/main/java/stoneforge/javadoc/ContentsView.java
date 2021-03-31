@@ -176,8 +176,8 @@ class ContentsView extends HTML {
         };
 
         Style MemberSection = () -> {
-            margin.vertical(1.5, rem);
-            padding.size(0.7, rem);
+            margin.vertical(1.6, rem);
+            padding.size(1.3, rem);
             border.radius(4, px);
             background.color(Color.White);
         };

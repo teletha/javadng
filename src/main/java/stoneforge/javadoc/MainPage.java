@@ -150,7 +150,7 @@ public class MainPage extends HTML {
 
         Style Contents = () -> {
             flexItem.grow(1);
-            margin.left(3.2, rem).right(1.5, rem);
+            margin.horizontal(3, rem);
         };
 
         Style SubNavigation = () -> {
