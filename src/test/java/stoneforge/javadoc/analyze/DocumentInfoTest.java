@@ -16,6 +16,7 @@ import org.w3c.dom.Text;
 
 import kiss.XML;
 import kiss.Ⅱ;
+import stoneforge.javadoc.Javadoc;
 import stoneforge.javadoc.JavadocTestSupport;
 
 /**
@@ -172,6 +173,24 @@ public class DocumentInfoTest extends JavadocTestSupport {
     public void linkTagUnregisteredExternalTypeAndMethod() {
         ExecutableInfo info = currentMethod();
         assert sameXML(info.comment, "<span class='A'>String#chars()</span>");
+    }
+
+    /**
+     * {@link String}
+     */
+    @Test
+    public void linkTagRegisteredExternalType() {
+        ExecutableInfo info = currentMethodEx();
+        assert sameXML(info.comment, "<span class='A'><a href='" + Javadoc.JDK + "java.base/java/lang/String.html'>String</a></span>");
+    }
+
+    /**
+     * {@link String#chars()}
+     */
+    @Test
+    public void linkTagRegisteredExternalTypeAndMethod() {
+        ExecutableInfo info = currentMethodEx();
+        assert sameXML(info.comment, "<span class='A'><a href='" + Javadoc.JDK + "java.base/java/lang/String.html#chars()'>String#chars()</a></span>");
     }
 
     /**

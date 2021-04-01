@@ -19,6 +19,8 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import javax.lang.model.element.Element;
@@ -120,9 +122,7 @@ public class TypeResolver {
                 .to(this::collectMemberTypes);
     }
 
-    public String resolveTestcase(String className) {
-        return null;
-    }
+    private static final Pattern ARRAY = Pattern.compile("([^\\[\\]\\.]+)([\\[\\]\\.]+)$");
 
     /**
      * Compute FQCN from the specified simple name.
@@ -130,21 +130,22 @@ public class TypeResolver {
      * @param className
      */
     public String resolveFQCN(String className) {
-        // normalize var arg
-        className = className.replaceAll("\\.\\.\\.", "[]");
+        String front;
+        String rear;
 
-        // separate array
-        String array = "";
-        int index = className.indexOf('[');
-        if (index != -1) {
-            array = className.substring(index);
-            className = className.substring(0, index);
+        Matcher matcher = ARRAY.matcher(className);
+        if (matcher.matches()) {
+            front = matcher.group(1);
+            rear = matcher.group(2);
+        } else {
+            front = className;
+            rear = "";
         }
 
-        String fqcn = importedTypes.get(className);
-        if (fqcn == null) fqcn = JavaLangTypes.get(className);
+        String fqcn = importedTypes.get(front);
+        if (fqcn == null) fqcn = JavaLangTypes.get(front);
 
-        return (fqcn == null ? className : fqcn) + array;
+        return (fqcn == null ? front : fqcn) + rear;
     }
 
     /**

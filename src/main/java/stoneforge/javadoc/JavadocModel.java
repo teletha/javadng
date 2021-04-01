@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.DocumentationTool.Location.*;
+import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -66,6 +66,9 @@ import stylist.Stylist;
 
 @Icy
 public abstract class JavadocModel {
+
+    /** The default JDK API's location. */
+    public static final String JDK = "https://docs.oracle.com/en/java/javase/16/docs/api/";
 
     /** The scanned data. */
     public final Data data = new Data();
@@ -227,7 +230,7 @@ public abstract class JavadocModel {
      * @return
      */
     public final Javadoc useExternalJDKDoc() {
-        return useExternalDoc("https://docs.oracle.com/en/java/javase/13/docs/api/");
+        return useExternalDoc(JDK);
     }
 
     /**

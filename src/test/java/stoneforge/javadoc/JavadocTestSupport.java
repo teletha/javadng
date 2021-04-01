@@ -38,10 +38,27 @@ public class JavadocTestSupport {
             .version("1.0")
             .build();
 
+    private static final JavadocModel docEx = Javadoc.with.sources("src/test/java")
+            .output((Directory) null)
+            .product("test")
+            .project("test")
+            .version("1.0")
+            .useExternalJDKDoc()
+            .build();
+
     protected final MethodInfo currentMethod() {
         StackFrame frame = caller();
 
         return doc.findByClassName(frame.getClassName())
+                .exact()
+                .findByMethodSignature(frame.getMethodName(), frame.getMethodType().parameterArray())
+                .exact();
+    }
+
+    protected final MethodInfo currentMethodEx() {
+        StackFrame frame = caller();
+
+        return docEx.findByClassName(frame.getClassName())
                 .exact()
                 .findByMethodSignature(frame.getMethodName(), frame.getMethodType().parameterArray())
                 .exact();
