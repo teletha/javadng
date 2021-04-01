@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
+import static javax.tools.DocumentationTool.Location.*;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -30,6 +30,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javax.lang.model.SourceVersion;
@@ -275,7 +277,8 @@ public abstract class JavadocModel {
                     m.setLocation(SOURCE_PATH, I.signal(sources()).startWith(sample()).map(Directory::asJavaFile).toList());
                     m.setLocation(CLASS_PATH, classpath().stream().map(psychopath.Location::asJavaFile).collect(Collectors.toList()));
 
-                    tool.getTask(null, m, listener, Internal.class, List.of(), I.signal(m.list(SOURCE_PATH, "", Set.of(Kind.SOURCE), true))
+                    tool.getTask(null, m, listener, Internal.class, List.of("-package"), I
+                            .signal(m.list(SOURCE_PATH, "", Set.of(Kind.SOURCE), true))
                             .take(o -> o.getName().startsWith(sample().toString()))
                             .toList()).call();
                 } catch (Throwable e) {
@@ -550,6 +553,17 @@ public abstract class JavadocModel {
 
             for (ClassInfo info : data.types) {
                 site.buildHTML("types/" + info.packageName + "." + info.name + ".html", new MainPage(this, info));
+            }
+        }
+    }
+
+    private static final Pattern SEE = Pattern.compile("\s*\\*\s*@see\s+(.+#.+)");
+
+    private void parseSample(List<String> lines) {
+        for (String line : lines) {
+            Matcher matcher = SEE.matcher(line);
+            if (matcher.matches()) {
+                System.out.println(matcher.group(1));
             }
         }
     }

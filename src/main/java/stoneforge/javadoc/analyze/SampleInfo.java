@@ -12,7 +12,10 @@ package stoneforge.javadoc.analyze;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.util.SimpleElementVisitor9;
+import javax.lang.model.util.SimpleElementVisitor14;
+
+import com.sun.source.tree.MethodTree;
+import com.sun.source.util.DocSourcePositions;
 
 public class SampleInfo extends DocumentInfo {
 
@@ -33,19 +36,37 @@ public class SampleInfo extends DocumentInfo {
     /**
      * 
      */
-    private class Scanner extends SimpleElementVisitor9<SampleInfo, SampleInfo> {
+    private class Scanner extends SimpleElementVisitor14<SampleInfo, SampleInfo> {
 
         /**
          * {@inheritDoc}
          */
         @Override
         public SampleInfo visitExecutable(ExecutableElement e, SampleInfo p) {
-            if (isVisible(e)) {
-                if (e.getKind() == ElementKind.METHOD) {
-                    System.out.println(e);
-                }
+            if (e.getKind() == ElementKind.METHOD) {
+                new SampleMethodInfo(e, p.resolver, p);
             }
             return p;
+        }
+    }
+
+    private class SampleMethodInfo extends DocumentInfo {
+
+        /**
+         * @param e
+         * @param resolver
+         * @param parent
+         */
+        public SampleMethodInfo(Element e, TypeResolver resolver, DocumentInfo parent) {
+            super(e, resolver, parent);
+
+            if (!seeTags.isEmpty()) {
+                System.out.println(seeTags + "   " + parent.e + "  " + e);
+                MethodTree tree = (MethodTree) Util.DocUtils.getTree(e);
+                DocSourcePositions p = Util.DocUtils.getSourcePositions();
+                System.out.println(p.getStartPosition(null, tree) + "   " + p.getEndPosition(null, tree));
+
+            }
         }
     }
 }

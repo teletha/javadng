@@ -106,7 +106,8 @@ public class DocumentInfo {
     /** Tag info. */
     protected final TemplateStore templateTags;
 
-    private final TypeResolver resolver;
+    /** The type resolver. */
+    protected final TypeResolver resolver;
 
     protected DocumentInfo(Element e, TypeResolver resolver, DocumentInfo parent) {
         this.e = e;
