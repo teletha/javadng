@@ -15,6 +15,7 @@ import java.util.StringJoiner;
 
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.ArrayType;
 import javax.lang.model.type.TypeMirror;
 
 import kiss.I;
@@ -50,7 +51,7 @@ public class ExecutableInfo extends ParameterizableInfo {
         List<? extends VariableElement> params = e.getParameters();
         for (int i = 0; i < params.size(); i++) {
             VariableElement param = params.get(i);
-            joiner.add(simplify(param.asType().toString()));
+            joiner.add(simplify(param.asType()));
 
             XML xml = parseTypeAsXML(param.asType());
             if (e.isVarArgs() && i + 1 == params.size()) {
@@ -76,11 +77,35 @@ public class ExecutableInfo extends ParameterizableInfo {
      * @param text
      * @return
      */
-    private String simplify(String text) {
-        // remove type parameters
-        text = text.replaceAll("<.+>", "");
-
-        return text;
+    private String simplify(TypeMirror type) {
+        switch (type.getKind()) {
+        case ARRAY:
+            return simplify(((ArrayType) type).getComponentType()) + "[]";
+        case BOOLEAN:
+            return "boolean";
+        case BYTE:
+            return "byte";
+        case CHAR:
+            return "char";
+        case DECLARED:
+            return type.toString().replaceAll("<.+>", "");
+        case DOUBLE:
+            return "double";
+        case FLOAT:
+            return "float";
+        case INT:
+            return "int";
+        case LONG:
+            return "long";
+        case SHORT:
+            return "short";
+        case TYPEVAR:
+            return "java.lang.Object";
+        case WILDCARD:
+            return "java.lang.Object";
+        default:
+            throw new Error("Fix bug! " + type.getKind());
+        }
     }
 
     /**

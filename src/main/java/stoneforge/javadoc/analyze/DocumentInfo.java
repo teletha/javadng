@@ -15,8 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringJoiner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
@@ -127,6 +125,15 @@ public class DocumentInfo {
     }
 
     /**
+     * Collect the reference by see tag.
+     * 
+     * @return
+     */
+    public final List<String[]> referenceBySee() {
+        return seeTags.stream().map(x -> canonicalize(x.text())).toList();
+    }
+
+    /**
      * Create comment element.
      * 
      * @return
@@ -153,7 +160,7 @@ public class DocumentInfo {
      */
     protected final boolean isVisible(Element e) {
         Set<Modifier> modifiers = e.getModifiers();
-        return modifiers.contains(Modifier.PUBLIC) || modifiers.contains(Modifier.PROTECTED);
+        return !modifiers.contains(Modifier.PRIVATE);
     }
 
     /**
@@ -219,7 +226,37 @@ public class DocumentInfo {
         return null;
     }
 
-    private static final Pattern TestPattern = Pattern.compile("(\\S+Test)#(\\S+)\\(.*\\)");
+    private String[] canonicalize(String reference) {
+        String memberName = "";
+
+        int index = reference.indexOf("#");
+        if (index == 0) {
+            memberName = qualify(reference);
+            reference = resolver.resolveDocumentLocation(Util.getTopLevelTypeElement(e));
+        } else if (index != -1) {
+            memberName = qualify(reference.substring(index));
+            reference = resolver.resolveDocumentLocation(reference.substring(0, index));
+        } else {
+            reference = resolver.resolveDocumentLocation(reference);
+        }
+        return new String[] {reference, memberName};
+    }
+
+    private String qualify(String text) {
+        int start = text.indexOf('(');
+        if (start == -1) {
+            // field
+            return text;
+        } else {
+            // method or constructor
+            StringJoiner join = new StringJoiner(",", text.substring(0, start) + "(", ")");
+            int end = text.indexOf(')', start);
+            for (String param : text.substring(start + 1, end).split(",")) {
+                join.add(resolver.resolveFQCN(param.trim()));
+            }
+            return join.toString();
+        }
+    }
 
     /**
      * 
@@ -264,21 +301,7 @@ public class DocumentInfo {
          */
         @Override
         public DocumentInfo visitSee(SeeTree node, DocumentInfo p) {
-            XML reference = xml(node.getReference());
-
-            Matcher matcher = TestPattern.matcher(reference.text());
-            if (matcher.matches()) {
-                String testClassName = matcher.group(1);
-                String testMethodName = matcher.group(2);
-
-                String testClassPath = Util.ElementUtils.getPackageOf(e)
-                        .getQualifiedName()
-                        .toString()
-                        .replace('.', '/') + "/" + testClassName + ".java";
-                System.out.println(testClassPath);
-            } else {
-                seeTags.add(reference);
-            }
+            seeTags.add(xml(node.getReference()));
             return p;
         }
 
@@ -475,22 +498,6 @@ public class DocumentInfo {
                 text.append("<a href='").append(reference).append(memberName).append("'>").append(label).append("</a>");
             }
             return p;
-        }
-
-        private String qualify(String text) {
-            int start = text.indexOf('(');
-            if (start == -1) {
-                // field
-                return text;
-            } else {
-                // method or constructor
-                StringJoiner join = new StringJoiner(", ", text.substring(0, start) + "(", ")");
-                int end = text.indexOf(')', start);
-                for (String param : text.substring(start + 1, end).split(",")) {
-                    join.add(resolver.resolveFQCN(param.trim()));
-                }
-                return join.toString();
-            }
         }
 
         /**

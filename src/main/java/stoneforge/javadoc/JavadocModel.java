@@ -21,7 +21,6 @@ import java.net.URI;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -30,8 +29,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javax.lang.model.SourceVersion;
@@ -61,7 +58,7 @@ import psychopath.Locator;
 import stoneforge.SiteBuilder;
 import stoneforge.javadoc.analyze.ClassInfo;
 import stoneforge.javadoc.analyze.Data;
-import stoneforge.javadoc.analyze.SampleInfo;
+import stoneforge.javadoc.analyze.MethodInfo;
 import stoneforge.javadoc.analyze.TypeResolver;
 import stoneforge.javadoc.analyze.Util;
 import stylist.StyleDeclarable;
@@ -75,7 +72,8 @@ public abstract class JavadocModel {
 
     private boolean collectingSample = false;
 
-    private List<SampleInfo> samples = new ArrayList();
+    /** MethodID-SampleCode pari. */
+    private Map<String, String> samples = new HashMap();
 
     /** PackageName-URL pair. */
     private final Map<String, String> externals = new HashMap();
@@ -279,7 +277,7 @@ public abstract class JavadocModel {
 
                     tool.getTask(null, m, listener, Internal.class, List.of("-package"), I
                             .signal(m.list(SOURCE_PATH, "", Set.of(Kind.SOURCE), true))
-                            .take(o -> o.getName().startsWith(sample().toString()))
+                            .take(o -> o.getName().startsWith(sample().toString()) && o.getName().endsWith("Test.java"))
                             .toList()).call();
                 } catch (Throwable e) {
                     throw I.quiet(e);
@@ -501,10 +499,20 @@ public abstract class JavadocModel {
      * @param root A class or interface program element root.
      */
     private void process(TypeElement root) {
-        if (collectingSample) {
-            SampleInfo info = new SampleInfo(root, new TypeResolver(externals, internals, root), null);
+        ClassInfo info = new ClassInfo(root, new TypeResolver(externals, internals, root), null);
+        if (!collectingSample) {
+            data.add(info);
         } else {
-            data.add(new ClassInfo(root, new TypeResolver(externals, internals, root), null));
+            for (MethodInfo method : info.methods()) {
+                List<String[]> refers = method.referenceBySee();
+                if (!refers.isEmpty()) {
+                    String code = Util.getSourceCode(method);
+                    for (String[] ref : refers) {
+                        String r = ref[0] + ref[1];
+                        samples.put(r, code);
+                    }
+                }
+            }
         }
     }
 
@@ -553,17 +561,6 @@ public abstract class JavadocModel {
 
             for (ClassInfo info : data.types) {
                 site.buildHTML("types/" + info.packageName + "." + info.name + ".html", new MainPage(this, info));
-            }
-        }
-    }
-
-    private static final Pattern SEE = Pattern.compile("\s*\\*\s*@see\s+(.+#.+)");
-
-    private void parseSample(List<String> lines) {
-        for (String line : lines) {
-            Matcher matcher = SEE.matcher(line);
-            if (matcher.matches()) {
-                System.out.println(matcher.group(1));
             }
         }
     }

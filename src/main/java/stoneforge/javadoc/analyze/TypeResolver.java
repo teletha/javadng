@@ -130,10 +130,21 @@ public class TypeResolver {
      * @param className
      */
     public String resolveFQCN(String className) {
+        // normalize var arg
+        className = className.replaceAll("\\.\\.\\.", "[]");
+
+        // separate array
+        String array = "";
+        int index = className.indexOf('[');
+        if (index != -1) {
+            array = className.substring(index);
+            className = className.substring(0, index);
+        }
+
         String fqcn = importedTypes.get(className);
         if (fqcn == null) fqcn = JavaLangTypes.get(className);
 
-        return fqcn == null ? className : fqcn;
+        return (fqcn == null ? className : fqcn) + array;
     }
 
     /**
