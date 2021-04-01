@@ -129,7 +129,7 @@ public class TypeResolver {
      * 
      * @param className
      */
-    public String resolveFQCN(String className) {
+    public final String resolveFQCN(String className) {
         String front;
         String rear;
 

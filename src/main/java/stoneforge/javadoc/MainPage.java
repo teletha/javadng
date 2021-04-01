@@ -74,7 +74,7 @@ public class MainPage extends HTML {
                     $("article", Styles.Contents, () -> {
                         $("router-view");
                         if (info != null) {
-                            $(new ContentsView(info));
+                            $(new ContentsView(model, info));
                         }
                     });
 

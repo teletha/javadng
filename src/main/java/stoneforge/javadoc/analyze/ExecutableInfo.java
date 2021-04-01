@@ -51,7 +51,7 @@ public class ExecutableInfo extends ParameterizableInfo {
         List<? extends VariableElement> params = e.getParameters();
         for (int i = 0; i < params.size(); i++) {
             VariableElement param = params.get(i);
-            joiner.add(simplify(param.asType()));
+            joiner.add(canonicalize(param.asType(), i + 1 == params.size() && e.isVarArgs()));
 
             XML xml = parseTypeAsXML(param.asType());
             if (e.isVarArgs() && i + 1 == params.size()) {
@@ -77,10 +77,10 @@ public class ExecutableInfo extends ParameterizableInfo {
      * @param text
      * @return
      */
-    private String simplify(TypeMirror type) {
+    private String canonicalize(TypeMirror type, boolean varArgs) {
         switch (type.getKind()) {
         case ARRAY:
-            return simplify(((ArrayType) type).getComponentType()) + "[]";
+            return canonicalize(((ArrayType) type).getComponentType(), false) + (varArgs ? "..." : "[]");
         case BOOLEAN:
             return "boolean";
         case BYTE:

@@ -21,6 +21,7 @@ import java.net.URI;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -59,6 +60,7 @@ import stoneforge.SiteBuilder;
 import stoneforge.javadoc.analyze.ClassInfo;
 import stoneforge.javadoc.analyze.Data;
 import stoneforge.javadoc.analyze.MethodInfo;
+import stoneforge.javadoc.analyze.SampleInfo;
 import stoneforge.javadoc.analyze.TypeResolver;
 import stoneforge.javadoc.analyze.Util;
 import stylist.StyleDeclarable;
@@ -76,7 +78,7 @@ public abstract class JavadocModel {
     private boolean collectingSample = false;
 
     /** MethodID-SampleCode pari. */
-    private Map<String, String> samples = new HashMap();
+    final Map<String, List<SampleInfo>> samples = new HashMap();
 
     /** PackageName-URL pair. */
     private final Map<String, String> externals = new HashMap();
@@ -507,12 +509,12 @@ public abstract class JavadocModel {
             data.add(info);
         } else {
             for (MethodInfo method : info.methods()) {
-                List<String[]> refers = method.referenceBySee();
-                if (!refers.isEmpty()) {
+                if (!method.getSeeTags().isEmpty()) {
                     String code = Util.getSourceCode(method);
-                    for (String[] ref : refers) {
-                        String r = ref[0] + ref[1];
-                        samples.put(r, code);
+                    for (XML see : method.getSeeTags()) {
+                        String[] id = info.identify(see.text());
+                        SampleInfo sample = new SampleInfo(id[0], id[1], code);
+                        samples.computeIfAbsent(sample.id(), x -> new ArrayList()).add(sample);
                     }
                 }
             }

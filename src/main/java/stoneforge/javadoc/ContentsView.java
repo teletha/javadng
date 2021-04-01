@@ -17,6 +17,7 @@ import stoneforge.HTML;
 import stoneforge.javadoc.analyze.ClassInfo;
 import stoneforge.javadoc.analyze.ExecutableInfo;
 import stoneforge.javadoc.analyze.MethodInfo;
+import stoneforge.javadoc.analyze.SampleInfo;
 import stylist.Style;
 import stylist.StyleDSL;
 import stylist.value.Color;
@@ -27,12 +28,15 @@ import stylist.value.Numeric;
  */
 class ContentsView extends HTML {
 
+    private JavadocModel model;
+
     private final ClassInfo info;
 
     /**
      * @param info
      */
-    public ContentsView(ClassInfo info) {
+    public ContentsView(JavadocModel model, ClassInfo info) {
+        this.model = model;
         this.info = info;
     }
 
@@ -154,6 +158,14 @@ class ContentsView extends HTML {
                 });
             }
             $(member.createComment());
+
+            List<SampleInfo> list = model.samples.get(info.id() + "#" + member.id());
+            if (list != null) {
+                for (SampleInfo sample : list) {
+                    System.out.println(sample.classID + "  " + sample.methodID);
+                    System.out.println(sample.code);
+                }
+            }
         });
     }
 

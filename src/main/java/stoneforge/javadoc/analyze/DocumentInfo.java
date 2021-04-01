@@ -125,12 +125,93 @@ public class DocumentInfo {
     }
 
     /**
-     * Collect the reference by see tag.
+     * Get the typeParameterTags property of this {@link DocumentInfo}.
      * 
-     * @return
+     * @return The typeParameterTags property.
      */
-    public final List<String[]> referenceBySee() {
-        return seeTags.stream().map(x -> canonicalize(x.text())).toList();
+    public final List<Ⅱ<String, XML>> getTypeParameterTags() {
+        return typeParameterTags;
+    }
+
+    /**
+     * Get the paramTags property of this {@link DocumentInfo}.
+     * 
+     * @return The paramTags property.
+     */
+    public final List<Ⅱ<String, XML>> getParamTags() {
+        return paramTags;
+    }
+
+    /**
+     * Get the throwsTags property of this {@link DocumentInfo}.
+     * 
+     * @return The throwsTags property.
+     */
+    public final List<Ⅱ<String, XML>> getThrowsTags() {
+        return throwsTags;
+    }
+
+    /**
+     * Get the authorTags property of this {@link DocumentInfo}.
+     * 
+     * @return The authorTags property.
+     */
+    public final List<XML> getAuthorTags() {
+        return authorTags;
+    }
+
+    /**
+     * Get the seeTags property of this {@link DocumentInfo}.
+     * 
+     * @return The seeTags property.
+     */
+    public final List<XML> getSeeTags() {
+        return seeTags;
+    }
+
+    /**
+     * Get the sinceTags property of this {@link DocumentInfo}.
+     * 
+     * @return The sinceTags property.
+     */
+    public final List<XML> getSinceTags() {
+        return sinceTags;
+    }
+
+    /**
+     * Get the versionTags property of this {@link DocumentInfo}.
+     * 
+     * @return The versionTags property.
+     */
+    public final List<XML> getVersionTags() {
+        return versionTags;
+    }
+
+    /**
+     * Get the returnTag property of this {@link DocumentInfo}.
+     * 
+     * @return The returnTag property.
+     */
+    public final Variable<XML> getReturnTag() {
+        return returnTag;
+    }
+
+    /**
+     * Get the templateTags property of this {@link DocumentInfo}.
+     * 
+     * @return The templateTags property.
+     */
+    public final TemplateStore getTemplateTags() {
+        return templateTags;
+    }
+
+    /**
+     * Get the resolver property of this {@link DocumentInfo}.
+     * 
+     * @return The resolver property.
+     */
+    public final TypeResolver getResolver() {
+        return resolver;
     }
 
     /**
@@ -226,20 +307,22 @@ public class DocumentInfo {
         return null;
     }
 
-    private String[] canonicalize(String reference) {
-        String memberName = "";
-
-        int index = reference.indexOf("#");
-        if (index == 0) {
-            memberName = qualify(reference);
-            reference = resolver.resolveDocumentLocation(Util.getTopLevelTypeElement(e));
-        } else if (index != -1) {
-            memberName = qualify(reference.substring(index));
-            reference = resolver.resolveDocumentLocation(reference.substring(0, index));
+    /**
+     * Get the class and method ID from the specified link-like text. (i.e. Class#getName(),
+     * #method(int, String) etc)
+     * 
+     * @param linkLike
+     * @return
+     */
+    public final String[] identify(String linkLike) {
+        int index = linkLike.indexOf("#");
+        if (index == -1) {
+            return new String[] {resolver.resolveFQCN(linkLike), null};
+        } else if (index == 0) {
+            return new String[] {resolver.resolveFQCN(Util.getTopLevelTypeElement(e).toString()), qualify(linkLike.substring(1))};
         } else {
-            reference = resolver.resolveDocumentLocation(reference);
+            return new String[] {resolver.resolveFQCN(linkLike.substring(0, index)), qualify(linkLike.substring(index + 1))};
         }
-        return new String[] {reference, memberName};
     }
 
     private String qualify(String text) {
@@ -477,25 +560,16 @@ public class DocumentInfo {
          */
         @Override
         public DocumentXMLBuilder visitLink(LinkTree node, DocumentXMLBuilder p) {
-            String reference = node.getReference().toString();
-            String label = reference;
-            String memberName = "";
+            String label = node.getReference().toString();
+            String[] id = identify(node.getReference().toString());
+            String uri = resolver.resolveDocumentLocation(id[0]);
 
-            int index = reference.indexOf("#");
-            if (index == 0) {
-                memberName = qualify(reference);
-                reference = resolver.resolveDocumentLocation(Util.getTopLevelTypeElement(e));
-            } else if (index != -1) {
-                memberName = qualify(reference.substring(index));
-                reference = resolver.resolveDocumentLocation(reference.substring(0, index));
-            } else {
-                reference = resolver.resolveDocumentLocation(reference);
-            }
-
-            if (reference == null) {
+            if (uri == null) {
                 text.append(label);
             } else {
-                text.append("<a href='").append(reference).append(memberName).append("'>").append(label).append("</a>");
+                text.append("<a href='").append(uri);
+                if (id[1] != null) text.append("#").append(id[1]);
+                text.append("'>").append(label).append("</a>");
             }
             return p;
         }
