@@ -50,7 +50,7 @@ class ContentsView extends HTML {
             $("div", style.PackcageName, code(info.packageName));
 
             $("h2", attr("class", info.type), style.TypeName, () -> {
-                $("i", style.Name, info.createName());
+                $("code", style.Name, text(info.name));
                 $(info.createTypeVariableNames());
             });
 

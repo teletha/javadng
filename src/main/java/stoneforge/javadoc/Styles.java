@@ -142,13 +142,13 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
         });
     });
 
-    public static final Style HTMLClassArray = Style.named("i[array=fix]", () -> {
+    public static final Style HTMLClassArray = Style.named("code[array=fix]", () -> {
         $.after(() -> {
             content.text("[]");
         });
     });
 
-    public static final Style HTMLClassVarParam = Style.named("i[array=var]", () -> {
+    public static final Style HTMLClassVarParam = Style.named("code[array=var]", () -> {
         $.after(() -> {
             content.text("...");
         });

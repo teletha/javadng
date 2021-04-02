@@ -89,7 +89,7 @@
 	background-repeat: repeat;
 }
 
-/* 1326688848 */i[array=fix]::after {
+/* 1326688848 */code[array=fix]::after {
 	content: '[]';
 }
 
@@ -384,7 +384,7 @@
 	left: 0.3rem;
 }
 
-/* 900609452 */i[array=var]::after {
+/* 900609452 */code[array=var]::after {
 	content: '...';
 }
 
