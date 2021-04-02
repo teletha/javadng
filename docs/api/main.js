@@ -35,7 +35,7 @@ const router = new VueRouter({
                 var aside = html.substring(start, end);
                 document.querySelector("aside").innerHTML = aside;
 
-                PR.prettyPrint();
+                hljs.highlightAll();
               });
           }
         }

@@ -162,8 +162,9 @@ class ContentsView extends HTML {
             List<SampleInfo> list = model.samples.get(info.id() + "#" + member.id());
             if (list != null) {
                 for (SampleInfo sample : list) {
-                    System.out.println(sample.classID + "  " + sample.methodID);
-                    System.out.println(sample.code);
+                    $("pre", style.Sample, () -> {
+                        $("code", attr("class", "language-java"), text(sample.code));
+                    });
                 }
             }
         });
@@ -356,5 +357,25 @@ class ContentsView extends HTML {
                 margin.right(1.4, rem);
             });
         });
+
+        Style Sample = () -> {
+            margin.top(1, em).bottom(0.3, em);
+
+            $.before(() -> {
+                content.text("Sample");
+                display.block();
+                border.top.radius(4, px);
+                border.left.radius(4, px);
+                padding.horizontal(0.5, em).top(0.5, em);
+                font.weight.bold();
+                background.color("#f0f0f0");
+                border.bottom.doubles().color("white").width(3, px);
+            });
+
+            $.select("> code", () -> {
+                border.bottom.radius(4, px);
+                border.right.radius(4, px);
+            });
+        };
     }
 }

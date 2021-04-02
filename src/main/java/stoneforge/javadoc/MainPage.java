@@ -49,7 +49,8 @@ public class MainPage extends HTML {
                 script("https://cdn.jsdelivr.net/npm/pretty-checkbox-vue@1.1/dist/pretty-checkbox-vue.min.js");
                 stylesheet("https://unpkg.com/vue-select@3.4.0/dist/vue-select.css");
                 script("https://unpkg.com/vue-select@3.4.0");
-                script("https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js");
+                stylesheet("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.7.1/build/styles/default.min.css");
+                script("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.7.1/build/highlight.min.js");
                 stylesheet("/main.css");
             });
             $("body", Styles.workbench, () -> {

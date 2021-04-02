@@ -409,14 +409,14 @@
 	background-color: hsl(200,71%,30%);
 }
 
-/* stoneforge.javadoc.ContentsView.style#MemberName */.c {
+/* stoneforge.javadoc.ContentsView.style#MemberName */.N {
 	font-family: Roboto;
 	font-size: 1rem;
 	font-weight: normal;
 	display: block;
 }
 
-/* stoneforge.javadoc.ContentsView.style#MemberSection */.N {
+/* stoneforge.javadoc.ContentsView.style#MemberSection */.e {
 	margin-top: 1.6rem;
 	margin-bottom: 1.6rem;
 	padding-left: 1.3rem;
@@ -427,30 +427,55 @@
 	background-color: hsl(0,0%,100%);
 }
 
-/* stoneforge.javadoc.ContentsView.style#Name */.O {
+/* stoneforge.javadoc.ContentsView.style#Name */.K {
 	font-weight: bold;
 	margin-right: 0.175rem;
 }
 
-/* stoneforge.javadoc.ContentsView.style#PackcageName */.e {
+/* stoneforge.javadoc.ContentsView.style#PackcageName */.Z {
 	font-size: small;
 }
 
-/* stoneforge.javadoc.ContentsView.style#Return */.L {
+/* stoneforge.javadoc.ContentsView.style#Return */.d {
 	color: hsl(48,95%,29%);
 }
 
-/* stoneforge.javadoc.ContentsView.style#Return */.L::before {
+/* stoneforge.javadoc.ContentsView.style#Return */.d::before {
 	content: ':';
 	padding-left: 0.3em;
 	padding-right: 0.3em;
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureDefinition */.I {
+/* stoneforge.javadoc.ContentsView.style#Sample */.O {
+	margin-top: 1em;
+	margin-bottom: 0.3em;
+}
+
+/* stoneforge.javadoc.ContentsView.style#Sample */.O::before {
+	content: 'Sample';
+	display: block;
+	border-top-right-radius: 4px;
+	border-top-left-radius: 4px;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	padding-top: 0.5em;
+	font-weight: bold;
+	background-color: hsl(0,0%,94%);
+	border-bottom-style: double;
+	border-bottom-color: white;
+	border-bottom-width: 3px;
+}
+
+/* stoneforge.javadoc.ContentsView.style#Sample */.O > code {
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+/* stoneforge.javadoc.ContentsView.style#SignatureDefinition */.R {
 	position: relative;
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureDefinition */.I::before {
+/* stoneforge.javadoc.ContentsView.style#SignatureDefinition */.R::before {
 	position: absolute;
 	display: inline-block;
 	width: 2.5rem;
@@ -459,11 +484,11 @@
 	color: hsl(0,29%,49%);
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureException */.T {
+/* stoneforge.javadoc.ContentsView.style#SignatureException */.W {
 	position: relative;
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureException */.T::before {
+/* stoneforge.javadoc.ContentsView.style#SignatureException */.W::before {
 	position: absolute;
 	display: inline-block;
 	width: 2.5rem;
@@ -472,15 +497,15 @@
 	color: hsl(0,29%,49%);
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureException */.T::before {
+/* stoneforge.javadoc.ContentsView.style#SignatureException */.W::before {
 	content: 'Throw';
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureParameter */.Q {
+/* stoneforge.javadoc.ContentsView.style#SignatureParameter */.V {
 	position: relative;
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureParameter */.Q::before {
+/* stoneforge.javadoc.ContentsView.style#SignatureParameter */.V::before {
 	position: absolute;
 	display: inline-block;
 	width: 2.5rem;
@@ -489,15 +514,15 @@
 	color: hsl(0,29%,49%);
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureParameter */.Q::before {
+/* stoneforge.javadoc.ContentsView.style#SignatureParameter */.V::before {
 	content: 'Param';
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureReturn */.W {
+/* stoneforge.javadoc.ContentsView.style#SignatureReturn */.S {
 	position: relative;
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureReturn */.W::before {
+/* stoneforge.javadoc.ContentsView.style#SignatureReturn */.S::before {
 	position: absolute;
 	display: inline-block;
 	width: 2.5rem;
@@ -506,37 +531,37 @@
 	color: hsl(0,29%,49%);
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureReturn */.W::before {
+/* stoneforge.javadoc.ContentsView.style#SignatureReturn */.S::before {
 	content: 'Return';
 	color: hsl(48,95%,29%);
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureTable */.d {
+/* stoneforge.javadoc.ContentsView.style#SignatureTable */.I {
 	padding-left: 2.5rem;
 	margin-top: 0.1rem;
 	margin-bottom: 0.6rem;
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureTable */.d td {
+/* stoneforge.javadoc.ContentsView.style#SignatureTable */.I td {
 	padding-right: 0.8rem;
 	vertical-align: top;
 	text-overflow: ellipsis;
 	line-height: 1.3;
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureTable */.d td:not(:last-child) {
+/* stoneforge.javadoc.ContentsView.style#SignatureTable */.I td:not(:last-child) {
 	white-space: nowrap;
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureTable */.d td:empty::after {
+/* stoneforge.javadoc.ContentsView.style#SignatureTable */.I td:empty::after {
 	content: 'No description.';
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureTypeVariable */.R {
+/* stoneforge.javadoc.ContentsView.style#SignatureTypeVariable */.Q {
 	position: relative;
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureTypeVariable */.R::before {
+/* stoneforge.javadoc.ContentsView.style#SignatureTypeVariable */.Q::before {
 	position: absolute;
 	display: inline-block;
 	width: 2.5rem;
@@ -545,17 +570,17 @@
 	color: hsl(0,29%,49%);
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureTypeVariable */.R::before {
+/* stoneforge.javadoc.ContentsView.style#SignatureTypeVariable */.Q::before {
 	content: 'Type';
 }
 
-/* stoneforge.javadoc.ContentsView.style#TypeComment */.a {
+/* stoneforge.javadoc.ContentsView.style#TypeComment */.M {
 	font-size: 14px;
 	margin-top: 2rem;
 	margin-bottom: 2rem;
 }
 
-/* stoneforge.javadoc.ContentsView.style#TypeName */.Y {
+/* stoneforge.javadoc.ContentsView.style#TypeName */.c {
 	font-family: Roboto;
 	font-size: 1.2rem;
 	font-weight: normal;
@@ -632,7 +657,7 @@
 	display: inline-block;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#Contents */.Z {
+/* stoneforge.javadoc.MainPage.Styles#Contents */.a {
 	flex-grow: 1;
 	-webkit-flex-grow: 1;
 	margin-left: 3rem;
@@ -656,7 +681,7 @@
 	border-bottom-style: solid;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#HeaderTitle */.X {
+/* stoneforge.javadoc.MainPage.Styles#HeaderTitle */.Y {
 	font-size: 2.5rem;
 	font-family: Ubuntu;
 	font-weight: normal;
@@ -664,7 +689,7 @@
 	align-self: center;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#MainArea */.V {
+/* stoneforge.javadoc.MainPage.Styles#MainArea */.U {
 	width: 90vw;
 	display: flex;
 	flex-direction: row;
@@ -679,7 +704,7 @@
 	-webkit-flex-shrink: 0;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#SubNavigationStickyBlock */.U {
+/* stoneforge.javadoc.MainPage.Styles#SubNavigationStickyBlock */.T {
 	position: sticky;
 	top: 80px;
 	display: block;
@@ -690,40 +715,40 @@
 	white-space: nowrap;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#SubNavigationStickyBlock */.U:hover {
+/* stoneforge.javadoc.MainPage.Styles#SubNavigationStickyBlock */.T:hover {
 	overflow-y: auto;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#SubNavigationStickyBlock */.U>*>* {
+/* stoneforge.javadoc.MainPage.Styles#SubNavigationStickyBlock */.T>*>* {
 	padding-top: 0.15em;
 	padding-bottom: 0.15em;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.M {
+/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.L {
 	flex-basis: 17vw;
 	-webkit-flex-basis: 17vw;
 	flex-shrink: 0;
 	-webkit-flex-shrink: 0;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.M>* {
+/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.L>* {
 	position: sticky;
 	top: 80px;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.M>*>* {
+/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.L>*>* {
 	margin-top: 0.5rem;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.M .el-select {
+/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.L .el-select {
 	width: 100%;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.M .el-checkbox {
+/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.L .el-checkbox {
 	display: block;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#workbench */.K {
+/* stoneforge.javadoc.MainPage.Styles#workbench */.J {
 	background-color: hsl(185,43%,95%);
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAE0lEQVR4XmNggILbdx9uwsEAAgDBfQniz1+UngAAAABJRU5ErkJggg==);
 	background-repeat: repeat;
@@ -770,17 +795,17 @@
 	color: hsl(240,7%,47%);
 }
 
-/* stoneforge.javadoc.SubNavigationView.Styles#Return */.J {
+/* stoneforge.javadoc.SubNavigationView.Styles#Return */.X {
 	color: hsl(48,95%,29%);
 }
 
-/* stoneforge.javadoc.SubNavigationView.Styles#Return */.J::before {
+/* stoneforge.javadoc.SubNavigationView.Styles#Return */.X::before {
 	content: ':';
 	padding-left: 0.3em;
 	padding-right: 0.3em;
 }
 
-/* stoneforge.javadoc.SubNavigationView.Styles#Title */.S {
+/* stoneforge.javadoc.SubNavigationView.Styles#Title */.f {
 	margin-top: 0.9rem;
 	font-weight: bold;
 	font-size: 1rem;
