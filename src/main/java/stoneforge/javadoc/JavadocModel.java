@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.DocumentationTool.Location.*;
+import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -509,6 +509,8 @@ public abstract class JavadocModel {
                     for (XML see : method.getSeeTags()) {
                         String[] id = info.identify(see.text());
                         SampleInfo sample = new SampleInfo(id[0], id[1], code);
+                        sample.comment.set(method.createComment());
+
                         samples.computeIfAbsent(sample.id(), x -> new ArrayList()).add(sample);
                     }
                 }

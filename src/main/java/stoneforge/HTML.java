@@ -13,6 +13,7 @@ import java.util.function.Consumer;
 
 import kiss.I;
 import kiss.Tree;
+import kiss.Variable;
 import kiss.XML;
 import stylist.Style;
 import stylist.StyleDSL;
@@ -66,9 +67,7 @@ public abstract class HTML extends Tree<String, XML> {
     }
 
     /**
-     * <p>
      * accept node attribute with name.
-     * </p>
      * 
      * @param name An attribute name.
      */
@@ -85,9 +84,27 @@ public abstract class HTML extends Tree<String, XML> {
     }
 
     /**
-     * <p>
+     * Accept child node.
+     * 
+     * @param child
+     * @return
+     */
+    protected final Consumer<XML> xml(XML child) {
+        return parent -> parent.append(child);
+    }
+
+    /**
+     * Accept child node.
+     * 
+     * @param child
+     * @return
+     */
+    protected final Consumer<XML> xml(Variable<XML> child) {
+        return parent -> child.to(parent::append);
+    }
+
+    /**
      * accept text node.
-     * </p>
      * 
      * @param text A text.
      */

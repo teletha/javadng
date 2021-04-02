@@ -42,7 +42,7 @@ public abstract class ParameterizableInfo extends MemberInfo {
             int size = bounds.size();
             if (size != 0) {
                 if (size != 1 || !bounds.get(0).toString().equals("java.lang.Object")) {
-                    XML extend = I.xml("<i/>").addClass("extends");
+                    XML extend = I.xml("<code/>").addClass("extends");
                     for (int i = 0; i < size; i++) {
                         if (i != 0) {
                             extend.append(" & ");
@@ -77,7 +77,7 @@ public abstract class ParameterizableInfo extends MemberInfo {
             return null;
         }
 
-        XML xml = I.xml("span").addClass(Styles.SignatureParameterPart.className());
+        XML xml = I.xml("code").addClass(Styles.SignatureParameterPart.className());
         xml.append("<");
         for (int i = 0, size = names.size(); i < size; i++) {
             xml.append(createTypeVariable(i));
@@ -110,7 +110,7 @@ public abstract class ParameterizableInfo extends MemberInfo {
             return null;
         }
 
-        XML xml = I.xml("span").addClass(Styles.SignatureParameterPart.className());
+        XML xml = I.xml("code").addClass(Styles.SignatureParameterPart.className());
         xml.append("<");
         for (int i = 0, size = names.size(); i < size; i++) {
             xml.append(createTypeVariableName(i));
@@ -130,7 +130,7 @@ public abstract class ParameterizableInfo extends MemberInfo {
      * @return
      */
     public final XML createTypeVariableName(int index) {
-        return I.xml("<i/>").text(names.get(index));
+        return I.xml("<code/>").text(names.get(index));
     }
 
     /**

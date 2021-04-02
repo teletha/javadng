@@ -9,6 +9,9 @@
  */
 package stoneforge.javadoc.analyze;
 
+import kiss.Variable;
+import kiss.XML;
+
 public class SampleInfo {
 
     /** The class reference. */
@@ -19,6 +22,9 @@ public class SampleInfo {
 
     /** The sample code. (raw text) */
     public final String code;
+
+    /** The comment for sample. */
+    public final Variable<XML> comment = Variable.empty();
 
     /**
      * @param classID

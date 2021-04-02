@@ -12,6 +12,7 @@ package stoneforge.javadoc;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import kiss.I;
 import kiss.XML;
 import stoneforge.HTML;
 import stoneforge.javadoc.analyze.ClassInfo;
@@ -162,6 +163,7 @@ class ContentsView extends HTML {
             List<SampleInfo> list = model.samples.get(info.id() + "#" + member.id());
             if (list != null) {
                 for (SampleInfo sample : list) {
+                    $("div", style.SampleDesc, xml(sample.comment.or(I.xml("<span>Sample</span>"))));
                     $("pre", style.Sample, () -> {
                         $("code", attr("class", "language-java"), text(sample.code));
                     });
@@ -358,19 +360,18 @@ class ContentsView extends HTML {
             });
         });
 
-        Style Sample = () -> {
-            margin.top(1, em).bottom(0.3, em);
+        Style SampleDesc = () -> {
+            display.block();
+            border.top.radius(4, px);
+            border.left.radius(4, px);
+            margin.top(1, em);
+            padding.horizontal(0.5, em).top(0.5, em);
+            background.color("#f0f0f0");
+            border.bottom.doubles().color("white").width(3, px);
+        };
 
-            $.before(() -> {
-                content.text("Sample");
-                display.block();
-                border.top.radius(4, px);
-                border.left.radius(4, px);
-                padding.horizontal(0.5, em).top(0.5, em);
-                font.weight.bold();
-                background.color("#f0f0f0");
-                border.bottom.doubles().color("white").width(3, px);
-            });
+        Style Sample = () -> {
+            margin.bottom(0.3, em);
 
             $.select("> code", () -> {
                 border.bottom.radius(4, px);
