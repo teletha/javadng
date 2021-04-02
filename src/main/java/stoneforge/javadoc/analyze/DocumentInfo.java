@@ -239,9 +239,13 @@ public class DocumentInfo {
      * @param e
      * @return
      */
-    protected final boolean isVisible(Element e) {
+    protected final boolean isVisible(Element e, ClassInfo clazz) {
         Set<Modifier> modifiers = e.getModifiers();
-        return !modifiers.contains(Modifier.PRIVATE);
+        if (clazz.isTest()) {
+            return !modifiers.contains(Modifier.PRIVATE);
+        } else {
+            return modifiers.contains(Modifier.PUBLIC) || modifiers.contains(Modifier.PROTECTED);
+        }
     }
 
     /**

@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
+import static javax.tools.DocumentationTool.Location.*;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -294,17 +294,12 @@ public abstract class JavadocModel {
             // ========================================================
             // Scan javadoc from main source
             // ========================================================
-            try (StandardJavaFileManager manager = tool.getStandardFileManager(listener, Locale.getDefault(), Charset.defaultCharset())) {
-                manager.setLocationFromPaths(SOURCE_PATH, sources().stream().map(Directory::asJavaPath).collect(Collectors.toList()));
-                manager.setLocationFromPaths(DOCUMENTATION_OUTPUT, List
-                        .of(output() == null ? Path.of("") : output().create().asJavaPath()));
-                // manager.setLocationFromPaths(StandardLocation.CLASS_PATH, classpath().stream()
-                // .map(psychopath.Location::asJavaPath)
-                // .collect(Collectors.toList()));
+            try (StandardJavaFileManager m = tool.getStandardFileManager(listener, Locale.getDefault(), Charset.defaultCharset())) {
+                m.setLocationFromPaths(SOURCE_PATH, sources().stream().map(Directory::asJavaPath).collect(Collectors.toList()));
+                m.setLocationFromPaths(DOCUMENTATION_OUTPUT, List.of(output() == null ? Path.of("") : output().create().asJavaPath()));
 
-                Iterable<? extends JavaFileObject> units = manager.list(SOURCE_PATH, "", Set.of(Kind.SOURCE), true);
-                if (tool.getTask(null, manager, listener, Internal.class, List.of(), units).call()) {
-                }
+                tool.getTask(null, m, listener, Internal.class, List.of("-protected"), m.list(SOURCE_PATH, "", Set.of(Kind.SOURCE), true))
+                        .call();
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -126,6 +126,15 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
     }
 
     /**
+     * Detect whether this class is test case class or not.
+     * 
+     * @return
+     */
+    public boolean isTest() {
+        return name.endsWith("Test");
+    }
+
+    /**
      * Build super type element.
      * 
      * @return
@@ -265,7 +274,7 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
          */
         @Override
         public ClassInfo visitVariable(VariableElement e, ClassInfo p) {
-            if (isVisible(e)) {
+            if (isVisible(e, p)) {
                 fields.add(new FieldInfo(e, p.resolver, ClassInfo.this));
             }
             return p;
@@ -285,7 +294,7 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
          */
         @Override
         public ClassInfo visitExecutable(ExecutableElement e, ClassInfo p) {
-            if (isVisible(e)) {
+            if (isVisible(e, p)) {
                 if (e.getKind() == ElementKind.CONSTRUCTOR) {
                     constructors.add(new ExecutableInfo(e, p.resolver, ClassInfo.this));
                 } else {
