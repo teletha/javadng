@@ -58,7 +58,7 @@ public class MainPage extends HTML {
                 // Top Navigation
                 // =============================
                 $("header", Styles.HeaderArea, () -> {
-                    $("h1", Styles.HeaderTitle, text(model.product() + " API"));
+                    $("h1", Styles.HeaderTitle, code(model.product() + " API"));
                 });
 
                 $("main", Styles.MainArea, () -> {

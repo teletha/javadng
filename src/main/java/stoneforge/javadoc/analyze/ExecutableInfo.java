@@ -128,12 +128,12 @@ public class ExecutableInfo extends ParameterizableInfo {
      * @return
      */
     public final XML createParameter() {
-        XML xml = I.xml("span").addClass(Styles.SignatureParameterPart.className());
+        XML xml = I.xml("code").addClass(Styles.SignatureParameterPart.className());
         xml.append("(");
         for (int i = 0, size = names.size(); i < size; i++) {
             xml.append(createParameter(i));
             xml.append(" ");
-            xml.append(I.xml("span").addClass("parameterName").text(names.get(i)));
+            xml.append(I.xml("code").addClass("parameterName").text(names.get(i)));
 
             if (i + 1 != size) {
                 xml.append(", ");
@@ -159,7 +159,7 @@ public class ExecutableInfo extends ParameterizableInfo {
      * @return
      */
     public final XML createParameterName(int index) {
-        return I.xml("<i/>").text(names.get(index));
+        return I.xml("<code/>").text(names.get(index));
     }
 
     /**

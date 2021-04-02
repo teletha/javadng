@@ -22,7 +22,6 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
     // =====================================================
     // HTML Elements
     // =====================================================
-
     public static Style HTML = Style.named("html", () -> {
         font.size(14, px);
         scroll.smooth().padding.top(HeaderHeight);
@@ -33,8 +32,8 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
         });
     });
 
-    public static Style HTMLItalic = Style.named("i", () -> {
-        font.style.normal();
+    public static Style HTMLItalic = Style.named("code", () -> {
+        font.family("inherit");
     });
 
     public static Style HTMLAnchor = Style.named("a", () -> {

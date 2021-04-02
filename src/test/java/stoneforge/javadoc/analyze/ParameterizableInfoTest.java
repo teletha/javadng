@@ -20,25 +20,25 @@ public class ParameterizableInfoTest extends JavadocTestSupport {
     @Test
     public <A extends Comparable> void bounded() {
         assert checkTypeParmeterName(currentMethod(), "A");
-        assert checkTypeParameter(currentMethod(), "<i>A</i><i class='extends'><i>java.lang.Comparable</i></i>");
+        assert checkTypeParameter(currentMethod(), "<code>A</code><code class='extends'><code>java.lang.Comparable</code></code>");
     }
 
     @Test
     public <A extends Comparable<A>> void boundedVariable() {
         assert checkTypeParmeterName(currentMethod(), "A");
-        assert checkTypeParameter(currentMethod(), "<i>A</i><i class='extends'><i>java.lang.Comparable<i class='parameters'><i>A</i></i></i></i>");
+        assert checkTypeParameter(currentMethod(), "<code>A</code><code class='extends'><code>java.lang.Comparable<code class='parameters'><code>A</code></code></code></code>");
     }
 
     @Test
     public <A extends Comparable & Serializable> void intersection() {
         assert checkTypeParmeterName(currentMethod(), "A");
-        assert checkTypeParameter(currentMethod(), "<i>A</i><i class='extends'><i>java.lang.Comparable</i> &amp; <i>java.io.Serializable</i></i>");
+        assert checkTypeParameter(currentMethod(), "<code>A</code><code class='extends'><code>java.lang.Comparable</code> &amp; <code>java.io.Serializable</code></code>");
     }
 
     @Test
     public <A> void simple() {
         assert checkTypeParmeterName(currentMethod(), "A");
-        assert checkTypeParameter(currentMethod(), "<i>A</i>");
+        assert checkTypeParameter(currentMethod(), "<code>A</code>");
     }
 
     /**

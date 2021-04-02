@@ -47,7 +47,7 @@ class ContentsView extends HTML {
     @Override
     protected void declare() {
         $("section", style.TypeSection, () -> {
-            $("div", style.PackcageName, text(info.packageName));
+            $("div", style.PackcageName, code(info.packageName));
 
             $("h2", attr("class", info.type), style.TypeName, () -> {
                 $("i", style.Name, info.createName());
@@ -117,7 +117,7 @@ class ContentsView extends HTML {
                 XML type = member.createReturnType();
 
                 $(member.createModifier());
-                $("i", style.Name, member.createName());
+                $("code", style.Name, member.createName());
                 $(member.createParameter());
                 if (type != null) $("i", style.Return, type);
             });
@@ -213,7 +213,7 @@ class ContentsView extends HTML {
         };
 
         Style Name = () -> {
-            font.weight.bold();
+            font.weight.bold().style.normal();
             margin.right(0.175, rem);
         };
 

@@ -123,7 +123,7 @@ public abstract class MemberInfo extends DocumentInfo {
      * @return
      */
     public final XML createName() {
-        return I.xml("a").attr("href", "#" + id()).text(name);
+        return I.xml("code").child("a").attr("href", "#" + id()).text(name).parent();
     }
 
     /**

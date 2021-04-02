@@ -94,7 +94,7 @@ public abstract class HTML extends Tree<String, XML> {
     }
 
     /**
-     * Accept child node.
+     * Build child node.
      * 
      * @param child
      * @return
@@ -104,7 +104,16 @@ public abstract class HTML extends Tree<String, XML> {
     }
 
     /**
-     * accept text node.
+     * Build code node.
+     * 
+     * @param text A text.
+     */
+    protected final Consumer<XML> code(Object text) {
+        return parent -> parent.child("code").append(text);
+    }
+
+    /**
+     * Build text node.
      * 
      * @param text A text.
      */

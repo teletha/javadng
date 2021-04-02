@@ -74,8 +74,8 @@ new Vue({
 		
 		<div class="tree">
 			<dl v-for="package in sortedItems">
-				<dt @click="toggle(package)" v-show="filter(package.children).length">{{package.name}}</dt>
-				<dd v-for="type in filter(package.children)" :class="type.type" v-show="expandAll || package.isOpen" @click="link(type)">{{type.name}}</dd>
+				<dt @click="toggle(package)" v-show="filter(package.children).length"><code>{{package.name}}</code></dt>
+				<dd v-for="type in filter(package.children)" :class="type.type" v-show="expandAll || package.isOpen" @click="link(type)"><code>{{type.name}}</code></dd>
 			</dl>
 		</div>
 	</div>
