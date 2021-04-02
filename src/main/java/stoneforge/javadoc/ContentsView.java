@@ -163,7 +163,7 @@ class ContentsView extends HTML {
             List<SampleInfo> list = model.samples.get(info.id() + "#" + member.id());
             if (list != null) {
                 for (SampleInfo sample : list) {
-                    $("div", style.SampleDesc, xml(sample.comment.or(I.xml("<span>Sample</span>"))));
+                    $("div", style.SampleDesc, xml(sample.comment.or(I.xml("<span>Example by Testcase</span>"))));
                     $("pre", style.Sample, () -> {
                         $("code", attr("class", "language-java"), text(sample.code));
                     });

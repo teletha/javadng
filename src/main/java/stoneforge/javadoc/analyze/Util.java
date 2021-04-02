@@ -91,6 +91,10 @@ public final class Util {
     }
 
     private static String stripHeaderWhitespace(String line, int size) {
+        if (line.length() < size) {
+            return line;
+        }
+
         for (int i = 0; i < size; i++) {
             if (!Character.isWhitespace(line.charAt(i))) {
                 return line;
