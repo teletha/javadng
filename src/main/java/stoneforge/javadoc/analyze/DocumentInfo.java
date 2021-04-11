@@ -573,7 +573,7 @@ public class DocumentInfo {
             } else {
                 text.append("<a href='").append(uri);
                 if (id[1] != null) text.append("#").append(id[1]);
-                text.append("'>").append(label).append("</a>");
+                text.append("'><code>").append(label).append("</code></a>");
             }
             return p;
         }

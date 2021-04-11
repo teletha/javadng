@@ -3,31 +3,7 @@
 @import url("http://fonts.googleapis.com/css?family=Roboto+Mono");
 @import url("http://fonts.googleapis.com/css?family=Ubuntu");
 @import url("https://unpkg.com/ress/dist/ress.min.css");
-/* 1033913854 */code[array=var]::after {
-	content: '...';
-}
-
-/* 1150365962 */.pretty {
-	display: block;
-}
-
-/* 1198441233 */#SearchByName {
-	display: block;
-	width: 100%;
-	background-color: hsl(0,0%,100%);
-	margin-top: 8px;
-	margin-bottom: 8px;
-	padding-top: 6px;
-	padding-bottom: 6px;
-	padding-left: 8px;
-	padding-right: 8px;
-	border-color: hsla(0,0%,24%,0.26);
-	border-width: 1px;
-	border-style: solid;
-	border-radius: 4px;
-}
-
-/* 1317605460 */.AbstractClass::before {
+/* 1196273185 */.AbstractClass::before {
 	display: inline-block;
 	width: 15px;
 	height: 15px;
@@ -43,86 +19,27 @@
 	color: hsl(150,46%,36%);
 }
 
-/* 1322048236 */.VOLATILE {
-	position: relative;
-}
-
-/* 1322048236 */.VOLATILE::before {
-	color: hsl(200,71%,30%);
-	font-size: 0.6rem;
-	font-family: "Roboto Mono";
-	content: 'V';
-	position: absolute;
-	top: -0.2rem;
-	left: 0.7rem;
-}
-
-/* 1432315444 */.SYNCHRONIZED {
-	position: relative;
-}
-
-/* 1432315444 */.SYNCHRONIZED::after {
-	color: hsl(200,71%,30%);
-	font-size: 0.7rem;
-	font-family: "Material Icons";
-	content: '\e8ae';
-	position: absolute;
-	top: 0.5rem;
-	left: 0.4rem;
-}
-
-/* 157603305 */a {
-	color: inherit;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-/* 157603305 */a:hover {
-	text-decoration: underline;
-	text-decoration-color: hsla(240,7%,29%,0.5);
-}
-
-/* 1598937160 */code {
-	font-family: inherit;
-}
-
-/* 1611427359 */.FINAL {
-	position: relative;
-}
-
-/* 1611427359 */.FINAL::before {
-	color: hsl(200,71%,30%);
-	font-size: 0.6rem;
-	font-family: "Roboto Mono";
-	content: 'F';
-	position: absolute;
-	top: -0.2rem;
-	left: 0.7rem;
-}
-
-/* 1642912161 */.PRIVATE {
-	position: relative;
-}
-
-/* 1642912161 */.PRIVATE::before {
-	content: '';
-	display: inline-block;
-	width: 0.5rem;
-	height: 0.5rem;
-	border-radius: 50%;
-	background-color: hsl(2,68%,58%);
-	margin-right: 0.6rem;
-}
-
-/* 1642912161 */.PRIVATE.FIELD::before {
-	content: '\e836';
-}
-
-/* 1734207188 */.vs__dropdown-toggle {
+/* 1220146994 */#SearchByName {
+	display: block;
+	width: 100%;
 	background-color: hsl(0,0%,100%);
+	margin-top: 8px;
+	margin-bottom: 8px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	padding-left: 8px;
+	padding-right: 8px;
+	border-color: hsla(0,0%,24%,0.26);
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 4px;
 }
 
-/* 1786363162 */.Class::before {
+/* 1316773262 */code[array=var]::after {
+	content: '...';
+}
+
+/* 1340100942 */.Class::before {
 	display: inline-block;
 	width: 15px;
 	height: 15px;
@@ -139,36 +56,36 @@
 	background-color: hsl(150,46%,36%);
 }
 
-/* 180381625 */.PROTECTED {
+/* 1404800042 */.super::before {
+	content: ' super ';
+}
+
+/* 1413000362 */.VOLATILE {
 	position: relative;
 }
 
-/* 180381625 */.PROTECTED::before {
-	content: '';
-	display: inline-block;
-	width: 0.5rem;
-	height: 0.5rem;
-	border-radius: 50%;
-	background-color: hsl(48,95%,59%);
-	margin-right: 0.6rem;
+/* 1413000362 */.VOLATILE::before {
+	color: hsl(200,71%,30%);
+	font-size: 0.6rem;
+	font-family: "Roboto Mono";
+	content: 'V';
+	position: absolute;
+	top: -0.2rem;
+	left: 0.7rem;
 }
 
-/* 180381625 */.PROTECTED.FIELD::before {
-	content: '\e836';
-}
-
-/* 1868393130 */.tree {
+/* 1509248883 */.tree {
 	overflow: hidden;
 	scrollbar-width: thin;
 	height: 60vh;
 	background-color: inherit;
 }
 
-/* 1868393130 */.tree:hover {
+/* 1509248883 */.tree:hover {
 	overflow-y: auto;
 }
 
-/* 1868393130 */.tree dt {
+/* 1509248883 */.tree dt {
 	font-weight: bold;
 	cursor: pointer;
 	padding-top: 0.2rem;
@@ -178,13 +95,13 @@
 	border-radius: 2px;
 }
 
-/* 1868393130 */.tree dt:hover {
+/* 1509248883 */.tree dt:hover {
 	background-color: hsl(0,0%,100%);
 	background-image: inherit;
 	background-repeat: repeat;
 }
 
-/* 1868393130 */.tree dd {
+/* 1509248883 */.tree dd {
 	padding-top: 0.1rem;
 	padding-bottom: 0.1rem;
 	padding-left: 1rem;
@@ -193,128 +110,31 @@
 	white-space: nowrap;
 }
 
-/* 1868393130 */.tree dd:hover {
+/* 1509248883 */.tree dd:hover {
 	background-color: hsl(0,0%,100%);
 	background-image: inherit;
 	background-repeat: repeat;
 }
 
-/* 1907958824 */.Functional::before {
-	display: inline-block;
-	width: 15px;
-	height: 15px;
-	border-color: hsl(271,30%,50%);
-	border-style: solid;
-	border-width: 1px;
-	margin-right: 6px;
-	content: 'F';
-	text-align: center;
-	line-height: 13px;
-	font-size: 10px;
-	border-radius: 50%;
-	color: hsl(271,30%,50%);
-}
-
-/* 193553253 */.PACKAGEPRIVATE {
+/* 1577288488 */.TRANSIENT {
 	position: relative;
 }
 
-/* 193553253 */.PACKAGEPRIVATE::before {
-	content: '';
-	display: inline-block;
-	width: 0.5rem;
-	height: 0.5rem;
-	border-radius: 50%;
-	background-color: hsl(200,71%,30%);
-	margin-right: 0.6rem;
-}
-
-/* 193553253 */.PACKAGEPRIVATE.FIELD::before {
-	content: '\e836';
-}
-
-/* 2036800555 */code[array=fix]::after {
-	content: '[]';
-}
-
-/* 2123086977 */.ABSTRACT {
-	position: relative;
-}
-
-/* 2123086977 */.ABSTRACT::before {
+/* 1577288488 */.TRANSIENT::after {
 	color: hsl(200,71%,30%);
-	font-size: 0.6rem;
-	font-family: "Roboto Mono";
-	content: 'A';
+	font-size: 0.7rem;
+	font-family: "Material Icons";
+	content: '\e14c';
 	position: absolute;
-	top: -0.2rem;
-	left: 0.7rem;
+	top: 0.5rem;
+	left: 0.4rem;
 }
 
-/* 313218912 */.DEFAULT {
+/* 1600144928 */.STATIC {
 	position: relative;
 }
 
-/* 313218912 */.DEFAULT::before {
-	color: hsl(200,71%,30%);
-	font-size: 0.6rem;
-	font-family: "Roboto Mono";
-	content: 'D';
-	position: absolute;
-	top: -0.2rem;
-	left: 0.7rem;
-}
-
-/* 326052881 */.Exception::before {
-	display: inline-block;
-	width: 15px;
-	height: 15px;
-	border-color: hsl(2,68%,58%);
-	border-style: solid;
-	border-width: 1px;
-	margin-right: 6px;
-	content: 'T';
-	text-align: center;
-	line-height: 13px;
-	font-size: 10px;
-	border-radius: 3px;
-	color: hsl(0,0%,100%);
-	background-color: hsl(2,68%,58%);
-}
-
-/* 367166793 */.Annotation::before {
-	display: inline-block;
-	width: 15px;
-	height: 15px;
-	border-color: hsl(200,71%,30%);
-	border-style: solid;
-	border-width: 1px;
-	margin-right: 6px;
-	content: 'A';
-	text-align: center;
-	line-height: 13px;
-	font-size: 10px;
-	border-radius: 3px;
-	color: hsl(0,0%,100%);
-	background-color: hsl(200,71%,30%);
-}
-
-/* 386775391 */html {
-	font-size: 14px;
-	scroll-behavior: smooth;
-	scroll-padding-top: 80px;
-	word-break: break-all;
-}
-
-/* 386775391 */html *[class|=el] {
-	font-size: 1rem;
-}
-
-/* 459212317 */.STATIC {
-	position: relative;
-}
-
-/* 459212317 */.STATIC::after {
+/* 1600144928 */.STATIC::after {
 	color: hsl(2,68%,58%);
 	font-size: 0.6rem;
 	font-family: "Roboto Mono";
@@ -324,15 +144,21 @@
 	left: 0.3rem;
 }
 
-/* 68170953 */.extends::before {
-	content: ' extends ';
+/* 1600943878 */.DEFAULT {
+	position: relative;
 }
 
-/* 729051711 */.super::before {
-	content: ' super ';
+/* 1600943878 */.DEFAULT::before {
+	color: hsl(200,71%,30%);
+	font-size: 0.6rem;
+	font-family: "Roboto Mono";
+	content: 'D';
+	position: absolute;
+	top: -0.2rem;
+	left: 0.7rem;
 }
 
-/* 767720637 */.Enum::before {
+/* 1621085872 */.Enum::before {
 	display: inline-block;
 	width: 15px;
 	height: 15px;
@@ -349,7 +175,125 @@
 	background-color: hsl(0,29%,49%);
 }
 
-/* 813621320 */.Interface::before {
+/* 1633093685 */.extends::before {
+	content: ' extends ';
+}
+
+/* 1651186601 */.ABSTRACT {
+	position: relative;
+}
+
+/* 1651186601 */.ABSTRACT::before {
+	color: hsl(200,71%,30%);
+	font-size: 0.6rem;
+	font-family: "Roboto Mono";
+	content: 'A';
+	position: absolute;
+	top: -0.2rem;
+	left: 0.7rem;
+}
+
+/* 1682697739 */.PUBLIC {
+	position: relative;
+}
+
+/* 1682697739 */.PUBLIC::before {
+	content: '';
+	display: inline-block;
+	width: 0.5rem;
+	height: 0.5rem;
+	border-radius: 50%;
+	background-color: hsl(150,46%,36%);
+	margin-right: 0.6rem;
+}
+
+/* 1682697739 */.PUBLIC.FIELD::before {
+	content: '\e836';
+}
+
+/* 1692456705 */.PRIVATE {
+	position: relative;
+}
+
+/* 1692456705 */.PRIVATE::before {
+	content: '';
+	display: inline-block;
+	width: 0.5rem;
+	height: 0.5rem;
+	border-radius: 50%;
+	background-color: hsl(2,68%,58%);
+	margin-right: 0.6rem;
+}
+
+/* 1692456705 */.PRIVATE.FIELD::before {
+	content: '\e836';
+}
+
+/* 1810964220 */.Functional::before {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	border-color: hsl(271,30%,50%);
+	border-style: solid;
+	border-width: 1px;
+	margin-right: 6px;
+	content: 'F';
+	text-align: center;
+	line-height: 13px;
+	font-size: 10px;
+	border-radius: 50%;
+	color: hsl(271,30%,50%);
+}
+
+/* 2002000219 */html {
+	font-size: 14px;
+	scroll-behavior: smooth;
+	scroll-padding-top: 80px;
+	word-break: break-all;
+}
+
+/* 2002000219 */html *[class|=el] {
+	font-size: 1rem;
+}
+
+/* 2024365811 */a {
+	color: inherit;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* 2024365811 */a:hover {
+	text-decoration: underline;
+	text-decoration-color: hsla(240,7%,29%,0.5);
+}
+
+/* 2050971260 */.PROTECTED {
+	position: relative;
+}
+
+/* 2050971260 */.PROTECTED::before {
+	content: '';
+	display: inline-block;
+	width: 0.5rem;
+	height: 0.5rem;
+	border-radius: 50%;
+	background-color: hsl(48,95%,59%);
+	margin-right: 0.6rem;
+}
+
+/* 2050971260 */.PROTECTED.FIELD::before {
+	content: '\e836';
+}
+
+/* 375418822 */.vs__dropdown-toggle {
+	background-color: hsl(0,0%,100%);
+}
+
+/* 389280468 */.package {
+	font-weight: bold;
+}
+
+/* 409396932 */.Interface::before {
 	display: inline-block;
 	width: 15px;
 	height: 15px;
@@ -365,58 +309,114 @@
 	color: hsl(271,30%,50%);
 }
 
-/* 886690315 */.PUBLIC {
+/* 429394790 */code {
+	font-family: inherit;
+}
+
+/* 433932075 */code[array=fix]::after {
+	content: '[]';
+}
+
+/* 51352623 */.SYNCHRONIZED {
 	position: relative;
 }
 
-/* 886690315 */.PUBLIC::before {
-	content: '';
-	display: inline-block;
-	width: 0.5rem;
-	height: 0.5rem;
-	border-radius: 50%;
-	background-color: hsl(150,46%,36%);
-	margin-right: 0.6rem;
-}
-
-/* 886690315 */.PUBLIC.FIELD::before {
-	content: '\e836';
-}
-
-/* 900609452 */.parameters::before {
-	content: '<';
-}
-
-/* 900609452 */.parameters::after {
-	content: '>';
-}
-
-/* 919858540 */.TRANSIENT {
-	position: relative;
-}
-
-/* 919858540 */.TRANSIENT::after {
+/* 51352623 */.SYNCHRONIZED::after {
 	color: hsl(200,71%,30%);
 	font-size: 0.7rem;
 	font-family: "Material Icons";
-	content: '\e14c';
+	content: '\e8ae';
 	position: absolute;
 	top: 0.5rem;
 	left: 0.4rem;
 }
 
-/* 940808447 */.package {
-	font-weight: bold;
+/* 58342049 */.Annotation::before {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	border-color: hsl(200,71%,30%);
+	border-style: solid;
+	border-width: 1px;
+	margin-right: 6px;
+	content: 'A';
+	text-align: center;
+	line-height: 13px;
+	font-size: 10px;
+	border-radius: 3px;
+	color: hsl(0,0%,100%);
+	background-color: hsl(200,71%,30%);
 }
 
-/* stoneforge.javadoc.ContentsView.style#MemberName */.S {
+/* 683852968 */.PACKAGEPRIVATE {
+	position: relative;
+}
+
+/* 683852968 */.PACKAGEPRIVATE::before {
+	content: '';
+	display: inline-block;
+	width: 0.5rem;
+	height: 0.5rem;
+	border-radius: 50%;
+	background-color: hsl(200,71%,30%);
+	margin-right: 0.6rem;
+}
+
+/* 683852968 */.PACKAGEPRIVATE.FIELD::before {
+	content: '\e836';
+}
+
+/* 694988873 */.Exception::before {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	border-color: hsl(2,68%,58%);
+	border-style: solid;
+	border-width: 1px;
+	margin-right: 6px;
+	content: 'T';
+	text-align: center;
+	line-height: 13px;
+	font-size: 10px;
+	border-radius: 3px;
+	color: hsl(0,0%,100%);
+	background-color: hsl(2,68%,58%);
+}
+
+/* 736754452 */.FINAL {
+	position: relative;
+}
+
+/* 736754452 */.FINAL::before {
+	color: hsl(200,71%,30%);
+	font-size: 0.6rem;
+	font-family: "Roboto Mono";
+	content: 'F';
+	position: absolute;
+	top: -0.2rem;
+	left: 0.7rem;
+}
+
+/* 745314544 */.pretty {
+	display: block;
+}
+
+/* 944633697 */.parameters::before {
+	content: '<';
+}
+
+/* 944633697 */.parameters::after {
+	content: '>';
+}
+
+/* stoneforge.javadoc.ContentsView.style#MemberName */.Q {
 	font-family: Roboto;
 	font-size: 1rem;
 	font-weight: normal;
 	display: block;
 }
 
-/* stoneforge.javadoc.ContentsView.style#MemberSection */.Q {
+/* stoneforge.javadoc.ContentsView.style#MemberSection */.b {
 	margin-top: 1.6rem;
 	margin-bottom: 1.6rem;
 	padding-left: 1.3rem;
@@ -427,36 +427,36 @@
 	background-color: hsl(0,0%,100%);
 }
 
-/* stoneforge.javadoc.ContentsView.style#Name */.a {
+/* stoneforge.javadoc.ContentsView.style#Name */.I {
 	font-weight: bold;
 	font-style: normal;
 	margin-right: 0.175rem;
 }
 
-/* stoneforge.javadoc.ContentsView.style#PackcageName */.P {
+/* stoneforge.javadoc.ContentsView.style#PackcageName */.W {
 	font-size: small;
 }
 
-/* stoneforge.javadoc.ContentsView.style#Return */.O {
+/* stoneforge.javadoc.ContentsView.style#Return */.R {
 	color: hsl(48,95%,29%);
 }
 
-/* stoneforge.javadoc.ContentsView.style#Return */.O::before {
+/* stoneforge.javadoc.ContentsView.style#Return */.R::before {
 	content: ':';
 	padding-left: 0.3em;
 	padding-right: 0.3em;
 }
 
-/* stoneforge.javadoc.ContentsView.style#Sample */.N {
+/* stoneforge.javadoc.ContentsView.style#Sample */.d {
 	margin-bottom: 0.3em;
 }
 
-/* stoneforge.javadoc.ContentsView.style#Sample */.N > code {
+/* stoneforge.javadoc.ContentsView.style#Sample */.d > code {
 	border-bottom-left-radius: 4px;
 	border-bottom-right-radius: 4px;
 }
 
-/* stoneforge.javadoc.ContentsView.style#SampleDesc */.J {
+/* stoneforge.javadoc.ContentsView.style#SampleDesc */.e {
 	display: block;
 	border-top-right-radius: 4px;
 	border-top-left-radius: 4px;
@@ -470,11 +470,11 @@
 	border-bottom-width: 3px;
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureDefinition */.V {
+/* stoneforge.javadoc.ContentsView.style#SignatureDefinition */.H {
 	position: relative;
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureDefinition */.V::before {
+/* stoneforge.javadoc.ContentsView.style#SignatureDefinition */.H::before {
 	position: absolute;
 	display: inline-block;
 	width: 2.5rem;
@@ -483,11 +483,11 @@
 	color: hsl(0,29%,49%);
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureException */.b {
+/* stoneforge.javadoc.ContentsView.style#SignatureException */.K {
 	position: relative;
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureException */.b::before {
+/* stoneforge.javadoc.ContentsView.style#SignatureException */.K::before {
 	position: absolute;
 	display: inline-block;
 	width: 2.5rem;
@@ -496,15 +496,15 @@
 	color: hsl(0,29%,49%);
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureException */.b::before {
+/* stoneforge.javadoc.ContentsView.style#SignatureException */.K::before {
 	content: 'Throw';
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureParameter */.I {
+/* stoneforge.javadoc.ContentsView.style#SignatureParameter */.X {
 	position: relative;
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureParameter */.I::before {
+/* stoneforge.javadoc.ContentsView.style#SignatureParameter */.X::before {
 	position: absolute;
 	display: inline-block;
 	width: 2.5rem;
@@ -513,15 +513,15 @@
 	color: hsl(0,29%,49%);
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureParameter */.I::before {
+/* stoneforge.javadoc.ContentsView.style#SignatureParameter */.X::before {
 	content: 'Param';
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureReturn */.g {
+/* stoneforge.javadoc.ContentsView.style#SignatureReturn */.U {
 	position: relative;
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureReturn */.g::before {
+/* stoneforge.javadoc.ContentsView.style#SignatureReturn */.U::before {
 	position: absolute;
 	display: inline-block;
 	width: 2.5rem;
@@ -530,37 +530,37 @@
 	color: hsl(0,29%,49%);
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureReturn */.g::before {
+/* stoneforge.javadoc.ContentsView.style#SignatureReturn */.U::before {
 	content: 'Return';
 	color: hsl(48,95%,29%);
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureTable */.f {
+/* stoneforge.javadoc.ContentsView.style#SignatureTable */.g {
 	padding-left: 2.5rem;
 	margin-top: 0.1rem;
 	margin-bottom: 0.6rem;
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureTable */.f td {
+/* stoneforge.javadoc.ContentsView.style#SignatureTable */.g td {
 	padding-right: 0.8rem;
 	vertical-align: top;
 	text-overflow: ellipsis;
 	line-height: 1.3;
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureTable */.f td:not(:last-child) {
+/* stoneforge.javadoc.ContentsView.style#SignatureTable */.g td:not(:last-child) {
 	white-space: nowrap;
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureTable */.f td:empty::after {
+/* stoneforge.javadoc.ContentsView.style#SignatureTable */.g td:empty::after {
 	content: 'No description.';
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureTypeVariable */.R {
+/* stoneforge.javadoc.ContentsView.style#SignatureTypeVariable */.P {
 	position: relative;
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureTypeVariable */.R::before {
+/* stoneforge.javadoc.ContentsView.style#SignatureTypeVariable */.P::before {
 	position: absolute;
 	display: inline-block;
 	width: 2.5rem;
@@ -569,17 +569,17 @@
 	color: hsl(0,29%,49%);
 }
 
-/* stoneforge.javadoc.ContentsView.style#SignatureTypeVariable */.R::before {
+/* stoneforge.javadoc.ContentsView.style#SignatureTypeVariable */.P::before {
 	content: 'Type';
 }
 
-/* stoneforge.javadoc.ContentsView.style#TypeComment */.H {
+/* stoneforge.javadoc.ContentsView.style#TypeComment */.S {
 	font-size: 14px;
 	margin-top: 2rem;
 	margin-bottom: 2rem;
 }
 
-/* stoneforge.javadoc.ContentsView.style#TypeName */.Z {
+/* stoneforge.javadoc.ContentsView.style#TypeName */.a {
 	font-family: Roboto;
 	font-size: 1.2rem;
 	font-weight: normal;
@@ -588,7 +588,7 @@
 	margin-bottom: 0.3rem;
 }
 
-/* stoneforge.javadoc.ContentsView.style#TypeSection */.d {
+/* stoneforge.javadoc.ContentsView.style#TypeSection */.T {
 	margin-top: 2rem;
 	margin-bottom: 2rem;
 }
@@ -656,14 +656,14 @@
 	display: inline-block;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#Contents */.U {
+/* stoneforge.javadoc.MainPage.Styles#Contents */.Z {
 	flex-grow: 1;
 	-webkit-flex-grow: 1;
 	margin-left: 3rem;
 	margin-right: 3rem;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#HeaderArea */.Y {
+/* stoneforge.javadoc.MainPage.Styles#HeaderArea */.J {
 	background-color: inherit;
 	background-image: inherit;
 	background-repeat: repeat;
@@ -680,7 +680,7 @@
 	border-bottom-style: solid;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#HeaderTitle */.T {
+/* stoneforge.javadoc.MainPage.Styles#HeaderTitle */.Y {
 	font-size: 2.5rem;
 	font-family: Ubuntu;
 	font-weight: normal;
@@ -688,7 +688,7 @@
 	align-self: center;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#MainArea */.L {
+/* stoneforge.javadoc.MainPage.Styles#MainArea */.V {
 	width: 90vw;
 	display: flex;
 	flex-direction: row;
@@ -696,14 +696,14 @@
 	margin-left: auto;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#SubNavigation */.M {
+/* stoneforge.javadoc.MainPage.Styles#SubNavigation */.f {
 	flex-basis: 20vw;
 	-webkit-flex-basis: 20vw;
 	flex-shrink: 0;
 	-webkit-flex-shrink: 0;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#SubNavigationStickyBlock */.X {
+/* stoneforge.javadoc.MainPage.Styles#SubNavigationStickyBlock */.M {
 	position: sticky;
 	top: 80px;
 	display: block;
@@ -714,36 +714,36 @@
 	white-space: nowrap;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#SubNavigationStickyBlock */.X:hover {
+/* stoneforge.javadoc.MainPage.Styles#SubNavigationStickyBlock */.M:hover {
 	overflow-y: auto;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#SubNavigationStickyBlock */.X>*>* {
+/* stoneforge.javadoc.MainPage.Styles#SubNavigationStickyBlock */.M>*>* {
 	padding-top: 0.15em;
 	padding-bottom: 0.15em;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.e {
+/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.c {
 	flex-basis: 17vw;
 	-webkit-flex-basis: 17vw;
 	flex-shrink: 0;
 	-webkit-flex-shrink: 0;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.e>* {
+/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.c>* {
 	position: sticky;
 	top: 80px;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.e>*>* {
+/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.c>*>* {
 	margin-top: 0.5rem;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.e .el-select {
+/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.c .el-select {
 	width: 100%;
 }
 
-/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.e .el-checkbox {
+/* stoneforge.javadoc.MainPage.Styles#TypeNavigation */.c .el-checkbox {
 	display: block;
 }
 
@@ -790,21 +790,21 @@
 	margin-bottom: 0.8rem;
 }
 
-/* stoneforge.javadoc.Styles#SignatureParameterPart */.W {
+/* stoneforge.javadoc.Styles#SignatureParameterPart */.O {
 	color: hsl(240,7%,47%);
 }
 
-/* stoneforge.javadoc.SubNavigationView.Styles#Return */.K {
+/* stoneforge.javadoc.SubNavigationView.Styles#Return */.L {
 	color: hsl(48,95%,29%);
 }
 
-/* stoneforge.javadoc.SubNavigationView.Styles#Return */.K::before {
+/* stoneforge.javadoc.SubNavigationView.Styles#Return */.L::before {
 	content: ':';
 	padding-left: 0.3em;
 	padding-right: 0.3em;
 }
 
-/* stoneforge.javadoc.SubNavigationView.Styles#Title */.c {
+/* stoneforge.javadoc.SubNavigationView.Styles#Title */.N {
 	margin-top: 0.9rem;
 	font-weight: bold;
 	font-size: 1rem;

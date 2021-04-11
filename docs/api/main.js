@@ -36,6 +36,7 @@ const router = new VueRouter({
                 document.querySelector("aside").innerHTML = aside;
 
                 hljs.highlightAll();
+                if (location.hash != "") location.replace(location.hash);
               });
           }
         }
