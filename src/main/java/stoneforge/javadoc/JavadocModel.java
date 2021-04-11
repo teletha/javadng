@@ -13,8 +13,8 @@ import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
+import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.OutputStream;
 import java.net.BindException;
 import java.net.InetSocketAddress;
 import java.net.URI;
@@ -325,37 +325,43 @@ public abstract class JavadocModel {
      */
     public final Javadoc show() {
         try {
+            psychopath.File checker = output().file("javadoc.html");
+            long[] modified = {checker.lastModifiedMilli()};
+
             HttpServer server = HttpServer.create(new InetSocketAddress(9321), 0);
+            server.createContext("/live", context -> {
+                long time = checker.lastModifiedMilli();
+                if (modified[0] < time) {
+                    modified[0] = time;
+                    context.sendResponseHeaders(200, 1);
+                    I.copy(new ByteArrayInputStream("0".getBytes()), context.getResponseBody(), true);
+                } else {
+                    context.sendResponseHeaders(204, -1);
+                }
+            });
             server.createContext("/", context -> {
                 psychopath.File file = output().file(context.getRequestURI().getPath().substring(1));
                 byte[] body = file.text().getBytes(StandardCharsets.UTF_8);
 
-                // header
                 Headers headers = context.getResponseHeaders();
                 headers.set("Content-Type", mime(file));
                 context.sendResponseHeaders(200, body.length);
-
-                // body
-                OutputStream out = context.getResponseBody();
-                out.write(body);
-                out.flush();
-                out.close();
+                I.copy(new ByteArrayInputStream(body), context.getResponseBody(), true);
             });
             server.start();
+
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                try {
+                    Desktop.getDesktop().browse(new URI("http://localhost:9321/javadoc.html"));
+                } catch (Exception e) {
+                    throw I.quiet(e);
+                }
+            }
         } catch (BindException e) {
             // already launched
         } catch (Exception e) {
             throw I.quiet(e);
         }
-
-        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-            try {
-                Desktop.getDesktop().browse(new URI("http://localhost:9321/javadoc.html"));
-            } catch (Exception e) {
-                throw I.quiet(e);
-            }
-        }
-
         return (Javadoc) this;
     }
 
@@ -559,11 +565,12 @@ public abstract class JavadocModel {
                     .formatTo(output().file("main.css").asJavaPath());
 
             // build HTML
-            site.buildHTML("javadoc.html", new MainPage(this, null));
-
             for (ClassInfo info : data.types) {
                 site.buildHTML("types/" + info.packageName + "." + info.name + ".html", new MainPage(this, info));
             }
+
+            // create at last for live reload
+            site.buildHTML("javadoc.html", new MainPage(this, null));
         }
     }
 }

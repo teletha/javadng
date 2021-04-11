@@ -145,7 +145,6 @@ document.addEventListener("click", event => {
 
   if (e.tagName === "A") {
     var path = e.getAttribute("href");
-    console.log(path + "   " +  location.pathname);
     if (!path.startsWith("http") && !path.startsWith("#") && !path.startsWith(location.pathname)) {
       // handle internal link only
       router.push(path);
@@ -153,3 +152,10 @@ document.addEventListener("click", event => {
     }
   }
 });
+
+// =====================================================
+// Live Reload
+// =====================================================
+if (location.hostname == "localhost") setInterval(() => fetch("http://localhost:9321/live").then(res => {
+  if(res.status == 200) location.reload();
+}), 3000);
