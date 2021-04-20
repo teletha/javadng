@@ -227,6 +227,16 @@ public abstract class JavadocModel {
     }
 
     /**
+     * Specify the task execution listener.
+     * 
+     * @return
+     */
+    @Icy.Property
+    public DiagnosticListener<JavaFileObject> listener() {
+        return o -> System.out.println(o);
+    }
+
+    /**
      * Use JDK as the resolvable external document.
      * 
      * @return
@@ -266,9 +276,6 @@ public abstract class JavadocModel {
             Internal.model = this;
 
             DocumentationTool tool = ToolProvider.getSystemDocumentationTool();
-            DiagnosticListener<JavaFileObject> listener = o -> {
-                System.out.println(o);
-            };
 
             // ========================================================
             // Collect sample source
@@ -276,11 +283,11 @@ public abstract class JavadocModel {
             if (sample() != null) {
                 collectingSample = true;
 
-                try (StandardJavaFileManager m = tool.getStandardFileManager(listener, Locale.getDefault(), Charset.defaultCharset())) {
+                try (StandardJavaFileManager m = tool.getStandardFileManager(listener(), Locale.getDefault(), Charset.defaultCharset())) {
                     m.setLocation(SOURCE_PATH, I.signal(sources()).startWith(sample()).map(Directory::asJavaFile).toList());
                     m.setLocation(CLASS_PATH, classpath().stream().map(psychopath.Location::asJavaFile).collect(Collectors.toList()));
 
-                    tool.getTask(null, m, listener, Internal.class, List.of("-package"), I
+                    tool.getTask(null, m, listener(), Internal.class, List.of("-package"), I
                             .signal(m.list(SOURCE_PATH, "", Set.of(Kind.SOURCE), true))
                             .take(o -> o.getName().startsWith(sample().toString()) && o.getName().endsWith("Test.java"))
                             .toList()).call();
@@ -294,11 +301,11 @@ public abstract class JavadocModel {
             // ========================================================
             // Scan javadoc from main source
             // ========================================================
-            try (StandardJavaFileManager m = tool.getStandardFileManager(listener, Locale.getDefault(), Charset.defaultCharset())) {
+            try (StandardJavaFileManager m = tool.getStandardFileManager(listener(), Locale.getDefault(), Charset.defaultCharset())) {
                 m.setLocationFromPaths(SOURCE_PATH, sources().stream().map(Directory::asJavaPath).collect(Collectors.toList()));
                 m.setLocationFromPaths(DOCUMENTATION_OUTPUT, List.of(output() == null ? Path.of("") : output().create().asJavaPath()));
 
-                tool.getTask(null, m, listener, Internal.class, List.of("-protected"), m.list(SOURCE_PATH, "", Set.of(Kind.SOURCE), true))
+                tool.getTask(null, m, listener(), Internal.class, List.of("-protected"), m.list(SOURCE_PATH, "", Set.of(Kind.SOURCE), true))
                         .call();
             } catch (Exception e) {
                 e.printStackTrace();
