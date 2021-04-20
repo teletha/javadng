@@ -333,7 +333,17 @@ public class DocumentInfo {
         } else if (index == 0) {
             return new String[] {resolver.resolveFQCN(Util.getTopLevelTypeElement(e).toString()), qualify(linkLike.substring(1))};
         } else {
-            return new String[] {resolver.resolveFQCN(linkLike.substring(0, index)), qualify(linkLike.substring(index + 1))};
+            String type = linkLike.substring(0, index);
+            String member = linkLike.substring(index + 1);
+            String fqcn = resolver.resolveFQCN(type);
+
+            // If it refers to a type that has not yet been processed in the same package as the
+            // type being processed, the FQCN cannot be resolved properly and should be
+            // resolved separately.
+            if (fqcn.equals(type) && type.indexOf(".") == -1) {
+                fqcn = Util.ElementUtils.getPackageOf(Util.getTopLevelTypeElement(e)).getQualifiedName() + "." + type;
+            }
+            return new String[] {fqcn, qualify(member)};
         }
     }
 

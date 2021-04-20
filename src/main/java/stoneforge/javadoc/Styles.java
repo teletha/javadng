@@ -25,7 +25,6 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
     public static Style HTML = Style.named("html", () -> {
         font.size(14, px);
         scroll.smooth().padding.top(HeaderHeight);
-        text.wordBreak.breakAll();
 
         $.select("*[class|=el]", () -> {
             font.size(1, rem);
@@ -38,7 +37,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
 
     public static Style HTMLAnchor = Style.named("a", () -> {
         font.color(Color.Inherit);
-        text.decoration.none();
+        text.decorationStyle.dotted().decorationColor.color("#ccc");
         cursor.pointer();
 
         $.hover(() -> {
@@ -58,11 +57,13 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
 
         $.select("ul", () -> {
             block();
+            margin.left(0.5, rem);
             listStyle.inside();
         });
 
         $.select("ol", () -> {
             block();
+            margin.left(0.5, rem);
             listStyle.inside();
         });
 

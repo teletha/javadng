@@ -112,12 +112,12 @@ class ContentsView extends HTML {
      * @param member
      */
     private void writeMember(ExecutableInfo member) {
-        $("section", style.MemberSection, () -> {
-            $("h2", attr("id", member.id()), style.MemberName, () -> {
+        $("section", attr("id", member.id()), style.MemberSection, () -> {
+            $("h2", style.MemberName, () -> {
                 XML type = member.createReturnType();
 
                 $(member.createModifier());
-                $("code", style.Name, member.createName());
+                $("code", style.Name, text(member.name));
                 $(member.createParameter());
                 if (type != null) $("i", style.Return, type);
             });
