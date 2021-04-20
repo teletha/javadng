@@ -546,31 +546,33 @@ public abstract class JavadocModel {
      * Completion phase.
      */
     private void complete() {
-        // sort data
-        data.modules.sort(Comparator.naturalOrder());
-        data.packages.sort(Comparator.naturalOrder());
-        data.types.sort(Comparator.naturalOrder());
+        if (!collectingSample) {
+            // sort data
+            data.modules.sort(Comparator.naturalOrder());
+            data.packages.sort(Comparator.naturalOrder());
+            data.types.sort(Comparator.naturalOrder());
 
-        // after care
-        data.connectSubType();
+            // after care
+            data.connectSubType();
 
-        if (output() != null) {
-            SiteBuilder site = SiteBuilder.root(output()).guard("index.html", "main.js", "main.css");
+            if (output() != null) {
+                SiteBuilder site = SiteBuilder.root(output()).guard("index.html", "main.js", "main.css");
 
-            // build CSS
-            I.load(JavadocModel.class);
-            Stylist.pretty()
-                    .importNormalizeStyle()
-                    .styles(I.findAs(StyleDeclarable.class))
-                    .formatTo(output().file("main.css").asJavaPath());
+                // build CSS
+                I.load(JavadocModel.class);
+                Stylist.pretty()
+                        .importNormalizeStyle()
+                        .styles(I.findAs(StyleDeclarable.class))
+                        .formatTo(output().file("main.css").asJavaPath());
 
-            // build HTML
-            for (ClassInfo info : data.types) {
-                site.buildHTML("types/" + info.packageName + "." + info.name + ".html", new MainPage(this, info));
+                // build HTML
+                for (ClassInfo info : data.types) {
+                    site.buildHTML("types/" + info.packageName + "." + info.name + ".html", new MainPage(this, info));
+                }
+
+                // create at last for live reload
+                site.buildHTML("javadoc.html", new MainPage(this, null));
             }
-
-            // create at last for live reload
-            site.buildHTML("javadoc.html", new MainPage(this, null));
         }
     }
 }
