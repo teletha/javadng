@@ -21,7 +21,9 @@ import stoneforge.javadoc.analyze.MethodInfo;
 import stoneforge.javadoc.analyze.SampleInfo;
 import stylist.Style;
 import stylist.StyleDSL;
+import stylist.property.Background.BackgroundImage;
 import stylist.value.Color;
+import stylist.value.LinearGradient;
 import stylist.value.Numeric;
 
 /**
@@ -195,6 +197,12 @@ class ContentsView extends HTML {
             padding.size(1.3, rem);
             border.radius(4, px);
             background.color(Color.White);
+
+            $.target(() -> {
+                background.image(BackgroundImage.of(new LinearGradient().angle(90, deg)
+                        .color(Color.hsl(200, 55, 65), Numeric.of(0, px), Numeric.of(4, px))
+                        .color(Color.White, Numeric.of(4, px), Numeric.of(100, percent))));
+            });
         };
 
         Style PackcageName = () -> {
