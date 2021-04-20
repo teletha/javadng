@@ -321,7 +321,15 @@ public class DocumentInfo {
     public final String[] identify(String linkLike) {
         int index = linkLike.indexOf("#");
         if (index == -1) {
-            return new String[] {resolver.resolveFQCN(linkLike), null};
+            String fqcn = resolver.resolveFQCN(linkLike);
+
+            // If it refers to a type that has not yet been processed in the same package as the
+            // type being processed, the FQCN cannot be resolved properly and should be
+            // resolved separately.
+            if (fqcn.equals(linkLike) && linkLike.indexOf(".") == -1) {
+                fqcn = Util.ElementUtils.getPackageOf(Util.getTopLevelTypeElement(e)).getQualifiedName() + "." + linkLike;
+            }
+            return new String[] {fqcn, null};
         } else if (index == 0) {
             return new String[] {resolver.resolveFQCN(Util.getTopLevelTypeElement(e).toString()), qualify(linkLike.substring(1))};
         } else {
