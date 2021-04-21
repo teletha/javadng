@@ -142,9 +142,8 @@ new Vue({
 // =====================================================
 document.addEventListener("click", event => {
   var e = event.target;
-  if (e.tagName === "CODE") {
-    var a = e.parentElement;
-    var path = a.getAttribute("href");
+  if (e.tagName === "A") {
+    var path = e.getAttribute("href");
     if (!path.startsWith("http") && !path.startsWith("#") && !path.startsWith(location.pathname)) {
       // handle internal link only
       router.push(path);

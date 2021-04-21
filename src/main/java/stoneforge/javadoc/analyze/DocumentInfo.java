@@ -589,9 +589,9 @@ public class DocumentInfo {
             if (uri == null) {
                 text.append(label);
             } else {
-                text.append("<a href='").append(uri);
+                text.append("<code><a href='").append(uri);
                 if (id[1] != null) text.append("#").append(id[1]);
-                text.append("'><code>").append(label).append("</code></a>");
+                text.append("'>").append(label).append("</a></code>");
             }
             return p;
         }
