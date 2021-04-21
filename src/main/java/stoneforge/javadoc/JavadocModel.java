@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.DocumentationTool.Location.*;
+import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -573,7 +573,7 @@ public abstract class JavadocModel {
                         .formatTo(output().file("main.css").asJavaPath());
 
                 // build JS
-                I.copy(SiteBuilder.class.getResourceAsStream("main.js"), output().file("main.js").newOutputStream(), true);
+                site.buildJS("main.js", SiteBuilder.class.getResourceAsStream("main.js"));
 
                 // build HTML
                 for (ClassInfo info : data.types) {

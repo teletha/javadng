@@ -134,9 +134,10 @@ public class MainPage extends HTML {
 
             $.child(() -> {
                 position.sticky().top(HeaderHeight);
+                padding.top(BaseStyle.BlockVerticalGap);
 
                 $.child(() -> {
-                    margin.top(BaseStyle.BlockVerticalGap);
+                    margin.bottom(BaseStyle.BlockVerticalGap);
                 });
             });
 

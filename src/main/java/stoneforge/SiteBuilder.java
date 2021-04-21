@@ -9,6 +9,7 @@
  */
 package stoneforge;
 
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
@@ -177,6 +178,19 @@ public class SiteBuilder {
 
         File file = root.file(path);
         file.write(output -> output.append(formatted));
+        return root.relativize(file).path();
+    }
+
+    /**
+     * Build JS file and return the path of the generated file.
+     * 
+     * @return A path to the generated file.
+     */
+    public final String buildJS(String path, InputStream input) {
+        initialize();
+
+        File file = root.file(path);
+        file.writeFrom(input);
         return root.relativize(file).path();
     }
 
