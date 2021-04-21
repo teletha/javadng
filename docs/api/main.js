@@ -20,7 +20,6 @@ const router = new VueRouter({
           // the specified path and imports them into the current HTML.
           // ===========================================================
           href: function(to, from) {
-            console.log(to, from);
             if (to && from && to.path == from.path) {
               return;
             }
