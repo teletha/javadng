@@ -49,52 +49,52 @@ class ContentsView extends HTML {
     @Override
     protected void declare() {
         $("section", style.TypeSection, () -> {
-            $("div", style.PackcageName, code(info.packageName));
+            $("section", style.MemberSection, () -> {
+                $("div", style.PackcageName, code(info.packageName));
 
-            $("h2", attr("class", info.type), style.TypeName, () -> {
-                $("code", style.Name, text(info.name));
-                $(info.createTypeVariableNames());
-            });
-
-            // type parameters
-            int size = info.numberOfTypeVariables();
-            if (size != 0) {
-                $("ul", style.typeParameter, foŕ(size, i -> {
-                    $("li", info.createTypeVariable(i), info.createTypeVariableComment(i));
-                }));
-            }
-
-            // super types
-            List<XML> supers = info.createSuperTypes();
-            if (!supers.isEmpty()) {
-                $("ul", style.extend, () -> {
-                    for (XML sup : supers) {
-                        $("li", sup);
-                    }
+                $("h2", attr("class", info.type), style.TypeName, () -> {
+                    $("code", style.Name, text(info.name));
+                    $(info.createTypeVariableNames());
                 });
-            }
 
-            // implemented types
-            List<XML> interfaces = info.createInterfaceTypes();
-            if (!interfaces.isEmpty()) {
-                $("ul", style.implement, () -> {
-                    for (XML xml : interfaces) {
-                        $("li", xml);
-                    }
-                });
-            }
+                // type parameters
+                int size = info.numberOfTypeVariables();
+                if (size != 0) {
+                    $("ul", style.typeParameter, foŕ(size, i -> {
+                        $("li", info.createTypeVariable(i), info.createTypeVariableComment(i));
+                    }));
+                }
 
-            // sub types
-            List<XML> subs = info.createSubTypes();
-            if (!subs.isEmpty()) {
-                $("ul", style.sub, () -> {
-                    for (XML xml : subs) {
-                        $("li", xml);
-                    }
-                });
-            }
+                // super types
+                List<XML> supers = info.createSuperTypes();
+                if (!supers.isEmpty()) {
+                    $("ul", style.extend, () -> {
+                        for (XML sup : supers) {
+                            $("li", sup);
+                        }
+                    });
+                }
 
-            $("div", style.TypeComment, () -> {
+                // implemented types
+                List<XML> interfaces = info.createInterfaceTypes();
+                if (!interfaces.isEmpty()) {
+                    $("ul", style.implement, () -> {
+                        for (XML xml : interfaces) {
+                            $("li", xml);
+                        }
+                    });
+                }
+
+                // sub types
+                List<XML> subs = info.createSubTypes();
+                if (!subs.isEmpty()) {
+                    $("ul", style.sub, () -> {
+                        for (XML xml : subs) {
+                            $("li", xml);
+                        }
+                    });
+                }
+
                 $(info.createComment());
             });
 
@@ -184,11 +184,6 @@ class ContentsView extends HTML {
         Numeric signatureLabelWidth = Numeric.of(2.5, rem);
 
         Style TypeSection = () -> {
-            margin.top(2, rem).bottom(2, rem);
-        };
-
-        Style TypeComment = () -> {
-            font.size(14, px);
             margin.top(2, rem).bottom(2, rem);
         };
 
