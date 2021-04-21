@@ -27,7 +27,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void param() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#param(java.lang.String)'>#param(String)</a></span>");
+        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#param(java.lang.String)'><code>#param(String)</code></a></span>");
     }
 
     native void param(String param);
@@ -38,7 +38,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void primitives() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#param(int,long,float,double,boolean,char,short,byte)'>#param(int, long, float, double, boolean, char, short, byte)</a></span>");
+        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#param(int,long,float,double,boolean,char,short,byte)'><code>#param(int, long, float, double, boolean, char, short, byte)</code></a></span>");
     }
 
     native void param(int i, long l, float f, double d, boolean b, char c, short s, byte by);
@@ -49,7 +49,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void array() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#array(java.lang.String[])'>#array(String[])</a></span>");
+        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#array(java.lang.String[])'><code>#array(String[])</code></a></span>");
     }
 
     native void array(String[] param);
@@ -60,7 +60,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void multiDimensionArray() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#arrayMulti(java.lang.String[][][])'>#arrayMulti(String[][][])</a></span>");
+        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#arrayMulti(java.lang.String[][][])'><code>#arrayMulti(String[][][])</code></a></span>");
     }
 
     native void arrayMulti(String[][][] param);
@@ -71,7 +71,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void varArg() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#arrayVarArge(java.lang.String...)'>#arrayVarArge(String...)</a></span>");
+        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#arrayVarArge(java.lang.String...)'><code>#arrayVarArge(String...)</code></a></span>");
     }
 
     native void arrayVarArge(String... param);
@@ -82,7 +82,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void primitiveArray() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#array(int[])'>#array(int[])</a></span>");
+        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#array(int[])'><code>#array(int[])</code></a></span>");
     }
 
     native void array(int[] param);
@@ -93,7 +93,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void parameterized() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#parameterized(java.util.function.Function)'>#parameterized(Function)</a></span>");
+        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#parameterized(java.util.function.Function)'><code>#parameterized(Function)</code></a></span>");
     }
 
     native <X> void parameterized(Function<X, String> param);
@@ -104,7 +104,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void parameterizedArray() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#parameterizedArray(java.util.function.Function[],java.util.function.Consumer...)'>#parameterizedArray(Function[], Consumer...)</a></span>");
+        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#parameterizedArray(java.util.function.Function[],java.util.function.Consumer...)'><code>#parameterizedArray(Function[], Consumer...)</code></a></span>");
     }
 
     native <X> void parameterizedArray(Function<X, String>[] param, Consumer<X>... vararg);
@@ -115,7 +115,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void wildcard() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#wildcard(java.lang.Object,java.lang.CharSequence,java.util.Map)'>#wildcard(Object, CharSequence, Map)</a></span>");
+        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#wildcard(java.lang.Object,java.lang.CharSequence,java.util.Map)'><code>#wildcard(Object, CharSequence, Map)</code></a></span>");
     }
 
     native <X, Y extends CharSequence, Z extends Map<String, String>> void wildcard(X x, Y y, Z z);
@@ -126,7 +126,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void wildcardArray() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#wildcardArray(java.lang.Object[],java.lang.Object...)'>#wildcardArray(Object[], Object...)</a></span>");
+        assert sameXML(info.comment, "<span class='A'><a href='" + BASE + "#wildcardArray(java.lang.Object[],java.lang.Object...)'><code>#wildcardArray(Object[], Object...)</code></a></span>");
     }
 
     native <X> void wildcardArray(X[] x, X... v);
