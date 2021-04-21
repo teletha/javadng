@@ -19,7 +19,12 @@ const router = new VueRouter({
           // Extracts the contents and navigation from the HTML file at
           // the specified path and imports them into the current HTML.
           // ===========================================================
-          href: function() {
+          href: function(to, from) {
+            console.log(to, from);
+            if (to && from && to.path == from.path) {
+              return;
+            }
+            
             fetch(this.$route.params.pathMatch)
               .then(function(response) {
                 return response.text();
