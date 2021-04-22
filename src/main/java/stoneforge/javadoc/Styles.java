@@ -188,12 +188,15 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
     });
 
     private static void buildMark(String mark, Color color, boolean fill, boolean circle) {
+        display.flex();
+
         $.before(() -> {
-            display.inlineBlock().width(15, px).height(15, px);
+            display.inlineTable().width(15, px).height(15, px);
+            flexItem.alignSelf.center();
+            text.align.center();
             border.color(color).solid().width(1, px);
             margin.right(6, px);
             content.text(mark);
-            text.align.center();
             line.height(13, px);
             font.size(10, px);
 
@@ -208,6 +211,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
                 background.color(color);
             } else {
                 font.color(color);
+                background.color(Color.White.opacify(80));
             }
         });
     }

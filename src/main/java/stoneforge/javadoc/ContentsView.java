@@ -48,64 +48,61 @@ class ContentsView extends HTML {
      */
     @Override
     protected void declare() {
-        $("section", style.TypeSection, () -> {
-            $("section", style.MemberSection, () -> {
-                $("div", style.PackcageName, code(info.packageName));
-
-                $("h2", attr("class", info.type), style.TypeName, () -> {
-                    $("code", style.Name, text(info.name));
-                    $(info.createTypeVariableNames());
-                });
-
-                // type parameters
-                int size = info.numberOfTypeVariables();
-                if (size != 0) {
-                    $("ul", style.typeParameter, foŕ(size, i -> {
-                        $("li", info.createTypeVariable(i), info.createTypeVariableComment(i));
-                    }));
-                }
-
-                // super types
-                List<XML> supers = info.createSuperTypes();
-                if (!supers.isEmpty()) {
-                    $("ul", style.extend, () -> {
-                        for (XML sup : supers) {
-                            $("li", sup);
-                        }
-                    });
-                }
-
-                // implemented types
-                List<XML> interfaces = info.createInterfaceTypes();
-                if (!interfaces.isEmpty()) {
-                    $("ul", style.implement, () -> {
-                        for (XML xml : interfaces) {
-                            $("li", xml);
-                        }
-                    });
-                }
-
-                // sub types
-                List<XML> subs = info.createSubTypes();
-                if (!subs.isEmpty()) {
-                    $("ul", style.sub, () -> {
-                        for (XML xml : subs) {
-                            $("li", xml);
-                        }
-                    });
-                }
-
-                $(info.createComment());
+        $("section", style.MemberSection, () -> {
+            $("code", style.PackcageName, text(info.packageName));
+            $("h2", attr("class", info.type), style.TypeName, () -> {
+                $("code", style.Name, text(info.name));
+                $(info.createTypeVariableNames());
             });
 
-            for (ExecutableInfo constructor : info.constructors()) {
-                writeMember(constructor);
+            // type parameters
+            int size = info.numberOfTypeVariables();
+            if (size != 0) {
+                $("ul", style.typeParameter, foŕ(size, i -> {
+                    $("li", info.createTypeVariable(i), info.createTypeVariableComment(i));
+                }));
             }
 
-            for (MethodInfo method : info.methods()) {
-                writeMember(method);
+            // super types
+            List<XML> supers = info.createSuperTypes();
+            if (!supers.isEmpty()) {
+                $("ul", style.extend, () -> {
+                    for (XML sup : supers) {
+                        $("li", sup);
+                    }
+                });
             }
+
+            // implemented types
+            List<XML> interfaces = info.createInterfaceTypes();
+            if (!interfaces.isEmpty()) {
+                $("ul", style.implement, () -> {
+                    for (XML xml : interfaces) {
+                        $("li", xml);
+                    }
+                });
+            }
+
+            // sub types
+            List<XML> subs = info.createSubTypes();
+            if (!subs.isEmpty()) {
+                $("ul", style.sub, () -> {
+                    for (XML xml : subs) {
+                        $("li", xml);
+                    }
+                });
+            }
+
+            $(info.createComment());
         });
+
+        for (ExecutableInfo constructor : info.constructors()) {
+            writeMember(constructor);
+        }
+
+        for (MethodInfo method : info.methods()) {
+            writeMember(method);
+        }
     }
 
     /**
@@ -183,13 +180,9 @@ class ContentsView extends HTML {
 
         Numeric signatureLabelWidth = Numeric.of(2.5, rem);
 
-        Style TypeSection = () -> {
-            margin.top(2, rem).bottom(2, rem);
-        };
-
         Style MemberSection = () -> {
-            margin.vertical(1.6, rem);
-            padding.size(1.3, rem);
+            margin.bottom(1.6, rem).top(0.6, rem);
+            padding.horizontal(1.3, rem).vertical(0.8, rem);
             border.radius(4, px);
             background.color(Color.White);
 
@@ -201,13 +194,14 @@ class ContentsView extends HTML {
         };
 
         Style PackcageName = () -> {
-            font.size.small();
+            font.size(9, px).color("#999");
+            display.block();
+            margin.bottom(-5, px).left(22, px);
         };
 
         Style TypeName = () -> {
             font.family(Roboto).size(1.2, rem).weight.normal();
-            display.block();
-            margin.top(0.5, rem).bottom(0.3, rem);
+            margin.bottom(0.3, rem);
         };
 
         Style MemberName = () -> {
