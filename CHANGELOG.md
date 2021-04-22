@@ -1,5 +1,16 @@
 # Changelog
 
+### [1.1.1](https://www.github.com/Teletha/stoneforge/compare/v1.1.0...v1.1.1) (2021-04-22)
+
+
+### Bug Fixes
+
+* Enhance styles. ([9651f61](https://www.github.com/Teletha/stoneforge/commit/9651f612acdd03d542dbdf3b29e6e26ce6eb0a12))
+* Generate all resources. ([9d36dc0](https://www.github.com/Teletha/stoneforge/commit/9d36dc0f527dff4668d75328b9d3200252d48492))
+* Internal link handling. ([106e7f2](https://www.github.com/Teletha/stoneforge/commit/106e7f2964cf15be7f3c9dbd79bc7bb9226e14bd))
+* Internal link's transition was broken. ([e24d6ff](https://www.github.com/Teletha/stoneforge/commit/e24d6ffe23538a19acc5ae937876472e58b66bf4))
+* Reduce the redundant network access. ([f224cff](https://www.github.com/Teletha/stoneforge/commit/f224cffea467e9ab9cdcb01f73663ce42251743a))
+
 ## [1.1.0](https://www.github.com/Teletha/stoneforge/compare/v1.0.0...v1.1.0) (2021-04-20)
 
 
