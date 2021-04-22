@@ -114,7 +114,6 @@ public class MainPage extends HTML {
             background.color(Color.rgb(235, 246, 247)).image(BackgroundImage.drawSlash(Color.rgb(220, 222, 225, 0.7), 3)).repeat();
             font.size(FontSize).family(fonts.base).color(palette.font);
             line.height(LineHeight);
-            display.width(100, vw);
         };
 
         Style HeaderArea = () -> {
@@ -136,6 +135,22 @@ public class MainPage extends HTML {
                 font.size(1.3, rem);
                 display.inlineBlock();
                 padding.horizontal(1, rem);
+                position.relative();
+
+                $.hover(() -> {
+                    text.decoration.none();
+
+                    $.after(() -> {
+                        content.text("");
+                        display.block().width(0, px).height(0, px);
+                        border.width(8, px).solid().color(Color.Transparent);
+                        margin.left(-4, px);
+                        border.top.width(0, px);
+                        border.bottom.width(6, px);
+                        border.bottom.color(palette.primary);
+                        position.absolute().top(100, percent).left(50, percent);
+                    });
+                });
             });
         };
 
