@@ -58,7 +58,13 @@ public class MainPage extends HTML {
                 // Top Navigation
                 // =============================
                 $("header", Styles.HeaderArea, () -> {
-                    $("h1", Styles.HeaderTitle, code(model.product() + " API"));
+                    $("h1", Styles.HeaderTitle, code(model.product()));
+                    $("nav", Styles.HeaderNav, () -> {
+                        $("a", text("Document"));
+                        $("a", text("API"));
+                        $("a", text("Blog"));
+                        $("a", text("Community"));
+                    });
                 });
 
                 $("main", Styles.MainArea, () -> {
@@ -114,14 +120,23 @@ public class MainPage extends HTML {
         Style HeaderArea = () -> {
             background.color(Color.Inherit).image(BackgroundImage.inherit()).repeat();
             position.sticky().top(0, rem);
-            display.width(MaxWidth).height(HeaderHeight).zIndex(10).flex();
+            display.width(MaxWidth).height(HeaderHeight).zIndex(10).flex().alignItems.lastBaseline();
             margin.auto();
             border.bottom.color(palette.primary).width(1, px).solid();
         };
 
         Style HeaderTitle = () -> {
             font.size(2.5, rem).family(fonts.title).weight.normal().color(palette.primary);
-            flexItem.alignSelf.center();
+        };
+
+        Style HeaderNav = () -> {
+            margin.left(3, rem);
+
+            $.child(() -> {
+                font.size(1.3, rem);
+                display.inlineBlock();
+                padding.horizontal(1, rem);
+            });
         };
 
         Style MainArea = () -> {

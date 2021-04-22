@@ -254,7 +254,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
             display.inlineBlock().width(0.5, rem).height(0.5, rem);
             border.radius(50, percent);
             background.color(color);
-            margin.right(0.6, rem);
+            margin.right(0.65, rem);
 
             $.with(".OVERRIDE", () -> {
                 // content.text("O");
