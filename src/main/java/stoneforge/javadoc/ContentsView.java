@@ -17,6 +17,7 @@ import kiss.XML;
 import stoneforge.HTML;
 import stoneforge.javadoc.analyze.ClassInfo;
 import stoneforge.javadoc.analyze.ExecutableInfo;
+import stoneforge.javadoc.analyze.FieldInfo;
 import stoneforge.javadoc.analyze.MethodInfo;
 import stoneforge.javadoc.analyze.SampleInfo;
 import stylist.Style;
@@ -96,6 +97,10 @@ class ContentsView extends HTML {
             $(info.createComment());
         });
 
+        for (FieldInfo field : info.fields()) {
+            writeMember(field);
+        }
+
         for (ExecutableInfo constructor : info.constructors()) {
             writeMember(constructor);
         }
@@ -103,6 +108,35 @@ class ContentsView extends HTML {
         for (MethodInfo method : info.methods()) {
             writeMember(method);
         }
+    }
+
+    /**
+     * Write HTML for each members.
+     * 
+     * @param member
+     */
+    private void writeMember(FieldInfo member) {
+        $("section", attr("id", member.id()), style.MemberSection, () -> {
+            $("h2", style.MemberName, () -> {
+                XML type = member.createType();
+
+                $(member.createModifier());
+                $("code", style.Name, text(member.name));
+                if (type != null) $("i", style.Return, type);
+            });
+
+            $(member.createComment());
+
+            List<SampleInfo> list = model.samples.get(info.id() + "#" + member.id());
+            if (list != null) {
+                for (SampleInfo sample : list) {
+                    $("div", style.SampleDesc, xml(sample.comment.or(I.xml("<span>Example by Testcase</span>"))));
+                    $("pre", style.Sample, () -> {
+                        $("code", attr("class", "language-java"), text(sample.code));
+                    });
+                }
+            }
+        });
     }
 
     /**

@@ -183,6 +183,15 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
     }
 
     /**
+     * List up all fields.
+     * 
+     * @return
+     */
+    public List<FieldInfo> fields() {
+        return fields;
+    }
+
+    /**
      * List up all methods.
      * 
      * @return

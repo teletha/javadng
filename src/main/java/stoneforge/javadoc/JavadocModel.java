@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
+import static javax.tools.DocumentationTool.Location.*;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -79,6 +79,8 @@ public abstract class JavadocModel {
 
     /** MethodID-SampleCode pari. */
     final Map<String, List<SampleInfo>> samples = new HashMap();
+
+    private Set<ClassInfo> docs = new HashSet();
 
     /** PackageName-URL pair. */
     private final Map<String, String> externals = new HashMap();
@@ -289,7 +291,9 @@ public abstract class JavadocModel {
 
                     tool.getTask(null, m, listener(), Internal.class, List.of("-package"), I
                             .signal(m.list(SOURCE_PATH, "", Set.of(Kind.SOURCE), true))
-                            .take(o -> o.getName().startsWith(sample().toString()) && o.getName().endsWith("Test.java"))
+                            .take(o -> o.getName()
+                                    .startsWith(sample()
+                                            .toString()) && (o.getName().endsWith("Test.java") || o.getName().endsWith("Doc.java")))
                             .toList()).call();
                 } catch (Throwable e) {
                     throw I.quiet(e);
@@ -516,15 +520,19 @@ public abstract class JavadocModel {
         if (!collectingSample) {
             data.add(info);
         } else {
-            for (MethodInfo method : info.methods()) {
-                if (!method.getSeeTags().isEmpty()) {
-                    String code = Util.getSourceCode(method);
-                    for (XML see : method.getSeeTags()) {
-                        String[] id = info.identify(see.text());
-                        SampleInfo sample = new SampleInfo(id[0], id[1], code);
-                        sample.comment.set(method.createComment());
+            if (info.name.endsWith("Doc")) {
+                docs.add(info);
+            } else {
+                for (MethodInfo method : info.methods()) {
+                    if (!method.getSeeTags().isEmpty()) {
+                        String code = Util.getSourceCode(method);
+                        for (XML see : method.getSeeTags()) {
+                            String[] id = info.identify(see.text());
+                            SampleInfo sample = new SampleInfo(id[0], id[1], code);
+                            sample.comment.set(method.createComment());
 
-                        samples.computeIfAbsent(sample.id(), x -> new ArrayList()).add(sample);
+                            samples.computeIfAbsent(sample.id(), x -> new ArrayList()).add(sample);
+                        }
                     }
                 }
             }
@@ -577,11 +585,14 @@ public abstract class JavadocModel {
 
                 // build HTML
                 for (ClassInfo info : data.types) {
-                    site.buildHTML("types/" + info.packageName + "." + info.name + ".html", new MainPage(this, info));
+                    site.buildHTML("types/" + info.packageName + "." + info.name + ".html", new MainPage(this, info, true));
+                }
+                for (ClassInfo info : docs) {
+                    site.buildHTML("docs/" + info.packageName + "." + info.name + ".html", new MainPage(this, info, false));
                 }
 
                 // create at last for live reload
-                site.buildHTML("javadoc.html", new MainPage(this, null));
+                site.buildHTML("javadoc.html", new MainPage(this, null, true));
             }
         }
     }

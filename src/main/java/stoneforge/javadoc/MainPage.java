@@ -26,12 +26,15 @@ public class MainPage extends HTML {
 
     protected final JavadocModel model;
 
+    protected final boolean api;
+
     /**
      * @param info
      */
-    public MainPage(JavadocModel model, ClassInfo info) {
+    public MainPage(JavadocModel model, ClassInfo info, boolean api) {
         this.info = info;
         this.model = model;
+        this.api = api;
     }
 
     /**
