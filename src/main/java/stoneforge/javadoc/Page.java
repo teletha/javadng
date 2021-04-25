@@ -9,6 +9,7 @@
  */
 package stoneforge.javadoc;
 
+import kiss.I;
 import stoneforge.HTML;
 import stoneforge.javadoc.analyze.ClassInfo;
 import stylist.Style;
@@ -17,24 +18,19 @@ import stylist.property.Background.BackgroundImage;
 import stylist.value.Color;
 import stylist.value.Numeric;
 
-/**
- * 
- */
-public class MainPage extends HTML {
-
-    protected final ClassInfo info;
+public abstract class Page extends HTML {
 
     protected final JavadocModel model;
 
-    protected final boolean api;
+    protected final ClassInfo info;
 
     /**
+     * @param model
      * @param info
      */
-    public MainPage(JavadocModel model, ClassInfo info, boolean api) {
-        this.info = info;
+    protected Page(JavadocModel model, ClassInfo info) {
         this.model = model;
-        this.api = api;
+        this.info = info;
     }
 
     /**
@@ -63,9 +59,10 @@ public class MainPage extends HTML {
                 $("header", Styles.HeaderArea, () -> {
                     $("h1", Styles.HeaderTitle, code(model.product()));
                     $("nav", Styles.HeaderNav, () -> {
-                        $("a", text("Document"));
-                        $("a", text("API"));
-                        $("a", text("Blog"));
+                        for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
+                            $("a", attr("href", "/docs/" + info.id() + ".html"), text(info.title()));
+                        }
+                        $("a", attr("href", "/types/"), text("API"));
                         $("a", text("Community"));
                     });
                 });
@@ -84,7 +81,7 @@ public class MainPage extends HTML {
                     $("article", Styles.Contents, () -> {
                         $("router-view");
                         if (info != null) {
-                            $(new ContentsView(model, info));
+                            declareContents();
                         }
                     });
 
@@ -105,6 +102,8 @@ public class MainPage extends HTML {
             });
         });
     }
+
+    protected abstract void declareContents();
 
     /**
      * Style definition.
@@ -169,7 +168,7 @@ public class MainPage extends HTML {
                 position.sticky().top(HeaderHeight);
                 padding.top(BaseStyle.BlockVerticalGap);
 
-                $.child(() -> {
+                $.child().child(() -> {
                     margin.bottom(BaseStyle.BlockVerticalGap);
                 });
             });
@@ -179,6 +178,22 @@ public class MainPage extends HTML {
             });
 
             $.select(".el-checkbox", () -> {
+                display.block();
+            });
+
+            $.select("ol", () -> {
+                font.size(0.9, rem);
+                margin.left(2, rem);
+                cursor.pointer();
+            });
+
+            $.select("ol ol", () -> {
+                font.size(0.9, rem);
+                margin.left(1, rem).bottom(0.5, rem);
+                listStyle.disclosureClose();
+            });
+
+            $.select("ol a", () -> {
                 display.block();
             });
         };

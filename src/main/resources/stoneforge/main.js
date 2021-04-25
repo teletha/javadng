@@ -92,29 +92,44 @@ new Vue({
   el: "nav > div",
   template: `
 	<div>
-		<v-select v-model="selectedModule" placeholder="Select Module" :options="items.modules"></v-select>
-		<v-select v-model="selectedPackage" placeholder="Select Package" :options="items.packages"></v-select>
+	  <div id="DocNavi" v-if="router.currentRoute.path.startsWith('/docs/')">
+      <ol>
+        <li v-for="doc in items.docs">
+          <a v-bind:href="doc.path">{{doc.title}}</a>
+          <ol>
+            <li v-for="sub in doc.subs">
+              <a v-bind:href="sub.path">{{sub.title}}</a>
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </div>
+	  <div id="APINavi" v-if="router.currentRoute.path.startsWith('/types/')">
+  		<v-select v-model="selectedModule" placeholder="Select Module" :options="items.modules"></v-select>
+  		<v-select v-model="selectedPackage" placeholder="Select Package" :options="items.packages"></v-select>
 
-		<p-check color="primary" v-model="selectedType" value="Interface">Interface</p-check>
-		<p-check color="primary" v-model="selectedType" value="Functional">Functional Interface</p-check>
-		<p-check color="primary" v-model="selectedType" value="AbstractClass">Abstract Class</p-check>
-		<p-check color="primary" v-model="selectedType" value="Class">Class</p-check>
-		<p-check color="primary" v-model="selectedType" value="Enum">Enum</p-check>
-		<p-check color="primary" v-model="selectedType" value="Annotation">Annotation</p-check>
-		<p-check color="primary" v-model="selectedType" value="Exception">Exception</p-check>
+  		<p-check color="primary" v-model="selectedType" value="Interface">Interface</p-check>
+  		<p-check color="primary" v-model="selectedType" value="Functional">Functional Interface</p-check>
+  		<p-check color="primary" v-model="selectedType" value="AbstractClass">Abstract Class</p-check>
+  		<p-check color="primary" v-model="selectedType" value="Class">Class</p-check>
+  		<p-check color="primary" v-model="selectedType" value="Enum">Enum</p-check>
+  		<p-check color="primary" v-model="selectedType" value="Annotation">Annotation</p-check>
+  		<p-check color="primary" v-model="selectedType" value="Exception">Exception</p-check>
 
-		<input id="SearchByName" v-model="selectedName" placeholder="Search by Name">
-		
-		<div class="tree">
-			<dl v-for="package in sortedItems">
-				<dt @click="toggle(package)" v-show="filter(package.children).length"><code>{{package.name}}</code></dt>
-				<dd v-for="type in filter(package.children)" :class="type.type" v-show="expandAll || package.isOpen" @click="link(type)"><code>{{type.name}}</code></dd>
-			</dl>
-		</div>
+  		<input id="SearchByName" v-model="selectedName" placeholder="Search by Name">
+  		
+  		<div class="tree">
+  			<dl v-for="package in sortedItems">
+  				<dt @click="toggle(package)" v-show="filter(package.children).length"><code>{{package.name}}</code></dt>
+  				<dd v-for="type in filter(package.children)" :class="type.type" v-show="expandAll || package.isOpen" @click="link(type)"><code>{{type.name}}</code></dd>
+  			</dl>
+  		</div>
+    </div>
 	</div>
   `,
   data: function() {
     return {
+      router: router,
       items: root,
       sortedItems: this.sortAndGroup(root),
       selectedName: "",

@@ -132,4 +132,22 @@ public abstract class MemberInfo extends DocumentInfo {
      * @return
      */
     public abstract String id();
+
+    /**
+     * Compute the documentation title
+     * 
+     * @return
+     */
+    public String title() {
+        // compute from heading text in javadoc
+        if (comment.isPresent()) {
+            XML first = comment.v.first().firstChild();
+            if (first.name().equals("h") || first.name().matches("h\\d")) {
+                return first.text();
+            }
+        }
+
+        // compute from class name
+        return name.replace('_', ' ').replaceAll(".+\\.", "");
+    }
 }

@@ -11,7 +11,9 @@ package stoneforge.javadoc.analyze;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -34,6 +36,9 @@ import kiss.Variable;
 import kiss.XML;
 
 public class ClassInfo extends ParameterizableInfo implements Comparable<ClassInfo> {
+
+    /** The type-info mapping. */
+    private static final Map<Element, ClassInfo> infos = new HashMap();
 
     /** The package name. */
     public String packageName;
@@ -59,6 +64,12 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
     /** Info repository. */
     private final List<MethodInfo> methods = new ArrayList();
 
+    /** Info repository. */
+    private ClassInfo outer;
+
+    /** Info repository. */
+    private final List<ClassInfo> inners = new ArrayList();
+
     /** Subtype repository. */
     private final Set<XML> subs = new TreeSet(Comparator.<XML, String> comparing(XML::text));
 
@@ -68,12 +79,19 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
      * @param root
      * @param resolver
      */
-    public ClassInfo(TypeElement root, TypeResolver resolver, DocumentInfo parent) {
-        super(root, resolver, parent);
+    public ClassInfo(TypeElement root, TypeResolver resolver) {
+        super(root, resolver, null);
         this.resolver = resolver;
         this.packageName = Util.ElementUtils.getPackageOf(root).toString();
         this.name = root.asType().toString().replaceAll("<.+>", "").substring(packageName.length() + 1);
         this.type = detectType(root);
+
+        ClassInfo parent = infos.get(root.getEnclosingElement());
+        if (parent != null) {
+            parent.inners.add(0, this);
+            outer = parent;
+        }
+        infos.put(root, this);
 
         Set<TypeMirror>[] types = Util.getAllTypes(root);
         for (TypeMirror type : types[0]) {
@@ -171,6 +189,39 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
             copy.add(base.clone());
         }
         return copy;
+    }
+
+    /**
+     * Retrieve the outside type.
+     * 
+     * @return
+     */
+    public Variable<ClassInfo> outer() {
+        return Variable.of(outer);
+    }
+
+    /**
+     * Retrieve the top-level type.
+     * 
+     * @return
+     */
+    public ClassInfo outermost() {
+        Variable<ClassInfo> now = outer();
+
+        if (now.isAbsent()) {
+            return this;
+        } else {
+            return now.exact().outermost();
+        }
+    }
+
+    /**
+     * List up all inner types.
+     * 
+     * @return
+     */
+    public List<ClassInfo> inners() {
+        return inners;
     }
 
     /**

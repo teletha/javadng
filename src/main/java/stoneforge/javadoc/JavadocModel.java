@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.DocumentationTool.Location.*;
+import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -30,6 +30,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javax.lang.model.SourceVersion;
@@ -59,6 +61,8 @@ import psychopath.Locator;
 import stoneforge.SiteBuilder;
 import stoneforge.javadoc.analyze.ClassInfo;
 import stoneforge.javadoc.analyze.Data;
+import stoneforge.javadoc.analyze.Data.Doc;
+import stoneforge.javadoc.analyze.FieldInfo;
 import stoneforge.javadoc.analyze.MethodInfo;
 import stoneforge.javadoc.analyze.SampleInfo;
 import stoneforge.javadoc.analyze.TypeResolver;
@@ -72,15 +76,19 @@ public abstract class JavadocModel {
     /** The default JDK API's location. */
     public static final String JDK = "https://docs.oracle.com/en/java/javase/16/docs/api/";
 
+    /** The name pattern of document. */
+    private static final Pattern DocName = Pattern.compile("(.+)Doc$");
+
     /** The scanned data. */
     public final Data data = new Data();
 
     private boolean collectingSample = false;
 
-    /** MethodID-SampleCode pari. */
-    final Map<String, List<SampleInfo>> samples = new HashMap();
+    /** The document repository. */
+    final List<ClassInfo> docs = new ArrayList();
 
-    private Set<ClassInfo> docs = new HashSet();
+    /** MethodID-SampleCode mapping. */
+    final Map<String, List<SampleInfo>> samples = new HashMap();
 
     /** PackageName-URL pair. */
     private final Map<String, String> externals = new HashMap();
@@ -353,6 +361,7 @@ public abstract class JavadocModel {
             server.createContext("/", context -> {
                 psychopath.File file = output().file(context.getRequestURI().getPath().substring(1));
                 byte[] body = file.text().getBytes(StandardCharsets.UTF_8);
+                System.out.println(file + "  " + file.size());
 
                 Headers headers = context.getResponseHeaders();
                 headers.set("Content-Type", mime(file));
@@ -516,12 +525,15 @@ public abstract class JavadocModel {
      * @param root A class or interface program element root.
      */
     private void process(TypeElement root) {
-        ClassInfo info = new ClassInfo(root, new TypeResolver(externals, internals, root), null);
+        ClassInfo info = new ClassInfo(root, new TypeResolver(externals, internals, root));
+
         if (!collectingSample) {
             data.add(info);
         } else {
-            if (info.name.endsWith("Doc")) {
-                docs.add(info);
+            Matcher matcher = DocName.matcher(info.outermost().name);
+
+            if (matcher.matches()) {
+                docs.add(0, info);
             } else {
                 for (MethodInfo method : info.methods()) {
                     if (!method.getSeeTags().isEmpty()) {
@@ -570,6 +582,21 @@ public abstract class JavadocModel {
             // after care
             data.connectSubType();
 
+            // build doc tree
+            for (ClassInfo info : docs) {
+                Doc doc = new Doc();
+                doc.title = info.title();
+                doc.path = "/docs/" + info.id() + ".html";
+                data.docs.add(doc);
+
+                for (FieldInfo field : info.fields()) {
+                    Doc sub = new Doc();
+                    sub.title = field.title();
+                    sub.path = "/docs/" + info.id() + ".html#" + field.name;
+                    doc.subs.add(sub);
+                }
+            }
+
             if (output() != null) {
                 SiteBuilder site = SiteBuilder.root(output()).guard("index.html", "main.css");
 
@@ -585,14 +612,14 @@ public abstract class JavadocModel {
 
                 // build HTML
                 for (ClassInfo info : data.types) {
-                    site.buildHTML("types/" + info.packageName + "." + info.name + ".html", new MainPage(this, info, true));
+                    site.buildHTML("types/" + info.packageName + "." + info.name + ".html", new APIPage(this, info));
                 }
                 for (ClassInfo info : docs) {
-                    site.buildHTML("docs/" + info.packageName + "." + info.name + ".html", new MainPage(this, info, false));
+                    site.buildHTML("docs/" + info.packageName + "." + info.name + ".html", new DocumentPage(this, info));
                 }
 
                 // create at last for live reload
-                site.buildHTML("javadoc.html", new MainPage(this, null, true));
+                site.buildHTML("javadoc.html", new APIPage(this, null));
             }
         }
     }

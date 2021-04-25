@@ -30,7 +30,7 @@ import stylist.value.Numeric;
 /**
  * 
  */
-class ContentsView extends HTML {
+class APIContentsView extends HTML {
 
     private JavadocModel model;
 
@@ -39,7 +39,7 @@ class ContentsView extends HTML {
     /**
      * @param info
      */
-    public ContentsView(JavadocModel model, ClassInfo info) {
+    public APIContentsView(JavadocModel model, ClassInfo info) {
         this.model = model;
         this.info = info;
     }

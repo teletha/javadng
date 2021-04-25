@@ -30,6 +30,9 @@ public final class Data {
     /** Type repository. */
     public List<ClassInfo> types = new ArrayList();
 
+    /** Doc repository. */
+    public List<Doc> docs = new ArrayList();
+
     /**
      * Avoid duplication.
      */
@@ -58,5 +61,17 @@ public final class Data {
                 }
             }
         }
+    }
+
+    /**
+     * Scanned doc data.
+     */
+    public static class Doc {
+
+        public String title;
+
+        public String path;
+
+        public List<Doc> subs = new ArrayList();
     }
 }
