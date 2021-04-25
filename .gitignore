@@ -1,7 +1,6 @@
 .*
 !/.gitignore
-docs/api/
-docs/api/types/
+docs/
 
 # Created by https://www.gitignore.io/api/Java,Maven,Windows,Eclipse
 # Edit at https://www.gitignore.io/?templates=Java,Maven,Windows,Eclipse
