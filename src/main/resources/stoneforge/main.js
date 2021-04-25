@@ -85,7 +85,6 @@ new Vue({
   router
 });
 
-Vue.use(PrettyCheckbox);
 Vue.component("v-select", VueSelect.VueSelect);
 
 new Vue({
@@ -108,13 +107,20 @@ new Vue({
   		<v-select v-model="selectedModule" placeholder="Select Module" :options="items.modules"></v-select>
   		<v-select v-model="selectedPackage" placeholder="Select Package" :options="items.packages"></v-select>
 
-  		<p-check color="primary" v-model="selectedType" value="Interface">Interface</p-check>
-  		<p-check color="primary" v-model="selectedType" value="Functional">Functional Interface</p-check>
-  		<p-check color="primary" v-model="selectedType" value="AbstractClass">Abstract Class</p-check>
-  		<p-check color="primary" v-model="selectedType" value="Class">Class</p-check>
-  		<p-check color="primary" v-model="selectedType" value="Enum">Enum</p-check>
-  		<p-check color="primary" v-model="selectedType" value="Annotation">Annotation</p-check>
-  		<p-check color="primary" v-model="selectedType" value="Exception">Exception</p-check>
+  		<input type="checkbox" id="Interface" value="Interface" v-model="selectedType">
+      <label for="Interface">Interface</label>
+      <input type="checkbox" id="Functional" value="Functional" v-model="selectedType">
+      <label for="Functional">Functional Interface</label>
+      <input type="checkbox" id="AbstractClass" value="AbstractClass" v-model="selectedType">
+      <label for="AbstractClass">Abstract Class</label>
+      <input type="checkbox" id="Class" value="Class" v-model="selectedType">
+      <label for="Class">Class</label>
+      <input type="checkbox" id="Enum" value="Enum" v-model="selectedType">
+      <label for="Enum">Enum</label>
+      <input type="checkbox" id="Annotation" value="Annotation" v-model="selectedType">
+      <label for="Annotation">Annotation</label>
+      <input type="checkbox" id="Exception" value="Exception" v-model="selectedType">
+      <label for="Exception">Enum</label>
 
   		<input id="SearchByName" v-model="selectedName" placeholder="Search by Name">
   		

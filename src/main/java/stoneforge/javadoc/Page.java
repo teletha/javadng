@@ -44,8 +44,6 @@ public abstract class Page extends HTML {
                 $("title", text(model.product() + " API"));
                 script("https://unpkg.com/vue/dist/vue.js");
                 script("https://unpkg.com/vue-router/dist/vue-router.js");
-                stylesheet("https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css");
-                script("https://cdn.jsdelivr.net/npm/pretty-checkbox-vue@1.1/dist/pretty-checkbox-vue.min.js");
                 stylesheet("https://unpkg.com/vue-select@3.4.0/dist/vue-select.css");
                 script("https://unpkg.com/vue-select@3.4.0");
                 stylesheet("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.7.1/build/styles/default.min.css");

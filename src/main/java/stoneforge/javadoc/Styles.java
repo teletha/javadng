@@ -48,6 +48,37 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
         });
     });
 
+    public static Style HTMLCheckbox = Style.named("input[type=\"checkbox\"]", () -> {
+        display.none();
+
+        $.select("+ label", () -> {
+            display.block();
+            position.relative();
+            padding.left(1.8, em);
+            cursor.pointer();
+            text.unselectable();
+            line.height(1, em);
+
+            $.before(() -> {
+                content.text("");
+                display.block().width(1, em).height(1, em).opacity(0.6);
+                border.solid().width(1, px).color(Color.hsl(200, 90, 30));
+                position.absolute().top(0, px).left(3, px);
+                transition.duration(0.12, s).whenever();
+            });
+        });
+
+        $.checked().select("+ label", () -> {
+            $.before(() -> {
+                display.width(0.5, em).opacity(0.9);
+                position.top(-0.2, em).left(0.5, em);
+                border.top.color(Color.Transparent);
+                border.left.color(Color.Transparent);
+                transform.rotate(45, deg);
+            });
+        });
+    });
+
     public static Style JavadocComment = () -> {
         $.select("p", () -> {
             block();
