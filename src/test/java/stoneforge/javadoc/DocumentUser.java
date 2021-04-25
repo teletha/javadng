@@ -13,11 +13,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import psychopath.Locator;
+
 public class DocumentUser {
 
     public static void main(String[] args) throws IOException {
-        String repo = "F:/Application/Java/lib/bee/repository/";
-        // String repo = "F:/Application/Maven Repository/";
+        String repo = Locator.directory("F:/Application/Maven Repository/").isPresent() ? "F:/Application/Maven Repository/"
+                : "F:/Application/Java/lib/bee/repository/";
 
         List<String> path = new ArrayList();
         path.add(repo + "com/fasterxml/jackson/core/jackson-core/2.12.2/jackson-core-2.12.2.jar");
