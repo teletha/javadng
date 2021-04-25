@@ -381,10 +381,6 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
         background.color(Color.White);
     });
 
-    public static final Style CheckBox = Style.named(".pretty", () -> {
-        display.block();
-    });
-
     public static final Style InputBox = Style.named("#SearchByName", () -> {
         display.block().width(100, percent);
         background.color(Color.White);
