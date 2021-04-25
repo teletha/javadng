@@ -42,7 +42,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
         cursor.pointer();
 
         $.hover(() -> {
-            font.color(Color.hsl(0, 80, 50));
+            font.color(palette.accent);
             text.decoration.underline();
             text.decorationColor.color(palette.font.opacify(-0.5));
         });
@@ -56,24 +56,29 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
             position.relative();
             padding.left(1.8, em);
             cursor.pointer();
-            text.unselectable();
             line.height(1, em);
 
             $.before(() -> {
                 content.text("");
                 display.block().width(1, em).height(1, em).opacity(0.6);
-                border.solid().width(1, px).color(Color.hsl(200, 90, 30));
+                border.solid().width(1, px).color(Color.hsl(0, 0, 55));
                 position.absolute().top(0, px).left(3, px);
-                transition.duration(0.12, s).whenever();
+                transition.duration(0.1, s).whenever();
+            });
+
+            $.hover().before(() -> {
+                border.color(palette.accent);
+                background.color(palette.accent.opacify(-0.25));
             });
         });
 
         $.checked().select("+ label", () -> {
             $.before(() -> {
-                display.width(0.5, em).opacity(0.9);
+                display.width(0.5, em).opacity(1);
                 position.top(-0.2, em).left(0.5, em);
                 border.top.color(Color.Transparent);
                 border.left.color(Color.Transparent);
+                background.color(Color.Transparent);
                 transform.rotate(45, deg);
             });
         });

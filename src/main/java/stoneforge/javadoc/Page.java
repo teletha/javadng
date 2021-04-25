@@ -42,12 +42,12 @@ public abstract class Page extends HTML {
             $("head", () -> {
                 $("meta", attr("charset", "UTF-8"));
                 $("title", text(model.product() + " API"));
-                script("https://unpkg.com/vue/dist/vue.js");
-                script("https://unpkg.com/vue-router/dist/vue-router.js");
-                stylesheet("https://unpkg.com/vue-select@3.4.0/dist/vue-select.css");
-                script("https://unpkg.com/vue-select@3.4.0");
-                stylesheet("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.7.1/build/styles/default.min.css");
-                script("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.7.1/build/highlight.min.js");
+                script("https://unpkg.com/vue/dist/vue.min.js");
+                script("https://unpkg.com/vue-router/dist/vue-router.min.js");
+                stylesheet("https://unpkg.com/vue-select/dist/vue-select.css");
+                script("https://unpkg.com/vue-select");
+                stylesheet("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/default.min.css");
+                script("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js");
                 stylesheet("/main.css");
             });
             $("body", Styles.workbench, () -> {
