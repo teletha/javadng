@@ -16,8 +16,8 @@ import java.util.List;
 public class DocumentUser {
 
     public static void main(String[] args) throws IOException {
-        // String repo = "F:/Application/Java/lib/bee/repository/";
-        String repo = "F:/Application/Maven Repository/";
+        String repo = "F:/Application/Java/lib/bee/repository/";
+        // String repo = "F:/Application/Maven Repository/";
 
         List<String> path = new ArrayList();
         path.add(repo + "com/fasterxml/jackson/core/jackson-core/2.12.2/jackson-core-2.12.2.jar");
@@ -31,7 +31,7 @@ public class DocumentUser {
         path.add(repo + "com/github/teletha/antibug/1.0.3/antibug-1.0.3.jar");
 
         Javadoc.with.sources("../sinobu/src/main/java")
-                .output("docs/api")
+                .output("docs")
                 .product("Sinobu")
                 .project("Sinobu")
                 .version("1.0")

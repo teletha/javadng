@@ -60,9 +60,9 @@ public abstract class Page extends HTML {
                     $("h1", Styles.HeaderTitle, code(model.product()));
                     $("nav", Styles.HeaderNav, () -> {
                         for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
-                            $("a", attr("href", "/docs/" + info.id() + ".html"), text(info.title()));
+                            $("a", attr("href", "/doc/" + info.id() + ".html"), text(info.title()));
                         }
-                        $("a", attr("href", "/types/"), text("API"));
+                        $("a", attr("href", "/api/"), text("API"));
                         $("a", text("Community"));
                     });
                 });

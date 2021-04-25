@@ -201,7 +201,7 @@ public class TypeResolver {
         }
 
         if (internals.contains(type.packageName)) {
-            StringBuilder builder = new StringBuilder("/types/");
+            StringBuilder builder = new StringBuilder("/api/");
             if (type.packageName.length() != 0) builder.append(type.packageName).append('.');
             if (type.enclosingName.length() != 0) builder.append(type.enclosingName).append('.');
             builder.append(type.typeName).append(".html");

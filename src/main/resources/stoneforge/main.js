@@ -92,7 +92,7 @@ new Vue({
   el: "nav > div",
   template: `
 	<div>
-	  <div id="DocNavi" v-if="router.currentRoute.path.startsWith('/docs/')">
+	  <div id="DocNavi" v-if="router.currentRoute.path.startsWith('/doc/')">
       <ol>
         <li v-for="doc in items.docs">
           <a v-bind:href="doc.path">{{doc.title}}</a>
@@ -104,7 +104,7 @@ new Vue({
         </li>
       </ol>
     </div>
-	  <div id="APINavi" v-if="router.currentRoute.path.startsWith('/types/')">
+	  <div id="APINavi" v-if="router.currentRoute.path.startsWith('/api/')">
   		<v-select v-model="selectedModule" placeholder="Select Module" :options="items.modules"></v-select>
   		<v-select v-model="selectedPackage" placeholder="Select Package" :options="items.packages"></v-select>
 
@@ -179,7 +179,7 @@ new Vue({
       package.isOpen = !package.isOpen;
     },
     link: function(type) {
-      router.push("/types/" + type.packageName + "." + type.name + ".html");
+      router.push("/api/" + type.packageName + "." + type.name + ".html");
     }
   }
 });

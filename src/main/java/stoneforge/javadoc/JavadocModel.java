@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
+import static javax.tools.DocumentationTool.Location.*;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -344,7 +344,7 @@ public abstract class JavadocModel {
      */
     public final Javadoc show() {
         try {
-            psychopath.File checker = output().file("javadoc.html");
+            psychopath.File checker = output().file("index.html");
             long[] modified = {checker.lastModifiedMilli()};
 
             HttpServer server = HttpServer.create(new InetSocketAddress(9321), 0);
@@ -361,7 +361,6 @@ public abstract class JavadocModel {
             server.createContext("/", context -> {
                 psychopath.File file = output().file(context.getRequestURI().getPath().substring(1));
                 byte[] body = file.text().getBytes(StandardCharsets.UTF_8);
-                System.out.println(file + "  " + file.size());
 
                 Headers headers = context.getResponseHeaders();
                 headers.set("Content-Type", mime(file));
@@ -372,7 +371,7 @@ public abstract class JavadocModel {
 
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                 try {
-                    Desktop.getDesktop().browse(new URI("http://localhost:9321/javadoc.html"));
+                    Desktop.getDesktop().browse(new URI("http://localhost:9321/index.html"));
                 } catch (Exception e) {
                     throw I.quiet(e);
                 }
@@ -488,7 +487,7 @@ public abstract class JavadocModel {
      */
     final Variable<ClassInfo> findByClassName(String className) {
         for (ClassInfo info : data.types) {
-            if ((info.packageName + "." + info.name).equals(className)) {
+            if (info.id().equals(className)) {
                 return Variable.of(info);
             }
         }
@@ -586,13 +585,13 @@ public abstract class JavadocModel {
             for (ClassInfo info : docs) {
                 Doc doc = new Doc();
                 doc.title = info.title();
-                doc.path = "/docs/" + info.id() + ".html";
+                doc.path = "/doc/" + info.id() + ".html";
                 data.docs.add(doc);
 
                 for (FieldInfo field : info.fields()) {
                     Doc sub = new Doc();
                     sub.title = field.title();
-                    sub.path = "/docs/" + info.id() + ".html#" + field.name;
+                    sub.path = "/doc/" + info.id() + ".html#" + field.name;
                     doc.subs.add(sub);
                 }
             }
@@ -612,14 +611,14 @@ public abstract class JavadocModel {
 
                 // build HTML
                 for (ClassInfo info : data.types) {
-                    site.buildHTML("types/" + info.packageName + "." + info.name + ".html", new APIPage(this, info));
+                    site.buildHTML("api/" + info.id() + ".html", new APIPage(this, info));
                 }
                 for (ClassInfo info : docs) {
-                    site.buildHTML("docs/" + info.packageName + "." + info.name + ".html", new DocumentPage(this, info));
+                    site.buildHTML("doc/" + info.id() + ".html", new DocumentPage(this, info));
                 }
 
                 // create at last for live reload
-                site.buildHTML("javadoc.html", new APIPage(this, null));
+                site.buildHTML("index.html", new APIPage(this, null));
             }
         }
     }
