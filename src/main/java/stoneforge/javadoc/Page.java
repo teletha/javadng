@@ -200,7 +200,7 @@ public abstract class Page extends HTML {
 
         Style Contents = () -> {
             flexItem.grow(1);
-            margin.horizontal(3, rem);
+            margin.horizontal(2, rem);
         };
 
         Style SubNavigation = () -> {
@@ -209,7 +209,7 @@ public abstract class Page extends HTML {
 
         Style SubNavigationStickyBlock = () -> {
             position.sticky().top(HeaderHeight);
-            display.block().height(Numeric.of(80, vh).subtract(HeaderHeight)).maxWidth(RightNavigationWidth);
+            display.block().height(Numeric.of(90, vh).subtract(HeaderHeight)).maxWidth(RightNavigationWidth);
             overflow.auto().scrollbar.thin();
             text.whiteSpace.nowrap();
 

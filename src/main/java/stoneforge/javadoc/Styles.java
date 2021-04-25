@@ -25,6 +25,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
     public static Style HTML = Style.named("html", () -> {
         font.size(14, px);
         scroll.smooth().padding.top(HeaderHeight);
+        overflow.y.scroll();
 
         $.select("*[class|=el]", () -> {
             font.size(1, rem);
