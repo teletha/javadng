@@ -11,7 +11,6 @@ package stoneforge.javadoc;
 
 import stylist.AbstractStyleDSL;
 import stylist.Style;
-import stylist.property.Background.BackgroundImage;
 import stylist.value.Color;
 
 /**
@@ -405,7 +404,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
             border.radius(2, px);
 
             $.hover(() -> {
-                background.color(Color.White).image(BackgroundImage.inherit()).repeat();
+                font.color(palette.accent);
             });
         });
 
@@ -416,7 +415,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
             text.whiteSpace.nowrap();
 
             $.hover(() -> {
-                background.color(Color.White).image(BackgroundImage.inherit()).repeat();
+                font.color(palette.accent);
             });
         });
     });
