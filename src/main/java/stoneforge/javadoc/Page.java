@@ -60,7 +60,7 @@ public abstract class Page extends HTML {
                         for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
                             $("a", attr("href", "/doc/" + info.id() + ".html"), text(info.title()));
                         }
-                        $("a", attr("href", "/api/"), text("API"));
+                        $("a", attr("href", "/api/"), attr("title", "TEST"), text("API"));
                         $("a", text("Community"));
                     });
                 });

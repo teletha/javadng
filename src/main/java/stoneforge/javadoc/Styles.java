@@ -12,6 +12,7 @@ package stoneforge.javadoc;
 import stylist.AbstractStyleDSL;
 import stylist.Style;
 import stylist.value.Color;
+import stylist.value.Numeric;
 
 /**
  * 
@@ -82,6 +83,65 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
             });
         });
     });
+
+    public static Style HTMLToolTip = tooltip("title", true, Color.Black, Color.White);
+
+    public static Style tooltip(String attributeName, boolean overTop, Color backgroundColor, Color fontColor) {
+        return Style.named("[" + attributeName + "]", () -> {
+            position.relative();
+
+            $.before(() -> {
+                tooltipPositioning(overTop);
+
+                content.attr(attributeName);
+                padding.horizontal(1, rem).vertical(0.8, rem);
+                display.width.fitContent();
+                border.radius(4, px);
+                background.color(backgroundColor);
+                font.color(fontColor).size(1, rem);
+                text.align.center().whiteSpace.preWrap();
+                transform.translate(-50, percent, -5, px).scale(0.6);
+            });
+
+            $.hover().before(() -> {
+                visibility.visible();
+                display.opacity(1);
+                transform.translate(-50, percent, -5, px).scale(1);
+            });
+
+            $.after(() -> {
+                tooltipPositioning(overTop);
+
+                content.text("");
+                border.solid().width(5, px);
+                border.color(backgroundColor);
+                border.bottom.width(0, px).color(Color.Transparent);
+                border.left.color(Color.Transparent);
+                transition.duration(0, s);
+                transform.translateX(-50, percent).scaleY(0);
+            });
+
+            $.hover().after(() -> {
+                visibility.visible();
+                display.opacity(1);
+            });
+        });
+    }
+
+    private static void tooltipPositioning(boolean overTop) {
+        Numeric verticalPotion = Numeric.of(100, percent).add(Numeric.of(3, px));
+
+        position.absolute().left(50, percent);
+        if (overTop) {
+            position.bottom(verticalPotion);
+        } else {
+            position.top(verticalPotion);
+        }
+
+        visibility.hidden();
+        display.opacity(0);
+        transition.duration(0.2, s).whenever();
+    }
 
     public static Style JavadocComment = () -> {
         $.select("p", () -> {
