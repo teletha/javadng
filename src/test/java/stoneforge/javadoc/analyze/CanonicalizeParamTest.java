@@ -19,7 +19,7 @@ import stoneforge.javadoc.JavadocTestSupport;
 
 public class CanonicalizeParamTest extends JavadocTestSupport {
 
-    private static final String BASE = "/types/" + CanonicalizeParamTest.class.getName() + ".html";
+    private static final String BASE = "/api/" + CanonicalizeParamTest.class.getName() + ".html";
 
     /**
      * {@link #param(String)}

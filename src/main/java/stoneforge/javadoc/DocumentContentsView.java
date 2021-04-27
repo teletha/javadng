@@ -111,7 +111,7 @@ class DocumentContentsView extends HTML {
             $.select("td", () -> {
                 padding.right(0.8, rem);
                 text.verticalAlign.top().overflow.ellipsis();
-                line.height(1.3);
+                font.lineHeight(1.3);
 
                 $.not($.lastChild(), () -> {
                     text.whiteSpace.nowrap();

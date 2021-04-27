@@ -24,6 +24,8 @@ import stoneforge.javadoc.JavadocTestSupport;
  */
 public class DocumentInfoTest extends JavadocTestSupport {
 
+    private static final String BASE = "/api/" + DocumentInfoTest.class.getName() + ".html";
+
     /**
      * Text
      */
@@ -136,7 +138,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkTagInternalType() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><code><a href='/types/stoneforge.javadoc.analyze.DocumentInfoTest.html'>DocumentInfoTest</a></code></span>");
+        assert sameXML(info.comment, "<span class='A'><code><a href='" + BASE + "'>DocumentInfoTest</a></code></span>");
     }
 
     /**
@@ -145,7 +147,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkTagInternalMethod() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><code><a href='/types/stoneforge.javadoc.analyze.DocumentInfoTest.html#linkTagInternalMethod()'>#linkTagInternalMethod()</a></code></span>");
+        assert sameXML(info.comment, "<span class='A'><code><a href='" + BASE + "#linkTagInternalMethod()'>#linkTagInternalMethod()</a></code></span>");
     }
 
     /**
@@ -154,7 +156,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkTagInternalTypeAndMethod() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><code><a href='/types/stoneforge.javadoc.analyze.DocumentInfoTest.html#linkTagInternalTypeAndMethod()'>DocumentInfoTest#linkTagInternalTypeAndMethod()</a></code></span>");
+        assert sameXML(info.comment, "<span class='A'><code><a href='" + BASE + "#linkTagInternalTypeAndMethod()'>DocumentInfoTest#linkTagInternalTypeAndMethod()</a></code></span>");
     }
 
     /**
@@ -199,7 +201,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkplainTagInternalType() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><code><a href='/types/stoneforge.javadoc.analyze.DocumentInfoTest.html'>DocumentInfoTest</a></code></span>");
+        assert sameXML(info.comment, "<span class='A'><code><a href='" + BASE + "'>DocumentInfoTest</a></code></span>");
     }
 
     /**
@@ -208,7 +210,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkplainTagInternalMethod() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><code><a href='/types/stoneforge.javadoc.analyze.DocumentInfoTest.html#linkplainTagInternalMethod()'>#linkplainTagInternalMethod()</a></code></span>");
+        assert sameXML(info.comment, "<span class='A'><code><a href='" + BASE + "#linkplainTagInternalMethod()'>#linkplainTagInternalMethod()</a></code></span>");
     }
 
     /**
@@ -217,7 +219,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkplainTagInternalTypeAndMethod() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><code><a href='/types/stoneforge.javadoc.analyze.DocumentInfoTest.html#linkplainTagInternalTypeAndMethod()'>DocumentInfoTest#linkplainTagInternalTypeAndMethod()</a></code></span>");
+        assert sameXML(info.comment, "<span class='A'><code><a href='" + BASE + "#linkplainTagInternalTypeAndMethod()'>DocumentInfoTest#linkplainTagInternalTypeAndMethod()</a></code></span>");
     }
 
     /**

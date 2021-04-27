@@ -60,7 +60,7 @@ public abstract class Page extends HTML {
                         for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
                             $("a", attr("href", "/doc/" + info.id() + ".html"), text(info.title()));
                         }
-                        $("a", attr("href", "/api/"), attr("title", "TEST"), text("API"));
+                        $("a", attr("href", "/api/"), text("API"));
                         $("a", text("Community"));
                     });
                 });
@@ -112,8 +112,7 @@ public abstract class Page extends HTML {
 
         Style workbench = () -> {
             background.color(Color.rgb(235, 246, 247)).image(BackgroundImage.drawSlash(Color.rgb(220, 222, 225, 0.7), 3)).repeat();
-            font.size(FontSize).family(fonts.base).color(palette.font);
-            line.height(LineHeight);
+            font.size(FontSize).family(fonts.base).color(palette.font).lineHeight(LineHeight);
         };
 
         Style HeaderArea = () -> {
