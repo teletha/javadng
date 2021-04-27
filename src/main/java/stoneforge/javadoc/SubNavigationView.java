@@ -82,7 +82,7 @@ class SubNavigationView extends HTML {
         };
 
         Style Return = () -> {
-            font.color(palette.secondary.lighten(-30));
+            font.color(theme.secondary.lighten(-30));
 
             $.before(() -> {
                 content.text(":");

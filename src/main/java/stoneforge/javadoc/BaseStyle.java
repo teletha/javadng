@@ -11,24 +11,23 @@ package stoneforge.javadoc;
 
 import static stylist.StyleDSL.*;
 
-import stylist.value.ColorPalette;
+import stylist.Theme;
 import stylist.value.Font;
-import stylist.value.FontPalette;
 import stylist.value.Numeric;
 
 public interface BaseStyle {
 
-    ColorPalette palette = ColorPalette.with.primary($.rgb(22, 94, 131))
+    Theme theme = Theme.with.primary($.rgb(22, 94, 131))
             .secondary($.rgb(250, 210, 50))
             .accent($.rgb(221, 81, 76))
-            .background($.rgb(241, 250, 238))
-            .font($.rgb(69, 69, 79));
-
-    Font Roboto = Font.fromGoogle("Roboto");
+            .front($.rgb(69, 69, 79))
+            .back($.rgb(241, 250, 238))
+            .link($.rgb(221, 81, 76))
+            .baseFont(Font.fromGoogle("Roboto"))
+            .titleFont(Font.fromGoogle("Ubuntu"))
+            .monoBySystem();
 
     Font RobotoMono = Font.fromGoogle("Roboto Mono");
-
-    FontPalette fonts = FontPalette.with.base(Roboto).title(Font.fromGoogle("Ubuntu")).monoBySystem();
 
     Numeric FontSize = Numeric.of(12, px);
 

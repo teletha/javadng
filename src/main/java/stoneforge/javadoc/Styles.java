@@ -41,9 +41,9 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
         cursor.pointer();
 
         $.hover(() -> {
-            font.color(palette.accent);
+            font.color(theme.accent);
             text.decoration.underline();
-            text.decorationColor.color(palette.font.opacify(-0.5));
+            text.decorationColor.color(theme.front.opacify(-0.5));
         });
     });
 
@@ -66,8 +66,8 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
             });
 
             $.hover().before(() -> {
-                border.color(palette.accent);
-                background.color(palette.accent.opacify(-0.25));
+                border.color(theme.accent);
+                background.color(theme.accent.opacify(-0.25));
             });
         });
 
@@ -83,7 +83,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
         });
     });
 
-    public static Style HTMLToolTip = Style.tooltip("tip", true, palette.background, palette.font);
+    public static Style HTMLToolTip = Style.tooltip("tip", true, theme);
 
     public static Style JavadocComment = () -> {
         $.select("p", () -> {
@@ -108,7 +108,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
 
         $.select("pre", () -> {
             block();
-            font.family(fonts.base);
+            font.family(theme.baseFont);
             padding.size(0.4, rem);
             border.radius(4, px);
         });
@@ -131,7 +131,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
         margin.left(0, px);
         padding.vertical(BaseStyle.BlockVerticalGap).horizontal(BaseStyle.BlockHorizontalGap);
         border.left.width(BaseStyle.BlockBorderWidth).solid().color(color);
-        font.family(fonts.base).lineHeight(LineHeight);
+        font.family(theme.baseFont).lineHeight(LineHeight);
         if (paintBackground) background.color(color.opacify(-0.8d));
     }
 
@@ -144,7 +144,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
         padding.vertical(BaseStyle.BlockVerticalGap).horizontal(BaseStyle.BlockHorizontalGap);
         border.left.width(BaseStyle.BlockBorderWidth).solid().color(color);
         border.radius(2, px);
-        font.family(fonts.base).lineHeight(LineHeight);
+        font.family(theme.baseFont).lineHeight(LineHeight);
         position.relative();
         if (paintBackground) background.color(color.opacify(-0.8d));
 
@@ -156,7 +156,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
     }
 
     public static final Style SignatureParameterPart = () -> {
-        font.color(palette.font.lighten(18));
+        font.color(theme.front.lighten(18));
     };
 
     public static final Style HTMLClassParameters = Style.named(".parameters", () -> {
@@ -217,11 +217,11 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
     });
 
     public static final Style HTMLClassTypeAnnotation = Style.named(".Annotation", () -> {
-        buildMark("A", palette.primary, true, false);
+        buildMark("A", theme.primary, true, false);
     });
 
     public static final Style HTMLClassTypeException = Style.named(".Exception", () -> {
-        buildMark("T", palette.accent, true, false);
+        buildMark("T", theme.accent, true, false);
     });
 
     private static void buildMark(String mark, Color color, boolean fill, boolean circle) {
@@ -257,15 +257,15 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
     });
 
     public static final Style HTMLClassModifierProtected = Style.named(".PROTECTED", () -> {
-        setMarkColor(palette.secondary);
+        setMarkColor(theme.secondary);
     });
 
     public static final Style HTMLClassModifierPackagePrivate = Style.named(".PACKAGEPRIVATE", () -> {
-        setMarkColor(palette.primary);
+        setMarkColor(theme.primary);
     });
 
     public static final Style HTMLClassModifierPrivate = Style.named(".PRIVATE", () -> {
-        setMarkColor(palette.accent);
+        setMarkColor(theme.accent);
     });
 
     /** The circle icon. */
@@ -341,7 +341,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
     private static void overlayAlphabetRightTop(String mark) {
         position.relative();
         $.before(() -> {
-            font.color(palette.primary).size(0.6, rem).family(RobotoMono);
+            font.color(theme.primary).size(0.6, rem).family(RobotoMono);
             content.text(mark);
             position.absolute().top(-0.2, rem).left(0.7, rem);
         });
@@ -355,7 +355,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
     private static void overlayAlphabetLeftTop(String mark) {
         position.relative();
         $.after(() -> {
-            font.color(palette.accent).size(0.6, rem).family(RobotoMono);
+            font.color(theme.accent).size(0.6, rem).family(RobotoMono);
             content.text(mark);
             position.absolute().top(-0.2, rem).left(0.3, rem);
         });
@@ -369,7 +369,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
     private static void overlayIconRightBottom(String mark) {
         position.relative();
         $.after(() -> {
-            font.color(palette.primary).size(0.7, rem).family(fonts.icon);
+            font.color(theme.primary).size(0.7, rem).family(theme.iconFont);
             content.text(mark);
             position.absolute().top(0.5, rem).left(0.4, rem);
         });
@@ -403,7 +403,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
             border.radius(2, px);
 
             $.hover(() -> {
-                font.color(palette.accent);
+                font.color(theme.accent);
             });
         });
 
@@ -414,7 +414,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
             text.whiteSpace.nowrap();
 
             $.hover(() -> {
-                font.color(palette.accent);
+                font.color(theme.accent);
             });
         });
     });

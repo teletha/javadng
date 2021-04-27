@@ -112,7 +112,7 @@ public abstract class Page extends HTML {
 
         Style workbench = () -> {
             background.color(Color.rgb(235, 246, 247)).image(BackgroundImage.drawSlash(Color.rgb(220, 222, 225, 0.7), 3)).repeat();
-            font.size(FontSize).family(fonts.base).color(palette.font).lineHeight(LineHeight);
+            font.size(FontSize).family(theme.baseFont).color(theme.front).lineHeight(LineHeight);
         };
 
         Style HeaderArea = () -> {
@@ -120,11 +120,11 @@ public abstract class Page extends HTML {
             position.sticky().top(0, rem);
             display.width(MaxWidth).height(HeaderHeight).zIndex(10).flex().alignItems.lastBaseline();
             margin.auto();
-            border.bottom.color(palette.primary).width(1, px).solid();
+            border.bottom.color(theme.primary).width(1, px).solid();
         };
 
         Style HeaderTitle = () -> {
-            font.size(2.5, rem).family(fonts.title).weight.normal().color(palette.primary);
+            font.size(2.5, rem).family(theme.titleFont).weight.normal().color(theme.primary);
         };
 
         Style HeaderNav = () -> {
@@ -146,7 +146,7 @@ public abstract class Page extends HTML {
                         margin.left(-4, px);
                         border.top.width(0, px);
                         border.bottom.width(6, px);
-                        border.bottom.color(palette.primary);
+                        border.bottom.color(theme.primary);
                         position.absolute().top(100, percent).left(50, percent);
                     });
                 });

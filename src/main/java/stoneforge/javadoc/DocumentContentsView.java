@@ -81,12 +81,12 @@ class DocumentContentsView extends HTML {
         };
 
         Style TypeName = () -> {
-            font.family(Roboto).size(1.2, rem).weight.normal();
+            font.family(theme.baseFont).size(1.2, rem).weight.normal();
             margin.bottom(0.3, rem);
         };
 
         Style MemberName = () -> {
-            font.family(Roboto).size(1, rem).weight.normal();
+            font.family(theme.baseFont).size(1, rem).weight.normal();
             display.block();
         };
 
@@ -96,7 +96,7 @@ class DocumentContentsView extends HTML {
         };
 
         Style Return = () -> {
-            font.color(palette.secondary.lighten(-30));
+            font.color(theme.secondary.lighten(-30));
 
             $.before(() -> {
                 content.text(":");
@@ -155,7 +155,7 @@ class DocumentContentsView extends HTML {
 
             $.before(() -> {
                 content.text("Return");
-                font.color(palette.secondary.lighten(-30));
+                font.color(theme.secondary.lighten(-30));
             });
         };
 
@@ -212,7 +212,7 @@ class DocumentContentsView extends HTML {
             });
 
             $.select("li").not($.lastChild()).after(() -> {
-                font.color(palette.font.lighten(30)).size.smaller();
+                font.color(theme.front.lighten(30)).size.smaller();
                 content.text("\\025b6");
                 margin.horizontal(0.8, rem);
             });
