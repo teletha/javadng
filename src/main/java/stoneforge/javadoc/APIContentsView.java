@@ -12,7 +12,6 @@ package stoneforge.javadoc;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import kiss.I;
 import kiss.XML;
 import stoneforge.HTML;
 import stoneforge.javadoc.analyze.ClassInfo;
@@ -130,7 +129,6 @@ class APIContentsView extends HTML {
             List<SampleInfo> list = model.samples.get(info.id() + "#" + member.id());
             if (list != null) {
                 for (SampleInfo sample : list) {
-                    $("div", style.SampleDesc, xml(sample.comment.or(I.xml("<span>Example by Testcase</span>"))));
                     $("pre", style.Sample, () -> {
                         $("code", attr("class", "language-java"), text(sample.code));
                     });
@@ -196,7 +194,6 @@ class APIContentsView extends HTML {
             List<SampleInfo> list = model.samples.get(info.id() + "#" + member.id());
             if (list != null) {
                 for (SampleInfo sample : list) {
-                    $("div", style.SampleDesc, xml(sample.comment.or(I.xml("<span>Example by Testcase</span>"))));
                     $("pre", style.Sample, () -> {
                         $("code", attr("class", "language-java"), text(sample.code));
                     });
@@ -391,22 +388,18 @@ class APIContentsView extends HTML {
             });
         });
 
-        Style SampleDesc = () -> {
-            display.block();
-            border.top.radius(4, px);
-            border.left.radius(4, px);
-            margin.top(1, em);
-            padding.horizontal(0.5, em).top(0.5, em);
-            background.color("#f0f0f0");
-            border.bottom.doubles().color("white").width(3, px);
-        };
-
         Style Sample = () -> {
-            margin.bottom(0.3, em);
+            margin.top(1, em).bottom(0.3, em);
+            position.relative();
 
             $.select("> code", () -> {
-                border.bottom.radius(4, px);
-                border.right.radius(4, px);
+                border.radius(4, px);
+            });
+
+            $.after(() -> {
+                position.absolute().top(4, px).right(8, px);
+                content.text("Example from Testcase");
+                font.weight.bold().color(theme.front.opacify(-0.3)).family("sans-serif");
             });
         };
     }
