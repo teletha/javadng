@@ -25,7 +25,7 @@ public interface BaseStyle {
             .link($.rgb(221, 81, 76))
             .baseFont(Font.fromGoogle("Roboto"))
             .titleFont(Font.fromGoogle("Ubuntu"))
-            .monoBySystem();
+            .monoFont(Font.fromGoogle("JetBrains Mono"));
 
     Font RobotoMono = Font.fromGoogle("Roboto Mono");
 

@@ -32,8 +32,12 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
         });
     });
 
-    public static Style HTMLItalic = Style.named("code", () -> {
+    public static Style HTMLCode = Style.named("code", () -> {
         font.family("inherit");
+
+        $.with(".hljs", () -> {
+            font.family(theme.monoFont);
+        });
     });
 
     public static Style HTMLAnchor = Style.named("a", () -> {
