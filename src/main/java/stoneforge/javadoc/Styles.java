@@ -383,6 +383,19 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
             $.hover(() -> {
                 font.color(theme.accent);
             });
+
+            $.child(() -> {
+                display.inlineBlock().width(100, percent);
+
+                $.child(() -> {
+                    display.inlineBlock().width(100, percent);
+                    text.decoration.none();
+
+                    $.hover(() -> {
+                        text.decoration.none();
+                    });
+                });
+            });
         });
     });
 }
