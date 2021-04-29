@@ -399,7 +399,7 @@ class APIContentsView extends HTML {
             $.after(() -> {
                 position.absolute().top(4, px).right(8, px);
                 content.text("Example from Testcase");
-                font.weight.bold().color(theme.front.opacify(-0.3)).family("sans-serif");
+                font.color(theme.front.opacify(-0.3)).family("sans-serif");
             });
         };
     }
