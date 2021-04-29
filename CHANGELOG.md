@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.2.0](https://www.github.com/Teletha/stoneforge/compare/v1.1.0...v1.2.0) (2021-04-29)
+
+
+### Features
+
+* Drop vue-router. ([bcd7631](https://www.github.com/Teletha/stoneforge/commit/bcd7631c19fd21b60f27591aebb83c31d9f18383))
+* Support filed view. ([8acdb33](https://www.github.com/Teletha/stoneforge/commit/8acdb331cf3e58ac12c169cd0b7f960615baf675))
+* Use JetBrains Mono for monospace font. ([ecbac58](https://www.github.com/Teletha/stoneforge/commit/ecbac5849be2a6d3358f4c14700b5e94625ff4da))
+
+
+### Bug Fixes
+
+* Drop pretty-checkbox. ([64b24e7](https://www.github.com/Teletha/stoneforge/commit/64b24e7c5462a411b2f8816840be50aeb481de82))
+* Enhance checkbox style. ([9c7c764](https://www.github.com/Teletha/stoneforge/commit/9c7c7649c10106c4ebbf771305d36bab59914bc4))
+* Enhance style of samples. ([39c5433](https://www.github.com/Teletha/stoneforge/commit/39c543329e63cda17a4c57dbe3c88aca2f109687))
+* Enhance style. ([c8c8dcc](https://www.github.com/Teletha/stoneforge/commit/c8c8dcc14673e14cca49f9c4580dafe83acae17c))
+* Enhance styles. ([9651f61](https://www.github.com/Teletha/stoneforge/commit/9651f612acdd03d542dbdf3b29e6e26ce6eb0a12))
+* Generate all resources. ([9d36dc0](https://www.github.com/Teletha/stoneforge/commit/9d36dc0f527dff4668d75328b9d3200252d48492))
+* Internal link handling. ([106e7f2](https://www.github.com/Teletha/stoneforge/commit/106e7f2964cf15be7f3c9dbd79bc7bb9226e14bd))
+* Internal link's transition was broken. ([e24d6ff](https://www.github.com/Teletha/stoneforge/commit/e24d6ffe23538a19acc5ae937876472e58b66bf4))
+* Reduce the redundant network access. ([f224cff](https://www.github.com/Teletha/stoneforge/commit/f224cffea467e9ab9cdcb01f73663ce42251743a))
+
 ## [1.1.0](https://www.github.com/Teletha/stoneforge/compare/v1.0.0...v1.1.0) (2021-04-20)
 
 
