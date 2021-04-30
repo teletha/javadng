@@ -116,8 +116,9 @@ public abstract class Page extends HTML {
         Style HeaderArea = () -> {
             background.color(Color.Inherit).image(BackgroundImage.inherit()).repeat();
             position.sticky().top(0, rem);
-            display.width(MaxWidth).height(HeaderHeight).zIndex(10).flex().alignItems.lastBaseline();
+            display.width(MaxWidth).height(HeaderHeight).zIndex(10).flex().alignItems.baseline();
             margin.auto();
+            padding.top(26, px);
             border.bottom.color(theme.primary).width(1, px).solid();
         };
 
@@ -133,6 +134,7 @@ public abstract class Page extends HTML {
                 display.inlineBlock();
                 padding.horizontal(1, rem);
                 position.relative();
+                text.decoration.none();
 
                 $.hover(() -> {
                     text.decoration.none();

@@ -350,6 +350,11 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
         background.color(Color.White);
     });
 
+    public static final Style SelectBoxHighlight = Style.named(".vs__dropdown-option--highlight", () -> {
+        font.color("inherit");
+        background.color(theme.accent.opacify(-0.6));
+    });
+
     public static final Style InputBox = Style.named("#SearchByName", () -> {
         display.block().width(100, percent);
         background.color(Color.White);
