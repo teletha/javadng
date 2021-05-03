@@ -82,7 +82,8 @@ public abstract class JavadocModel {
     /** The scanned data. */
     public final Data data = new Data();
 
-    private boolean collectingSample = false;
+    /** The javadoc mode. */
+    private boolean processingMainSource = true;
 
     /** The document repository. */
     final List<ClassInfo> docs = new ArrayList();
@@ -291,7 +292,7 @@ public abstract class JavadocModel {
             // Collect sample source
             // ========================================================
             if (sample() != null) {
-                collectingSample = true;
+                processingMainSource = false;
 
                 try (StandardJavaFileManager m = tool.getStandardFileManager(listener(), Locale.getDefault(), Charset.defaultCharset())) {
                     m.setLocation(SOURCE_PATH, I.signal(sources()).startWith(sample()).map(Directory::asJavaFile).toList());
@@ -306,7 +307,7 @@ public abstract class JavadocModel {
                 } catch (Throwable e) {
                     throw I.quiet(e);
                 } finally {
-                    collectingSample = false;
+                    processingMainSource = true;
                 }
             }
 
@@ -526,7 +527,7 @@ public abstract class JavadocModel {
     private void process(TypeElement root) {
         ClassInfo info = new ClassInfo(root, new TypeResolver(externals, internals, root));
 
-        if (!collectingSample) {
+        if (processingMainSource) {
             data.add(info);
         } else {
             Matcher matcher = DocName.matcher(info.outermost().name);
@@ -572,7 +573,7 @@ public abstract class JavadocModel {
      * Completion phase.
      */
     private void complete() {
-        if (!collectingSample) {
+        if (processingMainSource) {
             // sort data
             data.modules.sort(Comparator.naturalOrder());
             data.packages.sort(Comparator.naturalOrder());
