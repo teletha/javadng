@@ -61,18 +61,17 @@ public final class Util {
     /**
      * Get the source code of the specified {@link Element}.
      * 
-     * @param method
+     * @param doc
      * @return
      */
-    public static String getSourceCode(MethodInfo method) {
+    public static String getSourceCode(DocumentInfo doc) {
         try {
             DocSourcePositions positions = DocUtils.getSourcePositions();
 
-            TreePath path = Util.DocUtils.getPath(method.e);
+            TreePath path = Util.DocUtils.getPath(doc.e);
             CompilationUnitTree cut = path.getCompilationUnit();
             int start = (int) positions.getStartPosition(cut, path.getLeaf());
             int end = (int) positions.getEndPosition(cut, path.getLeaf());
-
             String[] lines = cut.getSourceFile().getCharContent(true).subSequence(start, end).toString().split("\\r\\n|\\r|\\n");
             int indent = Arrays.stream(lines).mapToInt(Util::countHeaderWhitespace).filter(i -> 0 < i).min().getAsInt();
             return Arrays.stream(lines).map(line -> stripHeaderWhitespace(line, indent)).collect(Collectors.joining("\r\n"));

@@ -73,7 +73,11 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
     /** Subtype repository. */
     private final Set<XML> subs = new TreeSet(Comparator.<XML, String> comparing(XML::text));
 
+    /** FQCN resolver. */
     private final TypeResolver resolver;
+
+    /** The holder of member's order. */
+    public final XML root = I.xml("root");
 
     /**
      * @param root
@@ -333,11 +337,12 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
          * {@inheritDoc}
          */
         @Override
-        public ClassInfo visitVariable(VariableElement e, ClassInfo p) {
-            if (isVisible(e, p)) {
-                fields.add(new FieldInfo(e, p.resolver, ClassInfo.this));
-            }
-            return p;
+        public ClassInfo visitVariable(VariableElement e, ClassInfo info) {
+            FieldInfo field = new FieldInfo(e, info.resolver, info);
+            if (isVisible(e, info)) fields.add(field);
+            field.comment.to(root::append);
+
+            return info;
         }
 
         /**
@@ -353,15 +358,20 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
          * {@inheritDoc}
          */
         @Override
-        public ClassInfo visitExecutable(ExecutableElement e, ClassInfo p) {
-            if (isVisible(e, p)) {
-                if (e.getKind() == ElementKind.CONSTRUCTOR) {
-                    constructors.add(new ExecutableInfo(e, p.resolver, ClassInfo.this));
-                } else {
-                    methods.add(new MethodInfo(e, p.resolver, ClassInfo.this));
-                }
+        public ClassInfo visitExecutable(ExecutableElement e, ClassInfo info) {
+            if (e.getKind() == ElementKind.CONSTRUCTOR) {
+                ExecutableInfo constructor = new ExecutableInfo(e, info.resolver, info);
+                if (isVisible(e, info)) constructors.add(constructor);
+                constructor.comment.to(root::append);
+            } else {
+                MethodInfo method = new MethodInfo(e, info.resolver, info);
+                if (isVisible(e, info)) methods.add(method);
+                method.comment.to(c -> {
+                    root.append(c);
+                    root.child("pre").text(Util.getSourceCode(method));
+                });
             }
-            return p;
+            return info;
         }
 
         /**

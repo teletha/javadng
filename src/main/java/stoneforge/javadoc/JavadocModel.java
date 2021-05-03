@@ -583,6 +583,7 @@ public abstract class JavadocModel {
 
             // build doc tree
             for (ClassInfo info : docs) {
+                System.out.println(info.name + "  " + info.root);
                 Doc doc = new Doc();
                 doc.title = info.title();
                 doc.path = "/doc/" + info.id() + ".html";
