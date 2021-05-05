@@ -454,6 +454,8 @@ public class DocumentInfo {
 
         private StringBuilder text = new StringBuilder();
 
+        private boolean inPre;
+
         /**
          * Parse documetation.
          * 
@@ -533,7 +535,12 @@ public class DocumentInfo {
          */
         @Override
         public DocumentXMLBuilder visitEndElement(EndElementTree node, DocumentXMLBuilder p) {
-            text.append("</").append(node.getName()).append('>');
+            String name = node.getName().toString();
+            if (name.equals("pre")) {
+                inPre = false;
+            }
+
+            text.append("</").append(name).append('>');
             return p;
         }
 
@@ -585,6 +592,14 @@ public class DocumentInfo {
             String label = node.getReference().toString();
             String[] id = identify(node.getReference().toString());
             String uri = resolver.resolveDocumentLocation(id[0]);
+
+            if (inPre) {
+                if (uri == null) {
+
+                } else {
+
+                }
+            }
 
             if (uri == null) {
                 text.append(label);
@@ -655,7 +670,12 @@ public class DocumentInfo {
          */
         @Override
         public DocumentXMLBuilder visitStartElement(StartElementTree node, DocumentXMLBuilder p) {
-            text.append("<").append(node.getName());
+            String name = node.getName().toString();
+            if (name.equals("pre")) {
+                inPre = true;
+            }
+
+            text.append("<").append(name);
             node.getAttributes().forEach(attr -> attr.accept(this, this));
             text.append(node.isSelfClosing() ? "/>" : ">");
             return p;

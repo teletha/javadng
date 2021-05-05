@@ -362,14 +362,14 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
             if (e.getKind() == ElementKind.CONSTRUCTOR) {
                 ExecutableInfo constructor = new ExecutableInfo(e, info.resolver, info);
                 if (isVisible(e, info)) constructors.add(constructor);
-                constructor.comment.to(root::append);
+                // constructor.comment.to(root::append);
             } else {
                 MethodInfo method = new MethodInfo(e, info.resolver, info);
                 if (isVisible(e, info)) methods.add(method);
-                method.comment.to(c -> {
-                    root.append(c);
-                    root.child("pre").text(Util.getSourceCode(method));
-                });
+                // method.comment.to(c -> {
+                // root.append(c);
+                // root.child("pre").text(Util.getSourceCode(method));
+                // });
             }
             return info;
         }
