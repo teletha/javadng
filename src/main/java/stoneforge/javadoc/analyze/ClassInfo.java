@@ -76,9 +76,6 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
     /** FQCN resolver. */
     private final TypeResolver resolver;
 
-    /** The holder of member's order. */
-    public final XML root = I.xml("root");
-
     /**
      * @param root
      * @param resolver
@@ -340,7 +337,6 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
         public ClassInfo visitVariable(VariableElement e, ClassInfo info) {
             FieldInfo field = new FieldInfo(e, info.resolver, info);
             if (isVisible(e, info)) fields.add(field);
-            field.comment.to(root::append);
 
             return info;
         }
@@ -362,14 +358,9 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
             if (e.getKind() == ElementKind.CONSTRUCTOR) {
                 ExecutableInfo constructor = new ExecutableInfo(e, info.resolver, info);
                 if (isVisible(e, info)) constructors.add(constructor);
-                // constructor.comment.to(root::append);
             } else {
                 MethodInfo method = new MethodInfo(e, info.resolver, info);
                 if (isVisible(e, info)) methods.add(method);
-                // method.comment.to(c -> {
-                // root.append(c);
-                // root.child("pre").text(Util.getSourceCode(method));
-                // });
             }
             return info;
         }

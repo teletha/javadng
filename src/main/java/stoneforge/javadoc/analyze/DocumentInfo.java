@@ -594,20 +594,17 @@ public class DocumentInfo {
             String uri = resolver.resolveDocumentLocation(id[0]);
 
             if (inPre) {
+                text.append("<code class='language-java'>").append(Util.getSourceCode(e.getEnclosingElement(), label)).append("</code>");
+            } else {
                 if (uri == null) {
-
+                    text.append(label);
                 } else {
-
+                    text.append("<code><a href='").append(uri);
+                    if (id[1] != null) text.append("#").append(id[1]);
+                    text.append("'>").append(label).append("</a></code>");
                 }
             }
 
-            if (uri == null) {
-                text.append(label);
-            } else {
-                text.append("<code><a href='").append(uri);
-                if (id[1] != null) text.append("#").append(id[1]);
-                text.append("'>").append(label).append("</a></code>");
-            }
             return p;
         }
 

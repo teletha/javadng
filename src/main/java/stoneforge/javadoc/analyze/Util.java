@@ -65,10 +65,33 @@ public final class Util {
      * @return
      */
     public static String getSourceCode(DocumentInfo doc) {
+        return getSourceCode(doc.e);
+    }
+
+    public static String getSourceCode(Element type, String memberDescriptor) {
+        if (memberDescriptor.charAt(0) == '#') {
+            memberDescriptor = memberDescriptor.substring(1);
+        }
+
+        for (Element e : type.getEnclosedElements()) {
+            if (e.toString().equals(memberDescriptor)) {
+                return getSourceCode(e);
+            }
+        }
+        return "";
+    }
+
+    /**
+     * Get the source code of the specified {@link Element}.
+     * 
+     * @param e
+     * @return
+     */
+    public static String getSourceCode(Element e) {
         try {
             DocSourcePositions positions = DocUtils.getSourcePositions();
 
-            TreePath path = Util.DocUtils.getPath(doc.e);
+            TreePath path = Util.DocUtils.getPath(e);
             CompilationUnitTree cut = path.getCompilationUnit();
             int start = (int) positions.getStartPosition(cut, path.getLeaf());
             int end = (int) positions.getEndPosition(cut, path.getLeaf());
