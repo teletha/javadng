@@ -594,7 +594,9 @@ public class DocumentInfo {
             String uri = resolver.resolveDocumentLocation(id[0]);
 
             if (inPre) {
-                text.append("<code class='language-java'>").append(Util.getSourceCode(e.getEnclosingElement(), label)).append("</code>");
+                text.append("<code class='lang-java'>")
+                        .append(escape(Util.getSourceCode(e.getEnclosingElement(), id[1] == null ? id[0] : id[1])))
+                        .append("</code>");
             } else {
                 if (uri == null) {
                     text.append(label);

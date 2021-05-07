@@ -29,7 +29,7 @@ public interface BaseStyle {
 
     Font RobotoMono = Font.fromGoogle("Roboto Mono");
 
-    Numeric FontSize = Numeric.of(12, px);
+    Numeric FontSize = Numeric.of(13, px);
 
     Numeric MaxWidth = Numeric.of(90, vw);
 

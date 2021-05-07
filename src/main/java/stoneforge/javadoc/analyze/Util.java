@@ -137,6 +137,15 @@ public final class Util {
             }
         }
 
+        // remove @Override
+        iter = lines.listIterator();
+        while (iter.hasNext()) {
+            String line = iter.next();
+            if (line.trim().equals("@Override")) {
+                iter.remove();
+            }
+        }
+
         // strip the common width indent
         int indent = lines.stream().mapToInt(Util::countHeaderWhitespace).filter(i -> 0 < i).min().getAsInt();
         return lines.stream().map(line -> stripHeaderWhitespace(line, indent)).collect(Collectors.joining("\r\n"));

@@ -13,6 +13,7 @@ import stylist.AbstractStyleDSL;
 import stylist.Browsers;
 import stylist.Style;
 import stylist.value.Color;
+import stylist.value.Font;
 
 /**
  * 
@@ -57,6 +58,38 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
     public static Style HTMLToolTip = Browsers.tooltip(theme, "tip", true);
 
     public static Style JavadocComment = () -> {
+        $.select("h2", () -> {
+            font.size(17, px).color(theme.primary).letterSpacing(1.5, px);
+            position.relative();
+            padding.size(0.5, em).left(0, em);
+            margin.top(0.3, em).bottom(0.8, em);
+            border.vertical.dotted().width(1, px).color("gray");
+
+            $.before(() -> {
+                font.family(Font.Awesome).size(2, em).color("white");
+                content.text("\\f111");
+                position.absolute().left(-1.5, em).top(-0.1, em);
+            });
+            $.after(() -> {
+                font.family(Font.Awesome).size(1, em).color(theme.primary);
+                content.text("\\f111");
+                position.absolute().left(-2.6, em);
+            });
+        });
+
+        $.select("h3", () -> {
+            font.size(15, px).letterSpacing(1.5, px).color(theme.primary);
+            position.relative();
+            padding.size(0.5, em).left(2, em);
+            margin.top(1.6, em);
+
+            $.before(() -> {
+                font.family(Font.Awesome).size(1, em);
+                content.text("\\f00c");
+                position.absolute().left(0.25, em);
+            });
+        });
+
         $.select("p", () -> {
             block();
         });
