@@ -1,5 +1,14 @@
 # Changelog
 
+### [1.2.1](https://www.github.com/Teletha/stoneforge/compare/v1.2.0...v1.2.1) (2021-05-07)
+
+
+### Bug Fixes
+
+* Enhance heading sytle. ([8af215c](https://www.github.com/Teletha/stoneforge/commit/8af215c821669975898a2ed72ab4a39407cbabb8))
+* Enhance styles. ([e3657ac](https://www.github.com/Teletha/stoneforge/commit/e3657ac98fb6482d8c50625fd45cdf9dc9fcf1dc))
+* Parse pre with code element correctly. ([40b3adb](https://www.github.com/Teletha/stoneforge/commit/40b3adb69d786dd789f799847be76f6c425be219))
+
 ## [1.2.0](https://www.github.com/Teletha/stoneforge/compare/v1.1.0...v1.2.0) (2021-04-29)
 
 
