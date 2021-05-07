@@ -130,7 +130,7 @@ class APIContentsView extends HTML {
             if (list != null) {
                 for (SampleInfo sample : list) {
                     $("pre", style.Sample, () -> {
-                        $("code", attr("class", "language-java"), text(sample.code));
+                        $("code", attr("class", "lang-java"), text(sample.code));
                     });
                 }
             }
@@ -195,7 +195,7 @@ class APIContentsView extends HTML {
             if (list != null) {
                 for (SampleInfo sample : list) {
                     $("pre", style.Sample, () -> {
-                        $("code", attr("class", "language-java"), text(sample.code));
+                        $("code", attr("class", "lang-java"), text(sample.code));
                     });
                 }
             }

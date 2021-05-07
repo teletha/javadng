@@ -486,7 +486,7 @@ public class DocumentInfo {
                     // sanitize script and css
                     XML xml = I.xml(text.toString());
                     xml.find("link").remove();
-                    xml.find("pre").addClass("prettyprint");
+                    xml.find("pre").addClass("lang-java");
 
                     return xml;
                 }
@@ -613,7 +613,18 @@ public class DocumentInfo {
          */
         @Override
         public DocumentXMLBuilder visitLiteral(LiteralTree node, DocumentXMLBuilder p) {
-            text.append(escape(node.getBody().getBody()));
+            String name = node.getTagName();
+            String body = escape(node.getBody().getBody());
+
+            if (inPre) {
+                body = Util.stripHeaderWhitespace(body);
+            }
+
+            if (name.equals("code")) {
+                text.append("<code>").append(body).append("</code>");
+            } else {
+                text.append(body);
+            }
             return p;
         }
 
@@ -629,20 +640,16 @@ public class DocumentInfo {
                 char c = text.charAt(i);
                 switch (c) {
                 case '<':
-                    buffer.append("&lt;");
-                    break;
                 case '>':
-                    buffer.append("&gt;");
-                    break;
                 case '\"':
-                    buffer.append("&quot;");
+                case '\'':
+                    buffer.append("&#" + ((int) c) + ";");
                     break;
                 case '&':
-                    buffer.append("&amp;");
-                    break;
-                case '\'':
-                    buffer.append("&apos;");
-                    break;
+                    if (i + 1 == text.length() || text.charAt(i + 1) != '#') {
+                        buffer.append("&#" + ((int) c) + ";");
+                        break;
+                    }
                 default:
                     if (c > 0x7e) {
                         buffer.append("&#" + ((int) c) + ";");

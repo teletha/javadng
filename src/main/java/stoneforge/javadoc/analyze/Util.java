@@ -10,9 +10,10 @@
 package stoneforge.javadoc.analyze;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -95,12 +96,50 @@ public final class Util {
             CompilationUnitTree cut = path.getCompilationUnit();
             int start = (int) positions.getStartPosition(cut, path.getLeaf());
             int end = (int) positions.getEndPosition(cut, path.getLeaf());
-            String[] lines = cut.getSourceFile().getCharContent(true).subSequence(start, end).toString().split("\\r\\n|\\r|\\n");
-            int indent = Arrays.stream(lines).mapToInt(Util::countHeaderWhitespace).filter(i -> 0 < i).min().getAsInt();
-            return Arrays.stream(lines).map(line -> stripHeaderWhitespace(line, indent)).collect(Collectors.joining("\r\n"));
+            return stripHeaderWhitespace(cut.getSourceFile().getCharContent(true).subSequence(start, end).toString());
         } catch (IOException error) {
             throw I.quiet(error);
         }
+    }
+
+    /**
+     * Strip whitespace prettily for the formatted source code.
+     * 
+     * @param text
+     * @return
+     */
+    public static String stripHeaderWhitespace(String text) {
+        List<String> lines = I.list(text.split("\\r\\n|\\r|\\n"));
+
+        if (lines.size() == 1) {
+            return text;
+        }
+
+        // remove the empty line from head
+        ListIterator<String> iter = lines.listIterator();
+        while (iter.hasNext()) {
+            String line = iter.next();
+            if (line.isEmpty()) {
+                iter.remove();
+            } else {
+                break;
+            }
+        }
+
+        // remove the empty line from tail
+        iter = lines.listIterator(lines.size());
+        while (iter.hasPrevious()) {
+            String line = iter.previous();
+            if (line.isEmpty()) {
+                iter.remove();
+            } else {
+                break;
+            }
+        }
+
+        // strip the common width indent
+        int indent = lines.stream().mapToInt(Util::countHeaderWhitespace).filter(i -> 0 < i).min().getAsInt();
+        return lines.stream().map(line -> stripHeaderWhitespace(line, indent)).collect(Collectors.joining("\r\n"));
     }
 
     private static int countHeaderWhitespace(String line) {
