@@ -118,7 +118,7 @@ public abstract class Page extends HTML {
             position.sticky().top(0, rem);
             display.width(MaxWidth).height(HeaderHeight).zIndex(10).flex().alignItems.baseline();
             margin.auto();
-            padding.top(26, px);
+            padding.top(22, px);
             border.bottom.color(theme.primary).width(1, px).solid();
         };
 

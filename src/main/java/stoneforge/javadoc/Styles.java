@@ -35,10 +35,6 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
 
     public static Style HTMLCode = Style.named("code", () -> {
         font.family("inherit");
-
-        $.with(".hljs", () -> {
-            font.family(theme.monoFont);
-        });
     });
 
     public static Style HTMLAnchor = Style.named("a", () -> {
@@ -57,6 +53,14 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
 
     public static Style HTMLToolTip = Browsers.tooltip(theme, "tip", true);
 
+    public static Style HLJS = Style.named(".hljs", () -> {
+        block();
+        font.family(theme.monoFont).size(12, px).letterSpacing(-0.2, px);
+        border.radius(4, px);
+        background.color(Color.rgb(245, 225, 225, 0.5));
+        margin.vertical(1, em);
+    });
+
     public static Style JavadocComment = () -> {
         $.select("h2", () -> {
             font.size(17, px).color(theme.primary).letterSpacing(1.5, px);
@@ -68,20 +72,20 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
             $.before(() -> {
                 font.family(Font.Awesome).size(2, em).color("white");
                 content.text("\\f111");
-                position.absolute().left(-1.5, em).top(-0.1, em);
+                position.absolute().left(-1.5, em).top(-0.13, em);
             });
             $.after(() -> {
                 font.family(Font.Awesome).size(1, em).color(theme.primary);
                 content.text("\\f111");
-                position.absolute().left(-2.6, em);
+                position.absolute().left(-2.6, em).top(0.55, em);
             });
         });
 
         $.select("h3", () -> {
             font.size(15, px).letterSpacing(1.5, px).color(theme.primary);
             position.relative();
-            padding.size(0.5, em).left(2, em);
-            margin.top(1.6, em);
+            padding.vertical(0.3, em).left(2, em);
+            margin.top(1.1, em);
 
             $.before(() -> {
                 font.family(Font.Awesome).size(1, em);
@@ -108,13 +112,6 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
             block();
             margin.left(0.5, rem);
             listStyle.inside();
-        });
-
-        $.select("pre", () -> {
-            block();
-            font.family(theme.baseFont);
-            padding.size(0.4, rem);
-            border.radius(4, px);
         });
 
         $.select("blockquote", () -> {

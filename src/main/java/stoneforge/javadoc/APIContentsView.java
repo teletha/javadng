@@ -389,12 +389,7 @@ class APIContentsView extends HTML {
         });
 
         Style Sample = () -> {
-            margin.top(1, em).bottom(0.3, em);
             position.relative();
-
-            $.select("> code", () -> {
-                border.radius(4, px);
-            });
 
             $.after(() -> {
                 position.absolute().top(4, px).right(8, px);

@@ -45,6 +45,6 @@ public interface BaseStyle {
 
     Numeric RightNavigationWidth = Numeric.of(20, vw);
 
-    double LineHeight = 1.5;
+    double LineHeight = 1.7;
 
 }
