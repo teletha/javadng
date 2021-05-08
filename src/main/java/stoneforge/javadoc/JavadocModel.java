@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.DocumentationTool.Location.*;
+import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -531,7 +531,7 @@ public abstract class JavadocModel {
         if (processingMainSource) {
             data.add(info);
         } else {
-            Matcher matcher = DocName.matcher(info.outermost().name);
+            Matcher matcher = DocName.matcher(info.outer().map(o -> o.name).or(""));
 
             if (matcher.matches()) {
                 docs.add(0, info);

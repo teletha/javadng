@@ -589,7 +589,7 @@ public class DocumentInfo {
          */
         @Override
         public DocumentXMLBuilder visitLink(LinkTree node, DocumentXMLBuilder p) {
-            String label = node.getReference().toString();
+            String ref = node.getReference().toString();
             String[] id = identify(node.getReference().toString());
             String uri = resolver.resolveDocumentLocation(id[0]);
 
@@ -603,11 +603,11 @@ public class DocumentInfo {
                 }
             } else {
                 if (uri == null) {
-                    text.append(label);
+                    text.append(ref);
                 } else {
                     text.append("<code><a href='").append(uri);
                     if (id[1] != null) text.append("#").append(id[1]);
-                    text.append("'>").append(label).append("</a></code>");
+                    text.append("'>").append(ref).append("</a></code>");
                 }
             }
 
