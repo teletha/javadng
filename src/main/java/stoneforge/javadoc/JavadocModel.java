@@ -431,6 +431,7 @@ public abstract class JavadocModel {
             Util.DocUtils = env.getDocTrees();
             Util.ElementUtils = env.getElementUtils();
             Util.TypeUtils = env.getTypeUtils();
+            Util.Samples = model.sample();
 
             try {
                 model.initialize();

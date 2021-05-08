@@ -25,12 +25,18 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
+import com.github.javaparser.Position;
+import com.github.javaparser.StaticJavaParser;
+import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.MethodDeclaration;
 import com.sun.source.tree.CompilationUnitTree;
 import com.sun.source.util.DocSourcePositions;
 import com.sun.source.util.DocTrees;
 import com.sun.source.util.TreePath;
 
 import kiss.I;
+import psychopath.Directory;
+import psychopath.File;
 
 public final class Util {
 
@@ -42,6 +48,9 @@ public final class Util {
 
     /** Guilty Accessor. */
     public static Types TypeUtils;
+
+    /** Guilty Accessor. */
+    public static Directory Samples;
 
     /**
      * Find the top-level {@link TypeElement} (not member class).
@@ -57,6 +66,30 @@ public final class Util {
             parent = e.getEnclosingElement();
         }
         return (TypeElement) e;
+    }
+
+    /**
+     * Get the source code of the specified class.
+     */
+    public static String getSourceCode(String fqcn, String memberDescriptor) {
+        System.out.println(fqcn + "  " + memberDescriptor);
+
+        try {
+            File file = Samples.file(fqcn.replace('.', '/') + ".java");
+            CompilationUnit parsed = StaticJavaParser.parse(file.asJavaFile());
+            for (MethodDeclaration method : parsed.findAll(MethodDeclaration.class)) {
+                if (method.getSignature().asString().equals(memberDescriptor)) {
+                    Position begin = method.getBegin().get();
+                    Position end = method.getEnd().get();
+                    List<String> lines = file.lines().toList().subList(begin.line, end.line);
+
+                    return stripHeaderWhitespace(lines.stream().collect(Collectors.joining("\r\n")));
+                }
+            }
+        } catch (Exception e) {
+            throw I.quiet(e);
+        }
+        return "";
     }
 
     /**
