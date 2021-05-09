@@ -14,6 +14,8 @@ import java.util.List;
 import javax.lang.model.element.Modifier;
 
 import stoneforge.javadoc.analyze.ClassInfo;
+import stylist.Style;
+import stylist.StyleDSL;
 
 public class DocumentPage extends Page {
 
@@ -50,14 +52,15 @@ public class DocumentPage extends Page {
      */
     @Override
     protected void declareSubNavigation() {
-        $("ol", () -> {
+        $("h5", style.toc, text("Table of Contents"));
+        $("ol", style.top, () -> {
             for (ClassInfo child : info.children(Modifier.PUBLIC)) {
                 $("li", () -> {
                     $("a", attr("href", "#" + child.id()), text(child.title()));
 
                     List<ClassInfo> grands = child.children(Modifier.PUBLIC);
                     if (!grands.isEmpty()) {
-                        $("ol", () -> {
+                        $("ol", style.sub, () -> {
                             for (ClassInfo grand : grands) {
                                 $("li", () -> {
                                     $("a", attr("href", "#" + grand.id()), text(grand.title()));
@@ -68,5 +71,23 @@ public class DocumentPage extends Page {
                 });
             }
         });
+    }
+
+    private interface style extends StyleDSL, BaseStyle {
+        Style toc = () -> {
+            margin.top(1, em).bottom(0.5, em);
+            font.size(13, px).color(theme.front.opacify(-0.3));
+        };
+
+        Style top = () -> {
+            listStyle.inside().circle();
+            font.lineHeight(2).weight.bold().color(theme.front.opacify(-0.3));
+        };
+
+        Style sub = () -> {
+            listStyle.inside().disclosureClose();
+            padding.left(1, em);
+            font.weight.normal();
+        };
     }
 }
