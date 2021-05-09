@@ -30,7 +30,19 @@ public class DocumentPage extends Page {
      */
     @Override
     protected void declareContents() {
-        $(new DocumentContentsView(model, info));
+        $("section", Styles.Section, () -> {
+            $(info.createComment());
+        });
+
+        for (ClassInfo child : info.children()) {
+            $("section", attr("id", child.id()), Styles.Section, () -> {
+                $(child.createComment());
+
+                for (ClassInfo grandchild : child.children()) {
+                    $(grandchild.createComment());
+                }
+            });
+        }
     }
 
     /**
