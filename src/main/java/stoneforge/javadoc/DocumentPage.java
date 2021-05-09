@@ -9,6 +9,10 @@
  */
 package stoneforge.javadoc;
 
+import java.util.List;
+
+import javax.lang.model.element.Modifier;
+
 import stoneforge.javadoc.analyze.ClassInfo;
 
 public class DocumentPage extends Page {
@@ -34,6 +38,23 @@ public class DocumentPage extends Page {
      */
     @Override
     protected void declareSubNavigation() {
-        $(new DocumentSubNavigationView(info));
+        $("ol", () -> {
+            for (ClassInfo child : info.children(Modifier.PUBLIC)) {
+                $("li", () -> {
+                    $("a", attr("href", "#" + child.id()), text(child.title()));
+
+                    List<ClassInfo> grands = child.children(Modifier.PUBLIC);
+                    if (!grands.isEmpty()) {
+                        $("ol", () -> {
+                            for (ClassInfo grand : grands) {
+                                $("li", () -> {
+                                    $("a", attr("href", "#" + grand.id()), text(grand.title()));
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 }
