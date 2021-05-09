@@ -87,7 +87,7 @@ public abstract class Page extends HTML {
                     $("aside", Styles.SubNavigation, () -> {
                         $("div", Styles.SubNavigationStickyBlock, () -> {
                             if (info != null) {
-                                $(new SubNavigationView(info));
+                                declareSubNavigation();
                             }
                         });
                     });
@@ -100,6 +100,8 @@ public abstract class Page extends HTML {
     }
 
     protected abstract void declareContents();
+
+    protected abstract void declareSubNavigation();
 
     /**
      * Style definition.

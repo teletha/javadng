@@ -217,12 +217,12 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
     }
 
     /**
-     * List up all inner types.
+     * List up all inner types with the specified modifiers.
      * 
      * @return
      */
-    public List<ClassInfo> inners() {
-        return inners;
+    public List<ClassInfo> children(Modifier... modifiers) {
+        return I.signal(inners).take(m -> m.is(modifiers)).toList();
     }
 
     /**
@@ -230,8 +230,8 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
      * 
      * @return
      */
-    public List<ExecutableInfo> constructors() {
-        return constructors;
+    public List<ExecutableInfo> constructors(Modifier... modifiers) {
+        return I.signal(constructors).take(m -> m.is(modifiers)).toList();
     }
 
     /**
@@ -239,8 +239,8 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
      * 
      * @return
      */
-    public List<FieldInfo> fields() {
-        return fields;
+    public List<FieldInfo> fields(Modifier... modifiers) {
+        return I.signal(fields).take(m -> m.is(modifiers)).toList();
     }
 
     /**
@@ -248,8 +248,8 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
      * 
      * @return
      */
-    public List<MethodInfo> methods() {
-        return methods;
+    public List<MethodInfo> methods(Modifier... modifiers) {
+        return I.signal(methods).take(m -> m.is(modifiers)).toList();
     }
 
     /**

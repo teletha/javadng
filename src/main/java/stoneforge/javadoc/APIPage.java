@@ -28,4 +28,12 @@ public class APIPage extends Page {
     protected void declareContents() {
         $(new APIContentsView(model, info));
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void declareSubNavigation() {
+        $(new APISubNavigationView(info));
+    }
 }

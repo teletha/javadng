@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
+import static javax.tools.DocumentationTool.Location.*;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -62,7 +62,6 @@ import stoneforge.SiteBuilder;
 import stoneforge.javadoc.analyze.ClassInfo;
 import stoneforge.javadoc.analyze.Data;
 import stoneforge.javadoc.analyze.Data.Doc;
-import stoneforge.javadoc.analyze.FieldInfo;
 import stoneforge.javadoc.analyze.MethodInfo;
 import stoneforge.javadoc.analyze.SampleInfo;
 import stoneforge.javadoc.analyze.TypeResolver;
@@ -533,7 +532,7 @@ public abstract class JavadocModel {
         } else {
             Matcher matcher = DocName.matcher(info.outer().map(o -> o.name).or(""));
 
-            if (matcher.matches()) {
+            if (matcher.matches() && info.isPublic()) {
                 docs.add(0, info);
             } else {
                 for (MethodInfo method : info.methods()) {
@@ -590,10 +589,10 @@ public abstract class JavadocModel {
                 doc.path = "/doc/" + info.id() + ".html";
                 data.docs.add(doc);
 
-                for (FieldInfo field : info.fields()) {
+                for (ClassInfo child : info.children()) {
                     Doc sub = new Doc();
-                    sub.title = field.title();
-                    sub.path = "/doc/" + info.id() + ".html#" + field.name;
+                    sub.title = child.title();
+                    sub.path = "/doc/" + info.id() + ".html#" + child.name;
                     doc.subs.add(sub);
                 }
             }

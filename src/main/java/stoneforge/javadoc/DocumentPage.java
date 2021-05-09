@@ -10,8 +10,6 @@
 package stoneforge.javadoc;
 
 import stoneforge.javadoc.analyze.ClassInfo;
-import stylist.Style;
-import stylist.StyleDSL;
 
 public class DocumentPage extends Page {
 
@@ -31,20 +29,11 @@ public class DocumentPage extends Page {
         $(new DocumentContentsView(model, info));
     }
 
-    private String strip(String text) {
-        return text.replace('_', ' ').replaceAll(".+\\.", "");
-    }
-
-    private interface styles extends StyleDSL, BaseStyle {
-        Style navi = () -> {
-            font.size(1, rem);
-            margin.left(2, rem);
-        };
-
-        Style section = () -> {
-            font.size(1, rem);
-            margin.left(1.1, rem);
-            listStyle.disclosureClose();
-        };
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void declareSubNavigation() {
+        $(new DocumentSubNavigationView(info));
     }
 }

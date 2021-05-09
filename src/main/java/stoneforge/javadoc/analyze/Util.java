@@ -72,8 +72,6 @@ public final class Util {
      * Get the source code of the specified class.
      */
     public static String getSourceCode(String fqcn, String memberDescriptor) {
-        System.out.println(fqcn + "  " + memberDescriptor);
-
         try {
             File file = Samples.file(fqcn.replace('.', '/') + ".java");
             CompilationUnit parsed = StaticJavaParser.parse(file.asJavaFile());

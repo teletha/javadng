@@ -42,6 +42,29 @@ public abstract class MemberInfo extends DocumentInfo {
     }
 
     /**
+     * Check whether this member has the specified modifiers or not.
+     * 
+     * @return Result.
+     */
+    public final boolean is(Modifier... modifiers) {
+        for (Modifier modifier : modifiers) {
+            if (!this.modifiers.contains(modifier)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Check whether this member has static modifier or not.
+     * 
+     * @return Result.
+     */
+    public final boolean isPublic() {
+        return modifiers.contains(Modifier.PUBLIC);
+    }
+
+    /**
      * Check whether this member has static modifier or not.
      * 
      * @return Result.

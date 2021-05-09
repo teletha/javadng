@@ -23,14 +23,14 @@ import stylist.StyleDSL;
 /**
  * 
  */
-class SubNavigationView extends HTML {
+class APISubNavigationView extends HTML {
 
     private final ClassInfo info;
 
     /**
      * @param info
      */
-    public SubNavigationView(ClassInfo info) {
+    public APISubNavigationView(ClassInfo info) {
         this.info = info;
     }
 

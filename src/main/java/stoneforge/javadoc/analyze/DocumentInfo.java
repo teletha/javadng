@@ -598,7 +598,7 @@ public class DocumentInfo {
                     text.append("<code class='lang-java'>").append(escape(Util.getSourceCode(id[0], id[1]))).append("</code>");
                 } else {
                     text.append("<code class='lang-java'>")
-                            .append(escape(Util.getSourceCode(e.getEnclosingElement(), id[1] == null ? id[0] : id[1])))
+                            .append(escape(Util.getSourceCode(e, id[1] == null ? id[0] : id[1])))
                             .append("</code>");
                 }
             } else {

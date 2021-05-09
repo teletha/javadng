@@ -11,7 +11,6 @@ package stoneforge.javadoc;
 
 import stoneforge.HTML;
 import stoneforge.javadoc.analyze.ClassInfo;
-import stoneforge.javadoc.analyze.FieldInfo;
 import stylist.Style;
 import stylist.StyleDSL;
 import stylist.property.Background.BackgroundImage;
@@ -45,9 +44,13 @@ class DocumentContentsView extends HTML {
             $(info.createComment());
         });
 
-        for (FieldInfo field : info.fields()) {
-            $("section", attr("id", field.id()), style.MemberSection, () -> {
-                $(field.createComment());
+        for (ClassInfo child : info.children()) {
+            $("section", attr("id", child.id()), style.MemberSection, () -> {
+                $(child.createComment());
+
+                for (ClassInfo grandchild : child.children()) {
+                    $(grandchild.createComment());
+                }
             });
         }
     }
