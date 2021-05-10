@@ -186,14 +186,9 @@ public abstract class Page extends HTML {
                 cursor.pointer();
 
                 $.select("ol", () -> {
-                    font.size(0.9, em).color(Color.hsl(0, 0, 50));
-                    margin.left(0, em).bottom(0.8, em);
+                    font.size(0.8, em).color(Color.hsl(0, 0, 50)).lineHeight(1.5);
+                    margin.left(0, em).bottom(0.5, em);
                     listStyle.none();
-
-                    $.select("ol", () -> {
-                        listStyle.none();
-                        font.size(1, em);
-                    });
                 });
             });
 
