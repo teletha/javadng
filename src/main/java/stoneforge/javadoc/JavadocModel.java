@@ -36,6 +36,7 @@ import java.util.stream.Collectors;
 
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.Modifier;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
@@ -589,11 +590,18 @@ public abstract class JavadocModel {
                 doc.path = "/doc/" + info.id() + ".html";
                 data.docs.add(doc);
 
-                for (ClassInfo child : info.children()) {
+                for (ClassInfo child : info.children(Modifier.PUBLIC)) {
                     Doc sub = new Doc();
                     sub.title = child.title();
                     sub.path = "/doc/" + info.id() + ".html#" + child.name;
                     doc.subs.add(sub);
+
+                    for (ClassInfo grand : child.children(Modifier.PUBLIC)) {
+                        Doc grandDoc = new Doc();
+                        grandDoc.title = grand.title();
+                        grandDoc.path = "/doc/" + info.id() + ".html#" + grand.name;
+                        sub.subs.add(grandDoc);
+                    }
                 }
             }
 

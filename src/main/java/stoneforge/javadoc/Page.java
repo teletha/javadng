@@ -181,19 +181,25 @@ public abstract class Page extends HTML {
             });
 
             $.select("ol", () -> {
-                font.size(0.9, rem);
-                margin.left(2, rem);
+                font.size(1.2, em).family(theme.condensedFont);
+                margin.left(2, em);
                 cursor.pointer();
-            });
 
-            $.select("ol ol", () -> {
-                font.size(0.9, rem);
-                margin.left(1, rem).bottom(0.5, rem);
-                listStyle.disclosureClose();
+                $.select("ol", () -> {
+                    font.size(0.9, em).color(Color.hsl(0, 0, 50));
+                    margin.left(0, em).bottom(0.8, em);
+                    listStyle.none();
+
+                    $.select("ol", () -> {
+                        listStyle.none();
+                        font.size(1, em);
+                    });
+                });
             });
 
             $.select("ol a", () -> {
                 display.block();
+                text.decoration.none();
             });
         };
 

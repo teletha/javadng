@@ -120,8 +120,8 @@ public class APIPage extends Page {
             List<SampleInfo> list = model.samples.get(info.id() + "#" + member.id());
             if (list != null) {
                 for (SampleInfo sample : list) {
-                    $("pre", style.Sample, () -> {
-                        $("code", attr("class", "lang-java"), text(sample.code));
+                    $("pre", () -> {
+                        $("code", attr("class", "lang-java"), attr("rel", "Java"), text(sample.code));
                     });
                 }
             }
@@ -185,8 +185,8 @@ public class APIPage extends Page {
             List<SampleInfo> list = model.samples.get(info.id() + "#" + member.id());
             if (list != null) {
                 for (SampleInfo sample : list) {
-                    $("pre", style.Sample, () -> {
-                        $("code", attr("class", "lang-java"), text(sample.code));
+                    $("pre", () -> {
+                        $("code", attr("class", "lang-java"), attr("rel", "Java"), text(sample.code));
                     });
                 }
             }
@@ -402,16 +402,6 @@ public class APIPage extends Page {
                 margin.right(1.4, rem);
             });
         });
-
-        Style Sample = () -> {
-            position.relative();
-
-            $.after(() -> {
-                position.absolute().top(4, px).right(8, px);
-                content.text("Example from Testcase");
-                font.color(theme.front.opacify(-0.3)).family("sans-serif");
-            });
-        };
 
         Style Title = () -> {
             margin.top(0.9, rem);

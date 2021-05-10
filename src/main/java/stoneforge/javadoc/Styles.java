@@ -60,8 +60,16 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
         block();
         font.family(theme.monoFont).size(12, px).letterSpacing(-0.2, px);
         border.radius(4, px);
-        background.color(Color.rgb(245, 225, 225, 0.5));
+        background.color(Color.rgb(245, 225, 225, 0.4));
         margin.vertical(1, em);
+        padding.left(1.2, em);
+        position.relative();;
+
+        $.before(() -> {
+            position.absolute().right(1.2, em).top(0.2, em);
+            content.attr("rel");
+            font.color(theme.front.opacify(-0.3)).family(theme.baseFont);
+        });
     });
 
     public static Style JavadocComment = () -> {
@@ -358,7 +366,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
     private static void overlayAlphabetRightTop(String mark) {
         position.relative();
         $.before(() -> {
-            font.color(theme.primary).size(0.6, rem).family(RobotoMono);
+            font.color(theme.primary).size(0.6, rem).family(theme.monoFont);
             content.text(mark);
             position.absolute().top(-0.2, rem).left(0.7, rem);
         });
@@ -372,7 +380,7 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
     private static void overlayAlphabetLeftTop(String mark) {
         position.relative();
         $.after(() -> {
-            font.color(theme.accent).size(0.6, rem).family(RobotoMono);
+            font.color(theme.accent).size(0.6, rem).family(theme.monoFont);
             content.text(mark);
             position.absolute().top(-0.2, rem).left(0.3, rem);
         });

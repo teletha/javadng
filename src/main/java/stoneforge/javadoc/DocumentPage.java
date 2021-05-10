@@ -52,7 +52,6 @@ public class DocumentPage extends Page {
      */
     @Override
     protected void declareSubNavigation() {
-        $("h5", style.toc, text("Table of Contents"));
         $("ol", style.top, () -> {
             for (ClassInfo child : info.children(Modifier.PUBLIC)) {
                 $("li", () -> {
@@ -80,12 +79,12 @@ public class DocumentPage extends Page {
         };
 
         Style top = () -> {
-            listStyle.inside().circle();
+            listStyle.inside().none();
             font.lineHeight(2).weight.bold().color(theme.front.opacify(-0.3));
         };
 
         Style sub = () -> {
-            listStyle.inside().disclosureClose();
+            listStyle.inside().none();
             padding.left(1, em);
             font.weight.normal();
         };

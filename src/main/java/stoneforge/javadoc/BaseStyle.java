@@ -24,10 +24,9 @@ public interface BaseStyle {
             .back($.rgb(241, 250, 238))
             .link($.rgb(221, 81, 76))
             .baseFont(Font.fromGoogle("Roboto"))
+            .condensedFont(Font.fromGoogle("Fira Sans Condensed"))
             .titleFont(Font.fromGoogle("Ubuntu"))
             .monoFont(Font.fromGoogle("JetBrains Mono"));
-
-    Font RobotoMono = Font.fromGoogle("Roboto Mono");
 
     Numeric FontSize = Numeric.of(13, px);
 
