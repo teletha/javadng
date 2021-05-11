@@ -57,7 +57,7 @@ public abstract class Page extends HTML {
                     $("h1", Styles.HeaderTitle, code(model.product()));
                     $("nav", Styles.HeaderNav, () -> {
                         for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
-                            $("a", attr("href", "/doc/" + info.id() + ".html"), text(info.title()));
+                            $("a", attr("href", "/doc/" + info.children().get(0).id() + ".html"), text(info.title()));
                         }
                         $("a", attr("href", "/api/"), text("API"));
                         $("a", text("Community"));
@@ -68,7 +68,7 @@ public abstract class Page extends HTML {
                     // =============================
                     // Left Side Navigation
                     // =============================
-                    $("nav", Styles.TypeNavigation, () -> {
+                    $("nav", Styles.Navigation, () -> {
                         $("div");
                     });
 
@@ -108,7 +108,7 @@ public abstract class Page extends HTML {
      */
     private interface Styles extends StyleDSL, BaseStyle {
 
-        Numeric LeftNavigationWidth = Numeric.of(17, vw);
+        Numeric NavigationWidth = Numeric.of(17, vw);
 
         Style workbench = () -> {
             background.color(Color.rgb(235, 246, 247)).image(BackgroundImage.drawSlash(Color.rgb(220, 222, 225, 0.7), 3)).repeat();
@@ -160,12 +160,13 @@ public abstract class Page extends HTML {
             margin.auto();
         };
 
-        Style TypeNavigation = () -> {
-            flexItem.basis(LeftNavigationWidth).shrink(0);
+        Style Navigation = () -> {
+            flexItem.basis(NavigationWidth).shrink(0).alignSelf.end();
+            position.sticky().bottom(0, px);
 
             $.child(() -> {
-                position.sticky().top(HeaderHeight);
                 padding.top(BaseStyle.BlockVerticalGap);
+                margin.bottom(1.6, rem);
 
                 $.child().child(() -> {
                     margin.bottom(BaseStyle.BlockVerticalGap);
@@ -180,20 +181,32 @@ public abstract class Page extends HTML {
                 display.block();
             });
 
-            $.select("ol", () -> {
-                font.size(1.2, em).family(theme.condensedFont);
-                cursor.pointer();
-                listStyle.none();
+            $.select("#DocNavi", () -> {
+                Color back = Color.hsl(0, 0, 25);
 
-                $.select("ol", () -> {
-                    font.size(0.8, em).color(Color.hsl(0, 0, 50)).lineHeight(1.5);
-                    margin.left(0, em).bottom(0.5, em);
+                font.size(1.08, em).family(theme.condensedFont).color(Color.hsl(0, 0, 95));
+                background.color(back).image(BackgroundImage.drawSlash(back.opacify(-0.3).lighten(5), 3)).repeat();
+                padding.left(1.2, em).top(0.2, em).bottom(1, em);
+                border.radius(4, px);
+
+                $.select("dt", () -> {
+                    margin.top(0.8, em);
                 });
-            });
 
-            $.select("ol a", () -> {
-                display.block();
-                text.decoration.none();
+                $.select("dd", () -> {
+                    font.size(0.9, em).color(Color.hsl(0, 0, 80));
+                    padding.left(1, em);
+                });
+
+                $.select("div", () -> {
+                    padding.left(1, em);
+                    font.size(0.9, em).color(Color.hsl(0, 0, 65));
+                });
+
+                $.select("a", () -> {
+                    display.block();
+                    text.decoration.none();
+                });
             });
         };
 

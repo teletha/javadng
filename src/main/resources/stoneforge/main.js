@@ -95,16 +95,13 @@ new Vue({
   template: `
 	<div>
 		<div id="DocNavi" hidden>
-      <ol>
-        <li v-for="doc in items.docs">
-          <a :href="doc.path">{{doc.title}}</a>
-          <ol>
-            <li v-for="sub in doc.subs">
-              <a :href="sub.path">{{sub.title}}</a>
-            </li>
-          </ol>
-        </li>
-      </ol>
+      <dl v-for="doc in items.docs">
+        <dt><a :href="doc.path">{{doc.title}}</a></dt>
+        <dd v-for="sub in doc.subs">
+          <a :href="sub.path">{{sub.title}}</a>
+          <div v-for="foot in sub.subs"><a :href="foot.path">{{foot.title}}</a></div>
+        </dd>
+      </dl>
     </div>
 	  <div id="APINavi" hidden>
   		<v-select v-model="selectedModule" placeholder="Select Module" :options="items.modules"></v-select>

@@ -591,10 +591,17 @@ public abstract class JavadocModel {
                 data.docs.add(doc);
 
                 for (ClassInfo child : info.children(Modifier.PUBLIC)) {
-                    Doc sub = new Doc();
-                    sub.title = child.title();
-                    sub.path = "/doc/" + info.id() + ".html#" + child.name;
-                    doc.subs.add(sub);
+                    Doc childDoc = new Doc();
+                    childDoc.title = child.title();
+                    childDoc.path = "/doc/" + info.id() + ".html#" + child.id();
+                    doc.subs.add(childDoc);
+
+                    for (ClassInfo foot : child.children(Modifier.PUBLIC)) {
+                        Doc footDoc = new Doc();
+                        footDoc.title = foot.title();
+                        footDoc.path = "/doc/" + info.id() + ".html#" + foot.id();
+                        childDoc.subs.add(footDoc);
+                    }
                 }
             }
 

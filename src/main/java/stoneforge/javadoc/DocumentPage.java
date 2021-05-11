@@ -40,8 +40,8 @@ public class DocumentPage extends Page {
             $("section", attr("id", child.id()), Styles.Section, () -> {
                 $(child.createComment());
 
-                for (ClassInfo grandchild : child.children()) {
-                    $(grandchild.createComment());
+                for (ClassInfo foot : child.children()) {
+                    $(foot.createComment());
                 }
             });
         }
@@ -73,10 +73,6 @@ public class DocumentPage extends Page {
     }
 
     private interface style extends StyleDSL, BaseStyle {
-        Style toc = () -> {
-            margin.top(1, em).bottom(0.5, em);
-            font.size(13, px).color(theme.front.opacify(-0.3));
-        };
 
         Style top = () -> {
             listStyle.inside().none();

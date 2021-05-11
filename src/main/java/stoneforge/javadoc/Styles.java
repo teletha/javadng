@@ -12,11 +12,8 @@ package stoneforge.javadoc;
 import stylist.AbstractStyleDSL;
 import stylist.Browsers;
 import stylist.Style;
-import stylist.property.Background.BackgroundImage;
 import stylist.value.Color;
 import stylist.value.Font;
-import stylist.value.LinearGradient;
-import stylist.value.Numeric;
 
 /**
  * 
@@ -135,12 +132,6 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
         padding.horizontal(1.3, rem).vertical(0.8, rem);
         border.radius(4, px);
         background.color(Color.White);
-
-        $.target(() -> {
-            background.image(BackgroundImage.of(new LinearGradient().angle(90, deg)
-                    .color(Color.hsl(200, 55, 65), Numeric.of(0, px), Numeric.of(4, px))
-                    .color(Color.White, Numeric.of(4, px), Numeric.of(100, percent))));
-        });
     };
 
     private static void block() {
