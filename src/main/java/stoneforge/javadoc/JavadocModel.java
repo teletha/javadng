@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
+import static javax.tools.DocumentationTool.Location.*;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -595,13 +595,6 @@ public abstract class JavadocModel {
                     sub.title = child.title();
                     sub.path = "/doc/" + info.id() + ".html#" + child.name;
                     doc.subs.add(sub);
-
-                    for (ClassInfo grand : child.children(Modifier.PUBLIC)) {
-                        Doc grandDoc = new Doc();
-                        grandDoc.title = grand.title();
-                        grandDoc.path = "/doc/" + info.id() + ".html#" + grand.name;
-                        sub.subs.add(grandDoc);
-                    }
                 }
             }
 

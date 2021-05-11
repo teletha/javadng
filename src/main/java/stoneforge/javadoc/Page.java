@@ -182,13 +182,12 @@ public abstract class Page extends HTML {
 
             $.select("ol", () -> {
                 font.size(1.2, em).family(theme.condensedFont);
-                margin.left(2, em);
                 cursor.pointer();
+                listStyle.none();
 
                 $.select("ol", () -> {
                     font.size(0.8, em).color(Color.hsl(0, 0, 50)).lineHeight(1.5);
                     margin.left(0, em).bottom(0.5, em);
-                    listStyle.none();
                 });
             });
 
