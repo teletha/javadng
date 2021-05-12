@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.DocumentationTool.Location.*;
+import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -399,6 +399,8 @@ public abstract class JavadocModel {
             return "application/javascript";
         case "html":
             return "text/html";
+        case "svg":
+            return "image/svg+xml";
         default:
             return "text/plain";
         }
@@ -616,7 +618,10 @@ public abstract class JavadocModel {
                         .formatTo(output().file("main.css").asJavaPath());
 
                 // build JS
-                site.buildJS("main.js", SiteBuilder.class.getResourceAsStream("main.js"));
+                site.build("main.js", SiteBuilder.class.getResourceAsStream("main.js"));
+
+                // build SVG
+                site.build("main.svg", SiteBuilder.class.getResourceAsStream("main.svg"));
 
                 // build HTML
                 for (ClassInfo info : data.types) {

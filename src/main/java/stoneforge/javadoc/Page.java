@@ -16,7 +16,6 @@ import stylist.Style;
 import stylist.StyleDSL;
 import stylist.property.Background.BackgroundImage;
 import stylist.value.Color;
-import stylist.value.Font;
 import stylist.value.Numeric;
 
 public abstract class Page extends HTML {
@@ -216,11 +215,10 @@ public abstract class Page extends HTML {
                     display.block();
                     text.decoration.none();
 
-                    $.before(() -> {
-                        content.text("\\ef42");
-                        font.family(Font.MaterialIcon);
+                    $.select("svg", () -> {
+                        display.width(20, px).height(20, px);
                         text.verticalAlign.middle();
-                        margin.top(-2, px).right(1.3, em);
+                        margin.top(-2, px).right(1, em);
                     });
                 });
             });

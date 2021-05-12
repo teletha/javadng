@@ -186,7 +186,7 @@ public class SiteBuilder {
      * 
      * @return A path to the generated file.
      */
-    public final String buildJS(String path, InputStream input) {
+    public final String build(String path, InputStream input) {
         initialize();
 
         File file = root.file(path);

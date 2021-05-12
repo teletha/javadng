@@ -93,11 +93,11 @@ Vue.component("v-select", VueSelect.VueSelect);
 new Vue({
   el: "nav > div",
   template: `
-	<div>
+	<div xmlns:xlink="http://www.w3.org/1999/xlink">
 		<div id="DocNavi" hidden>
       <ol class="doc" v-if="items.docs.length != 0">
         <li v-for="doc in items.docs">
-          <a :href="doc.path">{{doc.title}}</a>
+          <a :href="doc.path"><svg viewBox="0 0 24 24"><use xlink:href="/main.svg#airplay"></use></svg>{{doc.title}}</a>
           <ol class="sub" v-if="doc.subs.length != 0">
             <li v-for="sub in doc.subs">
               <a :href="sub.path">{{sub.title}}</a>
