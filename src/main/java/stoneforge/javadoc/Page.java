@@ -16,6 +16,7 @@ import stylist.Style;
 import stylist.StyleDSL;
 import stylist.property.Background.BackgroundImage;
 import stylist.value.Color;
+import stylist.value.Font;
 import stylist.value.Numeric;
 
 public abstract class Page extends HTML {
@@ -161,8 +162,8 @@ public abstract class Page extends HTML {
         };
 
         Style Navigation = () -> {
-            flexItem.basis(NavigationWidth).shrink(0).alignSelf.end();
-            position.sticky().bottom(0, px);
+            flexItem.basis(NavigationWidth).shrink(0).alignSelf.start();
+            position.sticky().top(80, px);
 
             $.child(() -> {
                 padding.top(BaseStyle.BlockVerticalGap);
@@ -184,28 +185,43 @@ public abstract class Page extends HTML {
             $.select("#DocNavi", () -> {
                 Color back = Color.hsl(0, 0, 25);
 
-                font.size(1.08, em).family(theme.condensedFont).color(Color.hsl(0, 0, 95));
-                background.color(back).image(BackgroundImage.drawSlash(back.opacify(-0.3).lighten(5), 3)).repeat();
-                padding.left(1.2, em).top(0.2, em).bottom(1, em);
-                border.radius(4, px);
+                font.size(1.2, em).family(theme.condensedFont).color(Color.hsl(0, 0, 30));
+                // background.image(BackgroundImage.drawSubtleTexture(Color.rgb(43, 43, 43),
+                // Color.rgb(97, 97, 97, 0.1)));
+                // background.color(back).image(BackgroundImage.drawSlash(back.opacify(-0.3).lighten(5),
+                // 3)).repeat();
 
-                $.select("dt", () -> {
-                    margin.top(0.8, em);
+                $.select(".doc", () -> {
+                    listStyle.none();
+
+                    $.select("li", () -> {
+                        padding.vertical(0.25, em);
+                    });
                 });
 
-                $.select("dd", () -> {
+                $.select(".sub", () -> {
+                    display.none();
+                    listStyle.none();
                     font.size(0.9, em).color(Color.hsl(0, 0, 80));
-                    padding.left(1, em);
+                    border.top.dotted().width(1, px).color(Color.hsl(0, 0, 55));
                 });
 
-                $.select("div", () -> {
-                    padding.left(1, em);
+                $.select(".foot", () -> {
+                    listStyle.none();
+                    padding.left(1.75, em);
                     font.size(0.9, em).color(Color.hsl(0, 0, 65));
                 });
 
                 $.select("a", () -> {
                     display.block();
                     text.decoration.none();
+
+                    $.before(() -> {
+                        content.text("\\ef42");
+                        font.family(Font.MaterialIcon);
+                        text.verticalAlign.middle();
+                        margin.top(-2, px).right(1.3, em);
+                    });
                 });
             });
         };
