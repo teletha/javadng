@@ -214,6 +214,10 @@ public abstract class Page extends HTML {
                     display.block();
                     text.decoration.none();
 
+                    $.with(".now", () -> {
+                        font.color(theme.accent);
+                    });
+
                     $.select("svg", () -> {
                         display.width(20, px).height(20, px);
                         text.verticalAlign.middle();

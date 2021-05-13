@@ -1,4 +1,22 @@
 // =====================================================
+// Define Navigator
+// =====================================================
+const navi = new IntersectionObserver(e => {
+  e = e.filter(i => i.isIntersecting);
+  if (0 < e.length) {
+    const i = e.reduce((a,b) => a.intersectionRation > b.intersectionRatio ? a : b);
+    if (i) {
+      console.log(i.target.id, i.intersectionRatio);
+      const prev = document.querySelector("#DocNavi .now");
+      if (prev) prev.classList.remove("now");
+      const now = document.querySelector(`#DocNavi a[href*='#${i.target.id}']`);
+      if (now) now.classList.add("now");
+    }
+  }
+}, {rootMargin: "-50% 0px 0px 0px", threshold: [0.1,0.2]})
+
+
+// =====================================================
 // Define Router
 // =====================================================
 class Router {
@@ -82,6 +100,7 @@ new Router(() => {
     }
   });
   
+  document.querySelectorAll("article>section section").forEach(e => navi.observe(e));
   hljs.highlightAll();
 }, () => {
   // scroll to top or #hash
@@ -205,17 +224,6 @@ new Vue({
       package.isOpen = !package.isOpen;
     }
   }
-});
-
-// =====================================================
-// Navigation
-// =====================================================
-const navi = new IntersectionObserver(e => {
-  console.log(e);
-}, {
-  root: document.querySelector("article"),
-  rootMargin: "10px",
-  threshold: 0
 });
 
 // =====================================================

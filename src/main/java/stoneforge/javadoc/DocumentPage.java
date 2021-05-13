@@ -9,6 +9,8 @@
  */
 package stoneforge.javadoc;
 
+import javax.lang.model.element.Modifier;
+
 import stoneforge.javadoc.analyze.ClassInfo;
 
 public class DocumentPage extends Page {
@@ -30,12 +32,14 @@ public class DocumentPage extends Page {
             $(info.createComment());
         });
 
-        for (ClassInfo child : info.children()) {
+        for (ClassInfo child : info.children(Modifier.PUBLIC)) {
             $("section", attr("id", child.id()), Styles.Section, () -> {
                 $(child.createComment());
 
-                for (ClassInfo foot : child.children()) {
-                    $(foot.createComment());
+                for (ClassInfo foot : child.children(Modifier.PUBLIC)) {
+                    $("section", attr("id", foot.id()), () -> {
+                        $(foot.createComment());
+                    });
                 }
             });
         }
