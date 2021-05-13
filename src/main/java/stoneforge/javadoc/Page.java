@@ -173,14 +173,6 @@ public abstract class Page extends HTML {
                 });
             });
 
-            $.select(".el-select", () -> {
-                display.width(100, percent);
-            });
-
-            $.select(".el-checkbox", () -> {
-                display.block();
-            });
-
             $.select("#DocNavi", () -> {
                 font.size(1.2, em).family(theme.condensedFont).color(Color.hsl(0, 0, 30));
 
@@ -231,7 +223,7 @@ public abstract class Page extends HTML {
             });
         };
 
-        Style SVG = Style.named("svg", () -> {
+        Style SVG = Style.named(".svg", () -> {
             stroke.current().linejoin.round().linecap.round().width(1.5, px);
             fill.none();
         });

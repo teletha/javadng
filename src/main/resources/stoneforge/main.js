@@ -108,13 +108,13 @@ new Vue({
 		<div id="DocNavi" hidden>
       <ol class="doc">
         <li v-for="doc in items.docs" :id="doc.path">
-          <a :href="doc.path"><svg viewBox="0 0 24 24"><use xlink:href="/main.svg#airplay"/></svg>{{doc.title}}</a>
+          <a :href="doc.path"><svg class="svg" viewBox="0 0 24 24"><use xlink:href="/main.svg#airplay"/></svg>{{doc.title}}</a>
           <ol class="sub">
             <li v-for="sub in doc.subs">
               <a :href="sub.path">{{sub.title}}</a>
               <ol class="foot">
                 <li v-for="foot in sub.subs">
-                  <a :href="foot.path"><svg viewBox="0 0 24 24"><use xlink:href="/main.svg#chevrons-right"/></svg>{{foot.title}}</a>
+                  <a :href="foot.path"><svg class="svg" viewBox="0 0 24 24"><use xlink:href="/main.svg#chevrons-right"/></svg>{{foot.title}}</a>
                 </li>
               </ol>
             </li>
@@ -205,6 +205,17 @@ new Vue({
       package.isOpen = !package.isOpen;
     }
   }
+});
+
+// =====================================================
+// Navigation
+// =====================================================
+const navi = new IntersectionObserver(e => {
+  console.log(e);
+}, {
+  root: document.querySelector("article"),
+  rootMargin: "10px",
+  threshold: 0
 });
 
 // =====================================================
