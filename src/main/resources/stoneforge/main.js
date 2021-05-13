@@ -21,8 +21,10 @@ class Router {
       var e = event.target;
       if (e.tagName === "A") {
         if (location.origin == e.origin) {
-          history.pushState(null, null, e.href);
-          this.update();
+          if (location.href != e.href) {
+            history.pushState(null, null, e.href);
+            this.update();
+          }
           event.preventDefault();
         }
       }
