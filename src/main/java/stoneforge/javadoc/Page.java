@@ -45,7 +45,7 @@ public abstract class Page extends HTML {
                 script("https://unpkg.com/vue/dist/vue.min.js");
                 stylesheet("https://unpkg.com/vue-select/dist/vue-select.css");
                 script("https://unpkg.com/vue-select");
-                stylesheet("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/default.min.css");
+                stylesheet("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/zenburn.min.css");
                 script("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js");
                 stylesheet("/main.css");
             });

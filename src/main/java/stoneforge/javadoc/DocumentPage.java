@@ -11,7 +11,10 @@ package stoneforge.javadoc;
 
 import javax.lang.model.element.Modifier;
 
+import kiss.XML;
 import stoneforge.javadoc.analyze.ClassInfo;
+import stylist.Style;
+import stylist.StyleDSL;
 
 public class DocumentPage extends Page {
 
@@ -29,12 +32,12 @@ public class DocumentPage extends Page {
     @Override
     protected void declareContents() {
         $("section", Styles.Section, () -> {
-            $(info.createComment());
+            $(mark(info.createComment()));
         });
 
         for (ClassInfo child : info.children(Modifier.PUBLIC)) {
             $("section", attr("id", child.id()), Styles.Section, () -> {
-                $(child.createComment());
+                $(mark(child.createComment()));
 
                 for (ClassInfo foot : child.children(Modifier.PUBLIC)) {
                     $("section", attr("id", foot.id()), () -> {
@@ -45,10 +48,22 @@ public class DocumentPage extends Page {
         }
     }
 
+    private XML mark(XML xml) {
+        if (xml != null) {
+        }
+        return xml;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
     protected void declareSubNavigation() {
+    }
+
+    class styles implements StyleDSL {
+        Style header = () -> {
+            position.sticky().top(80, px);
+        };
     }
 }

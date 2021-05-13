@@ -13,7 +13,7 @@ const navi = new IntersectionObserver(e => {
       if (now) now.classList.add("now");
     }
   }
-}, {rootMargin: "-50% 0px 0px 0px", threshold: [0.1,0.2]})
+}, {root: document.querySelector("header"), rootMargin: "0px", threshold: 0})
 
 
 // =====================================================
