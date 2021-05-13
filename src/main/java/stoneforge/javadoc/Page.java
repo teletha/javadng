@@ -182,33 +182,40 @@ public abstract class Page extends HTML {
             });
 
             $.select("#DocNavi", () -> {
-                Color back = Color.hsl(0, 0, 25);
-
                 font.size(1.2, em).family(theme.condensedFont).color(Color.hsl(0, 0, 30));
-                // background.image(BackgroundImage.drawSubtleTexture(Color.rgb(43, 43, 43),
-                // Color.rgb(97, 97, 97, 0.1)));
-                // background.color(back).image(BackgroundImage.drawSlash(back.opacify(-0.3).lighten(5),
-                // 3)).repeat();
 
                 $.select(".doc", () -> {
                     listStyle.none();
 
                     $.select("li", () -> {
                         padding.vertical(0.25, em);
+
+                        $.with(".active", () -> {
+                            $.select(".sub", () -> {
+                                display.block();
+                            });
+                        });
                     });
                 });
 
                 $.select(".sub", () -> {
                     display.none();
                     listStyle.none();
-                    font.size(0.9, em).color(Color.hsl(0, 0, 80));
-                    border.top.dotted().width(1, px).color(Color.hsl(0, 0, 55));
+                    font.size(0.85, em).color(Color.hsl(0, 0, 45)).lineHeight(1.3);
+                    border.left.solid().width(1, px).color(Color.hsl(0, 0, 65));
+                    margin.left(10, px).vertical(0.5, em);
+                    padding.left(Numeric.of(12, px).plus(1, em));
                 });
 
                 $.select(".foot", () -> {
                     listStyle.none();
-                    padding.left(1.75, em);
-                    font.size(0.9, em).color(Color.hsl(0, 0, 65));
+                    padding.left(0.2, em);
+                    font.style.italic();
+
+                    $.select("svg", () -> {
+                        display.width(18, px).height(18, px);
+                        margin.right(0, px);
+                    });
                 });
 
                 $.select("a", () -> {
@@ -223,6 +230,11 @@ public abstract class Page extends HTML {
                 });
             });
         };
+
+        Style SVG = Style.named("svg", () -> {
+            stroke.current().linejoin.round().linecap.round().width(1.5, px);
+            fill.none();
+        });
 
         Style Contents = () -> {
             flexItem.grow(1);

@@ -68,8 +68,17 @@ class Router {
 }
 
 new Router(() => {
-  document.getElementById("DocNavi").hidden = !location.pathname.startsWith("/doc/");
   document.getElementById("APINavi").hidden = !location.pathname.startsWith("/api/");
+  
+  const doc = document.getElementById("DocNavi");
+  doc.hidden = !location.pathname.startsWith("/doc/");
+  doc.querySelectorAll(":scope > ol > li").forEach(e => {
+    if (e.id == location.pathname) {
+      e.classList.add("active");
+    } else {
+      e.classList.remove("active");
+    }
+  });
   
   hljs.highlightAll();
 }, () => {
@@ -95,15 +104,15 @@ new Vue({
   template: `
 	<div xmlns:xlink="http://www.w3.org/1999/xlink">
 		<div id="DocNavi" hidden>
-      <ol class="doc" v-if="items.docs.length != 0">
-        <li v-for="doc in items.docs">
-          <a :href="doc.path"><svg viewBox="0 0 24 24"><use xlink:href="/main.svg#airplay"></use></svg>{{doc.title}}</a>
-          <ol class="sub" v-if="doc.subs.length != 0">
+      <ol class="doc">
+        <li v-for="doc in items.docs" :id="doc.path">
+          <a :href="doc.path"><svg viewBox="0 0 24 24"><use xlink:href="/main.svg#airplay"/></svg>{{doc.title}}</a>
+          <ol class="sub">
             <li v-for="sub in doc.subs">
               <a :href="sub.path">{{sub.title}}</a>
-              <ol class="foot" v-if="sub.subs.length != 0">
+              <ol class="foot">
                 <li v-for="foot in sub.subs">
-                  <a :href="foot.path">{{foot.title}}</a>
+                  <a :href="foot.path"><svg viewBox="0 0 24 24"><use xlink:href="/main.svg#chevrons-right"/></svg>{{foot.title}}</a>
                 </li>
               </ol>
             </li>
@@ -142,6 +151,8 @@ new Vue({
 	</div>
   `,
   data: function() {
+    root.docs.forEach(e => e.isOpen = false);
+  
     return {
       items: root,
       sortedItems: this.sortAndGroup(root),
