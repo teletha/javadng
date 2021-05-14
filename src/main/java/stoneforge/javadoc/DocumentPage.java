@@ -15,6 +15,7 @@ import kiss.XML;
 import stoneforge.javadoc.analyze.ClassInfo;
 import stylist.Style;
 import stylist.StyleDSL;
+import stylist.value.Numeric;
 
 public class DocumentPage extends Page {
 
@@ -63,16 +64,13 @@ public class DocumentPage extends Page {
             $("div", styles.meta, () -> {
                 String editor = model.editor().apply(info.filePath(), info.documentLine());
                 if (editor != null) {
-                    $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), styles.edit, () -> {
+                    $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), attr("alt", "Copy the permanent link"), styles.edit, () -> {
                         $("use", attr("href", "/main.svg#link"));
                     });
                     $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), styles.edit, () -> {
                         $("use", attr("href", "/main.svg#twitter"));
                     });
-                    $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), styles.edit, () -> {
-                        $("use", attr("href", "/main.svg#message"));
-                    });
-                    $("a", attr("href", editor), () -> {
+                    $("a", attr("href", editor), attr("title", "Edit document"), () -> {
                         $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), styles.edit, () -> {
                             $("use", attr("href", "/main.svg#edit"));
                         });
@@ -93,17 +91,20 @@ public class DocumentPage extends Page {
     interface styles extends StyleDSL, BaseStyle {
 
         Style header = () -> {
-            position.sticky().top(79, px);
-            background.color("white");
             display.zIndex(2);
+            position.relative();
         };
 
         Style meta = () -> {
-            margin.top(-33, px);
-            text.align.right();
+            position.absolute().top(Numeric.of(50, percent).subtract(10, px)).right(1, em);
+        };
+
+        Style icon = () -> {
+            display.inlineBlock().width(20, px).height(20, px);
         };
 
         Style edit = () -> {
+            display.width(20, px).height(20, px);
             stroke.width(2, px).color(theme.front.opacify(-0.5));
             margin.right(9, px);
 
