@@ -64,14 +64,14 @@ public class DocumentPage extends Page {
             $("div", styles.meta, () -> {
                 String editor = model.editor().apply(info.filePath(), info.documentLine());
                 if (editor != null) {
-                    $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), attr("alt", "Copy the permanent link"), styles.edit, () -> {
+                    $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), attr("alt", "Copy the permanent link"), styles.svg, () -> {
                         $("use", attr("href", "/main.svg#link"));
                     });
-                    $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), styles.edit, () -> {
+                    $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), styles.svg, () -> {
                         $("use", attr("href", "/main.svg#twitter"));
                     });
-                    $("a", attr("href", editor), attr("title", "Edit document"), () -> {
-                        $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), styles.edit, () -> {
+                    $("a", attr("href", editor), attr("class", "edit"), () -> {
+                        $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), styles.svg, () -> {
                             $("use", attr("href", "/main.svg#edit"));
                         });
                     });
@@ -90,23 +90,24 @@ public class DocumentPage extends Page {
 
     interface styles extends StyleDSL, BaseStyle {
 
+        Numeric IconSize = Numeric.of(18, px);
+
         Style header = () -> {
-            display.zIndex(2);
             position.relative();
         };
 
         Style meta = () -> {
-            position.absolute().top(Numeric.of(50, percent).subtract(10, px)).right(1, em);
+            position.absolute().top(Numeric.of(50, percent).subtract(IconSize.divide(2))).right(IconSize.divide(2));
         };
 
         Style icon = () -> {
-            display.inlineBlock().width(20, px).height(20, px);
+            display.inlineBlock().width(IconSize).height(IconSize);
         };
 
-        Style edit = () -> {
-            display.width(20, px).height(20, px);
+        Style svg = () -> {
+            display.width(IconSize).height(IconSize);
             stroke.width(2, px).color(theme.front.opacify(-0.5));
-            margin.right(9, px);
+            margin.left(IconSize.divide(2));
 
             $.transit().duration(0.5, s).when().hover(() -> {
                 stroke.color(theme.front);

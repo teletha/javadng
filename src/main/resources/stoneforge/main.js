@@ -1,4 +1,11 @@
 // =====================================================
+// Shorthand
+// =====================================================
+const one = x => document.querySelector(x);
+const all = x => document.querySelectorAll(x);
+
+
+// =====================================================
 // Define Navigator
 // =====================================================
 const navi = new IntersectionObserver(e => {
@@ -88,11 +95,11 @@ class Router {
 }
 
 new Router(() => {
-  document.getElementById("APINavi").hidden = !location.pathname.startsWith("/api/");
+  one("#APINavi").hidden = !location.pathname.startsWith("/api/");
+  one("#DocNavi").hidden = !location.pathname.startsWith("/doc/");
   
-  const doc = document.getElementById("DocNavi");
-  doc.hidden = !location.pathname.startsWith("/doc/");
-  doc.querySelectorAll(":scope > ol > li").forEach(e => {
+  all("article>section section").forEach(e => navi.observe(e));
+  all("#DocNavi>ol>li").forEach(e => {
     if (e.id == location.pathname) {
       e.classList.add("active");
     } else {
@@ -100,7 +107,6 @@ new Router(() => {
     }
   });
   
-  document.querySelectorAll("article>section section").forEach(e => navi.observe(e));
   hljs.highlightAll();
 }, () => {
   // scroll to top or #hash
@@ -123,17 +129,17 @@ Vue.component("v-select", VueSelect.VueSelect);
 new Vue({
   el: "nav > div",
   template: `
-	<div xmlns:xlink="http://www.w3.org/1999/xlink">
+	<div>
 		<div id="DocNavi" hidden>
       <ol class="doc">
         <li v-for="doc in items.docs" :id="doc.path">
-          <a :href="doc.path"><svg class="svg" viewBox="0 0 24 24"><use xlink:href="/main.svg#airplay"/></svg>{{doc.title}}</a>
+          <a :href="doc.path"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#airplay"/></svg>{{doc.title}}</a>
           <ol class="sub">
             <li v-for="sub in doc.subs">
               <a :href="sub.path">{{sub.title}}</a>
               <ol class="foot">
                 <li v-for="foot in sub.subs">
-                  <a :href="foot.path"><svg class="svg" viewBox="0 0 24 24"><use xlink:href="/main.svg#chevrons-right"/></svg>{{foot.title}}</a>
+                  <a :href="foot.path"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#chevrons-right"/></svg>{{foot.title}}</a>
                 </li>
               </ol>
             </li>
