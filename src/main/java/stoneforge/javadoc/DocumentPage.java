@@ -9,6 +9,8 @@
  */
 package stoneforge.javadoc;
 
+import java.util.Arrays;
+
 import javax.lang.model.element.Modifier;
 
 import kiss.XML;
@@ -36,6 +38,7 @@ public class DocumentPage extends Page {
         });
 
         for (ClassInfo child : info.children(Modifier.PUBLIC)) {
+            System.out.println(child.id() + "  " + Arrays.toString(child.documentLine()));
             $("section", attr("id", child.id()), Styles.Section, () -> {
                 $(mark(child.createComment()));
 

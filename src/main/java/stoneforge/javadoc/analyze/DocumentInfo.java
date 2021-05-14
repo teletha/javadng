@@ -107,6 +107,8 @@ public class DocumentInfo {
     /** The type resolver. */
     protected final TypeResolver resolver;
 
+    protected int[] documentLines = {-1, -1};
+
     protected DocumentInfo(Element e, TypeResolver resolver, DocumentInfo parent) {
         this.e = e;
         this.resolver = resolver;
@@ -118,6 +120,8 @@ public class DocumentInfo {
                 comment.set(xml(docs.getFullBody()));
                 comment.to(x -> x.addClass(Styles.JavadocComment.className()));
                 docs.getBlockTags().forEach(tag -> tag.accept(new TagScanner(), this));
+
+                documentLines = Util.getDocumentLineNumbers(e);
             }
         } catch (Throwable error) {
             error.printStackTrace();
@@ -221,6 +225,10 @@ public class DocumentInfo {
      */
     public final XML createComment() {
         return comment.isAbsent() ? null : comment.v.clone();
+    }
+
+    public final int[] documentLine() {
+        return documentLines;
     }
 
     /**

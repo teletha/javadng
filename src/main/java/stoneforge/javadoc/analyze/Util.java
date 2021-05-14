@@ -29,6 +29,7 @@ import com.github.javaparser.Position;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.MethodDeclaration;
+import com.sun.source.doctree.DocCommentTree;
 import com.sun.source.tree.CompilationUnitTree;
 import com.sun.source.util.DocSourcePositions;
 import com.sun.source.util.DocTrees;
@@ -66,6 +67,38 @@ public final class Util {
             parent = e.getEnclosingElement();
         }
         return (TypeElement) e;
+    }
+
+    /**
+     * Get the document line numbers of the specified {@link Element}.
+     * 
+     * @param e
+     * @return
+     */
+    public static int[] getDocumentLineNumbers(Element e) {
+        try {
+            DocSourcePositions positions = DocUtils.getSourcePositions();
+
+            TreePath path = Util.DocUtils.getPath(e);
+            CompilationUnitTree cut = path.getCompilationUnit();
+
+            DocCommentTree tree = Util.DocUtils.getDocCommentTree(e);
+            int start = (int) positions.getStartPosition(cut, tree, tree);
+            int end = (int) positions.getEndPosition(cut, tree, tree);
+
+            int[] lines = {1, 1};
+            CharSequence chars = cut.getSourceFile().getCharContent(true);
+            for (int i = 0; i < end; i++) {
+                if (i == start) {
+                    lines[0] = lines[1];
+                }
+                if (chars.charAt(i) == '\n') lines[1]++;
+            }
+
+            return lines;
+        } catch (IOException x) {
+            throw I.quiet(x);
+        }
     }
 
     /**
