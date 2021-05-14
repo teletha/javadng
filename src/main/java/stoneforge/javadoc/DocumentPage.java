@@ -64,15 +64,18 @@ public class DocumentPage extends Page {
                 String editor = model.editor().apply(info.filePath(), info.documentLine());
                 if (editor != null) {
                     $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), styles.edit, () -> {
+                        $("use", attr("href", "/main.svg#link"));
+                    });
+                    $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), styles.edit, () -> {
                         $("use", attr("href", "/main.svg#twitter"));
+                    });
+                    $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), styles.edit, () -> {
+                        $("use", attr("href", "/main.svg#message"));
                     });
                     $("a", attr("href", editor), () -> {
                         $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), styles.edit, () -> {
                             $("use", attr("href", "/main.svg#edit"));
                         });
-                    });
-                    $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), styles.edit, () -> {
-                        $("use", attr("href", "/main.svg#help"));
                     });
                 }
             });
@@ -87,7 +90,7 @@ public class DocumentPage extends Page {
     protected void declareSubNavigation() {
     }
 
-    interface styles extends StyleDSL {
+    interface styles extends StyleDSL, BaseStyle {
 
         Style header = () -> {
             position.sticky().top(79, px);
@@ -101,7 +104,12 @@ public class DocumentPage extends Page {
         };
 
         Style edit = () -> {
-            stroke.width(2, px);
+            stroke.width(2, px).color(theme.front.opacify(-0.5));
+            margin.right(9, px);
+
+            $.transit().duration(0.5, s).when().hover(() -> {
+                stroke.color(theme.front);
+            });
         };
     }
 }
