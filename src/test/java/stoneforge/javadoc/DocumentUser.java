@@ -39,6 +39,7 @@ public class DocumentUser {
                 .version("1.0")
                 .sample("../sinobu/src/test/java")
                 .classpath(path.toArray(String[]::new))
+                .editor((file, lines) -> "https://github.com/Teletha/sinobu/edit/master/src/test/java/" + file + "#L" + lines[0] + "-L" + lines[1])
                 .useExternalJDKDoc()
                 .build()
                 .show();

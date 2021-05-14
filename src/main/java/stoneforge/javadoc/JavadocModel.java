@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
+import static javax.tools.DocumentationTool.Location.*;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -30,6 +30,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BiFunction;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -245,6 +246,16 @@ public abstract class JavadocModel {
     @Icy.Property
     public DiagnosticListener<JavaFileObject> listener() {
         return o -> System.out.println(o);
+    }
+
+    /**
+     * Specify a URL in the public source code repository where the code can be edited.
+     * 
+     * @return
+     */
+    @Icy.Property
+    public BiFunction<String, int[], String> editor() {
+        return (path, lines) -> null;
     }
 
     /**

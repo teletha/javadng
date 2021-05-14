@@ -67,14 +67,11 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
     });
 
     public static Style JavadocComment = () -> {
-        $.select("h2", () -> {
+        $.select("h2,h3", () -> {
             font.size(17, px).color(theme.primary).letterSpacing(1.5, px);
-            position.sticky().top(79, px);
             padding.size(0.5, em).left(0, em);
             margin.top(0.3, em).bottom(0.8, em);
             border.vertical.dotted().width(1, px).color("gray");
-            background.color(Color.White);
-            display.zIndex(2);
 
             // $.before(() -> {
             // font.family(Font.Awesome).size(2, em).color("white");
@@ -88,13 +85,11 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
             // });
         });
 
-        $.select("h3", () -> {
+        $.select("h4", () -> {
             font.size(15, px).letterSpacing(1.5, px).color(theme.primary);
             // position.sticky().top(87, px);
             padding.vertical(0.3, em);
             margin.top(1.1, em);
-            background.color(Color.White);
-            display.zIndex(3);
         });
 
         $.select("p", () -> {
@@ -121,6 +116,12 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
             block();
         });
     };
+
+    public static Style SVG = Style.named(".svg", () -> {
+        display.width(16, px);
+        stroke.current().linejoin.round().linecap.round().width(1.5, px);
+        fill.none();
+    });
 
     public static Style Section = () -> {
         margin.bottom(1.6, rem).top(0.6, rem);

@@ -9,8 +9,6 @@
  */
 package stoneforge.javadoc;
 
-import java.util.Arrays;
-
 import javax.lang.model.element.Modifier;
 
 import kiss.XML;
@@ -33,28 +31,53 @@ public class DocumentPage extends Page {
      */
     @Override
     protected void declareContents() {
-        $("section", Styles.Section, () -> {
-            $(mark(info.createComment()));
-        });
+        if (info.hasDocument()) {
+            $("section", Styles.Section, Styles.JavadocComment, () -> {
+                write(info);
+            });
+        }
 
         for (ClassInfo child : info.children(Modifier.PUBLIC)) {
-            System.out.println(child.id() + "  " + Arrays.toString(child.documentLine()));
-            $("section", attr("id", child.id()), Styles.Section, () -> {
-                $(mark(child.createComment()));
+            if (child.hasDocument()) {
+                $("section", attr("id", child.id()), Styles.Section, Styles.JavadocComment, () -> {
+                    write(child);
 
-                for (ClassInfo foot : child.children(Modifier.PUBLIC)) {
-                    $("section", attr("id", foot.id()), () -> {
-                        $(foot.createComment());
-                    });
-                }
-            });
+                    for (ClassInfo foot : child.children(Modifier.PUBLIC)) {
+                        if (foot.hasDocument()) {
+                            $("section", attr("id", foot.id()), Styles.JavadocComment, () -> {
+                                write(foot);
+                            });
+                        }
+                    }
+                });
+            }
         }
     }
 
-    private XML mark(XML xml) {
-        if (xml != null) {
-        }
-        return xml;
+    private void write(ClassInfo info) {
+        XML doc = info.createComment();
+        XML heading = doc.find("h,h1,h2,h3,h4,h5,h6,h7").first().remove();
+
+        $("header", Styles.JavadocComment, styles.header, () -> {
+            $(xml(heading));
+            $("div", styles.meta, () -> {
+                String editor = model.editor().apply(info.filePath(), info.documentLine());
+                if (editor != null) {
+                    $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), styles.edit, () -> {
+                        $("use", attr("href", "/main.svg#twitter"));
+                    });
+                    $("a", attr("href", editor), () -> {
+                        $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), styles.edit, () -> {
+                            $("use", attr("href", "/main.svg#edit"));
+                        });
+                    });
+                    $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), styles.edit, () -> {
+                        $("use", attr("href", "/main.svg#help"));
+                    });
+                }
+            });
+        });
+        $(xml(doc));
     }
 
     /**
@@ -64,9 +87,21 @@ public class DocumentPage extends Page {
     protected void declareSubNavigation() {
     }
 
-    class styles implements StyleDSL {
+    interface styles extends StyleDSL {
+
         Style header = () -> {
-            position.sticky().top(80, px);
+            position.sticky().top(79, px);
+            background.color("white");
+            display.zIndex(2);
+        };
+
+        Style meta = () -> {
+            margin.top(-33, px);
+            text.align.right();
+        };
+
+        Style edit = () -> {
+            stroke.width(2, px);
         };
     }
 }

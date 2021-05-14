@@ -227,11 +227,6 @@ public abstract class Page extends HTML {
             });
         };
 
-        Style SVG = Style.named(".svg", () -> {
-            stroke.current().linejoin.round().linecap.round().width(1.5, px);
-            fill.none();
-        });
-
         Style Contents = () -> {
             flexItem.grow(1);
             margin.horizontal(2, rem);

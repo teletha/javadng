@@ -227,8 +227,22 @@ public class DocumentInfo {
         return comment.isAbsent() ? null : comment.v.clone();
     }
 
+    /**
+     * Get the line positions of documentation comments for this element.
+     * 
+     * @return
+     */
     public final int[] documentLine() {
         return documentLines;
+    }
+
+    /**
+     * Determines if this element has a documentation comment.
+     * 
+     * @return
+     */
+    public final boolean hasDocument() {
+        return comment.isPresent();
     }
 
     /**

@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.TreeSet;
 
 import javax.lang.model.element.Element;
@@ -316,6 +317,20 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
     @Override
     public String id() {
         return packageName + "." + name;
+    }
+
+    /**
+     * Compute the file path.
+     * 
+     * @return
+     */
+    public final String filePath() {
+        ClassInfo root = outermost();
+
+        StringJoiner join = new StringJoiner("/");
+        join.add(root.packageName.replace('.', '/'));
+        join.add(root.name + ".java");
+        return join.toString();
     }
 
     /**
