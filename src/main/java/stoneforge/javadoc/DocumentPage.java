@@ -109,7 +109,7 @@ public class DocumentPage extends Page {
         Style icon = () -> {
             display.inlineBlock().width(IconSize).height(IconSize);
             font.lineHeight(1);
-            margin.left(IconSize.divide(2));
+            margin.left(IconSize);
         };
 
         Style svg = Styles.SVG.with(() -> {

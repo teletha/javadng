@@ -183,6 +183,10 @@ public abstract class Page extends HTML {
                         padding.vertical(0.25, em);
 
                         $.with(".active", () -> {
+                            $.select(">a", () -> {
+                                font.weight.bold();
+                            });
+
                             $.select(".sub", () -> {
                                 display.block();
                             });

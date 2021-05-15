@@ -102,12 +102,12 @@ new Router(() => {
   $(".perp", e => {
     e.title = "Copy the permanent link";
     e.onclick = x => {
-      navigator.clipboard.writeText(location.href + "#" + e.closest("section").id);
+      navigator.clipboard.writeText(location.origin + location.pathname + "#" + e.closest("section").id);
     };
   });
   $(".tweet", e => {
     e.title = "Post this article to Twitter";
-    e.href = "https://twitter.com/intent/tweet?url=" + encodeURIComponent(location.href + "#" + e.closest("section").id) + "&text=" + encodeURIComponent(e.closest("header").firstElementChild.textContent);
+    e.href = "https://twitter.com/intent/tweet?url=" + encodeURIComponent(location.origin + location.pathname + "#" + e.closest("section").id) + "&text=" + encodeURIComponent(e.closest("header").firstElementChild.textContent);
     e.target = "_blank";
     e.rel = "noopener noreferrer";
   });
