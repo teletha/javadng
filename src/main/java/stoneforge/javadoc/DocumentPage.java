@@ -62,16 +62,22 @@ public class DocumentPage extends Page {
         $("header", Styles.JavadocComment, styles.header, () -> {
             $(xml(heading));
             $("div", styles.meta, () -> {
-                String editor = model.editor().apply(info.filePath(), info.documentLine());
-                if (editor != null) {
-                    $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), attr("alt", "Copy the permanent link"), styles.svg, () -> {
+                $("a", attr("class", "perp"), styles.icon, () -> {
+                    $("svg", attr("viewBox", "0 0 24 24"), styles.svg, () -> {
                         $("use", attr("href", "/main.svg#link"));
                     });
-                    $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), styles.svg, () -> {
+                });
+
+                $("a", attr("class", "tweet"), styles.icon, () -> {
+                    $("svg", attr("viewBox", "0 0 24 24"), styles.svg, () -> {
                         $("use", attr("href", "/main.svg#twitter"));
                     });
-                    $("a", attr("href", editor), attr("class", "edit"), () -> {
-                        $("svg", attr("class", "svg"), attr("viewBox", "0 0 24 24"), styles.svg, () -> {
+                });
+
+                String editor = model.editor().apply(info.filePath(), info.documentLine());
+                if (editor != null) {
+                    $("a", attr("href", editor), attr("class", "edit"), styles.icon, () -> {
+                        $("svg", attr("viewBox", "0 0 24 24"), styles.svg, () -> {
                             $("use", attr("href", "/main.svg#edit"));
                         });
                     });
@@ -90,7 +96,7 @@ public class DocumentPage extends Page {
 
     interface styles extends StyleDSL, BaseStyle {
 
-        Numeric IconSize = Numeric.of(18, px);
+        Numeric IconSize = Numeric.of(14, px);
 
         Style header = () -> {
             position.relative();
@@ -102,16 +108,20 @@ public class DocumentPage extends Page {
 
         Style icon = () -> {
             display.inlineBlock().width(IconSize).height(IconSize);
+            font.lineHeight(1);
+            margin.left(IconSize.divide(2));
         };
 
-        Style svg = () -> {
-            display.width(IconSize).height(IconSize);
-            stroke.width(2, px).color(theme.front.opacify(-0.5));
-            margin.left(IconSize.divide(2));
+        Style svg = Styles.SVG.with(() -> {
+            stroke.width(2.5, px).color(theme.front.opacify(-0.6));
 
             $.transit().duration(0.5, s).when().hover(() -> {
-                stroke.color(theme.front);
+                stroke.color(theme.accent);
             });
-        };
+
+            $.transit().duration(0.05, s).ease().when().active(() -> {
+                transform.translateY(3, px);
+            });
+        });
     }
 }

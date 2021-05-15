@@ -75,7 +75,7 @@ public abstract class Page extends HTML {
                     // =============================
                     // Main Contents
                     // =============================
-                    $("article", Styles.Contents, () -> {
+                    $("article", attr("id", "Article"), Styles.Contents, () -> {
                         if (info != null) {
                             declareContents();
                         }
@@ -84,7 +84,7 @@ public abstract class Page extends HTML {
                     // =============================
                     // Right Side Navigation
                     // =============================
-                    $("aside", Styles.SubNavigation, () -> {
+                    $("aside", attr("id", "SubNavi"), Styles.SubNavigation, () -> {
                         $("div", Styles.SubNavigationStickyBlock, () -> {
                             if (info != null) {
                                 declareSubNavigation();

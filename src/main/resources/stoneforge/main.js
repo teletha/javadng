@@ -1,9 +1,7 @@
 // =====================================================
 // Shorthand
 // =====================================================
-const one = x => document.querySelector(x);
-const all = x => document.querySelectorAll(x);
-
+const $ = (q,p) => document.querySelectorAll(q).forEach(p);
 
 // =====================================================
 // Define Navigator
@@ -14,10 +12,8 @@ const navi = new IntersectionObserver(e => {
     const i = e.reduce((a,b) => a.intersectionRation > b.intersectionRatio ? a : b);
     if (i) {
       console.log(i.target.id, i.intersectionRatio);
-      const prev = document.querySelector("#DocNavi .now");
-      if (prev) prev.classList.remove("now");
-      const now = document.querySelector(`#DocNavi a[href*='#${i.target.id}']`);
-      if (now) now.classList.add("now");
+      $("#DocNavi .now", e => e.classList.remove("now"));
+      $(`#DocNavi a[href*='#${i.target.id}']`, e => e.classList.add("now"));
     }
   }
 }, {root: document.querySelector("header"), rootMargin: "0px", threshold: 0})
@@ -77,15 +73,8 @@ class Router {
           return response.text();
         })
         .then(function(html) {
-          var start = html.indexOf(">", html.indexOf("<article")) + 1;
-          var end = html.lastIndexOf("</article>");
-          var article = html.substring(start, end);
-          document.querySelector("article").innerHTML = article;
-
-          var start = html.indexOf(">", html.indexOf("<aside")) + 1;
-          var end = html.lastIndexOf("</aside>");
-          var aside = html.substring(start, end);
-          document.querySelector("aside").innerHTML = aside;
+          $("#Article", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<article")) + 1, html.lastIndexOf("</article>")));
+          $("#SubNavi", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<aside")) + 1, html.lastIndexOf("</aside>")));
 
           that.pathChanged();
           that.hashChanged();
@@ -95,16 +84,37 @@ class Router {
 }
 
 new Router(() => {
-  one("#APINavi").hidden = !location.pathname.startsWith("/api/");
-  one("#DocNavi").hidden = !location.pathname.startsWith("/doc/");
-  
-  all("article>section section").forEach(e => navi.observe(e));
-  all("#DocNavi>ol>li").forEach(e => {
+  $("#APINavi", e => e.hidden = !location.pathname.startsWith("/api/"));
+  $("#DocNavi", e => e.hidden = !location.pathname.startsWith("/doc/"));
+  $("#DocNavi>ol>li", e => {
     if (e.id == location.pathname) {
       e.classList.add("active");
     } else {
       e.classList.remove("active");
     }
+  });
+  
+  $("#Article>section section", e => navi.observe(e));
+
+  // =====================================================
+  // Setup meta icons
+  // =====================================================
+  $(".perp", e => {
+    e.title = "Copy the permanent link";
+    e.onclick = x => {
+      navigator.clipboard.writeText(location.href + "#" + e.closest("section").id);
+    };
+  });
+  $(".tweet", e => {
+    e.title = "Post this article to Twitter";
+    e.href = "https://twitter.com/intent/tweet?url=" + encodeURIComponent(location.href + "#" + e.closest("section").id) + "&text=" + encodeURIComponent(e.closest("header").firstElementChild.textContent);
+    e.target = "_blank";
+    e.rel = "noopener noreferrer";
+  });
+  $(".edit", e => {
+    e.title = "Edit this article";
+    e.target = "_blank";
+    e.rel = "noopener noreferrer";
   });
   
   hljs.highlightAll();
