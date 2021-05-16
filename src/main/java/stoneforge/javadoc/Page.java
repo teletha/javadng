@@ -177,14 +177,13 @@ public abstract class Page extends HTML {
                 font.size(1.2, em).family(theme.condensedFont).color(Color.hsl(0, 0, 30));
 
                 $.select(".doc", () -> {
+
+                    $.with(".active > a", () -> {
+                        font.weight.bold();
+                    });
+
                     $.select("li", () -> {
                         padding.vertical(0.25, em);
-
-                        $.with(".active", () -> {
-                            $.select(">a", () -> {
-                                font.weight.bold();
-                            });
-                        });
                     });
                 });
 
