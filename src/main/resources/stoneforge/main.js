@@ -27,12 +27,12 @@ class Router {
    * This constructor make the configuration and initialization.
    */
   constructor(pathChanged, hashChanged) {
-    document.addEventListener("DOMContentLoaded", () => {
-      this.pathChanged = pathChanged;
-      this.hashChanged = hashChanged;
-      this.pathname = location.pathname;
-      this.hash = location.hash;
+    this.pathChanged = pathChanged;
+    this.hashChanged = hashChanged;
+    this.path = location.pathname;
+    this.hash = location.hash;
       
+    document.addEventListener("DOMContentLoaded", () => {
       pathChanged();
       hashChanged();
     });
@@ -56,7 +56,7 @@ class Router {
   update() {
     const that = this;
   
-    if (this.pathname == location.pathname) {
+    if (this.path == location.pathname) {
       if (this.hash == location.hash) {
         return; // do nothing
       } else {
@@ -65,10 +65,10 @@ class Router {
         return;
       }
     } else {
-      this.pathname = location.pathname;
+      this.path = location.pathname;
       this.hash = location.hash;
     
-      fetch(location.pathname)
+      fetch(this.path)
         .then(function(response) {
           return response.text();
         })
@@ -84,6 +84,9 @@ class Router {
 }
 
 new Router(() => {
+  // =====================================================
+  // Redraw main navigation
+  // =====================================================
   $("#APINavi", e => e.hidden = !location.pathname.startsWith("/api/"));
   $("#DocNavi", e => e.hidden = !location.pathname.startsWith("/doc/"));
   $("#DocNavi>div", e => {
@@ -101,7 +104,7 @@ new Router(() => {
   $("#Article>section section", e => navi.observe(e));
 
   // =====================================================
-  // Setup meta icons
+  // Initialize metadata icons
   // =====================================================
   $(".perp", e => {
     e.title = "Copy the permanent link";
@@ -149,12 +152,8 @@ new Vue({
         <a :href="doc.path"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#airplay"/></svg>{{doc.title}}</a>
         <ol class="sub">
           <li v-for="sub in doc.subs">
-            <a :href="sub.path">{{sub.title}}</a>
-            <ol class="foot">
-              <li v-for="foot in sub.subs">
-                <a :href="foot.path"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#chevrons-right"/></svg>{{foot.title}}</a>
-              </li>
-            </ol>
+            <a :href="sub.path"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#chevrons-right"/></svg>{{sub.title}}</a>
+            <a v-for="foot in sub.subs" :href="foot.path"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#chevrons-right"/></svg><span class="foot">{{foot.title}}</span></a>
           </li>
         </ol>
       </div>

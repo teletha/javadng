@@ -163,12 +163,11 @@ public abstract class Page extends HTML {
         Style Navigation = () -> {
             flexItem.basis(NavigationWidth).shrink(0).alignSelf.start();
             position.sticky().top(80, px);
+            padding.top(BaseStyle.BlockVerticalGap);
+            margin.bottom(1.6, rem);
 
-            $.child(() -> {
-                padding.top(BaseStyle.BlockVerticalGap);
-                margin.bottom(1.6, rem);
-
-                $.child().child(() -> {
+            $.select("#APINavi", () -> {
+                $.select(">*", () -> {
                     margin.bottom(BaseStyle.BlockVerticalGap);
                 });
             });
@@ -177,6 +176,7 @@ public abstract class Page extends HTML {
                 font.size(1.2, em).family(theme.condensedFont).color(Color.hsl(0, 0, 30));
 
                 $.select(".doc", () -> {
+                    margin.bottom(0.5, em);
 
                     $.with(".active > a", () -> {
                         font.weight.bold();
@@ -190,33 +190,46 @@ public abstract class Page extends HTML {
                 $.select(".sub", () -> {
                     display.height(0, px);
                     listStyle.none();
-                    font.size(0.85, em).color(Color.hsl(0, 0, 45)).lineHeight(1.3);
+                    font.size(0.85, em).color(Color.hsl(0, 0, 45));
                     border.left.solid().width(1, px).color(Color.hsl(0, 0, 65));
                     margin.left(10, px);
-                    padding.left(Numeric.of(12, px).plus(1, em));
                     overflow.hidden();
 
                     transition.duration(0.5, s).whenever();
-                });
 
-                $.select(".foot", () -> {
-                    listStyle.none();
-                    padding.left(0.2, em);
-                    font.style.italic();
+                    $.select("a", () -> {
+                        $.select(".foot", () -> {
+                            font.style.italic();
+                            padding.left(1.1, em);
+                        });
 
-                    $.select("svg", () -> {
-                        display.width(18, px).height(18, px);
-                        margin.right(0, px);
+                        $.select("svg", () -> {
+                            display.width(16, px).height(16, px);
+                            margin.left(4, px).right(5, px);
+                            stroke.width(2, px).transparent();
+
+                            transition.duration(0.25, s).whenever();
+                            transform.translateX(-16, px);
+                        });
+
+                        $.hover(() -> {
+                            $.select("svg", () -> {
+                                stroke.color(theme.link);
+                                transform.translateX(0, px);
+                            });
+                        });
+
+                        $.active(() -> {
+                            $.select("svg", () -> {
+                                transform.translateX(4, px);
+                            });
+                        });
                     });
                 });
 
                 $.select("a", () -> {
                     display.block();
                     text.decoration.none();
-
-                    $.with(".now", () -> {
-                        font.color(theme.accent);
-                    });
 
                     $.select("svg", () -> {
                         display.width(20, px).height(20, px);
