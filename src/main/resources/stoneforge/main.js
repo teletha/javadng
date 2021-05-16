@@ -86,11 +86,15 @@ class Router {
 new Router(() => {
   $("#APINavi", e => e.hidden = !location.pathname.startsWith("/api/"));
   $("#DocNavi", e => e.hidden = !location.pathname.startsWith("/doc/"));
-  $("#DocNavi>ol>li", e => {
+  $("#DocNavi>div", e => {
+    const sub = e.lastElementChild;
+    
     if (e.id == location.pathname) {
       e.classList.add("active");
+      sub.style.height = sub.scrollHeight + "px";
     } else {
       e.classList.remove("active");
+      sub.style.height = 0;
     }
   });
   
@@ -141,21 +145,19 @@ new Vue({
   template: `
 	<div>
 		<div id="DocNavi" hidden>
-      <ol class="doc">
-        <li v-for="doc in items.docs" :id="doc.path">
-          <a :href="doc.path"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#airplay"/></svg>{{doc.title}}</a>
-          <ol class="sub">
-            <li v-for="sub in doc.subs">
-              <a :href="sub.path">{{sub.title}}</a>
-              <ol class="foot">
-                <li v-for="foot in sub.subs">
-                  <a :href="foot.path"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#chevrons-right"/></svg>{{foot.title}}</a>
-                </li>
-              </ol>
-            </li>
-          </ol>
-        </li>
-      </ol>
+      <div class="doc" v-for="doc in items.docs" :id="doc.path">
+        <a :href="doc.path"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#airplay"/></svg>{{doc.title}}</a>
+        <ol class="sub">
+          <li v-for="sub in doc.subs">
+            <a :href="sub.path">{{sub.title}}</a>
+            <ol class="foot">
+              <li v-for="foot in sub.subs">
+                <a :href="foot.path"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#chevrons-right"/></svg>{{foot.title}}</a>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </div>
     </div>
 	  <div id="APINavi" hidden>
   		<v-select v-model="selectedModule" placeholder="Select Module" :options="items.modules"></v-select>

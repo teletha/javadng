@@ -177,8 +177,6 @@ public abstract class Page extends HTML {
                 font.size(1.2, em).family(theme.condensedFont).color(Color.hsl(0, 0, 30));
 
                 $.select(".doc", () -> {
-                    listStyle.none();
-
                     $.select("li", () -> {
                         padding.vertical(0.25, em);
 
@@ -186,21 +184,20 @@ public abstract class Page extends HTML {
                             $.select(">a", () -> {
                                 font.weight.bold();
                             });
-
-                            $.select(".sub", () -> {
-                                display.block();
-                            });
                         });
                     });
                 });
 
                 $.select(".sub", () -> {
-                    display.none();
+                    display.height(0, px);
                     listStyle.none();
                     font.size(0.85, em).color(Color.hsl(0, 0, 45)).lineHeight(1.3);
                     border.left.solid().width(1, px).color(Color.hsl(0, 0, 65));
-                    margin.left(10, px).vertical(0.5, em);
+                    margin.left(10, px);
                     padding.left(Numeric.of(12, px).plus(1, em));
+                    overflow.hidden();
+
+                    transition.duration(0.5, s).whenever();
                 });
 
                 $.select(".foot", () -> {
