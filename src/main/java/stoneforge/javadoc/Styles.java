@@ -16,10 +16,7 @@ import stylist.value.Color;
 import stylist.value.Font;
 import stylist.value.Numeric;
 
-/**
- * 
- */
-public class Styles extends AbstractStyleDSL implements BaseStyle {
+public class Styles extends AbstractStyleDSL implements StyleConstants {
 
     // =====================================================
     // HTML Elements
@@ -162,9 +159,9 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
 
     public static Style Section = () -> {
         margin.bottom(1.6, rem).top(0.6, rem);
-        padding.horizontal(1.3, rem).vertical(0.8, rem);
+        padding.horizontal(1.7, rem).vertical(1, rem);
         border.radius(4, px);
-        background.color(Color.White);
+        background.color("white");
     };
 
     private static void block() {
@@ -178,8 +175,8 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
      */
     public static void block(Color color, boolean paintBackground) {
         margin.left(0, px);
-        padding.vertical(BaseStyle.BlockVerticalGap).horizontal(BaseStyle.BlockHorizontalGap);
-        border.left.width(BaseStyle.BlockBorderWidth).solid().color(color);
+        padding.vertical(StyleConstants.BlockVerticalGap).horizontal(StyleConstants.BlockHorizontalGap);
+        border.left.width(StyleConstants.BlockBorderWidth).solid().color(color);
         font.family(theme.baseFont).lineHeight(LineHeight);
         if (paintBackground) background.color(color.opacify(-0.8d));
     }
@@ -190,8 +187,8 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
      * @param color
      */
     public static void block2(Color color, boolean paintBackground) {
-        padding.vertical(BaseStyle.BlockVerticalGap).horizontal(BaseStyle.BlockHorizontalGap);
-        border.left.width(BaseStyle.BlockBorderWidth).solid().color(color);
+        padding.vertical(StyleConstants.BlockVerticalGap).horizontal(StyleConstants.BlockHorizontalGap);
+        border.left.width(StyleConstants.BlockBorderWidth).solid().color(color);
         border.radius(2, px);
         font.family(theme.baseFont).lineHeight(LineHeight);
         position.relative();

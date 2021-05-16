@@ -15,7 +15,7 @@ import stylist.Theme;
 import stylist.value.Font;
 import stylist.value.Numeric;
 
-public interface BaseStyle {
+public interface StyleConstants {
 
     Theme theme = Theme.with.primary($.rgb(22, 94, 131))
             .secondary($.rgb(250, 210, 50))
@@ -45,5 +45,4 @@ public interface BaseStyle {
     Numeric RightNavigationWidth = Numeric.of(20, vw);
 
     double LineHeight = 1.7;
-
 }

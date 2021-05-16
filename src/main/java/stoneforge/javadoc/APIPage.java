@@ -233,7 +233,7 @@ public class APIPage extends Page {
     /**
      * Style definition.
      */
-    private interface style extends StyleDSL, BaseStyle {
+    private interface style extends StyleDSL, StyleConstants {
 
         Color keyword = Color.hsl(0, 29, 49);
 

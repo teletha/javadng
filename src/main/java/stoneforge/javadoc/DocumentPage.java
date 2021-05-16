@@ -45,7 +45,7 @@ public class DocumentPage extends Page {
 
                     for (ClassInfo foot : child.children(Modifier.PUBLIC)) {
                         if (foot.hasDocument()) {
-                            $("section", attr("id", foot.id()), Styles.JavadocComment, () -> {
+                            $("section", attr("id", foot.id()), Styles.JavadocComment, styles.foot, () -> {
                                 write(foot);
                             });
                         }
@@ -94,7 +94,7 @@ public class DocumentPage extends Page {
     protected void declareSubNavigation() {
     }
 
-    interface styles extends StyleDSL, BaseStyle {
+    interface styles extends StyleDSL, StyleConstants {
 
         Numeric IconSize = Numeric.of(14, px);
 
@@ -123,5 +123,9 @@ public class DocumentPage extends Page {
                 transform.translateY(3, px);
             });
         });
+
+        Style foot = () -> {
+            margin.top(3, em);
+        };
     }
 }

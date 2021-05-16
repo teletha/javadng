@@ -106,7 +106,7 @@ public abstract class Page extends HTML {
     /**
      * Style definition.
      */
-    private interface Styles extends StyleDSL, BaseStyle {
+    private interface Styles extends StyleDSL, StyleConstants {
 
         Numeric NavigationWidth = Numeric.of(17, vw);
 
@@ -163,12 +163,12 @@ public abstract class Page extends HTML {
         Style Navigation = () -> {
             flexItem.basis(NavigationWidth).shrink(0).alignSelf.start();
             position.sticky().top(80, px);
-            padding.top(BaseStyle.BlockVerticalGap);
+            padding.top(StyleConstants.BlockVerticalGap);
             margin.bottom(1.6, rem);
 
             $.select("#APINavi", () -> {
                 $.select(">*", () -> {
-                    margin.bottom(BaseStyle.BlockVerticalGap);
+                    margin.bottom(StyleConstants.BlockVerticalGap);
                 });
             });
 
