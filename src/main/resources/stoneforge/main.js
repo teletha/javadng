@@ -4,7 +4,7 @@
 const $ = (q,p) => document.querySelectorAll(q).forEach(p);
 
 // =====================================================
-// Define Navigator
+// Dynamic Navigation Indicator
 // =====================================================
 const navi = new IntersectionObserver(e => {
   e = e.filter(i => i.isIntersecting);
@@ -13,10 +13,10 @@ const navi = new IntersectionObserver(e => {
     if (i) {
       console.log(i.target.id, i.intersectionRatio);
       $("#DocNavi .now", e => e.classList.remove("now"));
-      $(`#DocNavi a[href*='#${i.target.id}']`, e => e.classList.add("now"));
+      $(`#DocNavi a[href$='#${i.target.id}']`, e => e.classList.add("now"));
     }
   }
-}, {root: document.querySelector("header"), rootMargin: "0px", threshold: 0})
+}, {root: null, rootMargin: "-40% 0px -60% 0px", threshold: 0})
 
 
 // =====================================================
@@ -69,10 +69,10 @@ class Router {
       this.hash = location.hash;
     
       fetch(this.path)
-        .then(function(response) {
+        .then(response => {
           return response.text();
         })
-        .then(function(html) {
+        .then(html => {
           $("#Article", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<article")) + 1, html.lastIndexOf("</article>")));
           $("#SubNavi", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<aside")) + 1, html.lastIndexOf("</aside>")));
 
@@ -101,7 +101,7 @@ new Router(() => {
     }
   });
   
-  $("#Article>section section", e => navi.observe(e));
+  $("#Article section", e => navi.observe(e));
 
   // =====================================================
   // Initialize metadata icons

@@ -219,6 +219,13 @@ public abstract class Page extends HTML {
                             });
                         });
 
+                        $.with(".now", () -> {
+                            $.select("svg", () -> {
+                                stroke.color(theme.link);
+                                transform.translateX(0, px);
+                            });
+                        });
+
                         $.active(() -> {
                             $.select("svg", () -> {
                                 transform.translateX(4, px);
