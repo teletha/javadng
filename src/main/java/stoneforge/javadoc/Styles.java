@@ -105,18 +105,18 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             $.select(">dt", () -> {
                 flexItem.basis(15, percent);
                 position.relative();
-                padding.vertical(1, em).right(pad);
+                margin.vertical(7, px);
+                padding.vertical(0.6, em).right(pad);
                 border.right.solid().width(1, px).color(borderColor);
-                font.weight.bold().color(theme.front.lighten(30));
                 text.align.right();
 
                 $.not($.lastType(), () -> {
                     $.before(() -> {
                         content.text("");
-                        display.block().width(5, px).height(5, px).zIndex(2);
-                        position.absolute().right(-3, px).bottom(0, px);
-                        border.radius(50, percent).solid().width(1, px).color(borderColor);
-                        background.color("white");
+                        display.block().width(3, px).height(3, px);
+                        position.absolute().right(-2, px).bottom(-8, px);
+                        border.radius(50, percent).solid().width(1, px).transparent();
+                        background.color(theme.secondary);
                     });
                     // $.after(() -> {
                     // content.text("");
@@ -128,9 +128,9 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             });
 
             $.select(">dd", () -> {
-                font.color(theme.front.lighten(10));
                 flexItem.basis(75, percent);
-                padding.vertical(1, em).left(pad);
+                margin.vertical(7, px);
+                padding.vertical(0.6, em).left(pad);
             });
         });
 

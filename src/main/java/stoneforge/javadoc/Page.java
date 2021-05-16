@@ -212,14 +212,14 @@ public abstract class Page extends HTML {
                             transform.translateX(-16, px);
                         });
 
-                        $.hover(() -> {
+                        $.with(".now", () -> {
                             $.select("svg", () -> {
-                                stroke.color(theme.link);
+                                stroke.color(theme.front.lighten(20));
                                 transform.translateX(0, px);
                             });
                         });
 
-                        $.with(".now", () -> {
+                        $.hover(() -> {
                             $.select("svg", () -> {
                                 stroke.color(theme.link);
                                 transform.translateX(0, px);

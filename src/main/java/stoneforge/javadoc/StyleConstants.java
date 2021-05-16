@@ -17,12 +17,12 @@ import stylist.value.Numeric;
 
 public interface StyleConstants {
 
-    Theme theme = Theme.with.primary($.rgb(22, 94, 131))
-            .secondary($.rgb(250, 210, 50))
-            .accent($.rgb(221, 81, 76))
-            .front($.rgb(69, 69, 79))
-            .back($.rgb(241, 250, 238))
-            .link($.rgb(221, 81, 76))
+    Theme theme = Theme.with.primary($.hsl(200, 70, 30))
+            .secondary($.hsl(48, 95, 60))
+            .accent($.hsl(0, 55, 60))
+            .front($.hsl(0, 0, 45))
+            .back($.hsl(105, 55, 96))
+            .link($.hsl(0, 55, 60))
             .baseFont(Font.fromGoogle("Roboto"))
             .condensedFont(Font.fromGoogle("Fira Sans Condensed"))
             .titleFont(Font.fromGoogle("Ubuntu"))
