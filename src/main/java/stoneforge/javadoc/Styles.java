@@ -14,6 +14,7 @@ import stylist.Browsers;
 import stylist.Style;
 import stylist.value.Color;
 import stylist.value.Font;
+import stylist.value.Numeric;
 
 /**
  * 
@@ -99,6 +100,41 @@ public class Styles extends AbstractStyleDSL implements BaseStyle {
 
         $.select("dl", () -> {
             block();
+            display.flex().wrap.enable();
+
+            Color borderColor = Color.hsl(0, 0, 85);
+            Numeric pad = Numeric.of(2.3, em);
+
+            $.select(">dt", () -> {
+                flexItem.basis(15, percent);
+                position.relative();
+                padding.vertical(1, em).right(pad);
+                border.right.solid().width(1, px).color(borderColor);
+                font.weight.bold().color(theme.front.lighten(30));
+                text.align.right();
+
+                $.not($.lastType(), () -> {
+                    $.before(() -> {
+                        content.text("");
+                        display.block().width(5, px).height(5, px).zIndex(2);
+                        position.absolute().right(-3, px).bottom(0, px);
+                        border.radius(50, percent).solid().width(1, px).color(borderColor);
+                        background.color("white");
+                    });
+                    // $.after(() -> {
+                    // content.text("");
+                    // display.block().width(16, px);
+                    // position.absolute().right(-16, px).bottom(2, px);
+                    // border.bottom.solid().width(1, px).color(borderColor);
+                    // });
+                });
+            });
+
+            $.select(">dd", () -> {
+                font.color(theme.front.lighten(10));
+                flexItem.basis(75, percent);
+                padding.vertical(1, em).left(pad);
+            });
         });
 
         $.select("ul", () -> {
