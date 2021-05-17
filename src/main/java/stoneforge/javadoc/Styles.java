@@ -53,6 +53,24 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     public static Style HTMLToolTip = Browsers
             .tooltip("title", true, theme.back, theme.front.opacify(-0.08), BackgroundImage.drawSlash(theme.front.opacify(-0.15), 2));
 
+    public static Style SVG = Style.named(".svg", () -> {
+        display.width(16, px);
+        stroke.current().linejoin.round().linecap.round().width(1.5, px);
+        fill.none();
+    });
+
+    public static Style AnimatedSVG = SVG.with(() -> {
+        stroke.width(2.5, px).color(theme.front.opacify(-0.6));
+
+        $.transit().duration(0.5, s).when().hover(() -> {
+            stroke.color(theme.accent);
+        });
+
+        $.transit().duration(0.05, s).ease().when().active(() -> {
+            transform.translateY(3, px);
+        });
+    });
+
     public static Style HLJS = Style.named(".hljs", () -> {
         block();
         font.family(theme.monoFont).size(11.5, px).letterSpacing(-0.3, px);
@@ -63,7 +81,15 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
         $.before(() -> {
             content.attr("lang");
-            position.absolute().right(1.2, em).top(0.2, em);
+            position.absolute().right(25, px).top(0.2, em);
+        });
+
+        $.select("a", () -> {
+            position.absolute().right(5, px).top(4, px);
+
+            $.select("svg", AnimatedSVG.with(() -> {
+                stroke.current().width(2, px);
+            }));
         });
     });
 
@@ -146,12 +172,6 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             block();
         });
     };
-
-    public static Style SVG = Style.named(".svg", () -> {
-        display.width(16, px);
-        stroke.current().linejoin.round().linecap.round().width(1.5, px);
-        fill.none();
-    });
 
     public static Style Section = () -> {
         margin.bottom(1.6, rem).top(0.6, rem);

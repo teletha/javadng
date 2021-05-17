@@ -9,6 +9,17 @@ const $ = (q,p) => document.querySelectorAll(q).forEach(p);
 hljs.addPlugin({
   "after:highlightElement": ({el, result}) => {
     el.lang = result.language.toUpperCase();
+    
+    // For some reason, inserting an element in a callback function deletes the inserted element,
+    // so I deliberately delay the insertion. Seriously, it makes no sense.
+    var a = document.createElement("a");
+    a.innerHTML = '<svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#copy"/></svg>';
+    a.title = "Copy this code";
+    a.onclick = e => {
+      navigator.clipboard.writeText(el.textContent);
+    };
+    
+    el.parentNode.appendChild(a);
   }
 });
 

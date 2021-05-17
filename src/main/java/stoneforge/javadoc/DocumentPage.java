@@ -64,13 +64,13 @@ public class DocumentPage extends Page {
             $(xml(heading.size() != 0 ? heading : I.xml("h2").text(info.title())));
             $("div", styles.meta, () -> {
                 $("a", attr("class", "perp"), styles.icon, () -> {
-                    $("svg", attr("viewBox", "0 0 24 24"), styles.svg, () -> {
+                    $("svg", attr("viewBox", "0 0 24 24"), Styles.AnimatedSVG, () -> {
                         $("use", attr("href", "/main.svg#link"));
                     });
                 });
 
                 $("a", attr("class", "tweet"), styles.icon, () -> {
-                    $("svg", attr("viewBox", "0 0 24 24"), styles.svg, () -> {
+                    $("svg", attr("viewBox", "0 0 24 24"), Styles.AnimatedSVG, () -> {
                         $("use", attr("href", "/main.svg#twitter"));
                     });
                 });
@@ -78,7 +78,7 @@ public class DocumentPage extends Page {
                 String editor = model.editor().apply(info.filePath(), info.documentLine());
                 if (editor != null) {
                     $("a", attr("href", editor), attr("class", "edit"), styles.icon, () -> {
-                        $("svg", attr("viewBox", "0 0 24 24"), styles.svg, () -> {
+                        $("svg", attr("viewBox", "0 0 24 24"), Styles.AnimatedSVG, () -> {
                             $("use", attr("href", "/main.svg#edit"));
                         });
                     });
@@ -112,18 +112,6 @@ public class DocumentPage extends Page {
             font.lineHeight(1);
             margin.left(IconSize);
         };
-
-        Style svg = Styles.SVG.with(() -> {
-            stroke.width(2.5, px).color(theme.front.opacify(-0.6));
-
-            $.transit().duration(0.5, s).when().hover(() -> {
-                stroke.color(theme.accent);
-            });
-
-            $.transit().duration(0.05, s).ease().when().active(() -> {
-                transform.translateY(3, px);
-            });
-        });
 
         Style foot = () -> {
             margin.top(3, em);
