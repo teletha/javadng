@@ -213,6 +213,8 @@ public abstract class Page extends HTML {
                         });
 
                         $.with(".now", () -> {
+                            font.weight.bold();
+
                             $.select("svg", () -> {
                                 stroke.color(theme.front.lighten(20));
                                 transform.translateX(0, px);
