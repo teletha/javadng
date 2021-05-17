@@ -1,7 +1,25 @@
 // =====================================================
-// Shorthand
+// Utility
 // =====================================================
 const $ = (q,p) => document.querySelectorAll(q).forEach(p);
+
+function flip(e, before, after, action) {
+  // If you don't retain the data from the automatic translation,
+  // the text will revert to the original after flip.
+  const b = document.createElement("div"), a = document.createElement("div");
+  b.style.display = a.style.display = true;
+  b.title = before;
+  a.title = after;
+  e.appendChild(b);
+  e.appendChild(a);
+  
+  e.title = before;
+  e.onclick = x => {
+    action();
+    e.title = a.title;
+    setTimeout(() => e.title = b.title, 2000);
+  };
+}
 
 // =====================================================
 // Enhance code highlight
@@ -14,14 +32,12 @@ hljs.addPlugin({
     // so I deliberately delay the insertion. Seriously, it makes no sense.
     var a = document.createElement("a");
     a.innerHTML = '<svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#copy"/></svg>';
-    a.title = "Copy this code";
-    a.onclick = e => {
-      navigator.clipboard.writeText(el.textContent);
-    };
+    flip(a, "Copy this code", "Copied!!", () => navigator.clipboard.writeText(el.textContent));
     
     el.parentNode.appendChild(a);
   }
 });
+
 
 // =====================================================
 // Dynamic Navigation Indicator
@@ -127,10 +143,7 @@ new Router(() => {
   // Initialize metadata icons
   // =====================================================
   $(".perp", e => {
-    e.title = "Copy the permanent link";
-    e.onclick = x => {
-      navigator.clipboard.writeText(location.origin + location.pathname + "#" + e.closest("section").id);
-    };
+    flip(e, "Copy the permanent link", "Copied!!", () => navigator.clipboard.writeText(location.origin + location.pathname + "#" + e.closest("section").id));
   });
   $(".tweet", e => {
     e.title = "Post this article to Twitter";

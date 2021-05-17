@@ -12,7 +12,6 @@ package stoneforge.javadoc;
 import stylist.AbstractStyleDSL;
 import stylist.Browsers;
 import stylist.Style;
-import stylist.property.Background.BackgroundImage;
 import stylist.value.Color;
 import stylist.value.Font;
 import stylist.value.Numeric;
@@ -50,8 +49,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
     public static Style HTMLCheckbox = Browsers.checkbox(theme);
 
-    public static Style HTMLToolTip = Browsers
-            .tooltip("title", true, theme.back, theme.front.opacify(-0.08), BackgroundImage.drawSlash(theme.front.opacify(-0.15), 2));
+    public static Style HTMLToolTip = Browsers.tooltip("title", true, theme.back, Color.rgb(53, 53, 53, 0.9));
 
     public static Style SVG = Style.named(".svg", () -> {
         display.width(16, px);
