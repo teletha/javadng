@@ -12,6 +12,7 @@ package stoneforge.javadoc;
 import stylist.AbstractStyleDSL;
 import stylist.Browsers;
 import stylist.Style;
+import stylist.property.Background.BackgroundImage;
 import stylist.value.Color;
 import stylist.value.Font;
 import stylist.value.Numeric;
@@ -49,7 +50,8 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
     public static Style HTMLCheckbox = Browsers.checkbox(theme);
 
-    public static Style HTMLToolTip = Browsers.tooltip(theme, "tip", true);
+    public static Style HTMLToolTip = Browsers
+            .tooltip("title", true, theme.back, theme.front.opacify(-0.08), BackgroundImage.drawSlash(theme.front.opacify(-0.15), 2));
 
     public static Style HLJS = Style.named(".hljs", () -> {
         block();
@@ -103,7 +105,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             Numeric pad = Numeric.of(2.3, em);
 
             $.select(">dt", () -> {
-                flexItem.basis(15, percent);
+                flexItem.basis(20, percent);
                 position.relative();
                 margin.vertical(7, px);
                 padding.vertical(0.6, em).right(pad);
@@ -118,17 +120,11 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
                         border.radius(50, percent).solid().width(1, px).transparent();
                         background.color(theme.secondary);
                     });
-                    // $.after(() -> {
-                    // content.text("");
-                    // display.block().width(16, px);
-                    // position.absolute().right(-16, px).bottom(2, px);
-                    // border.bottom.solid().width(1, px).color(borderColor);
-                    // });
                 });
             });
 
             $.select(">dd", () -> {
-                flexItem.basis(75, percent);
+                flexItem.basis(70, percent);
                 margin.vertical(7, px);
                 padding.vertical(0.6, em).left(pad);
             });

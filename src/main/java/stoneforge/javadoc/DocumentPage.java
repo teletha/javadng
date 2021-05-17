@@ -11,6 +11,7 @@ package stoneforge.javadoc;
 
 import javax.lang.model.element.Modifier;
 
+import kiss.I;
 import kiss.XML;
 import stoneforge.javadoc.analyze.ClassInfo;
 import stylist.Style;
@@ -60,7 +61,7 @@ public class DocumentPage extends Page {
         XML heading = doc.find("h,h1,h2,h3,h4,h5,h6,h7").first().remove();
 
         $("header", Styles.JavadocComment, styles.header, () -> {
-            $(xml(heading));
+            $(xml(heading.size() != 0 ? heading : I.xml("h2").text(info.title())));
             $("div", styles.meta, () -> {
                 $("a", attr("class", "perp"), styles.icon, () -> {
                     $("svg", attr("viewBox", "0 0 24 24"), styles.svg, () -> {
