@@ -121,7 +121,7 @@ public class APIPage extends Page {
             if (list != null) {
                 for (SampleInfo sample : list) {
                     $("pre", () -> {
-                        $("code", attr("class", "lang-java"), attr("rel", "Java"), text(sample.code));
+                        $("code", attr("class", "lang-java"), text(sample.code));
                     });
                 }
             }
@@ -186,7 +186,7 @@ public class APIPage extends Page {
             if (list != null) {
                 for (SampleInfo sample : list) {
                     $("pre", () -> {
-                        $("code", attr("class", "lang-java"), attr("rel", "Java"), text(sample.code));
+                        $("code", attr("class", "lang-java"), text(sample.code));
                     });
                 }
             }

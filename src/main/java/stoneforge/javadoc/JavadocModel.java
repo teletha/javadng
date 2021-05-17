@@ -66,6 +66,7 @@ import stoneforge.javadoc.analyze.Data;
 import stoneforge.javadoc.analyze.Data.Doc;
 import stoneforge.javadoc.analyze.MethodInfo;
 import stoneforge.javadoc.analyze.SampleInfo;
+import stoneforge.javadoc.analyze.TemplateStore;
 import stoneforge.javadoc.analyze.TypeResolver;
 import stoneforge.javadoc.analyze.Util;
 import stylist.StyleDeclarable;
@@ -295,6 +296,10 @@ public abstract class JavadocModel {
      */
     public final Javadoc build() {
         synchronized (JavadocModel.class) {
+            TemplateStore.register("product", product());
+            TemplateStore.register("project", project());
+            TemplateStore.register("version", version());
+
             Internal.model = this;
 
             DocumentationTool tool = ToolProvider.getSystemDocumentationTool();

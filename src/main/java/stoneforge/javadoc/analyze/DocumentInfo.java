@@ -10,9 +10,7 @@
 package stoneforge.javadoc.analyze;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.StringJoiner;
 
@@ -617,9 +615,9 @@ public class DocumentInfo {
 
             if (inPre) {
                 if (id[0].endsWith("Test")) {
-                    text.append("<code class='lang-java' rel='Java'>").append(escape(Util.getSourceCode(id[0], id[1]))).append("</code>");
+                    text.append("<code class='lang-java'>").append(escape(Util.getSourceCode(id[0], id[1]))).append("</code>");
                 } else {
-                    text.append("<code class='lang-java' rel='Java'>")
+                    text.append("<code class='lang-java'>")
                             .append(escape(Util.getSourceCode(e, id[1] == null ? id[0] : id[1])))
                             .append("</code>");
                 }
@@ -642,7 +640,7 @@ public class DocumentInfo {
         @Override
         public DocumentXMLBuilder visitLiteral(LiteralTree node, DocumentXMLBuilder p) {
             String name = node.getTagName();
-            String body = escape(node.getBody().getBody());
+            String body = I.express(escape(node.getBody().getBody()), templateTags);
 
             if (inPre) {
                 body = Util.stripHeaderWhitespace(body);
@@ -917,19 +915,6 @@ public class DocumentInfo {
             default:
             }
             return xml;
-        }
-    }
-
-    /**
-     * Hard typed {@link Map} for template.
-     */
-    private static class TemplateStore extends HashMap<String, XML> {
-        private static final long serialVersionUID = -4452932715112144902L;
-
-        private TemplateStore(TemplateStore parent) {
-            if (parent != null) {
-                putAll(parent);
-            }
         }
     }
 }

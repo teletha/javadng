@@ -62,7 +62,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         position.relative();
 
         $.before(() -> {
-            content.attr("rel");
+            content.attr("lang");
             position.absolute().right(1.2, em).top(0.2, em);
         });
     });

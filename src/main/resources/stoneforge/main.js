@@ -4,6 +4,15 @@
 const $ = (q,p) => document.querySelectorAll(q).forEach(p);
 
 // =====================================================
+// Enhance code highlight
+// =====================================================
+hljs.addPlugin({
+  "after:highlightElement": ({el, result}) => {
+    el.lang = result.language.toUpperCase();
+  }
+});
+
+// =====================================================
 // Dynamic Navigation Indicator
 // =====================================================
 const navi = new IntersectionObserver(e => {
