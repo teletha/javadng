@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.3.1](https://www.github.com/Teletha/stoneforge/compare/v1.3.0...v1.3.1) (2021-05-18)
+
+
+### Bug Fixes
+
+* Tests. ([a85a95f](https://www.github.com/Teletha/stoneforge/commit/a85a95fbb8e0bb71597bc2d37a6a419284c6c7b8))
+
 ## [1.3.0](https://www.github.com/Teletha/stoneforge/compare/v1.2.0...v1.3.0) (2021-05-18)
 
 
