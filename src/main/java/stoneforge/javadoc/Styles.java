@@ -41,15 +41,15 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         cursor.pointer();
 
         $.hover(() -> {
-            font.color(Light.accent);
+            font.color(theme.accent);
             text.decoration.underline();
-            text.decorationColor.color(Light.front.opacify(-0.5));
+            text.decorationColor.color(theme.front.opacify(-0.5));
         });
     });
 
-    public static Style HTMLCheckbox = Browsers.checkbox(Light);
+    public static Style HTMLCheckbox = Browsers.checkbox(theme);
 
-    public static Style HTMLToolTip = Browsers.tooltip("title", true, Light.back, Light.front);
+    public static Style HTMLToolTip = Browsers.tooltip("title", true, Color.rgb(227, 227, 227), Color.rgb(63, 63, 63));
 
     public static Style SVG = Style.named(".svg", () -> {
         display.width(16, px);
@@ -58,10 +58,10 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     });
 
     public static Style AnimatedSVG = SVG.with(() -> {
-        stroke.width(2.5, px).color(Light.front.opacify(-0.6));
+        stroke.width(2.5, px).color(theme.front.opacify(-0.6));
 
         $.transit().duration(0.5, s).when().hover(() -> {
-            stroke.color(Light.accent);
+            stroke.color(theme.accent);
         });
 
         $.transit().duration(0.05, s).ease().when().active(() -> {
@@ -71,8 +71,8 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
     public static Style HLJS = Style.named(".hljs", () -> {
         block();
-        font.family(Light.monoFont).size(11.5, px).letterSpacing(-0.3, px);
-        border.radius(Light.borderRadius);
+        font.family(theme.monoFont).size(11.5, px).letterSpacing(-0.3, px);
+        border.radius(theme.borderRadius);
         margin.vertical(1, em);
         padding.left(1.2, em).vertical(1, em);
         position.relative();
@@ -96,25 +96,25 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     public static Style JavadocComment = () -> {
         $.select("h2", () -> {
             position.relative();
-            font.size(17, px).color(Light.primary).letterSpacing(1.5, px);
+            font.size(17, px).color(theme.primary).letterSpacing(1.5, px);
             padding.size(0.5, em).left(0, em);
             margin.top(0.3, em).bottom(0.8, em);
             border.vertical.dotted().width(1, px).color("gray");
 
             $.before(() -> {
-                font.family(Font.Awesome).size(2, em).color(Light.surface);
+                font.family(Font.Awesome).size(2, em).color(theme.surface);
                 content.text("\\f111");
                 position.absolute().left(-1, em).top(-0.13, em);
             });
             $.after(() -> {
-                font.family(Font.Awesome).size(1, em).color(Light.primary);
+                font.family(Font.Awesome).size(1, em).color(theme.primary);
                 content.text("\\f111");
                 position.absolute().left(-1.6, em).top(0.55, em);
             });
         });
 
         $.select("h3", () -> {
-            font.size(15, px).letterSpacing(1.5, px).color(Light.primary);
+            font.size(15, px).letterSpacing(1.5, px).color(theme.primary);
             padding.vertical(0.3, em);
             margin.top(1.1, em);
         });
@@ -144,7 +144,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
                         display.block().width(3, px).height(3, px);
                         position.absolute().right(-2, px).bottom(-8, px);
                         border.radius(50, percent).solid().width(1, px).transparent();
-                        background.color(Light.secondary);
+                        background.color(theme.secondary);
                     });
                 });
             });
@@ -176,8 +176,8 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     public static Style Section = () -> {
         margin.bottom(1.6, rem).top(0.6, rem);
         padding.horizontal(1.7, rem).vertical(1, rem);
-        border.radius(Light.borderRadius);
-        background.color(Light.surface);
+        border.radius(theme.borderRadius);
+        background.color(theme.surface);
     };
 
     private static void block() {
@@ -193,7 +193,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         margin.left(0, px);
         padding.vertical(StyleConstants.BlockVerticalGap).horizontal(StyleConstants.BlockHorizontalGap);
         border.left.width(StyleConstants.BlockBorderWidth).solid().color(color);
-        font.family(Light.baseFont).lineHeight(LineHeight);
+        font.family(theme.baseFont).lineHeight(LineHeight);
         if (paintBackground) background.color(color.opacify(-0.8d));
     }
 
@@ -205,8 +205,8 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     public static void block2(Color color, boolean paintBackground) {
         padding.vertical(StyleConstants.BlockVerticalGap).horizontal(StyleConstants.BlockHorizontalGap);
         border.left.width(StyleConstants.BlockBorderWidth).solid().color(color);
-        border.radius(Light.borderRadius);
-        font.family(Light.baseFont).lineHeight(LineHeight);
+        border.radius(theme.borderRadius);
+        font.family(theme.baseFont).lineHeight(LineHeight);
         position.relative();
         if (paintBackground) background.color(color.opacify(-0.8d));
 
@@ -218,7 +218,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     }
 
     public static final Style SignatureParameterPart = () -> {
-        font.color(Light.front.lighten(18));
+        font.color(theme.front.lighten(18));
     };
 
     public static final Style HTMLClassParameters = Style.named(".parameters", () -> {
@@ -279,11 +279,11 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     });
 
     public static final Style HTMLClassTypeAnnotation = Style.named(".Annotation", () -> {
-        buildMark("A", Light.primary, true, false);
+        buildMark("A", theme.primary, true, false);
     });
 
     public static final Style HTMLClassTypeException = Style.named(".Exception", () -> {
-        buildMark("T", Light.accent, true, false);
+        buildMark("T", theme.accent, true, false);
     });
 
     private static void buildMark(String mark, Color color, boolean fill, boolean circle) {
@@ -319,15 +319,15 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     });
 
     public static final Style HTMLClassModifierProtected = Style.named(".PROTECTED", () -> {
-        setMarkColor(Light.secondary);
+        setMarkColor(theme.secondary);
     });
 
     public static final Style HTMLClassModifierPackagePrivate = Style.named(".PACKAGEPRIVATE", () -> {
-        setMarkColor(Light.primary);
+        setMarkColor(theme.primary);
     });
 
     public static final Style HTMLClassModifierPrivate = Style.named(".PRIVATE", () -> {
-        setMarkColor(Light.accent);
+        setMarkColor(theme.accent);
     });
 
     /** The circle icon. */
@@ -403,7 +403,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     private static void overlayAlphabetRightTop(String mark) {
         position.relative();
         $.before(() -> {
-            font.color(Light.primary).size(0.6, rem).family(Light.monoFont);
+            font.color(theme.primary).size(0.6, rem).family(theme.monoFont);
             content.text(mark);
             position.absolute().top(-0.2, rem).left(0.7, rem);
         });
@@ -417,7 +417,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     private static void overlayAlphabetLeftTop(String mark) {
         position.relative();
         $.after(() -> {
-            font.color(Light.accent).size(0.6, rem).family(Light.monoFont);
+            font.color(theme.accent).size(0.6, rem).family(theme.monoFont);
             content.text(mark);
             position.absolute().top(-0.2, rem).left(0.3, rem);
         });
@@ -431,7 +431,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     private static void overlayIconRightBottom(String mark) {
         position.relative();
         $.after(() -> {
-            font.color(Light.primary).size(0.7, rem).family(Light.iconFont);
+            font.color(theme.primary).size(0.7, rem).family(theme.iconFont);
             content.text(mark);
             position.absolute().top(0.5, rem).left(0.4, rem);
         });
@@ -443,7 +443,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
     public static final Style SelectBoxHighlight = Style.named(".vs__dropdown-option--highlight", () -> {
         font.color("inherit");
-        background.color(Light.accent.opacify(-0.6));
+        background.color(theme.accent.opacify(-0.6));
     });
 
     public static final Style InputBox = Style.named("#SearchByName", () -> {
@@ -451,7 +451,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         background.color(Color.White);
         margin.vertical(8, px);
         padding.vertical(6, px).horizontal(8, px);
-        border.color(Color.rgb(60, 60, 60, 0.26)).width(1, px).solid().radius(Light.borderRadius);
+        border.color(Color.rgb(60, 60, 60, 0.26)).width(1, px).solid().radius(theme.borderRadius);
     });
 
     public static final Style Tree = Style.named(".tree", () -> {
@@ -469,7 +469,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             padding.vertical(0.2, rem).horizontal(0.5, rem);
 
             $.hover(() -> {
-                font.color(Light.accent);
+                font.color(theme.accent);
             });
         });
 
@@ -479,7 +479,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             text.whiteSpace.nowrap();
 
             $.hover(() -> {
-                font.color(Light.accent);
+                font.color(theme.accent);
             });
 
             $.child(() -> {

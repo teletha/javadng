@@ -630,7 +630,7 @@ public abstract class JavadocModel {
                 I.load(JavadocModel.class);
                 Stylist.pretty()
                         .importNormalizeStyle()
-                        .theme(StyleConstants.Light, StyleConstants.DarkTheme)
+                        .theme(StyleConstants.theme, StyleConstants.DarkTheme)
                         .styles(I.findAs(StyleDeclarable.class))
                         .formatTo(output().file("main.css").asJavaPath());
 

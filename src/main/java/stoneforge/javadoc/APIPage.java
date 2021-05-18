@@ -246,12 +246,12 @@ public class APIPage extends Page {
         };
 
         Style TypeName = () -> {
-            font.family(Light.baseFont).size(1.2, rem).weight.normal();
+            font.family(theme.baseFont).size(1.2, rem).weight.normal();
             margin.bottom(0.3, rem);
         };
 
         Style MemberName = () -> {
-            font.family(Light.baseFont).size(1, rem).weight.normal();
+            font.family(theme.baseFont).size(1, rem).weight.normal();
             display.block();
         };
 
@@ -261,7 +261,7 @@ public class APIPage extends Page {
         };
 
         Style Return = () -> {
-            font.color(Light.secondary.lighten(-30));
+            font.color(theme.secondary.lighten(-30));
 
             $.before(() -> {
                 content.text(":");
@@ -320,7 +320,7 @@ public class APIPage extends Page {
 
             $.before(() -> {
                 content.text("Return");
-                font.color(Light.secondary.lighten(-30));
+                font.color(theme.secondary.lighten(-30));
             });
         };
 
@@ -377,7 +377,7 @@ public class APIPage extends Page {
             });
 
             $.select("li").not($.lastChild()).after(() -> {
-                font.color(Light.front.lighten(30)).size.smaller();
+                font.color(theme.front.lighten(30)).size.smaller();
                 content.text("\\025b6");
                 margin.horizontal(0.8, rem);
             });
@@ -409,7 +409,7 @@ public class APIPage extends Page {
         };
 
         Style NaviReturn = () -> {
-            font.color(Light.secondary.lighten(-30));
+            font.color(theme.secondary.lighten(-30));
 
             $.before(() -> {
                 content.text(":");

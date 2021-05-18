@@ -120,9 +120,8 @@ public abstract class Page extends HTML {
         Numeric NavigationWidth = Numeric.of(17, vw);
 
         Style Workbench = () -> {
-            background.color(Light.back); // .image(BackgroundImage.drawSlash(Color.rgb(220, 222,
-                                          // 225, 0.7), 3)).repeat();
-            font.size(FontSize).family(Light.baseFont).color(Light.front).lineHeight(LineHeight);
+            background.color(theme.back).image(BackgroundImage.drawSlash(Color.rgb(220, 222, 225, 0.7), 3)).repeat();
+            font.size(FontSize).family(theme.baseFont).color(theme.front).lineHeight(LineHeight);
         };
 
         Style HeaderArea = () -> {
@@ -131,11 +130,11 @@ public abstract class Page extends HTML {
             display.width(MaxWidth).height(HeaderHeight).zIndex(10).flex().alignItems.baseline();
             margin.auto();
             padding.top(22, px);
-            border.bottom.color(Light.primary).width(1, px).solid();
+            border.bottom.color(theme.primary).width(1, px).solid();
         };
 
         Style HeaderTitle = () -> {
-            font.size(2.5, rem).family(Light.titleFont).weight.normal().color(Light.primary);
+            font.size(2.5, rem).family(theme.titleFont).weight.normal().color(theme.primary);
         };
 
         Style HeaderNav = () -> {
@@ -158,7 +157,7 @@ public abstract class Page extends HTML {
                         margin.left(-4, px);
                         border.top.width(0, px);
                         border.bottom.width(6, px);
-                        border.bottom.color(Light.primary);
+                        border.bottom.color(theme.primary);
                         position.absolute().top(100, percent).left(50, percent);
                     });
                 });
@@ -198,7 +197,7 @@ public abstract class Page extends HTML {
             });
 
             $.select("#DocNavi", () -> {
-                font.size(1.2, em).family(Light.condensedFont).color(Light.front.lighten(-15));
+                font.size(1.2, em).family(theme.condensedFont).color(theme.front.lighten(-15));
 
                 $.select(".doc", () -> {
                     margin.bottom(0.5, em);
@@ -211,7 +210,7 @@ public abstract class Page extends HTML {
                 $.select(".sub", () -> {
                     display.height(0, px);
                     listStyle.none();
-                    font.size(0.85, em).color(Light.front.lighten(-7));
+                    font.size(0.85, em).color(theme.front.lighten(-7));
                     border.left.solid().width(1, px).color(Color.hsl(0, 0, 65));
                     margin.left(10, px);
                     overflow.hidden();
@@ -235,14 +234,14 @@ public abstract class Page extends HTML {
 
                         $.with(".now", () -> {
                             $.select("svg", () -> {
-                                stroke.color(Light.front.lighten(20));
+                                stroke.color(theme.front.lighten(20));
                                 transform.translateX(0, px);
                             });
                         });
 
                         $.hover(() -> {
                             $.select("svg", () -> {
-                                stroke.color(Light.link);
+                                stroke.color(theme.link);
                                 transform.translateX(0, px);
                             });
                         });
