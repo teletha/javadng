@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.3.0](https://www.github.com/Teletha/stoneforge/compare/v1.2.0...v1.3.0) (2021-05-18)
+
+
+### Features
+
+* Add button to copy code. ([4f5f84c](https://www.github.com/Teletha/stoneforge/commit/4f5f84c17bad59c34ce5a2a73d1d89f4a248947b))
+* Add dl style on documentation comment. ([b037bf8](https://www.github.com/Teletha/stoneforge/commit/b037bf827aeba532eb02ecff3e12b774b467feb5))
+* Add SNS and edit link. ([c6dea9a](https://www.github.com/Teletha/stoneforge/commit/c6dea9a3efcf76c70e9ff44a7bdb75ab44adef68))
+* Docment can refer the external test code. ([36e51bb](https://www.github.com/Teletha/stoneforge/commit/36e51bb0253ed534ad724965eb9d1b16e7678612))
+* Enhance document navigation. ([77dd35f](https://www.github.com/Teletha/stoneforge/commit/77dd35f4c159441c8939d64152f83d995f52c615))
+* Javadoc can refer the user variables. ([020b26e](https://www.github.com/Teletha/stoneforge/commit/020b26eb88848e1cc9942988a158065f6cb811f3))
+* Support SVG styling. ([baa6761](https://www.github.com/Teletha/stoneforge/commit/baa6761e1a0435bf798f25a271dae7d9e0377b07))
+* Test server supports SVG. ([27de202](https://www.github.com/Teletha/stoneforge/commit/27de20233dfaf69eb28a14eeaac9d66a1056643d))
+
+
+### Bug Fixes
+
+* Avoid style confliction on svg. ([5a6bc85](https://www.github.com/Teletha/stoneforge/commit/5a6bc856ad6ca8dc293354b181d344f63a2d8191))
+* Enhance heading sytle. ([8af215c](https://www.github.com/Teletha/stoneforge/commit/8af215c821669975898a2ed72ab4a39407cbabb8))
+* Enhance styles. ([e3657ac](https://www.github.com/Teletha/stoneforge/commit/e3657ac98fb6482d8c50625fd45cdf9dc9fcf1dc))
+* Parse pre with code element correctly. ([40b3adb](https://www.github.com/Teletha/stoneforge/commit/40b3adb69d786dd789f799847be76f6c425be219))
+* Reduce the redundant page transition. ([01281a2](https://www.github.com/Teletha/stoneforge/commit/01281a2defc4981d7f2df1b7207dcfef4798391f))
+* Remove sub navigation on document page. ([2147dfb](https://www.github.com/Teletha/stoneforge/commit/2147dfbc8c0943337ca6a32a6ba027fbd71d44ab))
+
 ## [1.2.0](https://www.github.com/Teletha/stoneforge/compare/v1.1.0...v1.2.0) (2021-04-29)
 
 
