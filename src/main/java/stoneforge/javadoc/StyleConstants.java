@@ -17,10 +17,12 @@ import stylist.value.Numeric;
 
 public interface StyleConstants {
 
-    Theme theme = Theme.with.primary($.hsl(200, 70, 30))
+    Theme Light = Theme.with.name("Light")
+            .primary($.hsl(200, 70, 30))
             .secondary($.hsl(48, 95, 60))
             .accent($.hsl(0, 55, 60))
             .front($.hsl(0, 0, 45))
+            .surface($.hsl(0, 0, 98))
             .back($.hsl(105, 55, 96))
             .link($.hsl(0, 55, 60))
             .baseFont(Font.fromGoogle("Roboto"))
@@ -28,6 +30,20 @@ public interface StyleConstants {
             .titleFont(Font.fromGoogle("Ubuntu"))
             .monoFont(Font.fromGoogle("JetBrains Mono"))
             .borderRadius(4, px);
+
+    Theme DarkTheme = Theme.with.name("Dark")
+            .primary($.hsl(200, 70, 50))
+            .secondary(Light.secondary)
+            .accent($.hsl(0, 55, 50))
+            .front($.hsl(0, 0, 95))
+            .surface($.hsl(0, 0, 10))
+            .back($.hsl(0, 0, 5))
+            .link($.hsl(0, 55, 50))
+            .baseFont(Light.baseFont)
+            .condensedFont(Light.condensedFont)
+            .titleFont(Light.titleFont)
+            .monoFont(Light.monoFont)
+            .borderRadius(Light.borderRadius);
 
     Numeric FontSize = Numeric.of(13, px);
 

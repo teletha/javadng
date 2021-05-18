@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
+import static javax.tools.DocumentationTool.Location.*;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -630,6 +630,7 @@ public abstract class JavadocModel {
                 I.load(JavadocModel.class);
                 Stylist.pretty()
                         .importNormalizeStyle()
+                        .theme(StyleConstants.Light, StyleConstants.DarkTheme)
                         .styles(I.findAs(StyleDeclarable.class))
                         .formatTo(output().file("main.css").asJavaPath());
 
