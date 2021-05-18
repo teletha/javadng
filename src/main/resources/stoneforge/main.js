@@ -2,24 +2,12 @@
 // Utility
 // =====================================================
 const $ = (q,p) => document.querySelectorAll(q).forEach(p);
-
-function flip(e, before, after, action) {
-  // If you don't retain the data from the automatic translation,
-  // the text will revert to the original after flip.
-  const b = document.createElement("div"), a = document.createElement("div");
-  b.style.display = a.style.display = true;
-  b.title = before;
-  a.title = after;
-  e.appendChild(b);
-  e.appendChild(a);
-  
-  e.title = before;
-  e.onclick = x => {
-    action();
-    e.title = a.title;
-    setTimeout(() => e.title = b.title, 2000);
-  };
+const svg = (type) => {
+  var a = document.createElement("a");
+  a.innerHTML = `<svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#${type}"/></svg>`;
+  return a;
 }
+
 
 // =====================================================
 // Enhance code highlight
@@ -30,11 +18,13 @@ hljs.addPlugin({
     
     // For some reason, inserting an element in a callback function deletes the inserted element,
     // so I deliberately delay the insertion. Seriously, it makes no sense.
-    var a = document.createElement("a");
-    a.innerHTML = '<svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#copy"/></svg>';
-    flip(a, "Copy this code", "Copied!!", () => navigator.clipboard.writeText(el.textContent));
-    
-    el.parentNode.appendChild(a);
+    setTimeout(() => {
+      var a = svg("copy");
+      a.title = "Copy this code";
+      a.onclick = () => navigator.clipboard.writeText(el.textContent);
+      
+      el.appendChild(a);
+    }, 1)
   }
 });
 
@@ -143,7 +133,8 @@ new Router(() => {
   // Initialize metadata icons
   // =====================================================
   $(".perp", e => {
-    flip(e, "Copy the permanent link", "Copied!!", () => navigator.clipboard.writeText(location.origin + location.pathname + "#" + e.closest("section").id));
+    e.title = "Copy the permanent link";
+    e.onclick = () => navigator.clipboard.writeText(location.origin + location.pathname + "#" + e.closest("section").id);
   });
   $(".tweet", e => {
     e.title = "Post this article to Twitter";

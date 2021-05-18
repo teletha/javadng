@@ -26,7 +26,8 @@ public interface StyleConstants {
             .baseFont(Font.fromGoogle("Roboto"))
             .condensedFont(Font.fromGoogle("Fira Sans Condensed"))
             .titleFont(Font.fromGoogle("Ubuntu"))
-            .monoFont(Font.fromGoogle("JetBrains Mono"));
+            .monoFont(Font.fromGoogle("JetBrains Mono"))
+            .borderRadius(4, px);
 
     Numeric FontSize = Numeric.of(13, px);
 

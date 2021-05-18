@@ -72,20 +72,22 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     public static Style HLJS = Style.named(".hljs", () -> {
         block();
         font.family(theme.monoFont).size(11.5, px).letterSpacing(-0.3, px);
-        border.radius(4, px);
+        border.radius(theme.borderRadius);
         margin.vertical(1, em);
         padding.left(1.2, em).vertical(1, em);
         position.relative();
+        overflow.x.visible();
 
         $.before(() -> {
             content.attr("lang");
-            position.absolute().right(25, px).top(0.2, em);
+            position.absolute().right(28, px).top(4, px);
         });
 
         $.select("a", () -> {
-            position.absolute().right(5, px).top(4, px);
+            position.absolute().right(8, px).top(6, px);
 
             $.select("svg", AnimatedSVG.with(() -> {
+                display.width(14, px);
                 stroke.current().width(2, px);
             }));
         });
@@ -174,7 +176,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     public static Style Section = () -> {
         margin.bottom(1.6, rem).top(0.6, rem);
         padding.horizontal(1.7, rem).vertical(1, rem);
-        border.radius(4, px);
+        border.radius(theme.borderRadius);
         background.color("white");
     };
 
@@ -203,7 +205,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     public static void block2(Color color, boolean paintBackground) {
         padding.vertical(StyleConstants.BlockVerticalGap).horizontal(StyleConstants.BlockHorizontalGap);
         border.left.width(StyleConstants.BlockBorderWidth).solid().color(color);
-        border.radius(2, px);
+        border.radius(theme.borderRadius);
         font.family(theme.baseFont).lineHeight(LineHeight);
         position.relative();
         if (paintBackground) background.color(color.opacify(-0.8d));
@@ -449,7 +451,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         background.color(Color.White);
         margin.vertical(8, px);
         padding.vertical(6, px).horizontal(8, px);
-        border.color(Color.rgb(60, 60, 60, 0.26)).width(1, px).solid().radius(4, px);
+        border.color(Color.rgb(60, 60, 60, 0.26)).width(1, px).solid().radius(theme.borderRadius);
     });
 
     public static final Style Tree = Style.named(".tree", () -> {
@@ -465,7 +467,6 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             font.weight.bold();
             cursor.pointer();
             padding.vertical(0.2, rem).horizontal(0.5, rem);
-            border.radius(2, px);
 
             $.hover(() -> {
                 font.color(theme.accent);
@@ -475,7 +476,6 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         $.select("dd", () -> {
             padding.vertical(0.1, rem).left(1, rem);
             cursor.pointer();
-            border.radius(2, px);
             text.whiteSpace.nowrap();
 
             $.hover(() -> {

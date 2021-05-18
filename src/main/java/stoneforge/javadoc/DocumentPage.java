@@ -65,7 +65,7 @@ public class DocumentPage extends Page {
             $("div", styles.meta, () -> {
                 $("a", attr("class", "perp"), styles.icon, () -> {
                     $("svg", attr("viewBox", "0 0 24 24"), Styles.AnimatedSVG, () -> {
-                        $("use", attr("href", "/main.svg#link"));
+                        $("use", attr("href", "/main.svg#copy"));
                     });
                 });
 
