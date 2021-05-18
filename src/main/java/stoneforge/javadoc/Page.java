@@ -62,6 +62,15 @@ public abstract class Page extends HTML {
                         $("a", attr("href", "/api/"), text("API"));
                         $("a", text("Community"));
                     });
+                    $("div", attr("id", "ViewMode"), Styles.ViewMode, () -> {
+                        $("a", attr("id", "Sun"), attr("title", "Change to a brighter color scheme"), () -> {
+                            $(svg("sun"));
+                        });
+
+                        $("a", attr("id", "Moon"), attr("title", "Change to a darker color scheme"), () -> {
+                            $(svg("moon"));
+                        });
+                    });
                 });
 
                 $("main", Styles.MainArea, () -> {
@@ -152,6 +161,21 @@ public abstract class Page extends HTML {
                         position.absolute().top(100, percent).left(50, percent);
                     });
                 });
+            });
+        };
+
+        Style ViewMode = () -> {
+            display.flex().justifyContent.end();
+            flexItem.alignSelf.end().grow(2);
+            margin.bottom(10, px).right(2, em);
+
+            $.select("a", () -> {
+                display.width(20, px).height(20, px);
+                margin.left(1, em);
+            });
+
+            $.select("svg", () -> {
+                display.width(20, px).height(20, px);
             });
         };
 

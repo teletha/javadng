@@ -64,23 +64,17 @@ public class DocumentPage extends Page {
             $(xml(heading.size() != 0 ? heading : I.xml("h2").text(info.title())));
             $("div", styles.meta, () -> {
                 $("a", attr("class", "perp"), styles.icon, () -> {
-                    $("svg", attr("viewBox", "0 0 24 24"), Styles.AnimatedSVG, () -> {
-                        $("use", attr("href", "/main.svg#copy"));
-                    });
+                    $(svg("copy"));
                 });
 
                 $("a", attr("class", "tweet"), styles.icon, () -> {
-                    $("svg", attr("viewBox", "0 0 24 24"), Styles.AnimatedSVG, () -> {
-                        $("use", attr("href", "/main.svg#twitter"));
-                    });
+                    $(svg("twitter"));
                 });
 
                 String editor = model.editor().apply(info.filePath(), info.documentLine());
                 if (editor != null) {
                     $("a", attr("href", editor), attr("class", "edit"), styles.icon, () -> {
-                        $("svg", attr("viewBox", "0 0 24 24"), Styles.AnimatedSVG, () -> {
-                            $("use", attr("href", "/main.svg#edit"));
-                        });
+                        $(svg("edit"));
                     });
                 }
             });

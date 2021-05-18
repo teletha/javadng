@@ -44,6 +44,11 @@ const navi = new IntersectionObserver(e => {
   }
 }, {root: null, rootMargin: "-40% 0px -60% 0px", threshold: 0})
 
+// =====================================================
+// View Mode
+// =====================================================
+$("#Sun", e => e.onclick = () => document.documentElement.classList.remove("dark"));
+$("#Moon", e => e.onclick = () => document.documentElement.classList.add("dark"));
 
 // =====================================================
 // Define Router

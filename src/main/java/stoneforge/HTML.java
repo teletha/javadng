@@ -15,6 +15,7 @@ import kiss.I;
 import kiss.Tree;
 import kiss.Variable;
 import kiss.XML;
+import stoneforge.javadoc.Styles;
 import stylist.Style;
 import stylist.StyleDSL;
 import stylist.StyleDeclarable;
@@ -101,6 +102,14 @@ public abstract class HTML extends Tree<String, XML> {
      */
     protected final Consumer<XML> xml(Variable<XML> child) {
         return parent -> child.to(parent::append);
+    }
+
+    protected final Consumer<XML> svg(String type) {
+        return parent -> {
+            $("svg", attr("viewBox", "0 0 24 24"), Styles.AnimatedSVG, () -> {
+                $("use", attr("href", "/main.svg#" + type));
+            });
+        };
     }
 
     /**
