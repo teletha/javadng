@@ -32,7 +32,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void text() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'>Text</span>");
+        assert sameXML(info.comment, "<span class='B'>Text</span>");
     }
 
     /**
@@ -43,7 +43,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void element() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><p>Text</p></span>");
+        assert sameXML(info.comment, "<span class='B'><p>Text</p></span>");
     }
 
     /**
@@ -52,7 +52,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void attribute() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><a href=\"test.css\" type=\"stylesheet\"/></span>");
+        assert sameXML(info.comment, "<span class='B'><a href=\"test.css\" type=\"stylesheet\"/></span>");
     }
 
     @Test
@@ -129,7 +129,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void literalTag() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'>0 &amp;lt; i</span>");
+        assert sameXML(info.comment, "<span class='B'>0 &amp;#60; i</span>");
     }
 
     /**
@@ -138,7 +138,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkTagInternalType() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><code><a href='" + BASE + "'>DocumentInfoTest</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "'>DocumentInfoTest</a></code></span>");
     }
 
     /**
@@ -147,7 +147,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkTagInternalMethod() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><code><a href='" + BASE + "#linkTagInternalMethod()'>#linkTagInternalMethod()</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#linkTagInternalMethod()'>#linkTagInternalMethod()</a></code></span>");
     }
 
     /**
@@ -156,7 +156,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkTagInternalTypeAndMethod() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><code><a href='" + BASE + "#linkTagInternalTypeAndMethod()'>DocumentInfoTest#linkTagInternalTypeAndMethod()</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#linkTagInternalTypeAndMethod()'>DocumentInfoTest#linkTagInternalTypeAndMethod()</a></code></span>");
     }
 
     /**
@@ -165,7 +165,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkTagUnregisteredExternalType() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'>String</span>");
+        assert sameXML(info.comment, "<span class='B'>String</span>");
     }
 
     /**
@@ -174,7 +174,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkTagUnregisteredExternalTypeAndMethod() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'>String#chars()</span>");
+        assert sameXML(info.comment, "<span class='B'>String#chars()</span>");
     }
 
     /**
@@ -183,7 +183,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkTagRegisteredExternalType() {
         ExecutableInfo info = currentMethodEx();
-        assert sameXML(info.comment, "<span class='A'><code><a href='" + Javadoc.JDK + "java.base/java/lang/String.html'>String</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + Javadoc.JDK + "java.base/java/lang/String.html'>String</a></code></span>");
     }
 
     /**
@@ -192,7 +192,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkTagRegisteredExternalTypeAndMethod() {
         ExecutableInfo info = currentMethodEx();
-        assert sameXML(info.comment, "<span class='A'><code><a href='" + Javadoc.JDK + "java.base/java/lang/String.html#chars()'>String#chars()</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + Javadoc.JDK + "java.base/java/lang/String.html#chars()'>String#chars()</a></code></span>");
     }
 
     /**
@@ -201,7 +201,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkplainTagInternalType() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><code><a href='" + BASE + "'>DocumentInfoTest</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "'>DocumentInfoTest</a></code></span>");
     }
 
     /**
@@ -210,7 +210,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkplainTagInternalMethod() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><code><a href='" + BASE + "#linkplainTagInternalMethod()'>#linkplainTagInternalMethod()</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#linkplainTagInternalMethod()'>#linkplainTagInternalMethod()</a></code></span>");
     }
 
     /**
@@ -219,7 +219,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkplainTagInternalTypeAndMethod() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'><code><a href='" + BASE + "#linkplainTagInternalTypeAndMethod()'>DocumentInfoTest#linkplainTagInternalTypeAndMethod()</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#linkplainTagInternalTypeAndMethod()'>DocumentInfoTest#linkplainTagInternalTypeAndMethod()</a></code></span>");
     }
 
     /**
@@ -228,7 +228,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkplainTagUnregisteredExternalType() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'>String</span>");
+        assert sameXML(info.comment, "<span class='B'>String</span>");
     }
 
     /**
@@ -237,7 +237,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkplainTagUnregisteredExternalTypeAndMethod() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='A'>String#chars()</span>");
+        assert sameXML(info.comment, "<span class='B'>String#chars()</span>");
     }
 
     /**
