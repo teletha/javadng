@@ -55,7 +55,9 @@ public abstract class Page extends HTML {
                 // Top Navigation
                 // =============================
                 $("header", Styles.HeaderArea, () -> {
-                    $("h1", Styles.HeaderTitle, code(model.product()));
+                    $("h1", Styles.HeaderTitle, code(model.product()), () -> {
+                        $("span", Styles.HeaderVersion, text(model.version()));
+                    });
                     $("nav", Styles.HeaderNav, () -> {
                         for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
                             $("a", attr("href", "/doc/" + info.children().get(0).id() + ".html"), text(info.title()));
@@ -136,6 +138,15 @@ public abstract class Page extends HTML {
 
         Style HeaderTitle = () -> {
             font.size(2.5, rem).family(theme.title).weight.normal().color(theme.primary);
+        };
+
+        Style HeaderVersion = () -> {
+            font.size(1.1, rem).letterSpacing(-1, px);
+            padding.left(0.7, rem);
+
+            $.before(() -> {
+                content.text("vesion  ");
+            });
         };
 
         Style HeaderNav = () -> {
