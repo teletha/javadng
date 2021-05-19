@@ -193,7 +193,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         margin.left(0, px);
         padding.vertical(StyleConstants.BlockVerticalGap).horizontal(StyleConstants.BlockHorizontalGap);
         border.left.width(StyleConstants.BlockBorderWidth).solid().color(color);
-        font.family(theme.base).lineHeight(LineHeight);
+        font.family(theme.base).lineHeight(theme.line);
         if (paintBackground) background.color(color.opacify(-0.8d));
     }
 
@@ -206,7 +206,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         padding.vertical(StyleConstants.BlockVerticalGap).horizontal(StyleConstants.BlockHorizontalGap);
         border.left.width(StyleConstants.BlockBorderWidth).solid().color(color);
         border.radius(theme.radius);
-        font.family(theme.base).lineHeight(LineHeight);
+        font.family(theme.base).lineHeight(theme.line);
         position.relative();
         if (paintBackground) background.color(color.opacify(-0.8d));
 

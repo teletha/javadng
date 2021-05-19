@@ -121,7 +121,7 @@ public abstract class Page extends HTML {
 
         Style Workbench = () -> {
             background.color(theme.back).image(BackgroundImage.drawSlash(Color.rgb(220, 222, 225, 0.7), 3)).repeat();
-            font.size(FontSize).family(theme.base).color(theme.front).lineHeight(LineHeight);
+            font.size(theme.font).family(theme.base).color(theme.front).lineHeight(theme.line);
         };
 
         Style HeaderArea = () -> {

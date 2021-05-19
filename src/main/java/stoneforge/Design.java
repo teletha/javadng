@@ -13,7 +13,6 @@ import static stylist.StyleDSL.*;
 
 import stylist.design.AbstractDesignScheme;
 import stylist.design.Theme;
-import stylist.value.Font;
 import stylist.value.Numeric;
 
 public class Design extends AbstractDesignScheme {
@@ -30,12 +29,14 @@ public class Design extends AbstractDesignScheme {
         back = $.hsl(185, 43, 95);
         surface = $.hsl(0, 0, 98);
 
-        base = new Font[] {Font.fromGoogle("Roboto")};
-        condensed = Font.fromGoogle("Fira Sans Condensed");
-        title = Font.fromGoogle("Ubuntu");
-        mono = new Font[] {Font.fromGoogle("JetBrains Mono")};
-        icon = Font.fromGoogle("Material Icons");
+        base = fontFromGoogle("Roboto");
+        condensed = fontFromGoogle("Fira Sans Condensed");
+        title = fontFromGoogle("Ubuntu");
+        mono = fontFromGoogle("JetBrains Mono");
+        icon = fontFromGoogle("Material Icons");
 
+        font = Numeric.of(13, px);
+        line = Numeric.of(1.7);
         radius = Numeric.of(4, px);
     }
 

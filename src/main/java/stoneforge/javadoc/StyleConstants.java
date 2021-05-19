@@ -19,8 +19,6 @@ public interface StyleConstants {
 
     Design theme = I.make(Design.class);
 
-    Numeric FontSize = Numeric.of(13, px);
-
     Numeric MaxWidth = Numeric.of(90, vw);
 
     Numeric SmallGap = Numeric.of(1, px);
@@ -34,6 +32,4 @@ public interface StyleConstants {
     Numeric HeaderHeight = Numeric.of(80, px);
 
     Numeric RightNavigationWidth = Numeric.of(20, vw);
-
-    double LineHeight = 1.7;
 }
