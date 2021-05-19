@@ -48,6 +48,7 @@ public abstract class Page extends HTML {
                 stylesheet("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/zenburn.min.css");
                 script("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js");
                 stylesheet("/main.css");
+                $("script", text("//")); // start js engine eagerly
             });
             $("body", Styles.Workbench, () -> {
                 // =============================

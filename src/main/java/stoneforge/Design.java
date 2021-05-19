@@ -24,7 +24,7 @@ public class Design extends AbstractDesignScheme {
     @Theme(main = true)
     void light() {
         primary = $.hsl(200, 70, 30);
-        secondary = $.hsl(48, 70, 30);
+        secondary = $.hsl(48, 95, 60);
         accent = $.hsl(0, 55, 60);
 
         front = $.hsl(0, 0, 45);
@@ -55,7 +55,7 @@ public class Design extends AbstractDesignScheme {
 
         back = $.hsl(0, 0, 20);
         backImage = Image.slash(Color.rgb(10, 15, 35, 0.7), 3);
-        surface = $.hsl(0, 0, 35);
+        surface = $.hsl(0, 0, 30);
 
     }
 }

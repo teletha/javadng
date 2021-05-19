@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.teletha</groupId>
 	<artifactId>stoneforge</artifactId>
-	<version>1.2.0</version>
+	<version>1.3.0</version>
 	<packaging>jar</packaging>
 	<name>stoneforge</name>
 	<description/>
@@ -15,6 +15,13 @@
 			<exclusions/>
 		</dependency>
 		<dependency>
+			<groupId>com.google.javascript</groupId>
+			<artifactId>closure-compiler</artifactId>
+			<version>[v20210505,)</version>
+			<scope>compile</scope>
+			<exclusions/>
+		</dependency>
+		<dependency>
 			<groupId>com.github.teletha</groupId>
 			<artifactId>icymanipulator</artifactId>
 			<version>[1.3.1,)</version>
@@ -24,7 +31,7 @@
 		<dependency>
 			<groupId>com.github.javaparser</groupId>
 			<artifactId>javaparser-core</artifactId>
-			<version>[3.20.2,)</version>
+			<version>[3.22.1,)</version>
 			<scope>compile</scope>
 			<exclusions/>
 		</dependency>

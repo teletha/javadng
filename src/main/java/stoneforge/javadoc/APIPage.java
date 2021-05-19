@@ -237,6 +237,8 @@ public class APIPage extends Page {
 
         Color keyword = Color.hsl(0, 29, 49);
 
+        Color RETURN = theme.secondary.lighten(theme.back, -25);
+
         Numeric signatureLabelWidth = Numeric.of(2.5, rem);
 
         Style PackcageName = () -> {
@@ -261,7 +263,7 @@ public class APIPage extends Page {
         };
 
         Style Return = () -> {
-            font.color(theme.secondary.lighten(-30));
+            font.color(RETURN);
 
             $.before(() -> {
                 content.text(":");
@@ -320,7 +322,7 @@ public class APIPage extends Page {
 
             $.before(() -> {
                 content.text("Return");
-                font.color(theme.secondary.lighten(-30));
+                font.color(RETURN);
             });
         };
 
@@ -409,7 +411,7 @@ public class APIPage extends Page {
         };
 
         Style NaviReturn = () -> {
-            font.color(theme.secondary.lighten(-30));
+            font.color(RETURN);
 
             $.before(() -> {
                 content.text(":");

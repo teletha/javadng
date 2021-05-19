@@ -1,5 +1,11 @@
 // =====================================================
-// Utility
+// User Settings
+// =====================================================
+const user = JSON.parse(localStorage.getItem("user")) || {};
+const save = () => localStorage.setItem("user", JSON.stringify(user));
+
+// =====================================================
+// Utilities
 // =====================================================
 const $ = (q,p) => document.querySelectorAll(q).forEach(p);
 const svg = (type) => {
@@ -7,6 +13,21 @@ const svg = (type) => {
   a.innerHTML = `<svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#${type}"/></svg>`;
   return a;
 }
+
+
+// =====================================================
+// View Mode
+// =====================================================
+$("#Sun", e => e.onclick = () => {
+  document.documentElement.classList.remove("dark");
+  save(user.dark = false);
+});
+$("#Moon", e => e.onclick = () => {
+  document.documentElement.classList.add("dark");
+  save(user.dark = true);
+});
+
+if (user.dark) document.documentElement.classList.add("dark")
 
 
 // =====================================================
@@ -44,11 +65,6 @@ const navi = new IntersectionObserver(e => {
   }
 }, {root: null, rootMargin: "-40% 0px -60% 0px", threshold: 0})
 
-// =====================================================
-// View Mode
-// =====================================================
-$("#Sun", e => e.onclick = () => document.documentElement.classList.remove("dark"));
-$("#Moon", e => e.onclick = () => document.documentElement.classList.add("dark"));
 
 // =====================================================
 // Define Router
