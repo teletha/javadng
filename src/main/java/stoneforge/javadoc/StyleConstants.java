@@ -11,39 +11,13 @@ package stoneforge.javadoc;
 
 import static stylist.StyleDSL.*;
 
-import stylist.Theme;
-import stylist.value.Font;
+import kiss.I;
+import stoneforge.Design;
 import stylist.value.Numeric;
 
 public interface StyleConstants {
 
-    Theme theme = Theme.with.name("Light")
-            .primary($.hsl(200, 70, 30))
-            .secondary($.hsl(48, 95, 60))
-            .accent($.hsl(0, 55, 60))
-            .front($.hsl(0, 0, 45))
-            .surface($.hsl(0, 0, 98))
-            .back($.hsl(185, 43, 95))
-            .link($.hsl(0, 55, 60))
-            .baseFont(Font.fromGoogle("Roboto"))
-            .condensedFont(Font.fromGoogle("Fira Sans Condensed"))
-            .titleFont(Font.fromGoogle("Ubuntu"))
-            .monoFont(Font.fromGoogle("JetBrains Mono"))
-            .borderRadius(4, px);
-
-    Theme DarkTheme = Theme.with.name("Dark")
-            .primary($.hsl(200, 70, 50))
-            .secondary(theme.secondary)
-            .accent($.hsl(0, 55, 50))
-            .front($.hsl(0, 0, 80))
-            .surface($.hsl(0, 0, 10))
-            .back($.hsl(0, 0, 5))
-            .link($.hsl(0, 55, 50))
-            .baseFont(theme.baseFont)
-            .condensedFont(theme.condensedFont)
-            .titleFont(theme.titleFont)
-            .monoFont(theme.monoFont)
-            .borderRadius(theme.borderRadius);
+    Design theme = I.make(Design.class);
 
     Numeric FontSize = Numeric.of(13, px);
 

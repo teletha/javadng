@@ -121,7 +121,7 @@ public abstract class Page extends HTML {
 
         Style Workbench = () -> {
             background.color(theme.back).image(BackgroundImage.drawSlash(Color.rgb(220, 222, 225, 0.7), 3)).repeat();
-            font.size(FontSize).family(theme.baseFont).color(theme.front).lineHeight(LineHeight);
+            font.size(FontSize).family(theme.base).color(theme.front).lineHeight(LineHeight);
         };
 
         Style HeaderArea = () -> {
@@ -134,7 +134,7 @@ public abstract class Page extends HTML {
         };
 
         Style HeaderTitle = () -> {
-            font.size(2.5, rem).family(theme.titleFont).weight.normal().color(theme.primary);
+            font.size(2.5, rem).family(theme.title).weight.normal().color(theme.primary);
         };
 
         Style HeaderNav = () -> {
@@ -197,7 +197,7 @@ public abstract class Page extends HTML {
             });
 
             $.select("#DocNavi", () -> {
-                font.size(1.2, em).family(theme.condensedFont).color(theme.front.lighten(theme.back, -15));
+                font.size(1.2, em).family(theme.condensed).color(theme.front.lighten(theme.back, -15));
 
                 $.select(".doc", () -> {
                     margin.bottom(0.5, em);

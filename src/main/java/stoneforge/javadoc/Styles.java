@@ -47,7 +47,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         });
     });
 
-    public static Style HTMLCheckbox = Browsers.checkbox(theme);
+    public static Style HTMLCheckbox = Browsers.checkbox(theme.link);
 
     public static Style HTMLToolTip = Browsers.tooltip("title", true, Color.rgb(227, 227, 227), Color.rgb(63, 63, 63));
 
@@ -71,8 +71,8 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
     public static Style HLJS = Style.named(".hljs", () -> {
         block();
-        font.family(theme.monoFont).size(11.5, px).letterSpacing(-0.3, px);
-        border.radius(theme.borderRadius);
+        font.family(theme.mono).size(11.5, px).letterSpacing(-0.3, px);
+        border.radius(theme.radius);
         margin.vertical(1, em);
         padding.left(1.2, em).vertical(1, em);
         position.relative();
@@ -176,7 +176,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     public static Style Section = () -> {
         margin.bottom(1.6, rem).top(0.6, rem);
         padding.horizontal(1.7, rem).vertical(1, rem);
-        border.radius(theme.borderRadius);
+        border.radius(theme.radius);
         background.color(theme.surface);
     };
 
@@ -193,7 +193,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         margin.left(0, px);
         padding.vertical(StyleConstants.BlockVerticalGap).horizontal(StyleConstants.BlockHorizontalGap);
         border.left.width(StyleConstants.BlockBorderWidth).solid().color(color);
-        font.family(theme.baseFont).lineHeight(LineHeight);
+        font.family(theme.base).lineHeight(LineHeight);
         if (paintBackground) background.color(color.opacify(-0.8d));
     }
 
@@ -205,8 +205,8 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     public static void block2(Color color, boolean paintBackground) {
         padding.vertical(StyleConstants.BlockVerticalGap).horizontal(StyleConstants.BlockHorizontalGap);
         border.left.width(StyleConstants.BlockBorderWidth).solid().color(color);
-        border.radius(theme.borderRadius);
-        font.family(theme.baseFont).lineHeight(LineHeight);
+        border.radius(theme.radius);
+        font.family(theme.base).lineHeight(LineHeight);
         position.relative();
         if (paintBackground) background.color(color.opacify(-0.8d));
 
@@ -403,7 +403,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     private static void overlayAlphabetRightTop(String mark) {
         position.relative();
         $.before(() -> {
-            font.color(theme.primary).size(0.6, rem).family(theme.monoFont);
+            font.color(theme.primary).size(0.6, rem).family(theme.mono);
             content.text(mark);
             position.absolute().top(-0.2, rem).left(0.7, rem);
         });
@@ -417,7 +417,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     private static void overlayAlphabetLeftTop(String mark) {
         position.relative();
         $.after(() -> {
-            font.color(theme.accent).size(0.6, rem).family(theme.monoFont);
+            font.color(theme.accent).size(0.6, rem).family(theme.mono);
             content.text(mark);
             position.absolute().top(-0.2, rem).left(0.3, rem);
         });
@@ -431,7 +431,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     private static void overlayIconRightBottom(String mark) {
         position.relative();
         $.after(() -> {
-            font.color(theme.primary).size(0.7, rem).family(theme.iconFont);
+            font.color(theme.primary).size(0.7, rem).family(theme.icon);
             content.text(mark);
             position.absolute().top(0.5, rem).left(0.4, rem);
         });
@@ -451,7 +451,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         background.color(Color.White);
         margin.vertical(8, px);
         padding.vertical(6, px).horizontal(8, px);
-        border.color(Color.rgb(60, 60, 60, 0.26)).width(1, px).solid().radius(theme.borderRadius);
+        border.color(Color.rgb(60, 60, 60, 0.26)).width(1, px).solid().radius(theme.radius);
     });
 
     public static final Style Tree = Style.named(".tree", () -> {

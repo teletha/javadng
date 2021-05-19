@@ -246,12 +246,12 @@ public class APIPage extends Page {
         };
 
         Style TypeName = () -> {
-            font.family(theme.baseFont).size(1.2, rem).weight.normal();
+            font.family(theme.base).size(1.2, rem).weight.normal();
             margin.bottom(0.3, rem);
         };
 
         Style MemberName = () -> {
-            font.family(theme.baseFont).size(1, rem).weight.normal();
+            font.family(theme.base).size(1, rem).weight.normal();
             display.block();
         };
 

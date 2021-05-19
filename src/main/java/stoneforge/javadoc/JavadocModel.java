@@ -60,6 +60,7 @@ import kiss.Variable;
 import kiss.XML;
 import psychopath.Directory;
 import psychopath.Locator;
+import stoneforge.Design;
 import stoneforge.SiteBuilder;
 import stoneforge.javadoc.analyze.ClassInfo;
 import stoneforge.javadoc.analyze.Data;
@@ -630,7 +631,7 @@ public abstract class JavadocModel {
                 I.load(JavadocModel.class);
                 Stylist.pretty()
                         .importNormalizeStyle()
-                        .theme(StyleConstants.theme, StyleConstants.DarkTheme)
+                        .scheme(Design.class)
                         .styles(I.findAs(StyleDeclarable.class))
                         .formatTo(output().file("main.css").asJavaPath());
 
