@@ -50,22 +50,22 @@ public abstract class Page extends HTML {
                 stylesheet("/main.css");
                 $("script", text("//")); // start js engine eagerly
             });
-            $("body", Styles.Workbench, () -> {
+            $("body", styles.Workbench, () -> {
                 // =============================
                 // Top Navigation
                 // =============================
-                $("header", Styles.HeaderArea, () -> {
-                    $("h1", Styles.HeaderTitle, code(model.product()), () -> {
-                        $("span", Styles.HeaderVersion, text(model.version()));
+                $("header", styles.HeaderArea, () -> {
+                    $("h1", styles.HeaderTitle, attr("date", System.currentTimeMillis()), code(model.product()), () -> {
+                        $("span", styles.HeaderVersion, text(model.version()));
                     });
-                    $("nav", Styles.HeaderNav, () -> {
+                    $("nav", styles.HeaderNav, () -> {
                         for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
                             $("a", attr("href", "/doc/" + info.children().get(0).id() + ".html"), text(info.title()));
                         }
                         $("a", attr("href", "/api/"), text("API"));
                         $("a", text("Community"));
                     });
-                    $("div", attr("id", "ViewMode"), Styles.ViewMode, () -> {
+                    $("div", attr("id", "ViewMode"), styles.ViewMode, () -> {
                         $("a", attr("id", "light"), attr("title", "Change to a brighter color scheme"), () -> {
                             $(svg("sun"));
                         });
@@ -76,18 +76,18 @@ public abstract class Page extends HTML {
                     });
                 });
 
-                $("main", Styles.MainArea, () -> {
+                $("main", styles.MainArea, () -> {
                     // =============================
                     // Left Side Navigation
                     // =============================
-                    $("nav", Styles.Navigation, () -> {
+                    $("nav", styles.Navigation, () -> {
                         $("div");
                     });
 
                     // =============================
                     // Main Contents
                     // =============================
-                    $("article", attr("id", "Article"), Styles.Contents, () -> {
+                    $("article", attr("id", "Article"), styles.Contents, () -> {
                         if (info != null) {
                             declareContents();
                         }
@@ -96,8 +96,8 @@ public abstract class Page extends HTML {
                     // =============================
                     // Right Side Navigation
                     // =============================
-                    $("aside", attr("id", "SubNavi"), Styles.SubNavigation, () -> {
-                        $("div", Styles.SubNavigationStickyBlock, () -> {
+                    $("aside", attr("id", "SubNavi"), styles.SubNavigation, () -> {
+                        $("div", styles.SubNavigationStickyBlock, () -> {
                             if (info != null) {
                                 declareSubNavigation();
                             }
@@ -118,7 +118,7 @@ public abstract class Page extends HTML {
     /**
      * Style definition.
      */
-    private interface Styles extends StyleDSL, StyleConstants {
+    private interface styles extends StyleDSL, StyleConstants {
 
         Numeric NavigationWidth = Numeric.of(17, vw);
 
@@ -136,8 +136,18 @@ public abstract class Page extends HTML {
             border.bottom.color(theme.primary).width(1, px).solid();
         };
 
+        Style Date = Style.named("#build", () -> {
+            position.absolute().top(2, px).right(2, rem);
+            font.size(0.86, rem).color(theme.front.lighten(theme.back, 15));
+        });
+
         Style HeaderTitle = () -> {
             font.size(2.5, rem).family(theme.title).weight.normal().color(theme.primary);
+
+            $.after(() -> {
+                content.attr("date");
+                font.size(1.1, rem).letterSpacing(-1, px);
+            });
         };
 
         Style HeaderVersion = () -> {
@@ -179,7 +189,7 @@ public abstract class Page extends HTML {
         Style ViewMode = () -> {
             display.flex().justifyContent.end();
             flexItem.alignSelf.end().grow(2);
-            margin.bottom(10, px).right(2, em);
+            margin.bottom(10, px).right(2, rem);
 
             $.select("a", () -> {
                 display.width(20, px).height(20, px);

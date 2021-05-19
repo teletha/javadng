@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.DocumentationTool.Location.*;
+import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
