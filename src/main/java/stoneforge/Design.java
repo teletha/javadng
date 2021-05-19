@@ -13,9 +13,13 @@ import static stylist.StyleDSL.*;
 
 import stylist.design.AbstractDesignScheme;
 import stylist.design.Theme;
+import stylist.image.Image;
+import stylist.value.Color;
 import stylist.value.Numeric;
 
 public class Design extends AbstractDesignScheme {
+
+    public String backImage;
 
     @Theme(main = true)
     void light() {
@@ -27,6 +31,7 @@ public class Design extends AbstractDesignScheme {
         link = $.hsl(0, 55, 60);
 
         back = $.hsl(185, 43, 95);
+        backImage = Image.slash(Color.rgb(220, 222, 225, 0.7), 3);
         surface = $.hsl(0, 0, 98);
 
         base = fontFromGoogle("Roboto");
@@ -48,7 +53,9 @@ public class Design extends AbstractDesignScheme {
         front = $.hsl(0, 0, 95);
         link = $.hsl(0, 55, 45);
 
-        back = $.hsl(0, 0, 10);
-        surface = $.hsl(0, 0, 15);
+        back = $.hsl(0, 0, 20);
+        backImage = Image.slash(Color.rgb(10, 15, 35, 0.7), 3);
+        surface = $.hsl(0, 0, 35);
+
     }
 }

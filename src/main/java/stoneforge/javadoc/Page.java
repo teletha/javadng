@@ -120,7 +120,7 @@ public abstract class Page extends HTML {
         Numeric NavigationWidth = Numeric.of(17, vw);
 
         Style Workbench = () -> {
-            background.color(theme.back).image(BackgroundImage.drawSlash(Color.rgb(220, 222, 225, 0.7), 3)).repeat();
+            background.color(theme.back).image(theme.backImage).repeat();
             font.size(theme.font).family(theme.base).color(theme.front).lineHeight(theme.line);
         };
 
