@@ -35,7 +35,7 @@ public interface StyleConstants {
             .primary($.hsl(200, 70, 50))
             .secondary(theme.secondary)
             .accent($.hsl(0, 55, 50))
-            .front($.hsl(0, 0, 95))
+            .front($.hsl(0, 0, 80))
             .surface($.hsl(0, 0, 10))
             .back($.hsl(0, 0, 5))
             .link($.hsl(0, 55, 50))

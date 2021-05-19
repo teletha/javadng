@@ -197,7 +197,7 @@ public abstract class Page extends HTML {
             });
 
             $.select("#DocNavi", () -> {
-                font.size(1.2, em).family(theme.condensedFont).color(theme.front.lighten(-15));
+                font.size(1.2, em).family(theme.condensedFont).color(theme.front.lighten(theme.back, -15));
 
                 $.select(".doc", () -> {
                     margin.bottom(0.5, em);
@@ -210,7 +210,7 @@ public abstract class Page extends HTML {
                 $.select(".sub", () -> {
                     display.height(0, px);
                     listStyle.none();
-                    font.size(0.85, em).color(theme.front.lighten(-7));
+                    font.size(0.85, em).color(theme.front.lighten(theme.back, -7));
                     border.left.solid().width(1, px).color(Color.hsl(0, 0, 65));
                     margin.left(10, px);
                     overflow.hidden();
