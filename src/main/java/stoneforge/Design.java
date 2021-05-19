@@ -48,10 +48,10 @@ public class Design extends AbstractDesignScheme {
     @Theme
     void dark() {
         primary = $.hsl(200, 70, 50);
-        accent = $.hsl(0, 55, 50);
+        accent = $.hsl(0, 65, 65);
 
         front = $.hsl(0, 0, 95);
-        link = $.hsl(0, 55, 45);
+        link = $.hsl(0, 65, 65);
 
         back = $.hsl(0, 0, 20);
         backImage = Image.slash(Color.rgb(10, 15, 35, 0.7), 3);

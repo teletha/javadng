@@ -41,7 +41,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         cursor.pointer();
 
         $.hover(() -> {
-            font.color(theme.accent);
+            font.color(theme.link);
             text.decoration.underline();
             text.decorationColor.color(theme.front.opacify(-0.5));
         });

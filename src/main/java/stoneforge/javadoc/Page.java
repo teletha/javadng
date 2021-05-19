@@ -64,11 +64,11 @@ public abstract class Page extends HTML {
                         $("a", text("Community"));
                     });
                     $("div", attr("id", "ViewMode"), Styles.ViewMode, () -> {
-                        $("a", attr("id", "Sun"), attr("title", "Change to a brighter color scheme"), () -> {
+                        $("a", attr("id", "light"), attr("title", "Change to a brighter color scheme"), () -> {
                             $(svg("sun"));
                         });
 
-                        $("a", attr("id", "Moon"), attr("title", "Change to a darker color scheme"), () -> {
+                        $("a", attr("id", "dark"), attr("title", "Change to a darker color scheme"), () -> {
                             $(svg("moon"));
                         });
                     });
@@ -179,6 +179,10 @@ public abstract class Page extends HTML {
                 display.width(20, px).height(20, px);
             });
         };
+
+        Style Root = Style.named("html.light #light svg, html.dark #dark svg", () -> {
+            fill.color(Color.hsl(55, 100, 75));
+        });
 
         Style MainArea = () -> {
             display.width(MaxWidth).flex().direction.row();

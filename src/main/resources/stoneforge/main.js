@@ -1,14 +1,16 @@
 // =====================================================
 // User Settings
 // =====================================================
-const user = JSON.parse(localStorage.getItem("user")) || {};
-const save = () => localStorage.setItem("user", JSON.stringify(user));
+const
+user = JSON.parse(localStorage.getItem("user")) || {},
+save = () => localStorage.setItem("user", JSON.stringify(user)),
 
 // =====================================================
 // Utilities
 // =====================================================
-const $ = (q,p) => document.querySelectorAll(q).forEach(p);
-const svg = (type) => {
+html = document.documentElement,
+$ = (q,p) => document.querySelectorAll(q).forEach(p),
+svg = (type) => {
   var a = document.createElement("a");
   a.innerHTML = `<svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#${type}"/></svg>`;
   return a;
@@ -18,16 +20,8 @@ const svg = (type) => {
 // =====================================================
 // View Mode
 // =====================================================
-$("#Sun", e => e.onclick = () => {
-  document.documentElement.classList.remove("dark");
-  save(user.dark = false);
-});
-$("#Moon", e => e.onclick = () => {
-  document.documentElement.classList.add("dark");
-  save(user.dark = true);
-});
-
-if (user.dark) document.documentElement.classList.add("dark")
+html.className = user.theme;
+$("#light,#dark", e => e.onclick = () => save(html.className = user.theme = e.id))
 
 
 // =====================================================
