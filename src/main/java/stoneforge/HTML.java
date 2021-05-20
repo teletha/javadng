@@ -142,6 +142,15 @@ public abstract class HTML extends Tree<String, XML> {
     }
 
     /**
+     * Shorthand method to write stylesheet link tag.
+     * 
+     * @param uri URI to css.
+     */
+    protected final void stylesheetAsync(String uri) {
+        $("link", attr("rel", "stylesheet"), attr("href", uri), attr("media", "print"), attr("onload", "this.media='all'"));
+    }
+
+    /**
      * Build CSS file and return the path of the generated file.
      * 
      * @param styles A style definition class to write.
@@ -166,6 +175,15 @@ public abstract class HTML extends Tree<String, XML> {
      */
     protected final void script(String uri) {
         $("script", attr("src", uri.startsWith("http") ? uri : "/" + uri));
+    }
+
+    /**
+     * Shorthand method to write script tag.
+     * 
+     * @param uri URI to script.
+     */
+    protected final void scriptAsync(String uri) {
+        $("script", attr("src", uri.startsWith("http") ? uri : "/" + uri), attr("async", true));
     }
 
     /**

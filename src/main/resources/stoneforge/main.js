@@ -25,23 +25,23 @@ $("#light,#dark", e => e.onclick = () => save(html.className = user.theme = e.id
 
 
 // =====================================================
-// Enhance code highlight
+// Enhance code highlight (lazy)
 // =====================================================
-hljs.addPlugin({
-  "after:highlightElement": ({el, result}) => {
-    el.lang = result.language.toUpperCase();
+const coder = new IntersectionObserver(set => {
+  set.filter(x => x.isIntersecting && !x.target.classList.contains("hljs")).forEach(x => {
+    var e = x.target;
+    hljs.highlightElement(e);
     
-    // For some reason, inserting an element in a callback function deletes the inserted element,
-    // so I deliberately delay the insertion. Seriously, it makes no sense.
-    setTimeout(() => {
-      var a = svg("copy");
-      a.title = "Copy this code";
-      a.onclick = () => navigator.clipboard.writeText(el.textContent);
-      
-      el.appendChild(a);
-    }, 1)
-  }
-});
+    // Display language code
+    e.lang = e.classList[0].substring(5).toUpperCase();
+    
+    // Display code copy button
+    var a = svg("copy");
+    a.title = "Copy this code";
+    a.onclick = () => navigator.clipboard.writeText(e.textContent);
+    e.appendChild(a);
+  })
+}, {rootMargin: "50px", threshold: 0.3})
 
 
 // =====================================================
@@ -143,6 +143,7 @@ new Router(() => {
   });
   
   $("#Article section", e => navi.observe(e));
+  $("#Article pre>code", e => coder.observe(e));
 
   // =====================================================
   // Initialize metadata icons
@@ -162,8 +163,6 @@ new Router(() => {
     e.target = "_blank";
     e.rel = "noopener noreferrer";
   });
-  
-  hljs.highlightAll();
 }, () => {
   // scroll to top or #hash
   if (location.hash == "") {

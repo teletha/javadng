@@ -46,10 +46,10 @@ public abstract class Page<T> extends HTML {
                 $("meta", attr("charset", "UTF-8"));
                 $("title", text(model.product() + " API"));
                 script("https://unpkg.com/vue/dist/vue.min.js");
-                stylesheet("https://unpkg.com/vue-select/dist/vue-select.css");
+                stylesheetAsync("https://unpkg.com/vue-select/dist/vue-select.css");
                 script("https://unpkg.com/vue-select");
-                stylesheet("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/zenburn.min.css");
-                script("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js");
+                stylesheetAsync("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/zenburn.min.css");
+                scriptAsync("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js");
                 stylesheet("/main.css");
                 $("script", text("//")); // start js engine eagerly
             });
@@ -239,7 +239,7 @@ public abstract class Page<T> extends HTML {
                     font.size(0.85, em).color(theme.front.lighten(theme.back, -7));
                     border.left.solid().width(1, px).color(Color.hsl(0, 0, 65));
                     margin.left(10, px);
-                    overflow.hidden();
+                    overflow.y.hidden();
 
                     transition.duration(0.5, s).whenever();
 
