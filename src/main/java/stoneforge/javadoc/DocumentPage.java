@@ -18,7 +18,7 @@ import stylist.Style;
 import stylist.StyleDSL;
 import stylist.value.Numeric;
 
-public class DocumentPage extends Page {
+public class DocumentPage extends Page<ClassInfo> {
 
     /**
      * @param model
@@ -33,13 +33,13 @@ public class DocumentPage extends Page {
      */
     @Override
     protected void declareContents() {
-        if (info.hasDocument()) {
+        if (contents.hasDocument()) {
             $("section", Styles.Section, Styles.JavadocComment, () -> {
-                write(info);
+                write(contents);
             });
         }
 
-        for (ClassInfo child : info.children(Modifier.PUBLIC)) {
+        for (ClassInfo child : contents.children(Modifier.PUBLIC)) {
             if (child.hasDocument()) {
                 $("section", attr("id", child.id()), Styles.Section, Styles.JavadocComment, () -> {
                     write(child);
@@ -71,7 +71,7 @@ public class DocumentPage extends Page {
                     $(svg("twitter"));
                 });
 
-                String editor = model.editor().apply(info.filePath(), info.documentLine());
+                String editor = model.repository().locateEditor(info.filePath(), info.documentLine());
                 if (editor != null) {
                     $("a", attr("href", editor), attr("class", "edit"), styles.icon, () -> {
                         $(svg("edit"));

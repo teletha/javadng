@@ -24,7 +24,7 @@ import stylist.StyleDSL;
 import stylist.value.Color;
 import stylist.value.Numeric;
 
-public class APIPage extends Page {
+public class APIPage extends Page<ClassInfo> {
 
     /**
      * @param model
@@ -40,22 +40,22 @@ public class APIPage extends Page {
     @Override
     protected void declareContents() {
         $("section", Styles.Section, () -> {
-            $("code", style.PackcageName, text(info.packageName));
-            $("h2", attr("class", info.type), style.TypeName, () -> {
-                $("code", style.Name, text(info.name));
-                $(info.createTypeVariableNames());
+            $("code", style.PackcageName, text(contents.packageName));
+            $("h2", attr("class", contents.type), style.TypeName, () -> {
+                $("code", style.Name, text(contents.name));
+                $(contents.createTypeVariableNames());
             });
 
             // type parameters
-            int size = info.numberOfTypeVariables();
+            int size = contents.numberOfTypeVariables();
             if (size != 0) {
                 $("ul", style.typeParameter, foŕ(size, i -> {
-                    $("li", info.createTypeVariable(i), info.createTypeVariableComment(i));
+                    $("li", contents.createTypeVariable(i), contents.createTypeVariableComment(i));
                 }));
             }
 
             // super types
-            List<XML> supers = info.createSuperTypes();
+            List<XML> supers = contents.createSuperTypes();
             if (!supers.isEmpty()) {
                 $("ul", style.extend, () -> {
                     for (XML sup : supers) {
@@ -65,7 +65,7 @@ public class APIPage extends Page {
             }
 
             // implemented types
-            List<XML> interfaces = info.createInterfaceTypes();
+            List<XML> interfaces = contents.createInterfaceTypes();
             if (!interfaces.isEmpty()) {
                 $("ul", style.implement, () -> {
                     for (XML xml : interfaces) {
@@ -75,7 +75,7 @@ public class APIPage extends Page {
             }
 
             // sub types
-            List<XML> subs = info.createSubTypes();
+            List<XML> subs = contents.createSubTypes();
             if (!subs.isEmpty()) {
                 $("ul", style.sub, () -> {
                     for (XML xml : subs) {
@@ -84,18 +84,18 @@ public class APIPage extends Page {
                 });
             }
 
-            $(info.createComment());
+            $(contents.createComment());
         });
 
-        for (FieldInfo field : info.fields()) {
+        for (FieldInfo field : contents.fields()) {
             writeMember(field);
         }
 
-        for (ExecutableInfo constructor : info.constructors()) {
+        for (ExecutableInfo constructor : contents.constructors()) {
             writeMember(constructor);
         }
 
-        for (MethodInfo method : info.methods()) {
+        for (MethodInfo method : contents.methods()) {
             writeMember(method);
         }
     }
@@ -117,7 +117,7 @@ public class APIPage extends Page {
 
             $(member.createComment());
 
-            List<SampleInfo> list = model.samples.get(info.id() + "#" + member.id());
+            List<SampleInfo> list = model.samples.get(contents.id() + "#" + member.id());
             if (list != null) {
                 for (SampleInfo sample : list) {
                     $("pre", () -> {
@@ -182,7 +182,7 @@ public class APIPage extends Page {
             }
             $(member.createComment());
 
-            List<SampleInfo> list = model.samples.get(info.id() + "#" + member.id());
+            List<SampleInfo> list = model.samples.get(contents.id() + "#" + member.id());
             if (list != null) {
                 for (SampleInfo sample : list) {
                     $("pre", () -> {
@@ -198,11 +198,11 @@ public class APIPage extends Page {
      */
     @Override
     protected void declareSubNavigation() {
-        members("Constructors", info.constructors());
-        members("Static Fields", info.staticFields());
-        members("Fields", info.nonStaticFields());
-        members("Static Methods", info.staticMethods());
-        members("Methods", info.nonStaticMethods());
+        members("Constructors", contents.constructors());
+        members("Static Fields", contents.staticFields());
+        members("Fields", contents.nonStaticFields());
+        members("Static Methods", contents.staticMethods());
+        members("Methods", contents.nonStaticMethods());
     }
 
     private void members(String title, List<? extends MemberInfo> members) {

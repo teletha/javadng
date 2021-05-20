@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import psychopath.Locator;
+import stoneforge.repository.Github;
 
 public class DocumentUser {
 
@@ -39,7 +40,7 @@ public class DocumentUser {
                 .version("1.0")
                 .sample("../sinobu/src/test/java")
                 .classpath(path.toArray(String[]::new))
-                .editor((file, lines) -> "https://github.com/Teletha/sinobu/edit/master/src/test/java/" + file + "#L" + lines[0] + "-L" + lines[1])
+                .repository(new Github("Teletha", "sinobu", "master"))
                 .useExternalJDKDoc()
                 .build()
                 .show();

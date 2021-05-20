@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.DocumentationTool.Location.*;
+import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -30,7 +30,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import java.util.function.BiFunction;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -47,6 +46,10 @@ import javax.tools.JavaFileObject;
 import javax.tools.JavaFileObject.Kind;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
+
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpServer;
@@ -70,6 +73,7 @@ import stoneforge.javadoc.analyze.SampleInfo;
 import stoneforge.javadoc.analyze.TemplateStore;
 import stoneforge.javadoc.analyze.TypeResolver;
 import stoneforge.javadoc.analyze.Util;
+import stoneforge.repository.Repository;
 import stylist.StyleDeclarable;
 import stylist.Stylist;
 
@@ -251,13 +255,13 @@ public abstract class JavadocModel {
     }
 
     /**
-     * Specify a URL in the public source code repository where the code can be edited.
+     * Specify the code repository.
      * 
      * @return
      */
     @Icy.Property
-    public BiFunction<String, int[], String> editor() {
-        return (path, lines) -> null;
+    public Repository repository() {
+        return null;
     }
 
     /**
@@ -648,6 +652,12 @@ public abstract class JavadocModel {
                 for (ClassInfo info : docs) {
                     site.buildHTML("doc/" + info.id() + ".html", new DocumentPage(this, info));
                 }
+
+                I.http(repository().locateChangeLog(), String.class).waitForTerminate().to(md -> {
+                    Node root = Parser.builder().build().parse(md);
+                    String html = HtmlRenderer.builder().build().render(root);
+                    site.buildHTML("doc/changelog.html", new DomPage(this, I.xml(html)));
+                });
 
                 // create at last for live reload
                 site.buildHTML("index.html", new APIPage(this, null));

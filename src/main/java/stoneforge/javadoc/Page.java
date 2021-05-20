@@ -21,19 +21,19 @@ import stylist.property.Background.BackgroundImage;
 import stylist.value.Color;
 import stylist.value.Numeric;
 
-public abstract class Page extends HTML {
+public abstract class Page<T> extends HTML {
 
     protected final JavadocModel model;
 
-    protected final ClassInfo info;
+    protected final T contents;
 
     /**
      * @param model
      * @param info
      */
-    protected Page(JavadocModel model, ClassInfo info) {
+    protected Page(JavadocModel model, T info) {
         this.model = model;
-        this.info = info;
+        this.contents = info;
     }
 
     /**
@@ -65,10 +65,10 @@ public abstract class Page extends HTML {
                         for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
                             $("a", attr("href", "/doc/" + info.children().get(0).id() + ".html"), svg("text"), text(info.title()));
                         }
-                        $("a", attr("href", "/api/"), svg("package"), text("API"));
+                        $("a", attr("href", "/api/"), svg("package"), code("API"));
                         $("a", svg("user"), text("Community"));
-                        $("a", svg("activity"), text("Release"));
-                        $("a", svg("github"), text("Repository"));
+                        $("a", attr("href", "/doc/changelog.html"), svg("activity"), text("Release"));
+                        $("a", attr("href", model.repository().locate()), svg("github"), text("Repository"));
                     });
                     $("div", attr("id", "ViewMode"), styles.ViewMode, () -> {
                         $("a", attr("id", "light"), attr("title", "Change to a brighter color scheme"), () -> {
@@ -93,7 +93,7 @@ public abstract class Page extends HTML {
                     // Main Contents
                     // =============================
                     $("article", attr("id", "Article"), styles.Contents, () -> {
-                        if (info != null) {
+                        if (contents != null) {
                             declareContents();
                         }
                     });
@@ -103,7 +103,7 @@ public abstract class Page extends HTML {
                     // =============================
                     $("aside", attr("id", "SubNavi"), styles.SubNavigation, () -> {
                         $("div", styles.SubNavigationStickyBlock, () -> {
-                            if (info != null) {
+                            if (contents != null) {
                                 declareSubNavigation();
                             }
                         });
