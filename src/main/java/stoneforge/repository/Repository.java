@@ -13,7 +13,11 @@ public abstract class Repository {
 
     public abstract String locate();
 
+    public abstract String locateCommunity();
+
     public abstract String locateChangeLog();
+
+    public abstract String locateIssues();
 
     public abstract String locateEditor(String file, int[] lines);
 }

@@ -158,14 +158,22 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
         $.select("ul", () -> {
             block();
-            margin.left(0.5, rem);
-            listStyle.inside();
+            margin.left(1, rem);
+            listStyle.outside();
+
+            $.select(">li", () -> {
+                margin.vertical(0.2, em);
+            });
         });
 
         $.select("ol", () -> {
             block();
-            margin.left(0.5, rem);
-            listStyle.inside();
+            margin.left(1, rem);
+            listStyle.outside();
+
+            $.select(">li", () -> {
+                margin.vertical(0.2, em);
+            });
         });
 
         $.select("blockquote", () -> {

@@ -66,9 +66,10 @@ public abstract class Page<T> extends HTML {
                             $("a", attr("href", "/doc/" + info.children().get(0).id() + ".html"), svg("text"), text(info.title()));
                         }
                         $("a", attr("href", "/api/"), svg("package"), code("API"));
-                        $("a", svg("user"), text("Community"));
-                        $("a", attr("href", "/doc/changelog.html"), svg("activity"), text("Release"));
-                        $("a", attr("href", model.repository().locate()), svg("github"), text("Repository"));
+                        $("a", attr("href", model.repository()
+                                .locateCommunity()), attr("target", "_blank"), svg("user"), text("Community"));
+                        $("a", attr("href", "/doc/changelog.html"), svg("activity"), text("Activity"));
+                        $("a", attr("href", model.repository().locate()), attr("target", "_blank"), svg("github"), text("Repository"));
                     });
                     $("div", attr("id", "ViewMode"), styles.ViewMode, () -> {
                         $("a", attr("id", "light"), attr("title", "Change to a brighter color scheme"), () -> {

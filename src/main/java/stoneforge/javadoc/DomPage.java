@@ -26,7 +26,9 @@ public class DomPage extends Page<XML> {
      */
     @Override
     protected void declareContents() {
-        $(xml(contents));
+        $("section", Styles.Section, Styles.JavadocComment, () -> {
+            $(xml(contents));
+        });
     }
 
     /**

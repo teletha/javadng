@@ -188,7 +188,7 @@ new Vue({
 	<div>
 		<div id="DocNavi" hidden>
       <div class="doc" v-for="doc in items.docs" :id="doc.path">
-        <a :href="doc.path"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#airplay"/></svg>{{doc.title}}</a>
+        <a :href="doc.path"></svg>{{doc.title}}</a>
         <ol class="sub">
           <li v-for="sub in doc.subs">
             <a :href="sub.path"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#chevrons-right"/></svg>{{sub.title}}</a>
