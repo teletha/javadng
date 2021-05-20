@@ -25,12 +25,6 @@ $("#light,#dark", e => e.onclick = () => save(html.className = user.theme = e.id
 
 
 // =====================================================
-// Build Date
-// =====================================================
-$("#build", e => e.textContent = new Intl.DateTimeFormat().format(e.textContent))
-
-
-// =====================================================
 // Enhance code highlight
 // =====================================================
 hljs.addPlugin({

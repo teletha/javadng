@@ -9,6 +9,9 @@
  */
 package stoneforge.javadoc;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import kiss.I;
 import stoneforge.HTML;
 import stoneforge.javadoc.analyze.ClassInfo;
@@ -54,10 +57,10 @@ public abstract class Page extends HTML {
                 // =============================
                 // Top Navigation
                 // =============================
+                String date = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDateTime.now());
+
                 $("header", styles.HeaderArea, () -> {
-                    $("h1", styles.HeaderTitle, attr("date", System.currentTimeMillis()), code(model.product()), () -> {
-                        $("span", styles.HeaderVersion, text(model.version()));
-                    });
+                    $("h1", styles.HeaderTitle, attr("date", date), attr("ver", model.version()), code(model.product()));
                     $("nav", styles.HeaderNav, () -> {
                         for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
                             $("a", attr("href", "/doc/" + info.children().get(0).id() + ".html"), text(info.title()));
@@ -109,6 +112,7 @@ public abstract class Page extends HTML {
                 script("main.js");
             });
         });
+
     }
 
     protected abstract void declareContents();
@@ -136,26 +140,15 @@ public abstract class Page extends HTML {
             border.bottom.color(theme.primary).width(1, px).solid();
         };
 
-        Style Date = Style.named("#build", () -> {
-            position.absolute().top(2, px).right(2, rem);
-            font.size(0.86, rem).color(theme.front.lighten(theme.back, 15));
-        });
-
         Style HeaderTitle = () -> {
             font.size(2.5, rem).family(theme.title).weight.normal().color(theme.primary);
 
             $.after(() -> {
-                content.attr("date");
-                font.size(1.1, rem).letterSpacing(-1, px);
-            });
-        };
-
-        Style HeaderVersion = () -> {
-            font.size(1.1, rem).letterSpacing(-1, px);
-            padding.left(0.7, rem);
-
-            $.before(() -> {
-                content.text("vesion  ");
+                content.attr("date").text("\\000AVersion\\00A0").attr("ver");
+                font.size(0.8, rem).lineHeight(1.1).color(theme.front).family(theme.condensed);
+                display.inlineBlock();
+                padding.left(1.1, rem);
+                text.whiteSpace.pre();
             });
         };
 
