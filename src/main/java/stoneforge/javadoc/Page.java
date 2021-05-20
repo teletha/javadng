@@ -63,10 +63,12 @@ public abstract class Page extends HTML {
                     $("h1", styles.HeaderTitle, attr("date", date), attr("ver", model.version()), code(model.product()));
                     $("nav", styles.HeaderNav, () -> {
                         for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
-                            $("a", attr("href", "/doc/" + info.children().get(0).id() + ".html"), text(info.title()));
+                            $("a", attr("href", "/doc/" + info.children().get(0).id() + ".html"), svg("text"), text(info.title()));
                         }
-                        $("a", attr("href", "/api/"), text("API"));
-                        $("a", text("Community"));
+                        $("a", attr("href", "/api/"), svg("package"), text("API"));
+                        $("a", svg("user"), text("Community"));
+                        $("a", svg("activity"), text("Release"));
+                        $("a", svg("github"), text("Repository"));
                     });
                     $("div", attr("id", "ViewMode"), styles.ViewMode, () -> {
                         $("a", attr("id", "light"), attr("title", "Change to a brighter color scheme"), () -> {
@@ -134,7 +136,7 @@ public abstract class Page extends HTML {
         Style HeaderArea = () -> {
             background.color(Color.Inherit).image(BackgroundImage.inherit()).repeat();
             position.sticky().top(0, rem);
-            display.width(MaxWidth).height(HeaderHeight).zIndex(10).flex().alignItems.baseline();
+            display.width(MaxWidth).height(HeaderHeight).zIndex(10).flex().alignItems.center();
             margin.auto();
             padding.top(22, px);
             border.bottom.color(theme.primary).width(1, px).solid();
@@ -153,27 +155,31 @@ public abstract class Page extends HTML {
         };
 
         Style HeaderNav = () -> {
-            margin.left(3, rem);
+            margin.left(4, rem);
 
             $.child(() -> {
-                font.size(1.3, rem);
-                display.inlineBlock();
-                padding.horizontal(1, rem);
-                position.relative();
+                font.size(11, px);
+                display.inlineFlex().alignItems.center().direction.column();
+                padding.horizontal(1.8, rem);
+                margin.top(-4, px);
                 text.decoration.none();
+                transition.duration(0.2, s).whenever();
+
+                $.select("svg", () -> {
+                    Numeric size = Numeric.of(26, px);
+
+                    display.width(size).height(size);
+                    stroke.color(theme.front.lighten(theme.back, -15)).width(1.2, px);
+                    transition.duration(0.2, s).whenever();
+                });
 
                 $.hover(() -> {
                     text.decoration.none();
+                    font.color(theme.link);
 
-                    $.after(() -> {
-                        content.text("");
-                        display.block().width(0, px).height(0, px);
-                        border.width(8, px).solid().color(Color.Transparent);
-                        margin.left(-4, px);
-                        border.top.width(0, px);
-                        border.bottom.width(6, px);
-                        border.bottom.color(theme.primary);
-                        position.absolute().top(100, percent).left(50, percent);
+                    $.select("svg", () -> {
+                        stroke.color(theme.link).width(2, px);
+                        transform.translateY(-4, px);
                     });
                 });
             });
