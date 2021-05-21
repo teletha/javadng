@@ -195,6 +195,22 @@ public class SiteBuilder {
     }
 
     /**
+     * Build JS file and return the path of the generated file.
+     * 
+     * @return A path to the generated file.
+     */
+    public final String build(String path, InputStream input, List<String> additions) {
+        initialize();
+
+        File file = root.file(path);
+        file.writeFrom(input);
+        for (String add : additions) {
+            I.http(add, String.class).waitForTerminate().to(script -> file.textAtTail(script));
+        }
+        return root.relativize(file).path();
+    }
+
+    /**
      * Build JSON file with padding.
      */
     public final String buildJSONP(String path, Object object) {

@@ -49,7 +49,7 @@ public abstract class Page<T> extends HTML {
                 stylesheetAsync("https://unpkg.com/vue-select/dist/vue-select.css");
                 script("https://unpkg.com/vue-select");
                 stylesheetAsync("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/zenburn.min.css");
-                scriptAsync("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js");
+                scriptAsync("highlight.js");
                 stylesheet("/main.css");
                 $("script", text("//")); // start js engine eagerly
             });

@@ -644,8 +644,9 @@ public abstract class JavadocModel {
 
                 // build JS
                 site.build("main.js", SiteBuilder.class.getResourceAsStream("main.js"));
-
-                System.out.println(Highlighter);
+                site.build("highlight.js", SiteBuilder.class.getResourceAsStream("highlight.js"), I.signal(Highlighter)
+                        .map(x -> "https://unpkg.com/@highlightjs/cdn-assets@10.7.2/languages/" + x + ".min.js")
+                        .toList());
 
                 // build SVG
                 site.build("main.svg", SiteBuilder.class.getResourceAsStream("main.svg"));
