@@ -66,6 +66,7 @@ import kiss.I;
 import kiss.Variable;
 import kiss.XML;
 import kiss.Ⅱ;
+import stoneforge.javadoc.Javadoc;
 import stoneforge.javadoc.Styles;
 
 public class DocumentInfo {
@@ -503,12 +504,7 @@ public class DocumentInfo {
                     // declarations to use the tag soup parser instead of the XML parser.
                     text.insert(0, "<!DOCTYPE span><span>").append("</span>");
 
-                    // sanitize script and css
-                    XML xml = I.xml(text.toString());
-                    xml.find("link").remove();
-                    xml.find("pre").addClass("lang-java");
-
-                    return xml;
+                    return I.xml(text.toString());
                 }
             } catch (Exception e) {
                 throw new Error(e.getMessage() + " [" + text.toString() + "]", e);
@@ -520,6 +516,15 @@ public class DocumentInfo {
          */
         @Override
         public DocumentXMLBuilder visitAttribute(AttributeTree node, DocumentXMLBuilder p) {
+            if (inPre && node.getName().contentEquals("class")) {
+                for (String lang : node.getValue().toString().split(" ")) {
+                    if (lang.startsWith("lang-")) {
+                        Javadoc.Highlighter.add(lang.substring(5));
+                    } else if (lang.startsWith("language-")) {
+                        Javadoc.Highlighter.add(lang.substring(9));
+                    }
+                }
+            }
             text.append(' ').append(node.getName()).append("=\"");
             node.getValue().forEach(n -> n.accept(this, this));
             text.append("\"");
@@ -614,12 +619,16 @@ public class DocumentInfo {
             String uri = resolver.resolveDocumentLocation(id[0]);
 
             if (inPre) {
+                Javadoc.Highlighter.add("java");
+
+                if (endsWith("<pre>")) {
+                    text.deleteCharAt(text.length() - 1).append(" class='lang-java'>");
+                }
+
                 if (id[0].endsWith("Test")) {
-                    text.append("<code class='lang-java'>").append(escape(Util.getSourceCode(id[0], id[1]))).append("</code>");
+                    text.append(escape(Util.getSourceCode(id[0], id[1])));
                 } else {
-                    text.append("<code class='lang-java'>")
-                            .append(escape(Util.getSourceCode(e, id[1] == null ? id[0] : id[1])))
-                            .append("</code>");
+                    text.append(escape(Util.getSourceCode(e, id[1] == null ? id[0] : id[1])));
                 }
             } else {
                 if (uri == null) {
@@ -632,6 +641,16 @@ public class DocumentInfo {
             }
 
             return p;
+        }
+
+        private boolean endsWith(String value) {
+            int length = text.length();
+            for (int i = 0; i < value.length(); i++) {
+                if (text.charAt(length - value.length() + i) != value.charAt(i)) {
+                    return false;
+                }
+            }
+            return true;
         }
 
         /**

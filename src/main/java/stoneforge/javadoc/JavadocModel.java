@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.DocumentationTool.Location.*;
+import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -82,6 +82,9 @@ public abstract class JavadocModel {
 
     /** The default JDK API's location. */
     public static final String JDK = "https://docs.oracle.com/en/java/javase/16/docs/api/";
+
+    /** The language set to highlight code. */
+    public static final Set<String> Highlighter = new HashSet();
 
     /** The name pattern of document. */
     private static final Pattern DocName = Pattern.compile("(.+)Doc$");
@@ -384,11 +387,6 @@ public abstract class JavadocModel {
                 psychopath.File file = output().file(context.getRequestURI().getPath().substring(1));
                 byte[] body = file.text().getBytes(StandardCharsets.UTF_8);
 
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    throw I.quiet(e);
-                }
                 Headers headers = context.getResponseHeaders();
                 headers.set("Content-Type", mime(file));
                 context.sendResponseHeaders(200, body.length);
@@ -646,6 +644,8 @@ public abstract class JavadocModel {
 
                 // build JS
                 site.build("main.js", SiteBuilder.class.getResourceAsStream("main.js"));
+
+                System.out.println(Highlighter);
 
                 // build SVG
                 site.build("main.svg", SiteBuilder.class.getResourceAsStream("main.svg"));

@@ -105,8 +105,8 @@ function FlashMan({paged, cacheSize=20, preload="mouseover", preview="section", 
   window.addEventListener("popstate", v => changed())
   document.addEventListener("DOMContentLoaded", v => {update(); cache.set(location.pathname, document.documentElement.outerHTML)})
   document.addEventListener("click", v => {
-    let e = v.target;
-    if (e.tagName === "A" && location.origin == e.origin) {
+    let e = v.target.closest("a");
+    if (e != null && location.origin == e.origin) {
       if (location.href != e.href) {
         history.pushState(null, null, e.href)
         changed()
@@ -142,7 +142,7 @@ FlashMan({
   
   preview: "#Article>section",
   /* Enahnce code highlight */
-  "pre>code": e => { 
+  "pre": e => { 
     hljs.highlightElement(e);
     e.lang = e.classList[0].substring(5).toUpperCase();
     var a = svg("copy");
