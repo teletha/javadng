@@ -63,16 +63,23 @@ function FlashMan({paged, preview="section", ...previews}) {
     } else {
       path = location.pathname;
       hash = location.hash;
-    
-      fetch(path)
-        .then(response => {
-          return response.text();
-        })
-        .then(html => {
-          $("article", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<article")) + 1, html.lastIndexOf("</article>")));
-          $("aside", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<aside")) + 1, html.lastIndexOf("</aside>")));
-          updated();
-        });
+      
+      if (cache.has(path)) {
+        var html = cache.get(path);
+        $("article", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<article")) + 1, html.lastIndexOf("</article>")));
+        $("aside", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<aside")) + 1, html.lastIndexOf("</aside>")));
+        updated();
+      } else {
+        fetch(path)
+          .then(response => {
+            return response.text();
+          })
+          .then(html => {
+            $("article", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<article")) + 1, html.lastIndexOf("</article>")));
+            $("aside", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<aside")) + 1, html.lastIndexOf("</aside>")));
+            updated();
+          });
+      }
     }
   }
   
@@ -104,6 +111,21 @@ function FlashMan({paged, preview="section", ...previews}) {
         }
         v.preventDefault();
       }
+    }
+  });
+  
+  // Preloader
+  var cache = new Map();
+  document.addEventListener("mouseover", v => {
+    var e = v.target, key = e.pathname;
+    if (e.tagName === "A" && e.origin == location.origin && key != location.pathname && !cache.has(key)) {
+      fetch(key)
+        .then(response => {
+          return response.text();
+        })
+        .then(html => {
+          cache.set(key, html);
+        });
     }
   });
 }

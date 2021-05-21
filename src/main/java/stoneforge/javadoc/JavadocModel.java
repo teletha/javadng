@@ -384,6 +384,11 @@ public abstract class JavadocModel {
                 psychopath.File file = output().file(context.getRequestURI().getPath().substring(1));
                 byte[] body = file.text().getBytes(StandardCharsets.UTF_8);
 
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    throw I.quiet(e);
+                }
                 Headers headers = context.getResponseHeaders();
                 headers.set("Content-Type", mime(file));
                 context.sendResponseHeaders(200, body.length);
