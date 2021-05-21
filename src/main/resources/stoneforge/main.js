@@ -43,47 +43,50 @@ const navi = new IntersectionObserver(e => {
 // =====================================================
 // Lightning Fast Viewer
 // =====================================================
-function FlashMan({paged, preview="section", ...previews}) { 
+function FlashMan({paged, cacheSize=20, preload="mouseover", preview="section", ...previews}) { 
   var path = location.pathname, hash = location.hash;
-  var observer = new IntersectionObserver(set => {
+  const cache = new Map(), loading = new Set(), observer = new IntersectionObserver(set => {
     set.filter(x => x.isIntersecting && !x.target.init && (x.target.init = true)).forEach(x => {
       for (let q in previews) x.target.querySelectorAll(q).forEach(e => previews[q](e))
     })
   }, {rootMargin: "80px", threshold: 0.3});
   
-  function update() {
+  // This is the state immediately after a page change has been requested by a user operation.
+  function changed() {
     if (path == location.pathname) {
-      if (hash == location.hash) {
-        return; // do nothing
-      } else {
+      if (hash != location.hash) {
         hash = location.hash;
         hashed();
-        return;
       }
     } else {
       path = location.pathname;
       hash = location.hash;
-      
-      if (cache.has(path)) {
-        var html = cache.get(path);
-        $("article", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<article")) + 1, html.lastIndexOf("</article>")));
-        $("aside", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<aside")) + 1, html.lastIndexOf("</aside>")));
-        updated();
-      } else {
-        fetch(path)
-          .then(response => {
-            return response.text();
-          })
-          .then(html => {
-            $("article", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<article")) + 1, html.lastIndexOf("</article>")));
-            $("aside", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<aside")) + 1, html.lastIndexOf("</aside>")));
-            updated();
-          });
-      }
+      load(path);
     }
   }
   
-  function updated() {
+  // Reads the contents of the specified path into the cache. If it is already cached or currently being read, it will be ignored.
+  function load(p) {
+    if (cache.has(p)) {
+      if (path == p) update(cache.get(p))
+    } else if (!loading.has(p)) {
+      loading.add(p)
+      fetch(p)
+        .then(response =>  response.text())
+        .then(html => {
+          loading.delete(p)
+          cache.set(p, html)
+          if (path == p) update(html)
+          if (cacheSize < cache.size) cache.delete(cache.keys().next().value)
+        })
+    }
+  }
+  
+  function update(html) {
+    if (html) {
+      $("article", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<article")) + 1, html.lastIndexOf("</article>")));
+      $("aside", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<aside")) + 1, html.lastIndexOf("</aside>")));
+    }
     paged();
     $(preview, e => observer.observe(e));
     hashed();
@@ -99,35 +102,23 @@ function FlashMan({paged, preview="section", ...previews}) {
   }
 
   // Detect all URL changes
-  window.addEventListener("popstate", v => update());
-  document.addEventListener("DOMContentLoaded", v => updated());
+  window.addEventListener("popstate", v => changed())
+  document.addEventListener("DOMContentLoaded", v => {update(); cache.set(location.pathname, document.documentElement.outerHTML)})
   document.addEventListener("click", v => {
     let e = v.target;
-    if (e.tagName === "A") {
-      if (location.origin == e.origin) {
-        if (location.href != e.href) {
-          history.pushState(null, null, e.href);
-          update();
-        }
-        v.preventDefault();
+    if (e.tagName === "A" && location.origin == e.origin) {
+      if (location.href != e.href) {
+        history.pushState(null, null, e.href)
+        changed()
       }
+      v.preventDefault()
     }
-  });
-  
+  })
   // Preloader
-  var cache = new Map();
-  document.addEventListener("mouseover", v => {
-    var e = v.target, key = e.pathname;
-    if (e.tagName === "A" && e.origin == location.origin && key != location.pathname && !cache.has(key)) {
-      fetch(key)
-        .then(response => {
-          return response.text();
-        })
-        .then(html => {
-          cache.set(key, html);
-        });
-    }
-  });
+  document.addEventListener(preload, v => {
+    let e = v.target, key = e.pathname;
+    if (e.tagName === "A" && e.origin == location.origin && key != location.pathname && !cache.has(key)) load(key)
+  })
 }
 
 FlashMan({
