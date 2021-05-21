@@ -10,6 +10,7 @@ save = () => localStorage.setItem("user", JSON.stringify(user)),
 // =====================================================
 html = document.documentElement,
 $ = (q,p) => document.querySelectorAll(q).forEach(p),
+nop = () => {},
 svg = (type) => {
   var a = document.createElement("a");
   a.innerHTML = `<svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#${type}"/></svg>`;
@@ -39,142 +40,117 @@ const navi = new IntersectionObserver(e => {
   }
 }, {root: null, rootMargin: "-40% 0px -60% 0px", threshold: 0})
 
-
 // =====================================================
-// Define Router
+// Lightning Fast Viewer
 // =====================================================
-class Router {
-  /**
-   * This constructor make the configuration and initialization.
-   */
-  constructor(pathChanged, hashChanged) {
-    this.pathChanged = pathChanged;
-    this.hashChanged = hashChanged;
-    this.path = location.pathname;
-    this.hash = location.hash;
-    
-    this.previews = [];
-    this.o = new IntersectionObserver(set => {
-      set.filter(x => x.isIntersecting && !x.target.init).forEach(x => {
-        x.target.init = true;
-        this.previews.forEach(e => e(x.target));      
-      })
-    }, {rootMargin: "80px", threshold: 0.3});
-      
-    document.addEventListener("DOMContentLoaded", () => {
-      pathChanged();
-      hashChanged();
-    });
-    
-    window.addEventListener("popstate", event => this.update());
-    document.addEventListener("click", event => {
-      var e = event.target;
-      if (e.tagName === "A") {
-        if (location.origin == e.origin) {
-          if (location.href != e.href) {
-            history.pushState(null, null, e.href);
-            this.update();
-          }
-          event.preventDefault();
-        }
-      }
-    });
-  }
-
-  update() {
-    const that = this;
+function FlashMan({paged, preview="section", ...previews}) { 
+  var path = location.pathname, hash = location.hash;
+  var observer = new IntersectionObserver(set => {
+    set.filter(x => x.isIntersecting && !x.target.init && (x.target.init = true)).forEach(x => {
+      for (let q in previews) x.target.querySelectorAll(q).forEach(e => previews[q](e))
+    })
+  }, {rootMargin: "80px", threshold: 0.3});
   
-    if (this.path == location.pathname) {
-      if (this.hash == location.hash) {
+  function update() {
+    if (path == location.pathname) {
+      if (hash == location.hash) {
         return; // do nothing
       } else {
-        this.hash = location.hash;
-        this.hashChanged();
+        hash = location.hash;
+        hashed();
         return;
       }
     } else {
-      this.path = location.pathname;
-      this.hash = location.hash;
+      path = location.pathname;
+      hash = location.hash;
     
-      fetch(this.path)
+      fetch(path)
         .then(response => {
           return response.text();
         })
         .then(html => {
-          $("#Article", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<article")) + 1, html.lastIndexOf("</article>")));
-          $("#SubNavi", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<aside")) + 1, html.lastIndexOf("</aside>")));
-
-          that.pathChanged();
-          that.hashChanged();
+          $("article", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<article")) + 1, html.lastIndexOf("</article>")));
+          $("aside", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<aside")) + 1, html.lastIndexOf("</aside>")));
+          updated();
         });
     }
   }
   
-  preview(query, action) {
-    this.previews.push(e => e.querySelectorAll(query).forEach(x => action(x)))
+  function updated() {
+    paged();
+    $(preview, e => observer.observe(e));
+    hashed();
   }
-}
-
-const router = new Router(() => {
-  // =====================================================
-  // Redraw main navigation
-  // =====================================================
-  $("#APINavi", e => e.hidden = !location.pathname.startsWith("/api/"));
-  $("#DocNavi", e => e.hidden = !location.pathname.startsWith("/doc/"));
-  $("#DocNavi>div", e => {
-    const sub = e.lastElementChild;
-    
-    if (e.id == location.pathname) {
-      e.classList.add("active");
-      sub.style.height = sub.scrollHeight + "px";
+  
+  function hashed() {
+    // scroll to top or #hash
+    if (location.hash == "") {
+      setTimeout(() => window.scrollTo(0,0), 200); // wait rendering
     } else {
-      e.classList.remove("active");
-      sub.style.height = 0;
+      location.replace(location.hash);
+    }
+  }
+
+  // Detect all URL changes
+  window.addEventListener("popstate", v => update());
+  document.addEventListener("DOMContentLoaded", v => updated());
+  document.addEventListener("click", v => {
+    let e = v.target;
+    if (e.tagName === "A") {
+      if (location.origin == e.origin) {
+        if (location.href != e.href) {
+          history.pushState(null, null, e.href);
+          update();
+        }
+        v.preventDefault();
+      }
     }
   });
-  
-  $("#Article section", e => navi.observe(e));
-  $("#Article>section", e => router.o.observe(e));
-}, () => {
-  // scroll to top or #hash
-  if (location.hash == "") {
-    setTimeout(() => window.scrollTo(0,0), 200); // wait rendering
-  } else {
-    location.replace(location.hash);
-  }
-});
+}
 
-// =====================================================
-// Enhance code highlight (lazy)
-// =====================================================
-router.preview("pre>code", e => {
-  hljs.highlightElement(e);
+FlashMan({
+  paged: () => {
+    $("#APINavi", e => e.hidden = !location.pathname.startsWith("/api/"));
+    $("#DocNavi", e => e.hidden = !location.pathname.startsWith("/doc/"));
+    $("#DocNavi>div", e => {
+      const sub = e.lastElementChild;
+      
+      if (e.id == location.pathname) {
+        e.classList.add("active");
+        sub.style.height = sub.scrollHeight + "px";
+      } else {
+        e.classList.remove("active");
+        sub.style.height = 0;
+      }
+    });
+    
+    $("#Article section", e => navi.observe(e));
+  },
   
-  // Display language code
-  e.lang = e.classList[0].substring(5).toUpperCase();
-  
-  // Display code copy button
-  var a = svg("copy");
-  a.title = "Copy this code";
-  a.onclick = () => navigator.clipboard.writeText(e.textContent);
-  e.appendChild(a);
-})
-
-router.preview(".perp", e => {
-  e.title = "Copy the permanent link";
-  e.onclick = () => navigator.clipboard.writeText(location.origin + location.pathname + "#" + e.closest("section").id);
-});
-router.preview(".tweet", e => {
-  e.title = "Post this article to Twitter";
-  e.href = "https://twitter.com/intent/tweet?url=" + encodeURIComponent(location.origin + location.pathname + "#" + e.closest("section").id) + "&text=" + encodeURIComponent(e.closest("header").firstElementChild.textContent);
-  e.target = "_blank";
-  e.rel = "noopener noreferrer";
-});
-router.preview(".edit", e => {
-  e.title = "Edit this article";
-  e.target = "_blank";
-  e.rel = "noopener noreferrer";
-});
+  preview: "#Article>section",
+  /* Enahnce code highlight */
+  "pre>code": e => { 
+    hljs.highlightElement(e);
+    e.lang = e.classList[0].substring(5).toUpperCase();
+    var a = svg("copy");
+    a.title = "Copy this code";
+    a.onclick = () => navigator.clipboard.writeText(e.textContent);
+    e.appendChild(a);
+  },
+  /* Enahnce meta icons */
+  ".perp": e => {
+    e.title = "Copy the permanent link";
+    e.onclick = () => navigator.clipboard.writeText(location.origin + location.pathname + "#" + e.closest("section").id);
+  }, ".tweet": e => {
+    e.title = "Post this article to Twitter";
+    e.href = "https://twitter.com/intent/tweet?url=" + encodeURIComponent(location.origin + location.pathname + "#" + e.closest("section").id) + "&text=" + encodeURIComponent(e.closest("header").firstElementChild.textContent);
+    e.target = "_blank";
+    e.rel = "noopener noreferrer";
+  }, ".edit": e => {
+    e.title = "Edit this article";
+    e.target = "_blank";
+    e.rel = "noopener noreferrer";
+}});
 
 // =====================================================
 // Define Components
