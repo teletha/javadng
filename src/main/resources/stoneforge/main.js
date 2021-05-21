@@ -280,3 +280,56 @@ new Vue({
 if (location.hostname == "localhost") setInterval(() => fetch("http://localhost:9321/live").then(res => {
   if(res.status == 200) location.reload();
 }), 3000);
+
+
+function Q(query) {
+  var nodes = [document];
+  var Q = {
+    children: flat(e => e.children),
+    first: self(e => e.firstElementChild),
+    last: self(e => e.lastElementChild),
+    text: effect(e => e.textContent, (e, v) => e.textContent = v),
+    attr: effect((e, name) => e.getAttribute(name), (e, name, value) => e.setAttribute(name, value)),
+    data: attr(arg => ["data", arg]),
+    addClass: effect((e, arg) => e.classList.add(arg)),
+    removeClass: effect((e, arg) => e.classList.remove(arg))
+  }
+  
+  function flat(action) {
+    return () => {
+      nodes = nodes.flatMap(n => [...action(n)]);
+      console.log(nodes);
+      return Q;
+    }
+  }
+  
+  function self(action) {
+    return (...arg) => {
+      nodes = nodes.map(n => action(n, ...arg));
+      console.log(nodes);
+      return Q;
+    }
+  }
+  
+  function effect(action) {
+    return (...arg) => {
+      nodes.forEach(n => action(n, ...arg));
+      console.log(nodes);
+      return Q;
+    }
+  }
+  
+  function attr(key) {
+    return (name, value) => {
+      if (value) {
+        nodes.forEach(n => n[key] = value)
+        return Q
+      } else {
+        return nodes[0][key]
+      }
+    }
+  }
+  
+  return Q
+}
+
