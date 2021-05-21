@@ -25,26 +25,6 @@ $("#light,#dark", e => e.onclick = () => save(html.className = user.theme = e.id
 
 
 // =====================================================
-// Enhance code highlight (lazy)
-// =====================================================
-const coder = new IntersectionObserver(set => {
-  set.filter(x => x.isIntersecting && !x.target.classList.contains("hljs")).forEach(x => {
-    var e = x.target;
-    hljs.highlightElement(e);
-    
-    // Display language code
-    e.lang = e.classList[0].substring(5).toUpperCase();
-    
-    // Display code copy button
-    var a = svg("copy");
-    a.title = "Copy this code";
-    a.onclick = () => navigator.clipboard.writeText(e.textContent);
-    e.appendChild(a);
-  })
-}, {rootMargin: "50px", threshold: 0.3})
-
-
-// =====================================================
 // Dynamic Navigation Indicator
 // =====================================================
 const navi = new IntersectionObserver(e => {
@@ -72,6 +52,14 @@ class Router {
     this.hashChanged = hashChanged;
     this.path = location.pathname;
     this.hash = location.hash;
+    
+    this.previews = [];
+    this.o = new IntersectionObserver(set => {
+      set.filter(x => x.isIntersecting && !x.target.init).forEach(x => {
+        x.target.init = true;
+        this.previews.forEach(e => e(x.target));      
+      })
+    }, {rootMargin: "80px", threshold: 0.3});
       
     document.addEventListener("DOMContentLoaded", () => {
       pathChanged();
@@ -91,7 +79,6 @@ class Router {
         }
       }
     });
-    
   }
 
   update() {
@@ -122,9 +109,13 @@ class Router {
         });
     }
   }
+  
+  preview(query, action) {
+    this.previews.push(e => e.querySelectorAll(query).forEach(x => action(x)))
+  }
 }
 
-new Router(() => {
+const router = new Router(() => {
   // =====================================================
   // Redraw main navigation
   // =====================================================
@@ -143,26 +134,7 @@ new Router(() => {
   });
   
   $("#Article section", e => navi.observe(e));
-  $("#Article pre>code", e => coder.observe(e));
-
-  // =====================================================
-  // Initialize metadata icons
-  // =====================================================
-  $(".perp", e => {
-    e.title = "Copy the permanent link";
-    e.onclick = () => navigator.clipboard.writeText(location.origin + location.pathname + "#" + e.closest("section").id);
-  });
-  $(".tweet", e => {
-    e.title = "Post this article to Twitter";
-    e.href = "https://twitter.com/intent/tweet?url=" + encodeURIComponent(location.origin + location.pathname + "#" + e.closest("section").id) + "&text=" + encodeURIComponent(e.closest("header").firstElementChild.textContent);
-    e.target = "_blank";
-    e.rel = "noopener noreferrer";
-  });
-  $(".edit", e => {
-    e.title = "Edit this article";
-    e.target = "_blank";
-    e.rel = "noopener noreferrer";
-  });
+  $("#Article>section", e => router.o.observe(e));
 }, () => {
   // scroll to top or #hash
   if (location.hash == "") {
@@ -170,6 +142,38 @@ new Router(() => {
   } else {
     location.replace(location.hash);
   }
+});
+
+// =====================================================
+// Enhance code highlight (lazy)
+// =====================================================
+router.preview("pre>code", e => {
+  hljs.highlightElement(e);
+  
+  // Display language code
+  e.lang = e.classList[0].substring(5).toUpperCase();
+  
+  // Display code copy button
+  var a = svg("copy");
+  a.title = "Copy this code";
+  a.onclick = () => navigator.clipboard.writeText(e.textContent);
+  e.appendChild(a);
+})
+
+router.preview(".perp", e => {
+  e.title = "Copy the permanent link";
+  e.onclick = () => navigator.clipboard.writeText(location.origin + location.pathname + "#" + e.closest("section").id);
+});
+router.preview(".tweet", e => {
+  e.title = "Post this article to Twitter";
+  e.href = "https://twitter.com/intent/tweet?url=" + encodeURIComponent(location.origin + location.pathname + "#" + e.closest("section").id) + "&text=" + encodeURIComponent(e.closest("header").firstElementChild.textContent);
+  e.target = "_blank";
+  e.rel = "noopener noreferrer";
+});
+router.preview(".edit", e => {
+  e.title = "Edit this article";
+  e.target = "_blank";
+  e.rel = "noopener noreferrer";
 });
 
 // =====================================================
