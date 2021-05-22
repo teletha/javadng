@@ -458,7 +458,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         display.block().width(100, percent);
         background.color(Color.White);
         margin.vertical(8, px);
-        padding.vertical(6, px).horizontal(8, px);
+        padding.vertical(3, px).horizontal(8, px);
         border.color(Color.rgb(60, 60, 60, 0.26)).width(1, px).solid().radius(theme.radius);
     });
 

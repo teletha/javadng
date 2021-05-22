@@ -193,20 +193,25 @@ new Vue({
   		<v-select v-model="selectedModule" placeholder="Select Module" :options="items.modules"></v-select>
   		<v-select v-model="selectedPackage" placeholder="Select Package" :options="items.packages"></v-select>
 
-  		<input type="checkbox" id="Interface" value="Interface" v-model="selectedType">
-      <label for="Interface">Interface</label>
-      <input type="checkbox" id="Functional" value="Functional" v-model="selectedType">
-      <label for="Functional">Functional Interface</label>
-      <input type="checkbox" id="AbstractClass" value="AbstractClass" v-model="selectedType">
-      <label for="AbstractClass">Abstract Class</label>
-      <input type="checkbox" id="Class" value="Class" v-model="selectedType">
-      <label for="Class">Class</label>
-      <input type="checkbox" id="Enum" value="Enum" v-model="selectedType">
-      <label for="Enum">Enum</label>
-      <input type="checkbox" id="Annotation" value="Annotation" v-model="selectedType">
-      <label for="Annotation">Annotation</label>
-      <input type="checkbox" id="Exception" value="Exception" v-model="selectedType">
-      <label for="Exception">Enum</label>
+      <dl>
+        <dt>Select kind of Types</dt>
+        <dd>
+      		<input type="checkbox" id="Interface" value="Interface" v-model="selectedType">
+          <label for="Interface">Interface</label>
+          <input type="checkbox" id="Functional" value="Functional" v-model="selectedType">
+          <label for="Functional">Functional Interface</label>
+          <input type="checkbox" id="AbstractClass" value="AbstractClass" v-model="selectedType">
+          <label for="AbstractClass">Abstract Class</label>
+          <input type="checkbox" id="Class" value="Class" v-model="selectedType">
+          <label for="Class">Class</label>
+          <input type="checkbox" id="Enum" value="Enum" v-model="selectedType">
+          <label for="Enum">Enum</label>
+          <input type="checkbox" id="Annotation" value="Annotation" v-model="selectedType">
+          <label for="Annotation">Annotation</label>
+          <input type="checkbox" id="Exception" value="Exception" v-model="selectedType">
+          <label for="Exception">Enum</label>
+        </dd>
+      </dl>
 
   		<input id="SearchByName" v-model="selectedName" placeholder="Search by Name">
   		
@@ -283,79 +288,85 @@ if (location.hostname == "localhost") setInterval(() => fetch("http://localhost:
 
 
 function Q(query) {
-  var Q = {
-    nodes: [document],
+  if (!Q.prototype["has"]) {
+    Q.prototype = {
+      nodes: [document],
+      
+      each: self((e, action) => action(e)),
+      
+      has: flat((e, selector) => e.querySelector(selector) ? [e] : []),
+      filter: flat((e, condition) => condition(e) ? [e] : []),
+      is: flat((e, selector) => e.matches(selector)),
+      
+      children: flat(e => e.children),
+      closest: self((e, selector) => e.closest(selector)),
+      find: flat((e, selector) => e.querySelectorAll(selector)),
+      first: self(e => e.firstElementChild),
+      last: self(e => e.lastElementChild),
+      prev: self(e => e.previousElementSibling),
+      next: self(e => e.nextElementSibling),
+      
+      append: self((e, node) => nody(node, n => e.append(n))),
+      appendTo: self((e, node) => nody(node, n => n.append(e))),
+      prepend: self((e, node) => nody(node, n => e.prepend(n))),
+      prependTo: self((e, node) => nody(node, n => n.prepend(e))),
+      before: self((e, node) => nody(node, n => e.before(n))),
+      insertBefore: self((e, node) => nody(node, n => n.before(e))),
+      after: self((e, node) => nody(node, n => e.after(n))),
+      insertAfter: self((e, node) => nody(node, n => n.after(e))),
+      
+      empty: self(e => e.replaceChildren()),
+      clear: self(e => e.parentNode.removeChild(e)),
+      
+      text: value((e, v) => v == null ? e.textContent : e.textContent = v),
+      attr: value((e, name, value) => value == null ? e.getAttribute(name) : e.setAttribute(name, value)),
+      data: value((e, name, value) => value == null ? e.dataset[name] : e.dataset[name] = value),
+      
+      add: value((e, name) => e.classList.add(name)),
+      remove: value((e, name) => e.classList.remove(name)),
+      toggle: value((e, name) => e.classList.toggle(name)),
+      contains: value((e, name) => e.classList.contains(name))
+    }
     
-    has: flat((e, selector) => e.querySelector(selector) ? [e] : []),
-    is: flat((e, selector) => e.matches(selector)),
+    function flat(action) {
+      return function(...arg) {
+        this.nodes = this.nodes.flatMap(n => [...action(n, ...arg)]);
+        return this;
+      }
+    }
     
-    children: flat(e => e.children),
-    closest: self((e, selector) => e.closest(selector)),
-    find: flat((e, selector) => e.querySelectorAll(selector)),
-    first: self(e => e.firstElementChild),
-    last: self(e => e.lastElementChild),
-    prev: self(e => e.previousElementSibling),
-    next: self(e => e.nextElementSibling),
+    function self(action) {
+      return function(...arg) {
+        this.nodes = this.nodes.map(n => action(n, ...arg) || n);
+        return this;
+      }
+    }
     
-    append: self((e, node) => nody(node, n => e.append(n))),
-    appendTo: self((e, node) => nody(node, n => n.append(e))),
-    prepend: self((e, node) => nody(node, n => e.prepend(n))),
-    prependTo: self((e, node) => nody(node, n => n.prepend(e))),
-    before: self((e, node) => nody(node, n => e.before(n))),
-    insertBefore: self((e, node) => nody(node, n => n.before(e))),
-    after: self((e, node) => nody(node, n => e.after(n))),
-    insertAfter: self((e, node) => nody(node, n => n.after(e))),
+    function value(action) {
+      return function(...arg) {
+        var result = this.nodes.map(n => action(n, ...arg))[0];
+        return result === undefined || result === arg[arg.length - 1] ? this : result;
+      }
+    }
     
-    empty: self(e => e.replaceChildren()),
-    clear: self(e => e.parentNode.removeChild(e)),
+    function nody(v, action) {
+      if (v instanceof Element || v instanceof Text) {
+        action(v)
+      } else if (Array.isArray(v)) {
+        v.forEach(i => nody(i, action))
+      } else if (Q.isString(v)) {
+        const t = document.createElement("template");
+        t.innerHTML = v;
+        action(t.content)
+      } else if (v instanceof Q) {
+        nody(v.nodes, action)
+      }
+    }
     
-    text: value((e, v) => v == null ? e.textContent : e.textContent = v),
-    attr: value((e, name, value) => value == null ? e.getAttribute(name) : e.setAttribute(name, value)),
-    data: value((e, name, value) => value == null ? e.dataset[name] : e.dataset[name] = value),
-    
-    add: value((e, name) => e.classList.add(name)),
-    remove: value((e, name) => e.classList.remove(name)),
-    toggle: value((e, name) => e.classList.toggle(name)),
-    contains: value((e, name) => e.classList.contains(name))
+    Q.isString = v => typeof v === "string" || v instanceof String
   }
   
-  function flat(action) {
-    return function(...arg) {
-      this.nodes = this.nodes.flatMap(n => [...action(n, ...arg)]);
-      console.log(this.nodes);
-      return Q;
-    }
-  }
-  
-  function self(action) {
-    return function(...arg) {
-      this.nodes = this.nodes.map(n => action(n, ...arg) || n);
-      console.log(this.nodes);
-      return Q;
-    }
-  }
-  
-  function value(action) {
-    return function(...arg) {
-      var result = this.nodes.map(n => action(n, ...arg))[0];
-      return result === undefined || result === arg[arg.length - 1] ? Q : result;
-    }
-  }
-  
-  function nody(v, action) {
-    if (v instanceof Element || v instanceof Text) {
-      action(v)
-    } else if (Array.isArray(v)) {
-      v.forEach(i => nody(i, action))
-    } else if (typeof v === "string" || v instanceof String) {
-      const t = document.createElement("template");
-      t.innerHTML = v;
-      action(t.content)
-    } else if (v instanceof Q) {
-      nody(v.nodes, action)
-    }
-  } 
-  
-  return Q
+  let o = Object.create(Q.prototype)
+  return Q.isString(query) ? o.find(query) : o;
 }
 
