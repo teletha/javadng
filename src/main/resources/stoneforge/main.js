@@ -191,7 +191,9 @@ new Vue({
     </div>
 	  <div id="APINavi" hidden>
   		<v-select v-model="selectedModule" placeholder="Select Module" :options="items.modules"></v-select>
-  		<v-select v-model="selectedPackage" placeholder="Select Package" :options="items.packages"></v-select>
+  		<select v-model="selectedPackage" placeholder="Select Package">
+  		  <option v-for="package in items.packages" :value="package">{{package}}</option>
+  		</select>
 
       <dl>
         <dt>Select kind of Types</dt>
@@ -226,6 +228,7 @@ new Vue({
   `,
   data: function() {
     root.docs.forEach(e => e.isOpen = false);
+    console.log(root);
   
     return {
       items: root,

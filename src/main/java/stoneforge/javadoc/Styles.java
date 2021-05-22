@@ -49,6 +49,8 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
     public static Style HTMLCheckbox = Browsers.checkbox(theme.link);
 
+    public static Style HTMLSelectbox = Browsers.selectbox(theme.back, theme.front);
+
     public static Style HTMLToolTip = Browsers.tooltip("title", true, Color.rgb(227, 227, 227), Color.rgb(63, 63, 63));
 
     public static Style SVG = Style.named(".svg", () -> {
