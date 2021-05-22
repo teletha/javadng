@@ -283,52 +283,78 @@ if (location.hostname == "localhost") setInterval(() => fetch("http://localhost:
 
 
 function Q(query) {
-  var nodes = [document];
   var Q = {
+    nodes: [document],
+    
+    has: flat((e, selector) => e.querySelector(selector) ? [e] : []),
+    is: flat((e, selector) => e.matches(selector)),
+    
     children: flat(e => e.children),
+    closest: self((e, selector) => e.closest(selector)),
+    find: flat((e, selector) => e.querySelectorAll(selector)),
     first: self(e => e.firstElementChild),
     last: self(e => e.lastElementChild),
-    text: effect(e => e.textContent, (e, v) => e.textContent = v),
-    attr: effect((e, name) => e.getAttribute(name), (e, name, value) => e.setAttribute(name, value)),
-    data: attr(arg => ["data", arg]),
-    addClass: effect((e, arg) => e.classList.add(arg)),
-    removeClass: effect((e, arg) => e.classList.remove(arg))
+    prev: self(e => e.previousElementSibling),
+    next: self(e => e.nextElementSibling),
+    
+    append: self((e, node) => nody(node, n => e.append(n))),
+    appendTo: self((e, node) => nody(node, n => n.append(e))),
+    prepend: self((e, node) => nody(node, n => e.prepend(n))),
+    prependTo: self((e, node) => nody(node, n => n.prepend(e))),
+    before: self((e, node) => nody(node, n => e.before(n))),
+    insertBefore: self((e, node) => nody(node, n => n.before(e))),
+    after: self((e, node) => nody(node, n => e.after(n))),
+    insertAfter: self((e, node) => nody(node, n => n.after(e))),
+    
+    empty: self(e => e.replaceChildren()),
+    clear: self(e => e.parentNode.removeChild(e)),
+    
+    text: value((e, v) => v == null ? e.textContent : e.textContent = v),
+    attr: value((e, name, value) => value == null ? e.getAttribute(name) : e.setAttribute(name, value)),
+    data: value((e, name, value) => value == null ? e.dataset[name] : e.dataset[name] = value),
+    
+    add: value((e, name) => e.classList.add(name)),
+    remove: value((e, name) => e.classList.remove(name)),
+    toggle: value((e, name) => e.classList.toggle(name)),
+    contains: value((e, name) => e.classList.contains(name))
   }
   
   function flat(action) {
-    return () => {
-      nodes = nodes.flatMap(n => [...action(n)]);
-      console.log(nodes);
+    return function(...arg) {
+      this.nodes = this.nodes.flatMap(n => [...action(n, ...arg)]);
+      console.log(this.nodes);
       return Q;
     }
   }
   
   function self(action) {
-    return (...arg) => {
-      nodes = nodes.map(n => action(n, ...arg));
-      console.log(nodes);
+    return function(...arg) {
+      this.nodes = this.nodes.map(n => action(n, ...arg) || n);
+      console.log(this.nodes);
       return Q;
     }
   }
   
-  function effect(action) {
-    return (...arg) => {
-      nodes.forEach(n => action(n, ...arg));
-      console.log(nodes);
-      return Q;
+  function value(action) {
+    return function(...arg) {
+      var result = this.nodes.map(n => action(n, ...arg))[0];
+      return result === undefined || result === arg[arg.length - 1] ? Q : result;
     }
   }
   
-  function attr(key) {
-    return (name, value) => {
-      if (value) {
-        nodes.forEach(n => n[key] = value)
-        return Q
-      } else {
-        return nodes[0][key]
-      }
+  function nody(v, action) {
+    if (v instanceof Element || v instanceof Text) {
+      action(v)
+    } else if (Array.isArray(v)) {
+      v.forEach(i => nody(i, action))
+    } else if (typeof v === "string" || v instanceof String) {
+      const t = document.createElement("template");
+      t.innerHTML = v;
+      action(t.content)
+    } else if (v instanceof Q) {
+      nody(v.nodes, action)
     }
-  }
+  } 
   
   return Q
 }

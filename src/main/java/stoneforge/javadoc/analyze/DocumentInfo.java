@@ -625,11 +625,13 @@ public class DocumentInfo {
                     text.deleteCharAt(text.length() - 1).append(" class='lang-java'>");
                 }
 
+                text.append("<code>");
                 if (id[0].endsWith("Test")) {
                     text.append(escape(Util.getSourceCode(id[0], id[1])));
                 } else {
                     text.append(escape(Util.getSourceCode(e, id[1] == null ? id[0] : id[1])));
                 }
+                text.append("</code>");
             } else {
                 if (uri == null) {
                     text.append(ref);
