@@ -290,18 +290,18 @@ if (location.hostname == "localhost") setInterval(() => fetch("http://localhost:
 
 
 function Q(query) {
-  if (!Q.prototype["has"]) {
+  if (!Q.html) {
     Q.prototype = {
-      nodes: [document],
-      
       each: self((e, action) => action(e)),
       
       has: flat((e, selector) => e.querySelector(selector) ? [e] : []),
       filter: flat((e, condition) => condition(e) ? [e] : []),
       is: flat((e, selector) => e.matches(selector)),
       
-      children: flat(e => e.children),
+      parent: self(e => e.parentNode),
+      parents: flat((e, selector) => Q([...(function*(e) {while (e = e.parentElement) {yield e}})(e)]).is(selector)),
       closest: self((e, selector) => e.closest(selector)),
+      children: flat(e => e.children),
       find: flat((e, selector) => e.querySelectorAll(selector)),
       first: self(e => e.firstElementChild),
       last: self(e => e.lastElementChild),
@@ -332,22 +332,20 @@ function Q(query) {
     
     function flat(action) {
       return function(...arg) {
-        this.nodes = this.nodes.flatMap(n => [...action(n, ...arg)]);
-        return this;
+        return Q(this.nodes.flatMap(n => [...action(n, ...arg)]))
       }
     }
     
     function self(action) {
       return function(...arg) {
-        this.nodes = this.nodes.map(n => action(n, ...arg) || n);
-        return this;
+        return Q(this.nodes.map(n => action(n, ...arg) || n))
       }
     }
     
     function value(action) {
       return function(...arg) {
-        var result = this.nodes.map(n => action(n, ...arg))[0];
-        return result === undefined || result === arg[arg.length - 1] ? this : result;
+        let result = this.nodes.map(n => action(n, ...arg))[0]
+        return result === undefined || result === arg[arg.length - 1] ? this : result
       }
     }
     
@@ -357,34 +355,32 @@ function Q(query) {
       } else if (Array.isArray(v)) {
         v.forEach(i => nody(i, action))
       } else if (Q.isString(v)) {
-        action(html(v))
+        action(Q.html(v))
       } else if (v instanceof Q) {
         nody(v.nodes, action)
       }
     }
     
+    function ss(selector, array) {
+      return selector ? array.filter(e => e.matches(selector)) : array;
+    }
+    
     Q.isString = v => typeof v === "string" || v instanceof String
-  }
-  
-  function html(text) {
-    const t = document.createElement("template");
-    t.innerHTML = text;
-    return t.content.firstElementChild
-  }
-  
-  let o = Object.create(Q.prototype)
-  
-  if (Q.isString(query)) {
-    if (query.charAt(0) === "<") {
-      query = html(query)
-    } else {
-      return o.find(query)
+    Q.html = text => {
+      let t = document.createElement("template")
+      t.innerHTML = text
+      return t.content
     }
   }
   
-  if (query instanceof Node) o.nodes = [query]
-  if (query instanceof NodeList) o.nodes = Array.from(query)
-  return o;
+  let o = Object.create(Q.prototype)
+  o.nodes = Q.isString(query) ? Array.from(query[0] === "<" ? Q.html(query).children : document.querySelectorAll(query))
+          : Array.isArray(query) ? query
+          : !query ? [document]
+          : query instanceof Node ? [query]
+          : query instanceof Q ? [...query.nodes]
+          : /* query instanceof NodeList || query instanceof HTMLCollection ? */ Array.from(query)
+  return o
 }
 
 Q("body").prepend('<o-select placeholder="select one" :dataset="root.packages"/>')
@@ -414,7 +410,7 @@ class Base extends HTMLElement {
   } 
   
   connectedCallback() {
-    console.log('connectedCallback');
+    console.log('connectedCallback', Q(this).attr("placeholder"));
   }
   
   disconnectedCallback() {
