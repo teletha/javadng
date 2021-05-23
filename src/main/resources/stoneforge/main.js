@@ -191,10 +191,9 @@ new Vue({
     </div>
 	  <div id="APINavi" hidden>
   		<v-select v-model="selectedModule" placeholder="Select Module" :options="items.modules"></v-select>
-  		<select v-model="selectedPackage" placeholder="Select Package">
+  		<select v-model="selectedPackage" placeholder="Select Package" size="2">
   		  <option v-for="package in items.packages" :value="package">{{package}}</option>
   		</select>
-
       <dl>
         <dt>Select kind of Types</dt>
         <dd>
@@ -358,9 +357,7 @@ function Q(query) {
       } else if (Array.isArray(v)) {
         v.forEach(i => nody(i, action))
       } else if (Q.isString(v)) {
-        const t = document.createElement("template");
-        t.innerHTML = v;
-        action(t.content)
+        action(html(v))
       } else if (v instanceof Q) {
         nody(v.nodes, action)
       }
@@ -369,7 +366,103 @@ function Q(query) {
     Q.isString = v => typeof v === "string" || v instanceof String
   }
   
+  function html(text) {
+    const t = document.createElement("template");
+    t.innerHTML = text;
+    return t.content.firstElementChild
+  }
+  
   let o = Object.create(Q.prototype)
-  return Q.isString(query) ? o.find(query) : o;
+  
+  if (Q.isString(query)) {
+    if (query.charAt(0) === "<") {
+      query = html(query)
+    } else {
+      return o.find(query)
+    }
+  }
+  
+  if (query instanceof Node) o.nodes = [query]
+  if (query instanceof NodeList) o.nodes = Array.from(query)
+  return o;
 }
+
+Q("body").prepend('<o-select placeholder="select one" :dataset="root.packages"/>')
+
+
+class Base extends HTMLElement {
+
+  static get observedAttributes() {
+    return ["dataset", "placeholder", "render"].flatMap(v => [v, ":" + v])
+  }
+
+  constructor(type, html) {
+    super()
+    this.attachShadow({mode: "open"})
+    this.shadowRoot.innerHTML = html;
+    this.properties = new Map();
+    
+    Object.getOwnPropertyNames(type.prototype)
+      .filter(name => name != "constructor")
+      .forEach(name => {
+        this.properties.set(name, type.prototype[name].bind(this))
+      })
+  }
+  
+  find(selector) {
+    return Q(this.shadowRoot.querySelectorAll(selector));
+  } 
+  
+  connectedCallback() {
+    console.log('connectedCallback');
+  }
+  
+  disconnectedCallback() {
+    console.log('disconnectedCallback');
+  }
+  
+  attributeChangedCallback(name, prev, next) {
+    console.log('att', name);
+    switch (name.charAt(0)) {
+      case ":":
+        name = name.substring(1)
+        next = Function("return " + next)()
+        break;
+    }
+    
+    var method = this.properties.get(name)
+    if (method) method(next)
+  }
+}
+
+
+customElements.define("o-select", class Select extends Base {
+
+  constructor() {
+    super(Select, `
+      <style>
+      </style>
+      <placeholder></placeholder>
+      <data></data>
+      <p>Web Components Test</p>
+    `);
+  }
+  
+  
+  placeholder(value) {
+    this.find("placeholder").text(value)
+  }
+  
+  dataset(value) {
+    value.forEach(item => {
+      this.find("data").append(Q("<item>").each(e => {
+        e.model = item;
+      }))
+    })
+  }
+  
+  render(value = e => e) {
+    this.find("item").each(e => e.textContent = value(e.model))
+  }
+});
 
