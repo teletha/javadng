@@ -1,9 +1,9 @@
 // =====================================================
 // The imitation of jQuery
 // =====================================================
-$ = Fake = query => {
-  if (!Fake.html) {
-    Fake.prototype = {
+$ = Mimic = query => {
+  if (!Mimic.html) {
+    Mimic.prototype = {
       each: self((e, action) => action(e)),
       
       contain: flat((e, selector) => e.querySelector(selector) ? [e] : [], 9),
@@ -36,31 +36,36 @@ $ = Fake = query => {
       empty: self(e => e.replaceChildren()),
       clear: self(e => e.parentNode.removeChild(e)),
       
-      text: value((e, v) => v == null ? e.textContent : e.textContent = v),
-      attr: value((e, name, value) => value == null ? e.getAttribute(name) : e.setAttribute(name, value)),
-      data: value((e, name, value) => value == null ? e.dataset[name] : e.dataset[name] = value),
+      html: value((e, text) => text ? e.innerHTML = text : e.innerHTML), 
+      text: value((e, text) => text ? e.textContent = text : e.textContent),
+      attr: value((e, name, value) => value ? e.setAttribute(name, value) : e.getAttribute(name)),
+      data: value((e, name, value) => value ? e.dataset[name] = value : e.dataset[name]),
       
       add: value((e, name) => e.classList.add(name)),
       remove: value((e, name) => e.classList.remove(name)),
       toggle: value((e, name) => e.classList.toggle(name)),
-      has: value((e, name) => e.classList.contains(name))
+      has: value((e, name) => e.classList.contains(name)),
+      reset: value((e, name) => e.className = name || ""),
+      
+      on: value((e, type, handler) => e.addEventListener(type, handler)),
+      off: value((e, type) => e.removeEventListener(type))
     }
     
     function* all(e, action, stopper) {
-      let stop = stopper ? Fake.isString(stopper) ? e => e.matches(stopper) : e => e === stopper : e => false
+      let stop = stopper ? Mimic.isString(stopper) ? e => e.matches(stopper) : e => e === stopper : e => false
       while((e = action(e)) && !stop(e)) yield e
     }
     
     function flat(traverser, filterIndex = 0) {
       return function(...arg) {
         let nodes = [...new Set(this.nodes.flatMap(n => [...traverser(n, ...arg)]))]
-        return Fake(!arg[filterIndex] ? nodes : nodes.filter(e => e.matches(arg[filterIndex])))
+        return Mimic(!arg[filterIndex] ? nodes : nodes.filter(e => e.matches(arg[filterIndex])))
       }
     }
     
     function self(action) {
       return function(...arg) {
-        return Fake(this.nodes.map(n => action(n, ...arg) || n))
+        return Mimic(this.nodes.map(n => action(n, ...arg) || n))
       }
     }
     
@@ -76,27 +81,27 @@ $ = Fake = query => {
         action(v)
       } else if (Array.isArray(v)) {
         v.forEach(i => nody(i, action))
-      } else if (Fake.isString(v)) {
-        action(Fake.html(v))
-      } else if (v instanceof Fake) {
+      } else if (Mimic.isString(v)) {
+        action(Mimic.html(v))
+      } else if (v instanceof Mimic) {
         nody(v.nodes, action)
       }
     }
     
-    Fake.isString = v => typeof v === "string" || v instanceof String
-    Fake.html = text => {
+    Mimic.isString = v => typeof v === "string" || v instanceof String
+    Mimic.html = text => {
       let t = document.createElement("template")
       t.innerHTML = text
       return t.content
     }
   }
   
-  let o = Object.create(Fake.prototype)
-  o.nodes = Fake.isString(query) ? [...(query[0] === "<" ? Fake.html(query).children : document.querySelectorAll(query))]
+  let o = Object.create(Mimic.prototype)
+  o.nodes = Mimic.isString(query) ? [...(query[0] === "<" ? Mimic.html(query).children : document.querySelectorAll(query))]
           : Array.isArray(query) ? query
           : !query ? [document]
           : query instanceof Node ? [query]
-          : query instanceof Fake ? [...query.nodes]
+          : query instanceof Mimic ? [...query.nodes]
           : /* query instanceof NodeList || query instanceof HTMLCollection ? */ [...query]
   return o
 }
@@ -111,7 +116,7 @@ save = () => localStorage.setItem("user", JSON.stringify(user)),
 // =====================================================
 // Utilities
 // =====================================================
-html = document.documentElement,
+html = $("html"),
 nop = () => {},
 svg = (type) => {
   var a = document.createElement("a");
@@ -123,8 +128,8 @@ svg = (type) => {
 // =====================================================
 // View Mode
 // =====================================================
-html.className = user.theme;
-$("#light,#dark").each(e => e.onclick = () => save(html.className = user.theme = e.id))
+html.add(user.theme)
+$("#light,#dark").on("click", e => save(html.reset(user.theme = e.currentTarget.id)))
 
 
 // =====================================================
@@ -184,10 +189,10 @@ function FlashMan({paged, cacheSize=20, preload="mouseover", preview="section", 
     }
   }
   
-  function update(html) {
-    if (html) {
-      $("article").each(e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<article")) + 1, html.lastIndexOf("</article>")));
-      $("aside").each(e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<aside")) + 1, html.lastIndexOf("</aside>")));
+  function update(text) {
+    if (text) {
+      $("article").html(text.substring(text.indexOf(">", text.indexOf("<article")) + 1, text.lastIndexOf("</article>")));
+      $("aside").html(text.substring(text.indexOf(">", text.indexOf("<aside")) + 1, text.lastIndexOf("</aside>")));
     }
     paged();
     $(preview).each(e => observer.observe(e));
@@ -444,12 +449,11 @@ class Base extends HTMLElement {
 customElements.define("o-select", class Select extends Base {
 
   constructor() {
-    super(Select, `
+    super(Select, $.html`
       <style>
       </style>
       <placeholder></placeholder>
       <data></data>
-      <p>Web Components Test</p>
     `);
   }
   
@@ -471,3 +475,13 @@ customElements.define("o-select", class Select extends Base {
   }
 });
 
+
+$.define("o-select", data => $.html`
+  <label>${data.selected.name || data.placeholder}</label>
+  <container>
+    ${data.items.map(item => $.html`
+      <item @click=${data.selected = item}>${item.name}</item> 
+    `)}
+    <item v-for="item in data.items" @click="data.selected = item">${item.name}</item>
+  </container>
+`)
