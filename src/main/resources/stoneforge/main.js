@@ -476,6 +476,88 @@ customElements.define("o-select", class Select extends Base {
 });
 
 
+
+function captureModel() {
+  const capture = {
+    get: (target, name) => {
+      // field
+      console.log(name)
+      
+      return new Proxy(()=>{}, {
+        get: capture.get,
+        apply: (target, that, args) => {
+          // remove field access info
+          console.log(name, args);
+          
+          // method
+          if (name === "$") {
+          } else if (name === "text") {
+          } else {
+          }
+          return "";
+        }
+      })
+    }
+  }
+  return new Proxy({}, capture);
+}
+
+
+function capture(builder) {
+  const capture = {
+    get: (target, name) => {
+      // field
+      builder.push("Element " + name)
+      
+      return new Proxy(()=>{}, {
+        get: capture.get,
+        apply: (target, that, args) => {
+          // remove field access info
+          builder.pop()
+          console.log("method ", name);
+          
+          // method
+          if (name === "$") {
+            builder.push("Move to child context with " + args[0])
+            args[0].forEach(args[1])
+            builder.push("Back to parent context")
+          } else if (name === "text") {
+            builder.push("Create text[" + args[0] + "]")
+          } else {
+            builder.push("@" + name + "='" + args[0] + "'")
+          }
+          return new Proxy(()=>{}, capture)
+        }
+      })
+    }
+  }
+  return new Proxy({}, capture);
+}
+
+function template(blueprint) {
+  let builder = [];
+  blueprint(capture(builder), captureModel())
+  console.log(builder)
+  
+  return (...args) => {
+    
+  }
+}
+
+
+template((h, model) => {
+  h.div.class("name").title(model.title + "!").arrow(() => model.arrow + "!").literal(`${model.literal + "?"}!`).$(model.items, item => {
+    h.item.text(item).onclick(e => console.log(item + " was clicked"))
+  })
+})
+
+
+var counter = 0;
+div.title("name").each(items, $ => {
+  item.onclick(e => counter++).text(counter)
+})
+
+
 $.define("o-select", data => $.html`
   <label>${data.selected.name || data.placeholder}</label>
   <container>
