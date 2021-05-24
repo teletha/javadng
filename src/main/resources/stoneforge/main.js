@@ -294,19 +294,22 @@ function Q(query) {
     Q.prototype = {
       each: self((e, action) => action(e)),
       
-      has: flat((e, selector) => e.querySelector(selector) ? [e] : []),
-      filter: flat((e, condition) => condition(e) ? [e] : []),
-      is: flat((e, selector) => e.matches(selector)),
+      has: flat((e, selector) => e.querySelector(selector) ? [e] : [], 9),
+      filter: flat((e, condition) => condition(e) ? [e] : [], 9),
+      is: flat((e, selector) => e.matches(selector), 9),
       
-      parent: self(e => e.parentNode),
-      parents: flat((e, selector) => Q([...(function*(e) {while (e = e.parentElement) {yield e}})(e)]).is(selector)),
+      parent: flat(e => [e.parentNode]),
+      parents: flat(e => all(e, x => x.parentElement)),
       closest: self((e, selector) => e.closest(selector)),
       children: flat(e => e.children),
-      find: flat((e, selector) => e.querySelectorAll(selector)),
-      first: self(e => e.firstElementChild),
-      last: self(e => e.lastElementChild),
-      prev: self(e => e.previousElementSibling),
-      next: self(e => e.nextElementSibling),
+      find: flat((e, selector) => e.querySelectorAll(selector), 9),
+      first: flat(e => [e.firstElementChild]),
+      last: flat(e => [e.lastElementChild]),
+      prev: flat(e => [e.previousElementSibling]),
+      prevs: flat(e => all(e, x => x.previousElementSibling)),
+      next: flat(e => [e.nextElementSibling]),
+      nexts: flat(e => all(e, x => x.nextElementSibling)),
+      nextUntil: flat((e, selectorOrElement) => all(e, x => x.nextElementSibling, selectorOrElement), 1),
       
       append: self((e, node) => nody(node, n => e.append(n))),
       appendTo: self((e, node) => nody(node, n => n.append(e))),
@@ -330,9 +333,15 @@ function Q(query) {
       contains: value((e, name) => e.classList.contains(name))
     }
     
-    function flat(action) {
+    function* all(e, action, stopper) {
+      let stop = stopper ? Q.isString(stopper) ? e => e.matches(stopper) : e => e === stopper : e => false
+      while((e = action(e)) && !stop(e)) yield e
+    }
+    
+    function flat(traverser, filterIndex = 0) {
       return function(...arg) {
-        return Q(this.nodes.flatMap(n => [...action(n, ...arg)]))
+        let nodes = this.nodes.flatMap(n => [...traverser(n, ...arg)])
+        return Q(!arg[filterIndex] ? nodes : nodes.filter(e => e.matches(arg[filterIndex])))
       }
     }
     
@@ -361,10 +370,6 @@ function Q(query) {
       }
     }
     
-    function ss(selector, array) {
-      return selector ? array.filter(e => e.matches(selector)) : array;
-    }
-    
     Q.isString = v => typeof v === "string" || v instanceof String
     Q.html = text => {
       let t = document.createElement("template")
@@ -374,12 +379,12 @@ function Q(query) {
   }
   
   let o = Object.create(Q.prototype)
-  o.nodes = Q.isString(query) ? Array.from(query[0] === "<" ? Q.html(query).children : document.querySelectorAll(query))
+  o.nodes = Q.isString(query) ? [...(query[0] === "<" ? Q.html(query).children : document.querySelectorAll(query))]
           : Array.isArray(query) ? query
           : !query ? [document]
           : query instanceof Node ? [query]
           : query instanceof Q ? [...query.nodes]
-          : /* query instanceof NodeList || query instanceof HTMLCollection ? */ Array.from(query)
+          : /* query instanceof NodeList || query instanceof HTMLCollection ? */ [...query]
   return o
 }
 
