@@ -1,4 +1,107 @@
 // =====================================================
+// The imitation of jQuery
+// =====================================================
+$ = Fake = query => {
+  if (!Fake.html) {
+    Fake.prototype = {
+      each: self((e, action) => action(e)),
+      
+      contain: flat((e, selector) => e.querySelector(selector) ? [e] : [], 9),
+      filter: flat((e, condition) => condition(e) ? [e] : [], 9),
+      is: flat((e, selector) => e.matches(selector), 9),
+      
+      parent: flat(e => [e.parentNode]),
+      parents: flat(e => all(e, x => x.parentElement)),
+      closest: self((e, selector) => e.closest(selector)),
+      children: flat(e => e.children),
+      find: flat((e, selector) => e.querySelectorAll(selector), 9),
+      first: flat(e => [e.firstElementChild]),
+      last: flat(e => [e.lastElementChild]),
+      prev: flat(e => [e.previousElementSibling]),
+      prevs: flat(e => all(e, x => x.previousElementSibling)),
+      prevUntil: flat((e, selectorOrElement) => all(e, x => x.previousElementSibling, selectorOrElement), 1),
+      next: flat(e => [e.nextElementSibling]),
+      nexts: flat(e => all(e, x => x.nextElementSibling)),
+      nextUntil: flat((e, selectorOrElement) => all(e, x => x.nextElementSibling, selectorOrElement), 1),
+      
+      append: self((e, node) => nody(node, n => e.append(n))),
+      appendTo: self((e, node) => nody(node, n => n.append(e))),
+      prepend: self((e, node) => nody(node, n => e.prepend(n))),
+      prependTo: self((e, node) => nody(node, n => n.prepend(e))),
+      before: self((e, node) => nody(node, n => e.before(n))),
+      insertBefore: self((e, node) => nody(node, n => n.before(e))),
+      after: self((e, node) => nody(node, n => e.after(n))),
+      insertAfter: self((e, node) => nody(node, n => n.after(e))),
+      
+      empty: self(e => e.replaceChildren()),
+      clear: self(e => e.parentNode.removeChild(e)),
+      
+      text: value((e, v) => v == null ? e.textContent : e.textContent = v),
+      attr: value((e, name, value) => value == null ? e.getAttribute(name) : e.setAttribute(name, value)),
+      data: value((e, name, value) => value == null ? e.dataset[name] : e.dataset[name] = value),
+      
+      add: value((e, name) => e.classList.add(name)),
+      remove: value((e, name) => e.classList.remove(name)),
+      toggle: value((e, name) => e.classList.toggle(name)),
+      has: value((e, name) => e.classList.contains(name))
+    }
+    
+    function* all(e, action, stopper) {
+      let stop = stopper ? Fake.isString(stopper) ? e => e.matches(stopper) : e => e === stopper : e => false
+      while((e = action(e)) && !stop(e)) yield e
+    }
+    
+    function flat(traverser, filterIndex = 0) {
+      return function(...arg) {
+        let nodes = [...new Set(this.nodes.flatMap(n => [...traverser(n, ...arg)]))]
+        return Fake(!arg[filterIndex] ? nodes : nodes.filter(e => e.matches(arg[filterIndex])))
+      }
+    }
+    
+    function self(action) {
+      return function(...arg) {
+        return Fake(this.nodes.map(n => action(n, ...arg) || n))
+      }
+    }
+    
+    function value(action) {
+      return function(...arg) {
+        let result = this.nodes.map(n => action(n, ...arg))[0]
+        return result === undefined || result === arg[arg.length - 1] ? this : result
+      }
+    }
+    
+    function nody(v, action) {
+      if (v instanceof Element || v instanceof Text) {
+        action(v)
+      } else if (Array.isArray(v)) {
+        v.forEach(i => nody(i, action))
+      } else if (Fake.isString(v)) {
+        action(Fake.html(v))
+      } else if (v instanceof Fake) {
+        nody(v.nodes, action)
+      }
+    }
+    
+    Fake.isString = v => typeof v === "string" || v instanceof String
+    Fake.html = text => {
+      let t = document.createElement("template")
+      t.innerHTML = text
+      return t.content
+    }
+  }
+  
+  let o = Object.create(Fake.prototype)
+  o.nodes = Fake.isString(query) ? [...(query[0] === "<" ? Fake.html(query).children : document.querySelectorAll(query))]
+          : Array.isArray(query) ? query
+          : !query ? [document]
+          : query instanceof Node ? [query]
+          : query instanceof Fake ? [...query.nodes]
+          : /* query instanceof NodeList || query instanceof HTMLCollection ? */ [...query]
+  return o
+}
+
+// =====================================================
 // User Settings
 // =====================================================
 const
@@ -9,7 +112,6 @@ save = () => localStorage.setItem("user", JSON.stringify(user)),
 // Utilities
 // =====================================================
 html = document.documentElement,
-$ = (q,p) => document.querySelectorAll(q).forEach(p),
 nop = () => {},
 svg = (type) => {
   var a = document.createElement("a");
@@ -22,7 +124,7 @@ svg = (type) => {
 // View Mode
 // =====================================================
 html.className = user.theme;
-$("#light,#dark", e => e.onclick = () => save(html.className = user.theme = e.id))
+$("#light,#dark").each(e => e.onclick = () => save(html.className = user.theme = e.id))
 
 
 // =====================================================
@@ -34,8 +136,8 @@ const navi = new IntersectionObserver(e => {
     const i = e.reduce((a,b) => a.intersectionRation > b.intersectionRatio ? a : b);
     if (i) {
       console.log(i.target.id, i.intersectionRatio);
-      $("#DocNavi .now", e => e.classList.remove("now"));
-      $(`#DocNavi a[href$='#${i.target.id}']`, e => e.classList.add("now"));
+      $("#DocNavi .now").remove("now");
+      $(`#DocNavi a[href$='#${i.target.id}']`).add("now");
     }
   }
 }, {root: null, rootMargin: "-40% 0px -60% 0px", threshold: 0})
@@ -84,11 +186,11 @@ function FlashMan({paged, cacheSize=20, preload="mouseover", preview="section", 
   
   function update(html) {
     if (html) {
-      $("article", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<article")) + 1, html.lastIndexOf("</article>")));
-      $("aside", e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<aside")) + 1, html.lastIndexOf("</aside>")));
+      $("article").each(e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<article")) + 1, html.lastIndexOf("</article>")));
+      $("aside").each(e => e.innerHTML = html.substring(html.indexOf(">", html.indexOf("<aside")) + 1, html.lastIndexOf("</aside>")));
     }
     paged();
-    $(preview, e => observer.observe(e));
+    $(preview).each(e => observer.observe(e));
     hashed();
   }
   
@@ -123,9 +225,9 @@ function FlashMan({paged, cacheSize=20, preload="mouseover", preview="section", 
 
 FlashMan({
   paged: () => {
-    $("#APINavi", e => e.hidden = !location.pathname.startsWith("/api/"));
-    $("#DocNavi", e => e.hidden = !location.pathname.startsWith("/doc/"));
-    $("#DocNavi>div", e => {
+    $("#APINavi").each(e => e.hidden = !location.pathname.startsWith("/api/"));
+    $("#DocNavi").each(e => e.hidden = !location.pathname.startsWith("/doc/"));
+    $("#DocNavi>div").each(e => {
       const sub = e.lastElementChild;
       
       if (e.id == location.pathname) {
@@ -137,7 +239,7 @@ FlashMan({
       }
     });
     
-    $("#Article section", e => navi.observe(e));
+    $("#Article section").each(e => navi.observe(e));
   },
   
   preview: "#Article>section",
@@ -289,106 +391,8 @@ if (location.hostname == "localhost") setInterval(() => fetch("http://localhost:
 }), 3000);
 
 
-function Q(query) {
-  if (!Q.html) {
-    Q.prototype = {
-      each: self((e, action) => action(e)),
-      
-      has: flat((e, selector) => e.querySelector(selector) ? [e] : [], 9),
-      filter: flat((e, condition) => condition(e) ? [e] : [], 9),
-      is: flat((e, selector) => e.matches(selector), 9),
-      
-      parent: flat(e => [e.parentNode]),
-      parents: flat(e => all(e, x => x.parentElement)),
-      closest: self((e, selector) => e.closest(selector)),
-      children: flat(e => e.children),
-      find: flat((e, selector) => e.querySelectorAll(selector), 9),
-      first: flat(e => [e.firstElementChild]),
-      last: flat(e => [e.lastElementChild]),
-      prev: flat(e => [e.previousElementSibling]),
-      prevs: flat(e => all(e, x => x.previousElementSibling)),
-      next: flat(e => [e.nextElementSibling]),
-      nexts: flat(e => all(e, x => x.nextElementSibling)),
-      nextUntil: flat((e, selectorOrElement) => all(e, x => x.nextElementSibling, selectorOrElement), 1),
-      
-      append: self((e, node) => nody(node, n => e.append(n))),
-      appendTo: self((e, node) => nody(node, n => n.append(e))),
-      prepend: self((e, node) => nody(node, n => e.prepend(n))),
-      prependTo: self((e, node) => nody(node, n => n.prepend(e))),
-      before: self((e, node) => nody(node, n => e.before(n))),
-      insertBefore: self((e, node) => nody(node, n => n.before(e))),
-      after: self((e, node) => nody(node, n => e.after(n))),
-      insertAfter: self((e, node) => nody(node, n => n.after(e))),
-      
-      empty: self(e => e.replaceChildren()),
-      clear: self(e => e.parentNode.removeChild(e)),
-      
-      text: value((e, v) => v == null ? e.textContent : e.textContent = v),
-      attr: value((e, name, value) => value == null ? e.getAttribute(name) : e.setAttribute(name, value)),
-      data: value((e, name, value) => value == null ? e.dataset[name] : e.dataset[name] = value),
-      
-      add: value((e, name) => e.classList.add(name)),
-      remove: value((e, name) => e.classList.remove(name)),
-      toggle: value((e, name) => e.classList.toggle(name)),
-      contains: value((e, name) => e.classList.contains(name))
-    }
-    
-    function* all(e, action, stopper) {
-      let stop = stopper ? Q.isString(stopper) ? e => e.matches(stopper) : e => e === stopper : e => false
-      while((e = action(e)) && !stop(e)) yield e
-    }
-    
-    function flat(traverser, filterIndex = 0) {
-      return function(...arg) {
-        let nodes = this.nodes.flatMap(n => [...traverser(n, ...arg)])
-        return Q(!arg[filterIndex] ? nodes : nodes.filter(e => e.matches(arg[filterIndex])))
-      }
-    }
-    
-    function self(action) {
-      return function(...arg) {
-        return Q(this.nodes.map(n => action(n, ...arg) || n))
-      }
-    }
-    
-    function value(action) {
-      return function(...arg) {
-        let result = this.nodes.map(n => action(n, ...arg))[0]
-        return result === undefined || result === arg[arg.length - 1] ? this : result
-      }
-    }
-    
-    function nody(v, action) {
-      if (v instanceof Element || v instanceof Text) {
-        action(v)
-      } else if (Array.isArray(v)) {
-        v.forEach(i => nody(i, action))
-      } else if (Q.isString(v)) {
-        action(Q.html(v))
-      } else if (v instanceof Q) {
-        nody(v.nodes, action)
-      }
-    }
-    
-    Q.isString = v => typeof v === "string" || v instanceof String
-    Q.html = text => {
-      let t = document.createElement("template")
-      t.innerHTML = text
-      return t.content
-    }
-  }
-  
-  let o = Object.create(Q.prototype)
-  o.nodes = Q.isString(query) ? [...(query[0] === "<" ? Q.html(query).children : document.querySelectorAll(query))]
-          : Array.isArray(query) ? query
-          : !query ? [document]
-          : query instanceof Node ? [query]
-          : query instanceof Q ? [...query.nodes]
-          : /* query instanceof NodeList || query instanceof HTMLCollection ? */ [...query]
-  return o
-}
 
-Q("body").prepend('<o-select placeholder="select one" :dataset="root.packages"/>')
+$("body").prepend('<o-select placeholder="select one" :dataset="root.packages"/>')
 
 
 class Base extends HTMLElement {
@@ -411,11 +415,11 @@ class Base extends HTMLElement {
   }
   
   find(selector) {
-    return Q(this.shadowRoot.querySelectorAll(selector));
+    return $(this.shadowRoot.querySelectorAll(selector));
   } 
   
   connectedCallback() {
-    console.log('connectedCallback', Q(this).attr("placeholder"));
+    console.log('connectedCallback', $(this).attr("placeholder"));
   }
   
   disconnectedCallback() {
@@ -456,7 +460,7 @@ customElements.define("o-select", class Select extends Base {
   
   dataset(value) {
     value.forEach(item => {
-      this.find("data").append(Q("<item>").each(e => {
+      this.find("data").append($("<item>").each(e => {
         e.model = item;
       }))
     })
