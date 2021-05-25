@@ -46,6 +46,7 @@ public abstract class Page<T> extends HTML {
                 $("meta", attr("charset", "UTF-8"));
                 $("title", text(model.product() + " API"));
                 script("https://cdn.jsdelivr.net/npm/uhtml@2.7.3/min.js");
+                script("https://unpkg.com/mithril/mithril.min.js");
                 script("https://unpkg.com/vue/dist/vue.min.js");
                 stylesheetAsync("https://unpkg.com/vue-select/dist/vue-select.css");
                 script("https://unpkg.com/vue-select");

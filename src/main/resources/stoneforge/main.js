@@ -1,7 +1,7 @@
 // =====================================================
 // The imitation of jQuery
 // =====================================================
-$ = Mimic = query => {
+$ = Mimic = (query, ...args) => {
   if (!Mimic.html) {
     Mimic.prototype = {
       each: self((e, action) => action(e)),
@@ -40,6 +40,7 @@ $ = Mimic = query => {
       text: value((e, text) => text ? e.textContent = text : e.textContent),
       attr: value((e, name, value) => value ? e.setAttribute(name, value) : e.getAttribute(name)),
       data: value((e, name, value) => value ? e.dataset[name] = value : e.dataset[name]),
+      toString: value(e => e.outerHTML),
       
       add: value((e, name) => e.classList.add(name)),
       remove: value((e, name) => e.classList.remove(name)),
@@ -77,12 +78,12 @@ $ = Mimic = query => {
     }
     
     function nody(v, action) {
-      if (v instanceof Element || v instanceof Text) {
+      if (v instanceof Element || v instanceof Text || v instanceof ShadowRoot) {
         action(v)
       } else if (Array.isArray(v)) {
         v.forEach(i => nody(i, action))
       } else if (Mimic.isString(v)) {
-        action(Mimic.html(v))
+        action(v.trim()[0] === "<" ? Mimic.html(v) : $(v))
       } else if (v instanceof Mimic) {
         nody(v.nodes, action)
       }
@@ -96,8 +97,16 @@ $ = Mimic = query => {
     }
   }
   
+  if (Array.isArray(query) && Array.isArray(query.raw)) {
+    query = query.raw.reduce((acc, lit, i) => {
+      let placeholder = args[i - 1]
+      if (Array.isArray(placeholder)) placeholder = placeholder.join("")
+      return acc + placeholder + lit
+    });
+  }
+  
   let o = Object.create(Mimic.prototype)
-  o.nodes = Mimic.isString(query) ? [...(query[0] === "<" ? Mimic.html(query).children : document.querySelectorAll(query))]
+  o.nodes = Mimic.isString(query) ? [...(query.trim()[0] === "<" ? Mimic.html(query).children : document.querySelectorAll(query))]
           : Array.isArray(query) ? query
           : !query ? [document]
           : query instanceof Node ? [query]
@@ -396,174 +405,54 @@ if (location.hostname == "localhost") setInterval(() => fetch("http://localhost:
 }), 3000);
 
 
-
-$("body").prepend('<o-select placeholder="select one" :dataset="root.packages"/>')
+$('<o-select placeholder="select one" :model="root.packages"/>').prependTo("body")
 
 
 class Base extends HTMLElement {
 
-  static get observedAttributes() {
-    return ["dataset", "placeholder", "render"].flatMap(v => [v, ":" + v])
-  }
-
-  constructor(type, html) {
+  constructor(type, component) {
     super()
     this.attachShadow({mode: "open"})
-    this.shadowRoot.innerHTML = html;
+    this.root = $(this.shadowRoot)
     this.properties = new Map();
     
-    Object.getOwnPropertyNames(type.prototype)
-      .filter(name => name != "constructor")
-      .forEach(name => {
-        this.properties.set(name, type.prototype[name].bind(this))
-      })
-  }
-  
-  find(selector) {
-    return $(this.shadowRoot.querySelectorAll(selector));
-  } 
-  
-  connectedCallback() {
-    console.log('connectedCallback', $(this).attr("placeholder"));
-  }
-  
-  disconnectedCallback() {
-    console.log('disconnectedCallback');
-  }
-  
-  attributeChangedCallback(name, prev, next) {
-    console.log('att', name);
-    switch (name.charAt(0)) {
-      case ":":
-        name = name.substring(1)
-        next = Function("return " + next)()
-        break;
-    }
-    
-    var method = this.properties.get(name)
-    if (method) method(next)
+    Array.from(this.attributes).forEach(v => {
+      let name = v.name, value = v.value
+      switch (name.charAt(0)) {
+        case ":":
+          name = name.substring(1)
+          value = Function("return " + value)()
+          break;
+      }
+      this[name] = value
+    })
   }
 }
 
-
 customElements.define("o-select", class Select extends Base {
 
-  constructor() {
-    super(Select, $.html`
+  render(item) {
+    return item?.toString()
+  }
+  
+  connectedCallback() {
+    $`
       <style>
+        items {
+          display: block;
+        }
+        item {
+          display: block;
+        }
       </style>
-      <placeholder></placeholder>
-      <data></data>
-    `);
-  }
-  
-  
-  placeholder(value) {
-    this.find("placeholder").text(value)
-  }
-  
-  dataset(value) {
-    value.forEach(item => {
-      this.find("data").append($("<item>").each(e => {
-        e.model = item;
-      }))
-    })
-  }
-  
-  render(value = e => e) {
-    this.find("item").each(e => e.textContent = value(e.model))
+      <input readonly placeholder="${this.placeholder}"></input>
+      <items>
+        ${this.model.map(item => $`
+          <item>${this.render(item)}</item>
+        `)}
+      </item>
+    `.appendTo(this.root)
   }
 });
 
 
-
-function captureModel() {
-  const capture = {
-    get: (target, name) => {
-      // field
-      console.log(name)
-      
-      return new Proxy(()=>{}, {
-        get: capture.get,
-        apply: (target, that, args) => {
-          // remove field access info
-          console.log(name, args);
-          
-          // method
-          if (name === "$") {
-          } else if (name === "text") {
-          } else {
-          }
-          return "";
-        }
-      })
-    }
-  }
-  return new Proxy({}, capture);
-}
-
-
-function capture(builder) {
-  const capture = {
-    get: (target, name) => {
-      // field
-      builder.push("Element " + name)
-      
-      return new Proxy(()=>{}, {
-        get: capture.get,
-        apply: (target, that, args) => {
-          // remove field access info
-          builder.pop()
-          console.log("method ", name);
-          
-          // method
-          if (name === "$") {
-            builder.push("Move to child context with " + args[0])
-            args[0].forEach(args[1])
-            builder.push("Back to parent context")
-          } else if (name === "text") {
-            builder.push("Create text[" + args[0] + "]")
-          } else {
-            builder.push("@" + name + "='" + args[0] + "'")
-          }
-          return new Proxy(()=>{}, capture)
-        }
-      })
-    }
-  }
-  return new Proxy({}, capture);
-}
-
-function template(blueprint) {
-  let builder = [];
-  blueprint(capture(builder), captureModel())
-  console.log(builder)
-  
-  return (...args) => {
-    
-  }
-}
-
-
-template((h, model) => {
-  h.div.class("name").title(model.title + "!").arrow(() => model.arrow + "!").literal(`${model.literal + "?"}!`).$(model.items, item => {
-    h.item.text(item).onclick(e => console.log(item + " was clicked"))
-  })
-})
-
-
-var counter = 0;
-div.title("name").each(items, $ => {
-  item.onclick(e => counter++).text(counter)
-})
-
-
-$.define("o-select", data => $.html`
-  <label>${data.selected.name || data.placeholder}</label>
-  <container>
-    ${data.items.map(item => $.html`
-      <item @click=${data.selected = item}>${item.name}</item> 
-    `)}
-    <item v-for="item in data.items" @click="data.selected = item">${item.name}</item>
-  </container>
-`)
