@@ -447,6 +447,54 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         });
     }
 
+    public static final Style Select = Style.named(":host(o-select)", () -> {
+        display.block().height(42, px).maxWidth(300, px);
+        font.lineHeight(40, px).color(theme.front);
+        background.color(theme.surface);
+        border.radius(theme.radius).solid().width(1, px).color(theme.front.opacify(-0.6));
+        outline.none();
+        text.whiteSpace.nowrap().unselectable();
+        padding.left(18, px).right(30, px);
+        position.relative();
+        cursor.pointer();
+        transition.duration(0.2, s).easeInOut().whenever();
+
+        $.select("now", () -> {
+            display.block();
+            padding.left(18, px).right(29, px);
+        });
+
+        $.select("ol", () -> {
+            display.block().opacity(0).zIndex(20);
+            background.color(theme.surface);
+            border.radius(theme.radius).width(1, px).solid().color(theme.front.opacify(-0.6));
+            margin.top(4, px);
+            overflow.hidden();
+            pointerEvents.none();
+            position.absolute().top(100, percent).left(0, px);
+            transform.origin.position(50, percent, 0, percent).scale(0.75).translateY(-21, px);
+            transition.duration(0.2, s).whenever();
+
+            $.with(".open", () -> {
+                display.opacity(1);
+                pointerEvents.auto();
+                transform.scale(1).translateY(0, px);
+            });
+        });
+
+        $.select("li", () -> {
+            display.block().minHeight(40, px);
+            cursor.pointer();
+            listStyle.none();
+            padding.left(18, px).right(29, px);
+            transition.duration(0.2, s).whenever();
+
+            $.hover(() -> {
+                background.color(theme.surface.lighten(theme.back, 10));
+            });
+        });
+    });
+
     public static final Style SelectBox = Style.named(".vs__dropdown-toggle", () -> {
         background.color(Color.White);
     });

@@ -32,6 +32,7 @@ $ = Mimic = (query, ...args) => {
       insertBefore: self((e, node) => nody(node, n => n.before(e))),
       after: self((e, node) => nody(node, n => e.after(n))),
       insertAfter: self((e, node) => nody(node, n => n.after(e))),
+      clone: self(e => e.cloneNode()),
       
       empty: self(e => e.replaceChildren()),
       clear: self(e => e.parentNode.removeChild(e)),
@@ -102,12 +103,12 @@ $ = Mimic = (query, ...args) => {
       let placeholder = args[i - 1]
       if (Array.isArray(placeholder)) placeholder = placeholder.join("")
       return acc + placeholder + lit
-    });
+    })
   }
   
   let o = Object.create(Mimic.prototype)
   o.nodes = Mimic.isString(query) ? [...(query.trim()[0] === "<" ? Mimic.html(query).children : document.querySelectorAll(query))]
-          : Array.isArray(query) ? query
+          : Array.isArray(query) ? Array.isArray(query.raw) ? literal(query) : query
           : !query ? [document]
           : query instanceof Node ? [query]
           : query instanceof Mimic ? [...query.nodes]
@@ -413,7 +414,7 @@ class Base extends HTMLElement {
   constructor(type, component) {
     super()
     this.attachShadow({mode: "open"})
-    this.root = $(this.shadowRoot)
+    this.root = $(this.shadowRoot).append($("head link[rel=stylesheet]").clone())
     this.properties = new Map();
     
     Array.from(this.attributes).forEach(v => {
@@ -432,26 +433,18 @@ class Base extends HTMLElement {
 customElements.define("o-select", class Select extends Base {
 
   render(item) {
-    return item?.toString()
+    return item.toString()
   }
   
   connectedCallback() {
-    $`
-      <style>
-        items {
-          display: block;
-        }
-        item {
-          display: block;
-        }
-      </style>
-      <input readonly placeholder="${this.placeholder}"></input>
-      <items>
+    $`<now>${this.placeholder}</now>
+      <ol>
         ${this.model.map(item => $`
-          <item>${this.render(item)}</item>
+          <li>${this.render(item)}</li>
         `)}
-      </item>
-    `.appendTo(this.root)
+      </ol>`.appendTo(this.root)
+      
+    this.root.find("now").on("click", e => this.root.find("ol").toggle("open"))
   }
 });
 
