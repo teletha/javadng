@@ -33,6 +33,7 @@ $ = Mimic = (query, ...args) => {
       after: self((e, node) => nody(node, n => e.after(n))),
       insertAfter: self((e, node) => nody(node, n => n.after(e))),
       clone: self(e => e.cloneNode()),
+      make: flat((e, nameOrItems, action) => Mimic.isString(nameOrItems) ? [e.appendChild(document.createElement(nameOrItems))] : []),
       
       empty: self(e => e.replaceChildren()),
       clear: self(e => e.parentNode.removeChild(e)),
@@ -47,7 +48,7 @@ $ = Mimic = (query, ...args) => {
       remove: value((e, name) => e.classList.remove(name)),
       toggle: value((e, name) => e.classList.toggle(name)),
       has: value((e, name) => e.classList.contains(name)),
-      reset: value((e, name) => e.className = name || ""),
+      set: value((e, name) => e.className = name || ""),
       
       on: value((e, type, handler) => e.addEventListener(type, handler)),
       off: value((e, type) => e.removeEventListener(type))
@@ -139,7 +140,7 @@ svg = (type) => {
 // View Mode
 // =====================================================
 html.add(user.theme)
-$("#light,#dark").on("click", e => save(html.reset(user.theme = e.currentTarget.id)))
+$("#light,#dark").on("click", e => save(html.set(user.theme = e.currentTarget.id)))
 
 
 // =====================================================
@@ -308,9 +309,7 @@ new Vue({
     </div>
 	  <div id="APINavi" hidden>
   		<v-select v-model="selectedModule" placeholder="Select Module" :options="items.modules"></v-select>
-  		<select v-model="selectedPackage" placeholder="Select Package" size="2">
-  		  <option v-for="package in items.packages" :value="package">{{package}}</option>
-  		</select>
+  		<o-select placeholder="Select Package" model:="root.packages"/>
       <dl>
         <dt>Select kind of Types</dt>
         <dd>
@@ -406,7 +405,6 @@ if (location.hostname == "localhost") setInterval(() => fetch("http://localhost:
 }), 3000);
 
 
-$('<o-select placeholder="select one" :model="root.packages"/>').prependTo("body")
 
 
 class Base extends HTMLElement {
@@ -419,9 +417,9 @@ class Base extends HTMLElement {
     
     Array.from(this.attributes).forEach(v => {
       let name = v.name, value = v.value
-      switch (name.charAt(0)) {
+      switch (name.charAt(name.length - 1)) {
         case ":":
-          name = name.substring(1)
+          name = name.substring(0, name.length - 1)
           value = Function("return " + value)()
           break;
       }
@@ -437,14 +435,9 @@ customElements.define("o-select", class Select extends Base {
   }
   
   connectedCallback() {
-    $`<now>${this.placeholder}</now>
-      <ol>
-        ${this.model.map(item => $`
-          <li>${this.render(item)}</li>
-        `)}
-      </ol>`.appendTo(this.root)
-      
-    this.root.find("now").on("click", e => this.root.find("ol").toggle("open"))
+    var now = this.root.make("now").on("click", e => list.toggle("open"))
+    var list = this.root.make("ol")
+    var items = list.make(this.model, item => list.child(this.render(item)))
   }
 });
 
