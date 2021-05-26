@@ -1,8 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 	<defs>
-		<symbol id="chevrons-right">
+		<symbol id="chevrons">
 			<path d="M13 17l5-5-5-5"/>
 			<path d="M6 17l5-5-5-5"/>
+		</symbol>
+		<symbol id="chevron">
+			<path d="M9 18l6-6-6-6"/>
+		</symbol>
+		<symbol id="x">
+			<path d="M18 6L6 18"/>
+			<path d="M6 6l12 12"/>
 		</symbol>
 		<symbol id="circle">
 			<circle cx="12" cy="12" r="10"/>

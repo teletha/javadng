@@ -26,8 +26,10 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         scroll.smooth().padding.top(HeaderHeight);
         overflow.y.scroll();
 
-        $.select("*[class|=el]", () -> {
-            font.size(1, rem);
+        $.select("[disabled]", () -> {
+            pointerEvents.none();
+            text.unselectable();
+            display.opacity(0.6);
         });
     });
 
@@ -448,45 +450,83 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     }
 
     public static final Style Select = Style.named(":host(o-select)", () -> {
-        display.block().height(42, px).maxWidth(300, px);
-        font.lineHeight(40, px).color(theme.front);
+        Numeric gap = Numeric.of(18, px);
+
+        display.block().height(32, px).maxWidth(300, px);
+        font.lineHeight(30, px).color(theme.front);
         background.color(theme.surface);
         border.radius(theme.radius).solid().width(1, px).color(theme.front.opacify(-0.6));
         outline.none();
         text.whiteSpace.nowrap().unselectable();
-        padding.left(18, px).right(30, px);
         position.relative();
         cursor.pointer();
         transition.duration(0.2, s).easeInOut().whenever();
 
-        $.select("now", () -> {
+        $.select("view", () -> {
             display.block();
-            padding.left(18, px).right(29, px);
-        });
 
-        $.select("ol", () -> {
-            display.block().opacity(0).zIndex(20);
-            background.color(theme.surface);
-            border.radius(theme.radius).width(1, px).solid().color(theme.front.opacify(-0.6));
-            margin.top(4, px);
-            overflow.hidden();
-            pointerEvents.none();
-            position.absolute().top(100, percent).left(0, px);
-            transform.origin.position(50, percent, 0, percent).scale(0.75).translateY(-21, px);
-            transition.duration(0.2, s).whenever();
-
-            $.with(".open", () -> {
+            $.with(".open+ol", () -> {
                 display.opacity(1);
-                pointerEvents.auto();
                 transform.scale(1).translateY(0, px);
+                pointerEvents.auto();
+            });
+
+            $.with(".open>svg", () -> {
+                $.nthType("2", () -> {
+                    transform.rotate(-90, deg);
+                });
+            });
+
+            $.with(".selected>svg", () -> {
+                $.firstOfType(() -> {
+                    display.opacity(1);
+                    transform.scale(1);
+                });
             });
         });
 
+        $.select("now", () -> {
+            display.inlineBlock();
+            padding.horizontal(gap);
+        });
+
+        $.select("svg", () -> {
+            Numeric size = Numeric.of(18, px);
+
+            display.inlineBlock().width(size).height(18, px);
+            stroke.width(2, px);
+            transform.rotate(90, deg);
+            transition.duration(0.2, s).cubicBezier(0.785, 0.135, 0.15, 1.36).whenever();
+            position.absolute().right(size.divide(2)).top(Numeric.of(50, percent).subtract(size.divide(2)));
+
+            $.firstOfType(() -> {
+                display.opacity(0);
+                position.right(size.divide(2).plus(size));
+                transform.scale(0).origin.center();
+
+                $.hover(() -> {
+                    stroke.color(theme.link);
+                });
+            });
+        });
+
+        $.select("ol", () -> {
+            display.block().opacity(0).zIndex(10).width(Numeric.of(100, percent).plus(1, px));
+            background.color(theme.surface);
+            border.radius(theme.radius).width(1, px).solid().color(theme.front.opacify(-0.6));
+            margin.top(6, px);
+            overflow.hidden();
+            pointerEvents.none();
+            position.absolute().top(100, percent).left(-1, px);
+            transform.origin.position(50, percent, 0, percent).scale(0.75).translateY(-21, px);
+            transition.duration(0.2, s).cubicBezier(0.7, 0.2, 0, 1.4).whenever();
+        });
+
         $.select("li", () -> {
-            display.block().minHeight(40, px);
+            display.block();
             cursor.pointer();
             listStyle.none();
-            padding.left(18, px).right(29, px);
+            padding.horizontal(gap);
             transition.duration(0.2, s).whenever();
 
             $.hover(() -> {

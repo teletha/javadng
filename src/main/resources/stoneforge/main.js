@@ -3,6 +3,8 @@
 // =====================================================
 $ = Mimic = (query, ...args) => {
   if (!Mimic.html) {
+    let noop = () => {}
+  
     Mimic.prototype = {
       each: self((e, action) => action(e)),
       
@@ -33,7 +35,8 @@ $ = Mimic = (query, ...args) => {
       after: self((e, node) => nody(node, n => e.after(n))),
       insertAfter: self((e, node) => nody(node, n => n.after(e))),
       clone: self(e => e.cloneNode()),
-      make: flat((e, nameOrItems, action) => Mimic.isString(nameOrItems) ? [e.appendChild(document.createElement(nameOrItems))] : []),
+      make: flat((e, nameOrItems, action) => Mimic.isString(nameOrItems) ? [e.appendChild(document.createElement(nameOrItems))] : nameOrItems.map(action), 9),
+      svg: shorthand((e, path) => e.append("<svg class='svg' viewBox='0 0 24 24'><use href='"+ path +"'/></svg>").last()),
       
       empty: self(e => e.replaceChildren()),
       clear: self(e => e.parentNode.removeChild(e)),
@@ -42,17 +45,23 @@ $ = Mimic = (query, ...args) => {
       text: value((e, text) => text ? e.textContent = text : e.textContent),
       attr: value((e, name, value) => value ? e.setAttribute(name, value) : e.getAttribute(name)),
       data: value((e, name, value) => value ? e.dataset[name] = value : e.dataset[name]),
-      toString: value(e => e.outerHTML),
       
       add: value((e, name) => e.classList.add(name)),
       remove: value((e, name) => e.classList.remove(name)),
-      toggle: value((e, name) => e.classList.toggle(name)),
+      toggle: value((e, name, addAction=noop, removeAction=noop) => e.classList.toggle(name) ? addAction() : removeAction()),
       has: value((e, name) => e.classList.contains(name)),
-      set: value((e, name) => e.className = name || ""),
+      set: value((e, nameAndCondition) => Object.keys(nameAndCondition).forEach(name => e.classList[nameAndCondition[name] ? "add" : "remove"](name))),
+      reset: value((e, name) => e.className = (name || "")),
       
-      on: value((e, type, handler) => e.addEventListener(type, handler)),
-      off: value((e, type) => e.removeEventListener(type))
+      // In cases where event listeners are registered during event processing, we delay the registration of all event listeners
+      // because it may cause an infinite loop or supplement the event at an unintended timing.
+      on: value((e, ...argumentTypeListenerOptions) => {setTimeout(() => e.addEventListener(...argumentTypeListenerOptions), 0)}),
+      off: value((e, type) => e.removeEventListener(type)),
     }
+    
+    "blur focus focusin focusout resize scroll click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup contextmenu".split(" ").forEach(type => {
+      Mimic.prototype[type] = function(listener, options) { return this.on(type, listener, options) }
+    })
     
     function* all(e, action, stopper) {
       let stop = stopper ? Mimic.isString(stopper) ? e => e.matches(stopper) : e => e === stopper : e => false
@@ -79,6 +88,12 @@ $ = Mimic = (query, ...args) => {
       }
     }
     
+    function shorthand(action) {
+      return function(...arg) {
+        return action(this, ...arg)
+      }
+    }
+    
     function nody(v, action) {
       if (v instanceof Element || v instanceof Text || v instanceof ShadowRoot) {
         action(v)
@@ -99,17 +114,9 @@ $ = Mimic = (query, ...args) => {
     }
   }
   
-  if (Array.isArray(query) && Array.isArray(query.raw)) {
-    query = query.raw.reduce((acc, lit, i) => {
-      let placeholder = args[i - 1]
-      if (Array.isArray(placeholder)) placeholder = placeholder.join("")
-      return acc + placeholder + lit
-    })
-  }
-  
   let o = Object.create(Mimic.prototype)
   o.nodes = Mimic.isString(query) ? [...(query.trim()[0] === "<" ? Mimic.html(query).children : document.querySelectorAll(query))]
-          : Array.isArray(query) ? Array.isArray(query.raw) ? literal(query) : query
+          : Array.isArray(query) ? query
           : !query ? [document]
           : query instanceof Node ? [query]
           : query instanceof Mimic ? [...query.nodes]
@@ -128,7 +135,6 @@ save = () => localStorage.setItem("user", JSON.stringify(user)),
 // Utilities
 // =====================================================
 html = $("html"),
-nop = () => {},
 svg = (type) => {
   var a = document.createElement("a");
   a.innerHTML = `<svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#${type}"/></svg>`;
@@ -140,7 +146,7 @@ svg = (type) => {
 // View Mode
 // =====================================================
 html.add(user.theme)
-$("#light,#dark").on("click", e => save(html.set(user.theme = e.currentTarget.id)))
+$("#light,#dark").on("click", e => save(html.reset(user.theme = e.currentTarget.id)))
 
 
 // =====================================================
@@ -290,8 +296,6 @@ new Vue({
   el: "main"
 });
 
-Vue.component("v-select", VueSelect.VueSelect);
-
 new Vue({
   el: "nav > div",
   template: `
@@ -308,7 +312,7 @@ new Vue({
       </div>
     </div>
 	  <div id="APINavi" hidden>
-  		<v-select v-model="selectedModule" placeholder="Select Module" :options="items.modules"></v-select>
+  		<o-select placeholder="Select Module" model:="root.modules"/>
   		<o-select placeholder="Select Package" model:="root.packages"/>
       <dl>
         <dt>Select kind of Types</dt>
@@ -435,9 +439,26 @@ customElements.define("o-select", class Select extends Base {
   }
   
   connectedCallback() {
-    var now = this.root.make("now").on("click", e => list.toggle("open"))
-    var list = this.root.make("ol")
-    var items = list.make(this.model, item => list.child(this.render(item)))
+    let open;
+    const view = this.root.make("view").set({disable: this.model.length == 0}).click(() => this.toggle()),
+          now = view.make("now").text(this.placeholder),
+          del = view.svg("/main.svg#x").click(e => {e.stopPropagation(), this.select(null)}),
+          arrow = view.svg("/main.svg#chevron"),
+          list = this.root.make("ol"),
+          items = list.make(this.model, item => list.make("li").text(this.render(item)).click(e => this.select(item)))
+    
+    this.toggle = function(e) {
+      console.log(this)
+      if (this.model && 0 < this.model.length) {
+        view.toggle("open", () => $(document).click(() => view.remove("open"), {once:true}))
+      }
+    }
+    
+    this.select = function(item) {
+      this.selected = item
+      view.set({selected: item != null})
+      now.text(item ? this.render(item) : this.placeholder)
+    }
   }
 });
 
