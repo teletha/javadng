@@ -45,6 +45,7 @@ $ = Mimic = (query, ...args) => {
       text: value((e, text) => text ? e.textContent = text : e.textContent),
       attr: value((e, name, value) => value ? e.setAttribute(name, value) : e.getAttribute(name)),
       data: value((e, name, value) => value ? e.dataset[name] = value : e.dataset[name]),
+      css : self((e, style) => Mimic.isString(style) ? e.style.cssText = style : Object.keys(style).forEach(name => e.style[name] = style[name])),
       
       add: value((e, name) => e.classList.add(name)),
       remove: value((e, name) => e.classList.remove(name)),
@@ -55,7 +56,7 @@ $ = Mimic = (query, ...args) => {
       
       // In cases where event listeners are registered during event processing, we delay the registration of all event listeners
       // because it may cause an infinite loop or supplement the event at an unintended timing.
-      on: value((e, ...argumentTypeListenerOptions) => {setTimeout(() => e.addEventListener(...argumentTypeListenerOptions), 0)}),
+      on: value((e, type, listner, options) => {setTimeout(() => e.addEventListener(type, event => {event.stopPropagation(); listner(event)}, options), 0)}),
       off: value((e, type) => e.removeEventListener(type)),
     }
     
@@ -413,11 +414,10 @@ if (location.hostname == "localhost") setInterval(() => fetch("http://localhost:
 
 class Base extends HTMLElement {
 
-  constructor(type, component) {
+  constructor() {
     super()
     this.attachShadow({mode: "open"})
-    this.root = $(this.shadowRoot).append($("head link[rel=stylesheet]").clone())
-    this.properties = new Map();
+    this.root = $(this.shadowRoot).append($("head link[rel=stylesheet]").clone()).make("root")
     
     Array.from(this.attributes).forEach(v => {
       let name = v.name, value = v.value
@@ -433,33 +433,57 @@ class Base extends HTMLElement {
 }
 
 customElements.define("o-select", class Select extends Base {
+  
+  view    = this.root.make("view").click(() => this.toggle())
+    now   = this.view.make("now").text(this.placeholder)
+    del   = this.view.svg("/main.svg#x").click(e => this.select(null))
+    mark  = this.view.svg("/main.svg#chevron")
+  list    = this.root.make("ol")
+    items = this.list.make(this.model, item => this.list.make("li").text(this.render(item)).click(e => this.select(item)))
+    
+  isOpen = false
+  
 
   render(item) {
     return item.toString()
   }
   
-  connectedCallback() {
-    let open;
-    const view = this.root.make("view").set({disable: this.model.length == 0}).click(() => this.toggle()),
-          now = view.make("now").text(this.placeholder),
-          del = view.svg("/main.svg#x").click(e => {e.stopPropagation(), this.select(null)}),
-          arrow = view.svg("/main.svg#chevron"),
-          list = this.root.make("ol"),
-          items = list.make(this.model, item => list.make("li").text(this.render(item)).click(e => this.select(item)))
-    
-    this.toggle = function(e) {
-      console.log(this)
-      if (this.model && 0 < this.model.length) {
-        view.toggle("open", () => $(document).click(() => view.remove("open"), {once:true}))
-      }
-    }
-    
-    this.select = function(item) {
-      this.selected = item
-      view.set({selected: item != null})
-      now.text(item ? this.render(item) : this.placeholder)
+
+  select(item) {
+    this.now.text(item ? this.render(item) : this.placeholder)
+    this.root.set({selected: item != null})
+    this.close()
+  }
+  
+  open() {
+    if (!this.isOpen) {
+      this.isOpen = true
+      this.list.css("opacity:1; transform:scale(1) translateY(0); pointer-events:auto")
+      $(document).click(e => {
+          this.close()
+      }, {once:true})
     }
   }
-});
-
+  
+  close() {
+    if (this.isOpen) {
+       this.isOpen = false
+       this.list.css("opacity:0; transform:scale(0.75) translateY(-20px); pointer-events:none")
+    }
+  }
+  
+  
+  toggle(e) {
+    if (this.model && 0 < this.model.length) {
+    if (!this.isOpen) {
+    this.open()
+    } else {
+    this.close()
+    }
+      
+      // this.view.toggle("open", () => $(document).click(() => this.view.remove("open"), {once:true}))
+      
+    }
+  }
+})
 

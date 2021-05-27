@@ -478,7 +478,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             });
 
             $.with(".selected>svg", () -> {
-                $.firstOfType(() -> {
+                $.firstType(() -> {
                     display.opacity(1);
                     transform.scale(1);
                 });
@@ -496,17 +496,26 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             display.inlineBlock().width(size).height(18, px);
             stroke.width(2, px);
             transform.rotate(90, deg);
-            transition.duration(0.2, s).cubicBezier(0.785, 0.135, 0.15, 1.36).whenever();
-            position.absolute().right(size.divide(2)).top(Numeric.of(50, percent).subtract(size.divide(2)));
+            transition.duration(0.25, s).easeOutBack().whenever();
+            position.absolute().top(Numeric.of(50, percent).subtract(size.divide(2)));
 
-            $.firstOfType(() -> {
-                display.opacity(0);
+            $.firstType(() -> {
                 position.right(size.divide(2).plus(size));
+                display.opacity(0);
                 transform.scale(0).origin.center();
 
                 $.hover(() -> {
                     stroke.color(theme.link);
                 });
+
+                $.ancestor(() -> {
+                    display.opacity(1);
+                    transform.scale(1);
+                });
+            });
+
+            $.lastType(() -> {
+                position.right(size.divide(2));
             });
         });
 
@@ -519,7 +528,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             pointerEvents.none();
             position.absolute().top(100, percent).left(-1, px);
             transform.origin.position(50, percent, 0, percent).scale(0.75).translateY(-21, px);
-            transition.duration(0.2, s).cubicBezier(0.7, 0.2, 0, 1.4).whenever();
+            transition.duration(0.2, s).easeOutBack().whenever();
         });
 
         $.select("li", () -> {
