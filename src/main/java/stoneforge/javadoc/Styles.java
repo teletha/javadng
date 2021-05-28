@@ -451,8 +451,9 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
     public static final Style Select = Style.named(":host(o-select)", () -> {
         Numeric gap = Numeric.of(18, px);
+        Numeric iconSize = Numeric.of(18, px);
 
-        display.block().height(32, px).maxWidth(300, px);
+        display.block().height(32, px);
         font.lineHeight(30, px).color(theme.front);
         background.color(theme.surface);
         border.radius(theme.radius).solid().width(1, px).color(theme.front.opacify(-0.6));
@@ -480,21 +481,26 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         });
 
         $.select("now", () -> {
-            display.block();
+            display.block().width(Numeric.of(100, percent).subtract(iconSize.multiply(2.5)));
             padding.horizontal(gap);
+            font.color(theme.front.lighten(theme.surface, 25));
+            overflow.hidden();
+            text.whiteSpace.nowrap().overflow.ellipsis();
+
+            $.with(".select", () -> {
+                font.color(theme.front);
+            });
         });
 
         $.select("svg", () -> {
-            Numeric size = Numeric.of(18, px);
-
-            display.inlineBlock().width(size).height(18, px);
+            display.inlineBlock().width(iconSize);
             stroke.width(2, px);
             transform.rotate(90, deg);
             transition.duration(0.2, s).easeInOut().whenever();
-            position.absolute().top(Numeric.of(50, percent).subtract(size.divide(2)));
+            position.absolute().top(Numeric.of(50, percent).subtract(iconSize.divide(2)));
 
             $.firstType(() -> {
-                position.right(size.divide(2).plus(size));
+                position.right(iconSize.divide(2).plus(iconSize));
                 display.opacity(0);
                 transform.scale(0).origin.center();
 
@@ -509,7 +515,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             });
 
             $.lastType(() -> {
-                position.right(size.divide(2));
+                position.right(iconSize.divide(2));
 
                 $.with(".active", () -> {
                     transform.rotate(-90, deg);

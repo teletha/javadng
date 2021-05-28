@@ -57,7 +57,7 @@ $ = Mimic = (query, ...args) => {
       // In cases where event listeners are registered during event processing, we delay the registration of all event listeners
       // because it may cause an infinite loop or supplement the event at an unintended timing.
       on: value((e, type, listener, options) => {setTimeout(() => e.addEventListener(type, listener, options), 0)}),
-      off: value((e, type) => e.removeEventListener(type)),
+      off: value((e, type, listener) => e.removeEventListener(type, listener)),
     }
     
     "blur focus focusin focusout resize scroll click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup contextmenu".split(" ").forEach(type => {
@@ -416,9 +416,9 @@ class Base extends HTMLElement {
 
 customElements.define("o-select", class Select extends Base {
   
-  view    = this.root.make("view").click(() => this.list.has("active") ? this.close() : this.open())
-    now   = this.view.make("now").text(this.placeholder)
-    del   = this.view.svg("/main.svg#x").click(e => this.select())
+  view    = this.root.make("view")
+    now   = this.view.make("now").text(this.placeholder).click(() => this.list.has("active") ? this.close() : this.open())
+    del   = this.view.svg("/main.svg#x").click(e => { this.deselect()})
     mark  = this.view.svg("/main.svg#chevron")
   list    = this.root.make("ol")
     items = this.list.make(this.model, item => this.list.make("li").text(this.render(item)).click(e => this.select(item, $(e.target))))
@@ -429,6 +429,9 @@ customElements.define("o-select", class Select extends Base {
     super()
     
     $(this).set({disabled: !this.model.length})
+    this.closer = e => {
+      if (!this.contains(e.target)) this.close()
+    }
   }
   
   render(item) {
@@ -437,23 +440,25 @@ customElements.define("o-select", class Select extends Base {
   
   select(item, dom) {
     if (this.separator) {
-      if (item) {
-        dom.toggle("select", () => this.selected.add(item), () => this.selected.delete(item)) 
-      } else {
-        this.items.remove("select")
-        this.selected.clear()
-        this.close()
-      }
+      dom.toggle("select", () => this.selected.add(item), () => this.selected.delete(item)) 
     } else {
-      this.items.remove("select")
-      if (dom) dom.add("select")
-      
-      this.selected.clear()
-      if (item) this.selected.add(item)
-      
-      this.close()
+      this.deselect()
+      dom.add("select")
+      this.selected.add(item)
     }
     
+    this.update()
+  }
+  
+  deselect() {
+    this.items.remove("select")
+    this.selected.clear()
+    this.close()
+    
+    this.update()
+  }
+  
+  update() {
     this.now.set({select: this.selected.size}).text([...this.selected.keys()].map(this.render).join(this.separator) || this.placeholder)
     this.del.set({active: this.selected.size})
   }
@@ -461,12 +466,13 @@ customElements.define("o-select", class Select extends Base {
   open() {
     this.list.add("active")
     this.mark.add("active")
-    $(document).click(e => { this.contains(e.target) ? null:this.close() ; console.log(e.target)}, {once:true})
+    $(document).click(this.closer)
   }
   
   close() {
     this.list.remove("active");
     this.mark.remove("active");
+    $(document).off("click",this.closer)
   }
 })
 
