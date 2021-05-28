@@ -303,11 +303,11 @@ new Vue({
 	<div>
 		<div id="DocNavi" hidden>
       <div class="doc" v-for="doc in items.docs" :id="doc.path">
-        <a :href="doc.path"></svg>{{doc.title}}</a>
+        <a :href="doc.path">{{doc.title}}</a>
         <ol class="sub">
           <li v-for="sub in doc.subs">
-            <a :href="sub.path"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#chevrons-right"/></svg>{{sub.title}}</a>
-            <a v-for="foot in sub.subs" :href="foot.path"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#chevrons-right"/></svg><span class="foot">{{foot.title}}</span></a>
+            <a :href="sub.path"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#chevrons"/></svg>{{sub.title}}</a>
+            <a v-for="foot in sub.subs" :href="foot.path"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#chevrons"/></svg><span class="foot">{{foot.title}}</span></a>
           </li>
         </ol>
       </div>
@@ -416,9 +416,9 @@ class Base extends HTMLElement {
 
 customElements.define("o-select", class Select extends Base {
   
-  view    = this.root.make("view")
-    now   = this.view.make("now").text(this.placeholder).click(() => this.list.has("active") ? this.close() : this.open())
-    del   = this.view.svg("/main.svg#x").click(e => { this.deselect()})
+  view    = this.root.make("view").click(() => this.list.has("active") ? this.close() : this.open())
+    now   = this.view.make("now").text(this.placeholder)
+    del   = this.view.svg("/main.svg#x").click(e => {e.stopPropagation(); this.deselect()})
     mark  = this.view.svg("/main.svg#chevron")
   list    = this.root.make("ol")
     items = this.list.make(this.model, item => this.list.make("li").text(this.render(item)).click(e => this.select(item, $(e.target))))
