@@ -35,7 +35,7 @@ $ = Mimic = (query, ...args) => {
       after: self((e, node) => nody(node, n => e.after(n))),
       insertAfter: self((e, node) => nody(node, n => n.after(e))),
       clone: self(e => e.cloneNode()),
-      make: flat((e, nameOrItems, action) => Mimic.isString(nameOrItems) ? [e.appendChild(document.createElement(nameOrItems))] : nameOrItems.map(action), 9),
+      make: flat((e, nameOrItems, action) => Mimic.isString(nameOrItems) ? [e.appendChild(document.createElement(nameOrItems))] : nameOrItems.map(action).flatMap(e => e.nodes), 9),
       svg: shorthand((e, path) => e.append("<svg class='svg' viewBox='0 0 24 24'><use href='"+ path +"'/></svg>").last()),
       
       empty: self(e => e.replaceChildren()),
@@ -56,7 +56,7 @@ $ = Mimic = (query, ...args) => {
       
       // In cases where event listeners are registered during event processing, we delay the registration of all event listeners
       // because it may cause an infinite loop or supplement the event at an unintended timing.
-      on: value((e, type, listner, options) => {setTimeout(() => e.addEventListener(type, event => {event.stopPropagation(); listner(event)}, options), 0)}),
+      on: value((e, type, listener, options) => {setTimeout(() => e.addEventListener(type, listener, options), 0)}),
       off: value((e, type) => e.removeEventListener(type)),
     }
     
@@ -315,25 +315,7 @@ new Vue({
 	  <div id="APINavi" hidden>
   		<o-select placeholder="Select Module" model:="root.modules"/>
   		<o-select placeholder="Select Package" model:="root.packages"/>
-      <dl>
-        <dt>Select kind of Types</dt>
-        <dd>
-      		<input type="checkbox" id="Interface" value="Interface" v-model="selectedType">
-          <label for="Interface">Interface</label>
-          <input type="checkbox" id="Functional" value="Functional" v-model="selectedType">
-          <label for="Functional">Functional Interface</label>
-          <input type="checkbox" id="AbstractClass" value="AbstractClass" v-model="selectedType">
-          <label for="AbstractClass">Abstract Class</label>
-          <input type="checkbox" id="Class" value="Class" v-model="selectedType">
-          <label for="Class">Class</label>
-          <input type="checkbox" id="Enum" value="Enum" v-model="selectedType">
-          <label for="Enum">Enum</label>
-          <input type="checkbox" id="Annotation" value="Annotation" v-model="selectedType">
-          <label for="Annotation">Annotation</label>
-          <input type="checkbox" id="Exception" value="Exception" v-model="selectedType">
-          <label for="Exception">Enum</label>
-        </dd>
-      </dl>
+  		<o-select placeholder="Select Type" separator=", " model:="['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']"/>
 
   		<input id="SearchByName" v-model="selectedName" placeholder="Search by Name">
   		
@@ -417,7 +399,7 @@ class Base extends HTMLElement {
   constructor() {
     super()
     this.attachShadow({mode: "open"})
-    this.root = $(this.shadowRoot).append($("head link[rel=stylesheet]").clone()).make("root")
+    this.root = $(this.shadowRoot).append($("head link[rel=stylesheet]").clone())
     
     Array.from(this.attributes).forEach(v => {
       let name = v.name, value = v.value
@@ -434,56 +416,57 @@ class Base extends HTMLElement {
 
 customElements.define("o-select", class Select extends Base {
   
-  view    = this.root.make("view").click(() => this.toggle())
+  view    = this.root.make("view").click(() => this.list.has("active") ? this.close() : this.open())
     now   = this.view.make("now").text(this.placeholder)
-    del   = this.view.svg("/main.svg#x").click(e => this.select(null))
+    del   = this.view.svg("/main.svg#x").click(e => this.select())
     mark  = this.view.svg("/main.svg#chevron")
   list    = this.root.make("ol")
-    items = this.list.make(this.model, item => this.list.make("li").text(this.render(item)).click(e => this.select(item)))
+    items = this.list.make(this.model, item => this.list.make("li").text(this.render(item)).click(e => this.select(item, $(e.target))))
     
-  isOpen = false
+  selected = new Set()
   
-
+  constructor() {
+    super()
+    
+    $(this).set({disabled: !this.model.length})
+  }
+  
   render(item) {
     return item.toString()
   }
   
-
-  select(item) {
-    this.now.text(item ? this.render(item) : this.placeholder)
-    this.root.set({selected: item != null})
-    this.close()
+  select(item, dom) {
+    if (this.separator) {
+      if (item) {
+        dom.toggle("select", () => this.selected.add(item), () => this.selected.delete(item)) 
+      } else {
+        this.items.remove("select")
+        this.selected.clear()
+        this.close()
+      }
+    } else {
+      this.items.remove("select")
+      if (dom) dom.add("select")
+      
+      this.selected.clear()
+      if (item) this.selected.add(item)
+      
+      this.close()
+    }
+    
+    this.now.set({select: this.selected.size}).text([...this.selected.keys()].map(this.render).join(this.separator) || this.placeholder)
+    this.del.set({active: this.selected.size})
   }
   
   open() {
-    if (!this.isOpen) {
-      this.isOpen = true
-      this.list.css("opacity:1; transform:scale(1) translateY(0); pointer-events:auto")
-      $(document).click(e => {
-          this.close()
-      }, {once:true})
-    }
+    this.list.add("active")
+    this.mark.add("active")
+    $(document).click(e => { this.contains(e.target) ? null:this.close() ; console.log(e.target)}, {once:true})
   }
   
   close() {
-    if (this.isOpen) {
-       this.isOpen = false
-       this.list.css("opacity:0; transform:scale(0.75) translateY(-20px); pointer-events:none")
-    }
-  }
-  
-  
-  toggle(e) {
-    if (this.model && 0 < this.model.length) {
-    if (!this.isOpen) {
-    this.open()
-    } else {
-    this.close()
-    }
-      
-      // this.view.toggle("open", () => $(document).click(() => this.view.remove("open"), {once:true}))
-      
-    }
+    this.list.remove("active");
+    this.mark.remove("active");
   }
 })
 

@@ -26,7 +26,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         scroll.smooth().padding.top(HeaderHeight);
         overflow.y.scroll();
 
-        $.select("[disabled]", () -> {
+        $.select(".disabled", () -> {
             pointerEvents.none();
             text.unselectable();
             display.opacity(0.6);
@@ -465,12 +465,6 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         $.select("view", () -> {
             display.block();
 
-            $.with(".open+ol", () -> {
-                display.opacity(1);
-                transform.scale(1).translateY(0, px);
-                pointerEvents.auto();
-            });
-
             $.with(".open>svg", () -> {
                 $.nthType("2", () -> {
                     transform.rotate(-90, deg);
@@ -486,7 +480,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         });
 
         $.select("now", () -> {
-            display.inlineBlock();
+            display.block();
             padding.horizontal(gap);
         });
 
@@ -496,7 +490,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             display.inlineBlock().width(size).height(18, px);
             stroke.width(2, px);
             transform.rotate(90, deg);
-            transition.duration(0.25, s).easeOutBack().whenever();
+            transition.duration(0.2, s).easeInOut().whenever();
             position.absolute().top(Numeric.of(50, percent).subtract(size.divide(2)));
 
             $.firstType(() -> {
@@ -508,7 +502,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
                     stroke.color(theme.link);
                 });
 
-                $.ancestor(() -> {
+                $.with(".active", () -> {
                     display.opacity(1);
                     transform.scale(1);
                 });
@@ -516,11 +510,15 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
             $.lastType(() -> {
                 position.right(size.divide(2));
+
+                $.with(".active", () -> {
+                    transform.rotate(-90, deg);
+                });
             });
         });
 
         $.select("ol", () -> {
-            display.block().opacity(0).zIndex(10).width(Numeric.of(100, percent).plus(1, px));
+            display.block().opacity(0).zIndex(10).width(Numeric.of(100, percent).plus(1.5, px));
             background.color(theme.surface);
             border.radius(theme.radius).width(1, px).solid().color(theme.front.opacify(-0.6));
             margin.top(6, px);
@@ -528,7 +526,13 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             pointerEvents.none();
             position.absolute().top(100, percent).left(-1, px);
             transform.origin.position(50, percent, 0, percent).scale(0.75).translateY(-21, px);
-            transition.duration(0.2, s).easeOutBack().whenever();
+            transition.duration(0.2, s).easeInOutCubic().whenever();
+
+            $.with(".active", () -> {
+                display.opacity(1);
+                transform.scale(1).translateY(0, px);
+                pointerEvents.auto();
+            });
         });
 
         $.select("li", () -> {
@@ -540,6 +544,10 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
             $.hover(() -> {
                 background.color(theme.surface.lighten(theme.back, 10));
+            });
+
+            $.with(".select", () -> {
+                font.color(theme.accent);
             });
         });
     });
