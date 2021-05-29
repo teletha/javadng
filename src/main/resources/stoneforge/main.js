@@ -313,6 +313,7 @@ new Vue({
       </div>
     </div>
 	  <div id="APINavi" hidden>
+	    <xxx/>
   		<o-select placeholder="Select Module" model:="root.modules"/>
   		<o-select placeholder="Select Package" model:="root.packages"/>
   		<o-select placeholder="Select Type" separator=", " model:="['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']"/>
@@ -476,3 +477,48 @@ customElements.define("o-select", class Select extends Base {
   }
 })
 
+
+var count = 0 // 変数を追加
+var Hello = {
+    view() {
+        return m("main", [
+            m("h1", {class: "title"}, "最初のMithrilアプリケーション"),
+            // この行を変更
+            m("button", {onclick: function() {count++}}, count + " クリック"),
+        ])
+    }
+}
+
+function Select({placeholder="Select Item", model=[], separator, render=v=>v.toString()}) {
+  const selected = this.selected = new Set()
+
+  function select(item) {
+    if (separator) {
+      //dom.toggle("select", () => this.selected.add(item), () => this.selected.delete(item)) 
+    } else {
+      deselect()
+      //dom.add("select")
+      selected.add(item)
+    }
+  }
+  
+  function deselect() {
+    //this.items.remove("select")
+    selected.clear()
+   // this.close()
+    
+   // this.update()
+  }
+  
+  this.view = () => [
+    m("view", [
+      m("now", [...selected.keys()].map(render).join(separator) || placeholder)
+    ]),
+    m("ol", model.map(item => m("li", {onclick: e=>select(item)}, render(item))))
+  ]
+  return this;
+}
+
+const PackageFilter = new Select({placeholder:"Select Package", model: root.packages})
+
+m.mount(document.querySelector("xxx"), PackageFilter)

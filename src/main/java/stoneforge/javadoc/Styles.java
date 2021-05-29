@@ -465,19 +465,6 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
         $.select("view", () -> {
             display.block();
-
-            $.with(".open>svg", () -> {
-                $.nthType("2", () -> {
-                    transform.rotate(-90, deg);
-                });
-            });
-
-            $.with(".selected>svg", () -> {
-                $.firstType(() -> {
-                    display.opacity(1);
-                    transform.scale(1);
-                });
-            });
         });
 
         $.select("now", () -> {
@@ -546,7 +533,6 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             cursor.pointer();
             listStyle.none();
             padding.horizontal(gap);
-            transition.duration(0.2, s).whenever();
 
             $.hover(() -> {
                 background.color(theme.surface.lighten(theme.back, 10));
