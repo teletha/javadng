@@ -48,7 +48,6 @@ public abstract class Page<T> extends HTML {
                 stylesheetAsync("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/zenburn.min.css");
                 scriptAsync("highlight.js");
                 stylesheet("/main.css");
-                $("script", text("//")); // start js engine eagerly
             });
             $("body", styles.Workbench, () -> {
                 // =============================
