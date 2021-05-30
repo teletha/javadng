@@ -1,7 +1,7 @@
 // =====================================================
 // The imitation of jQuery
 // =====================================================
-$ = Mimic = (query, ...args) => {
+const Mimic = (query, ...args) => {
   if (!Mimic.html) {
     let noop = () => {}
   
@@ -46,6 +46,7 @@ $ = Mimic = (query, ...args) => {
       attr: value((e, name, value) => value ? e.setAttribute(name, value) : e.getAttribute(name)),
       data: value((e, name, value) => value ? e.dataset[name] = value : e.dataset[name]),
       css : self((e, style) => Mimic.isString(style) ? e.style.cssText = style : Object.keys(style).forEach(name => e.style[name] = style[name])),
+      toString: value(e => e.outerHTML),
       
       add: value((e, name) => e.classList.add(name)),
       remove: value((e, name) => e.classList.remove(name)),
@@ -124,6 +125,8 @@ $ = Mimic = (query, ...args) => {
           : /* query instanceof NodeList || query instanceof HTMLCollection ? */ [...query]
   return o
 }
+
+const $ = Mimic
 
 // =====================================================
 // User Settings
@@ -290,52 +293,98 @@ FlashMan({
     e.rel = "noopener noreferrer";
 }});
 
+Mimic.template = function(input) {
+  return {
+    render(locator, model) {
+      let root = $("<div>")
+      let current = root
+      
+      function builder(texts, ...params) {
+        if (texts.raw) {
+          let html = texts.reduce((base, value, index) => base + params[index - 1] + value).trim()
+          if (html.match(/\/[^\s\u0022\u0027]*>$/)) {
+            if (html.startsWith("</")) {
+              current = current.parent()
+            } else {
+              $(html).appendTo(current)
+            }
+          } else {
+            current = $(html).appendTo(current)
+          }
+        } else {
+          texts.forEach(params[0])
+        }
+        return builder
+      }
+      input(builder, model)
+      $(locator).append(root)
+    }
+  }
+}
+
+const documentNavi = $.template((h, model) => h
+  `<div id="DocNavi" hidden>`(model.docs, doc => h
+    `<div class="doc" id="${doc.path}">`
+      `<a href="${doc.path}">${doc.title}</a>`
+      `<ol class="sub">`(doc.subs, sub => h
+        `<li>`
+          `<a href="${sub.path}"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#chevrons"/></svg>${sub.title}</a>`(sub.subs, foot => h
+          `<a href="${foot.path}"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#chevrons"/></svg><span class="foot">${foot.title}</span></a>`)
+        `</li>`)
+      `</ol>`
+    `</div>`)
+  `</div>`)
+  
+documentNavi.render("main>nav", root)
+
+const apiNavi = $.template((h, model) => h
+  `<div id="APINavi" hidden>`
+    `<o-select placeholder="Select Module" model:="root.modules"/>`
+    `<o-select placeholder="Select Package" model:="root.packages"/>`
+    `<o-select placeholder="Select Type" separator=", " model:="['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']"/>`
+    `<input id="SearchByName" placeholder="Search by Name"/>`
+    `<div class="tree">`(model, pack => h
+      `<dl>`
+        `<dt onclick="${e => pack.open = !pack.open}"><code>${pack.name}</code></dt>`(pack.children, type => h
+        `<dd class="${type.type}"><code><a href="${'/api/'+type.packageName+'.'+type.name+'.html'}">${type.name}</a></code></dd>`)
+      `</dl>`)
+    `</div>`
+  `</div>`)
+  
+function sortAndGroup(items) {
+  let map = new Map();
+  items.packages.forEach(item => {
+    map.set(item, {
+      name: item,
+      children: [],
+      isOpen: false
+    });
+  });
+
+  items.types.forEach(item => {
+    map.get(item.packageName).children.push(item);
+  });
+
+  return Array.from(map.values());
+}
+  
+apiNavi.render("main>nav", sortAndGroup(root))
+
 // =====================================================
 // Define Components
 // =====================================================
+/*
 new Vue({
-  el: "main"
-});
-
-new Vue({
-  el: "nav > div",
+  el: "nav>xx>x",
   template: `
-	<div>
-		<div id="DocNavi" hidden>
-      <div class="doc" v-for="doc in items.docs" :id="doc.path">
-        <a :href="doc.path">{{doc.title}}</a>
-        <ol class="sub">
-          <li v-for="sub in doc.subs">
-            <a :href="sub.path"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#chevrons"/></svg>{{sub.title}}</a>
-            <a v-for="foot in sub.subs" :href="foot.path"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#chevrons"/></svg><span class="foot">{{foot.title}}</span></a>
-          </li>
-        </ol>
-      </div>
-    </div>
-	  <div id="APINavi" hidden>
-	    <xxx/>
-  		<o-select placeholder="Select Module" model:="root.modules"/>
-  		<o-select placeholder="Select Package" model:="root.packages"/>
-  		<o-select placeholder="Select Type" separator=", " model:="['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']"/>
 
-  		<input id="SearchByName" v-model="selectedName" placeholder="Search by Name">
-  		
-  		<div class="tree">
-  			<dl v-for="package in sortedItems">
-  				<dt @click="toggle(package)" v-show="filter(package.children).length"><code>{{package.name}}</code></dt>
-  				<dd v-for="type in filter(package.children)" :class="type.type" v-show="expandAll || package.isOpen"><code><a :href="'/api/'+type.packageName+'.'+type.name+'.html'">{{type.name}}</a></code></dd>
-  			</dl>
-  		</div>
-    </div>
-	</div>
   `,
   data: function() {
     root.docs.forEach(e => e.isOpen = false);
-    console.log(root);
   
     return {
       items: root,
-      sortedItems: this.sortAndGroup(root),
+      sortedItems: root,
       selectedName: "",
       selectedPackage: null,
       selectedModule: null,
@@ -345,22 +394,6 @@ new Vue({
   },
 
   methods: {
-    sortAndGroup: function(items) {
-      let map = new Map();
-      items.packages.forEach(item => {
-        map.set(item, {
-          name: item,
-          children: [],
-          isOpen: false
-        });
-      });
-
-      items.types.forEach(item => {
-        map.get(item.packageName).children.push(item);
-      });
-
-      return Array.from(map.values());
-    },
     filter: function(items) {
       this.expandAll = this.selectedType.length !== 0 || this.selectedPackage !== null || this.selectedName !== "";
 
@@ -379,11 +412,12 @@ new Vue({
         return true;
       });
     },
-    toggle: function(package) {
-      package.isOpen = !package.isOpen;
+    toggle: function(pack) {
+      pack.isOpen = !pack.isOpen;
     }
   }
 });
+*/
 
 // =====================================================
 // Live Reload
@@ -426,7 +460,7 @@ customElements.define("o-select", class Select extends Base {
     
   selected = new Set()
   
-  constructor() {
+  constructor(...args) {
     super()
     
     $(this).set({disabled: !this.model.length})
@@ -478,47 +512,3 @@ customElements.define("o-select", class Select extends Base {
 })
 
 
-var count = 0 // 変数を追加
-var Hello = {
-    view() {
-        return m("main", [
-            m("h1", {class: "title"}, "最初のMithrilアプリケーション"),
-            // この行を変更
-            m("button", {onclick: function() {count++}}, count + " クリック"),
-        ])
-    }
-}
-
-function Select({placeholder="Select Item", model=[], separator, render=v=>v.toString()}) {
-  const selected = this.selected = new Set()
-
-  function select(item) {
-    if (separator) {
-      //dom.toggle("select", () => this.selected.add(item), () => this.selected.delete(item)) 
-    } else {
-      deselect()
-      //dom.add("select")
-      selected.add(item)
-    }
-  }
-  
-  function deselect() {
-    //this.items.remove("select")
-    selected.clear()
-   // this.close()
-    
-   // this.update()
-  }
-  
-  this.view = () => [
-    m("view", [
-      m("now", [...selected.keys()].map(render).join(separator) || placeholder)
-    ]),
-    m("ol", model.map(item => m("li", {onclick: e=>select(item)}, render(item))))
-  ]
-  return this;
-}
-
-const PackageFilter = new Select({placeholder:"Select Package", model: root.packages})
-
-m.mount(document.querySelector("xxx"), PackageFilter)

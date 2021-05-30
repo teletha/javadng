@@ -182,6 +182,15 @@ public abstract class HTML extends Tree<String, XML> {
      * 
      * @param uri URI to script.
      */
+    protected final void module(String uri) {
+        $("script", attr("src", uri.startsWith("http") ? uri : "/" + uri), attr("type", "module"));
+    }
+
+    /**
+     * Shorthand method to write script tag.
+     * 
+     * @param uri URI to script.
+     */
     protected final void scriptAsync(String uri) {
         $("script", attr("src", uri.startsWith("http") ? uri : "/" + uri), attr("async", true));
     }
