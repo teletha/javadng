@@ -13,7 +13,6 @@ import stylist.AbstractStyleDSL;
 import stylist.Browsers;
 import stylist.Style;
 import stylist.value.Color;
-import stylist.value.Font;
 import stylist.value.Numeric;
 
 public class Styles extends AbstractStyleDSL implements StyleConstants {
@@ -105,16 +104,16 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             margin.top(0.3, em).bottom(0.8, em);
             border.vertical.dotted().width(1, px).color("gray");
 
-            $.before(() -> {
-                font.family(Font.Awesome).size(2, em).color(theme.surface);
-                content.text("\\f111");
-                position.absolute().left(-1, em).top(-0.13, em);
-            });
-            $.after(() -> {
-                font.family(Font.Awesome).size(1, em).color(theme.primary);
-                content.text("\\f111");
-                position.absolute().left(-1.6, em).top(0.55, em);
-            });
+            // $.before(() -> {
+            // font.family(Font.Awesome).size(2, em).color(theme.surface);
+            // content.text("\\f111");
+            // position.absolute().left(-1, em).top(-0.13, em);
+            // });
+            // $.after(() -> {
+            // font.family(Font.Awesome).size(1, em).color(theme.primary);
+            // content.text("\\f111");
+            // position.absolute().left(-1.6, em).top(0.55, em);
+            // });
         });
 
         $.select("h3", () -> {
