@@ -349,22 +349,9 @@ const DocumentNavi = $.template((h, model) => h
   
 new DocumentNavi().render("main>nav", root)
 
+
+
 const APINavi = $.template((h, model) => {
-    var x = $("<xx>").attr("id", "APINavi").attr("hidden", "true")
-  .make("o-select").attr("placeholder", "Select Module").model(root.modules).parent()
-  .make("o-select").attr("placeholder", "Select Package").model(root.packages).parent()
-  .make("o-select").attr("placeholder", "Select Type").attr("separator", ", ").model(['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']).parent()
-  .make("input").attr("id", "SearchByName").attr("placeholder", "Search by Name").parent()
-  .make("div").add("tree")
-    .make("dl", model, (pack, dl) => {
-      dl.make("dt").click(e => $(e.currentTarget).parent().toggle("show"))
-          .make("code").text(pack.name)
-      dl.make("dd", pack.children, (type, dd) => {
-        dd.add(type.type)
-          .make("code").make("a").attr("href", '/api/'+type.packageName+'.'+type.name+'.html').text(type.name)
-      })
-    })
-    
 
   return h`<div id="APINavi" hidden>`
     `<o-select placeholder="Select Module" model:="root.modules"/>`
@@ -378,6 +365,10 @@ const APINavi = $.template((h, model) => {
       `</dl>`)
     `</div>`
   `</div>`}, {
+    toggle() {
+      
+    },
+  
     update() {
       $(this).find("dd").each(e => {
         console.log(e)
@@ -513,3 +504,24 @@ customElements.define("o-select", class Select extends Base {
   }
 })
 
+customElements.define("o-api-tree", class APITree extends Base {
+
+  constructor() {
+    super()
+    
+    this.root.attr("id", "APINavi").attr("hidden", "true")
+      .make("o-select").attr("placeholder", "Select Module").model(root.modules).parent()
+      .make("o-select").attr("placeholder", "Select Package").model(root.packages).parent()
+      .make("o-select").attr("placeholder", "Select Type").attr("separator", ", ").model(['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']).parent()
+      .make("input").attr("id", "SearchByName").attr("placeholder", "Search by Name").parent()
+      .make("div").add("tree")
+        .make("dl", model, (pack, dl) => {
+          dl.make("dt").click(e => $(e.currentTarget).parent().toggle("show"))
+              .make("code").text(pack.name)
+          dl.make("dd", pack.children, (type, dd) => {
+            dd.add(type.type)
+              .make("code").make("a").attr("href", '/api/'+type.packageName+'.'+type.name+'.html').text(type.name)
+          })
+        })
+  }
+})

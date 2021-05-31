@@ -573,12 +573,11 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             });
         });
 
-        $.select("dt", () -> {
-            font.weight.bold();
-            cursor.pointer();
-            text.whiteSpace.nowrap();
+        $.child(() -> {
+            text.whiteSpace.nowrap().unselectable();
             border.radius(theme.radius);
-            padding.horizontal(0.5, em);
+            padding.horizontal(0.5, em).vertical(0.15, em);
+            cursor.pointer();
 
             $.hover(() -> {
                 font.color(theme.accent);
@@ -586,17 +585,12 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             });
         });
 
+        $.select("dt", () -> {
+            font.weight.bold();
+        });
+
         $.select("dd", () -> {
             display.none();
-            cursor.pointer();
-            text.whiteSpace.nowrap().unselectable();
-            border.radius(theme.radius);
-            padding.horizontal(0.5, em);
-
-            $.hover(() -> {
-                font.color(theme.accent);
-                background.color(theme.surface);
-            });
 
             $.child(() -> {
                 display.inlineBlock().width(100, percent);
