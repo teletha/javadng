@@ -293,36 +293,52 @@ FlashMan({
     e.rel = "noopener noreferrer";
 }});
 
-Mimic.template = function(input) {
-  return {
-    render(locator, model) {
-      let root = $("<div>")
-      let current = root
-      
-      function builder(texts, ...params) {
-        if (texts.raw) {
-          let html = texts.reduce((base, value, index) => base + params[index - 1] + value).trim()
-          if (html.match(/\/[^\s\u0022\u0027]*>$/)) {
-            if (html.startsWith("</")) {
-              current = current.parent()
-            } else {
-              $(html).appendTo(current)
+Mimic.template = function(input, proto) {
+  function ReactiveComponent() {
+  }
+  
+  ReactiveComponent.prototype = {...proto, render(locator, model) {
+    let root = $("<div>")
+    let current = root
+    
+    function builder(texts, ...params) {
+      if (texts.raw) {
+        let events = new Map()
+        let html = texts.reduce((base, value, index) => {
+          let p = params[index - 1]
+          if (typeof p == "function") {
+            if (base.endsWith("@click=\"")) {
+              events.set("click", e => {p(e); this.update.apply(root)})
             }
+            return base + value
           } else {
-            current = $(html).appendTo(current)
+            return base + p + value
+          }
+        }).trim()
+        if (html.match(/\/[^\s\u0022\u0027]*>$/)) {
+          if (html.startsWith("</")) {
+            current = current.parent()
+          } else {
+            let dom = $(html).appendTo(current)
+            events.forEach((value, key) => dom.on(key, value))
           }
         } else {
-          texts.forEach(params[0])
+          current = $(html).appendTo(current)
         }
-        return builder
+        
+      } else {
+        texts.forEach(params[0])
       }
-      input(builder, model)
-      $(locator).append(root)
+      return builder.bind(this)
     }
-  }
+    input(builder.bind(this), model)
+    $(locator).append(root)
+  }}
+  
+  return ReactiveComponent
 }
 
-const documentNavi = $.template((h, model) => h
+const DocumentNavi = $.template((h, model) => h
   `<div id="DocNavi" hidden>`(model.docs, doc => h
     `<div class="doc" id="${doc.path}">`
       `<a href="${doc.path}">${doc.title}</a>`
@@ -335,9 +351,9 @@ const documentNavi = $.template((h, model) => h
     `</div>`)
   `</div>`)
   
-documentNavi.render("main>nav", root)
+new DocumentNavi().render("main>nav", root)
 
-const apiNavi = $.template((h, model) => h
+const APINavi = $.template((h, model) => h
   `<div id="APINavi" hidden>`
     `<o-select placeholder="Select Module" model:="root.modules"/>`
     `<o-select placeholder="Select Package" model:="root.packages"/>`
@@ -345,11 +361,17 @@ const apiNavi = $.template((h, model) => h
     `<input id="SearchByName" placeholder="Search by Name"/>`
     `<div class="tree">`(model, pack => h
       `<dl>`
-        `<dt onclick="${e => pack.open = !pack.open}"><code>${pack.name}</code></dt>`(pack.children, type => h
+        `<dt @click="${e => $(e.currentTarget).parent().toggle('show')}"><code>${pack.name}</code></dt>`(pack.children, type => h
         `<dd class="${type.type}"><code><a href="${'/api/'+type.packageName+'.'+type.name+'.html'}">${type.name}</a></code></dd>`)
       `</dl>`)
     `</div>`
-  `</div>`)
+  `</div>`, {
+    update() {
+      $(this).find("dd").each(e => {
+        console.log(e)
+      })
+    }
+  })
   
 function sortAndGroup(items) {
   let map = new Map();
@@ -367,57 +389,28 @@ function sortAndGroup(items) {
 
   return Array.from(map.values());
 }
-  
-apiNavi.render("main>nav", sortAndGroup(root))
 
-// =====================================================
-// Define Components
-// =====================================================
-/*
-new Vue({
-  el: "nav>xx>x",
-  template: `
+function filter(items) {
+  this.expandAll = this.selectedType.length !== 0 || this.selectedPackage !== null || this.selectedName !== "";
 
-  `,
-  data: function() {
-    root.docs.forEach(e => e.isOpen = false);
-  
-    return {
-      items: root,
-      sortedItems: root,
-      selectedName: "",
-      selectedPackage: null,
-      selectedModule: null,
-      selectedType: [],
-      expandAll: false
-    };
-  },
-
-  methods: {
-    filter: function(items) {
-      this.expandAll = this.selectedType.length !== 0 || this.selectedPackage !== null || this.selectedName !== "";
-
-      return items.filter(item => {
-        if (this.selectedType.length != 0 && !this.selectedType.includes(item.type)) {
-          return false;
-        }
-
-        if (this.selectedPackage !== null && this.selectedPackage !== item.packageName) {
-          return false;
-        }
-
-        if (this.selectedName !== "" && (item.packageName + "." + item.name).toLowerCase().indexOf(this.selectedName.toLowerCase()) === -1) {
-          return false;
-        }
-        return true;
-      });
-    },
-    toggle: function(pack) {
-      pack.isOpen = !pack.isOpen;
+  return items.filter(item => {
+    if (this.selectedType.length != 0 && !this.selectedType.includes(item.type)) {
+      return false;
     }
-  }
-});
-*/
+
+    if (this.selectedPackage !== null && this.selectedPackage !== item.packageName) {
+      return false;
+    }
+
+    if (this.selectedName !== "" && (item.packageName + "." + item.name).toLowerCase().indexOf(this.selectedName.toLowerCase()) === -1) {
+      return false;
+    }
+    return true;
+  });
+}
+  
+new APINavi().render("main>nav", sortAndGroup(root))
+
 
 // =====================================================
 // Live Reload

@@ -305,13 +305,14 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         display.flex();
 
         $.before(() -> {
-            display.inlineTable().width(15, px).height(15, px);
+            display.inlineBlock().width(15, px).height(15, px);
             flexItem.alignSelf.center();
             text.align.center();
             border.color(color).solid().width(1, px);
             margin.right(6, px);
             content.text(mark);
             font.size(10, px).lineHeight(13, px);
+            transform.translateY(-1, px);
 
             if (circle) {
                 border.radius(50, percent);
@@ -573,23 +574,37 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             overflow.y.auto();
         });
 
+        $.select("dl", () -> {
+            padding.bottom(0.5, em);
+
+            $.with(".show dd", () -> {
+                display.block();
+            });
+        });
+
         $.select("dt", () -> {
             font.weight.bold();
             cursor.pointer();
-            padding.vertical(0.2, rem).horizontal(0.5, rem);
+            text.whiteSpace.nowrap();
+            border.radius(theme.radius);
+            padding.horizontal(0.5, em);
 
             $.hover(() -> {
                 font.color(theme.accent);
+                background.color(theme.surface);
             });
         });
 
         $.select("dd", () -> {
-            padding.vertical(0.1, rem).left(1, rem);
+            display.none();
             cursor.pointer();
-            text.whiteSpace.nowrap();
+            text.whiteSpace.nowrap().unselectable();
+            border.radius(theme.radius);
+            padding.horizontal(0.5, em);
 
             $.hover(() -> {
                 font.color(theme.accent);
+                background.color(theme.surface);
             });
 
             $.child(() -> {
