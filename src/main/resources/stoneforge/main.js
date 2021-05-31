@@ -294,10 +294,11 @@ FlashMan({
 }});
 
 Mimic.template = function(input, proto) {
-  function ReactiveComponent() {
+  function ReactiveElement() {
   }
   
-  ReactiveComponent.prototype = {...proto, render(locator, model) {
+  Object.setPrototypeOf(ReactiveElement.prototype, HTMLElement.prototype)
+  ReactiveElement.prototype = {...proto, render(locator, model) {
     let root = $("<div>")
     let current = root
     
@@ -308,7 +309,7 @@ Mimic.template = function(input, proto) {
           let p = params[index - 1]
           if (typeof p == "function") {
             if (base.endsWith("@click=\"")) {
-              events.set("click", e => {p(e); this.update.apply(root)})
+              events.set("click", e => {p(e); this.update || this.update()})
             }
             return base + value
           } else {
@@ -335,7 +336,7 @@ Mimic.template = function(input, proto) {
     $(locator).append(root)
   }}
   
-  return ReactiveComponent
+  return ReactiveElement
 }
 
 const DocumentNavi = $.template((h, model) => h
