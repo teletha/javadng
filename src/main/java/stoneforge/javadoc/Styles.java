@@ -453,7 +453,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         });
     }
 
-    public static final Style Select = Style.named(":host(o-select)", () -> {
+    public static final Style Select = Style.named("o-select", () -> {
         Numeric gap = Numeric.of(18, px);
         Numeric iconSize = Numeric.of(18, px);
 
@@ -483,7 +483,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             });
         });
 
-        $.select("svg", () -> {
+        $.select(".svg", () -> {
             display.inlineBlock().width(iconSize);
             stroke.width(2, px);
             transform.rotate(90, deg);
@@ -546,15 +546,6 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
                 font.color(theme.accent);
             });
         });
-    });
-
-    public static final Style SelectBox = Style.named(".vs__dropdown-toggle", () -> {
-        background.color(Color.White);
-    });
-
-    public static final Style SelectBoxHighlight = Style.named(".vs__dropdown-option--highlight", () -> {
-        font.color("inherit");
-        background.color(theme.accent.opacify(-0.6));
     });
 
     public static final Style InputBox = Style.named("#SearchByName", () -> {

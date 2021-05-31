@@ -35,17 +35,18 @@ const Mimic = (query, ...args) => {
       after: self((e, node) => nody(node, n => e.after(n))),
       insertAfter: self((e, node) => nody(node, n => n.after(e))),
       clone: self(e => e.cloneNode()),
-      make: flat((e, nameOrItems, action) => Mimic.isString(nameOrItems) ? [e.appendChild(document.createElement(nameOrItems))] : nameOrItems.map(action).flatMap(e => e.nodes), 9),
-      svg: shorthand((e, path) => e.append("<svg class='svg' viewBox='0 0 24 24'><use href='"+ path +"'/></svg>").last()),
+      make: flat((e, name, items, action) => action ? items.map(item => {let dom = $(e).make(name).model(item);action(item, dom);return dom}).flatMap(e => e.nodes) : [e.appendChild(document.createElement(name))], 9),
+      svg: flat((e, path) => [e.appendChild($("<svg class='svg' viewBox='0 0 24 24'><use href='"+ path +"'/></svg>").nodes[0])], 9),
       
       empty: self(e => e.replaceChildren()),
       clear: self(e => e.parentNode.removeChild(e)),
       
-      html: value((e, text) => text ? e.innerHTML = text : e.innerHTML), 
-      text: value((e, text) => text ? e.textContent = text : e.textContent),
-      attr: value((e, name, value) => value ? e.setAttribute(name, value) : e.getAttribute(name)),
-      data: value((e, name, value) => value ? e.dataset[name] = value : e.dataset[name]),
-      css : self((e, style) => Mimic.isString(style) ? e.style.cssText = style : Object.keys(style).forEach(name => e.style[name] = style[name])),
+      html : value((e, text) => text ? e.innerHTML = text : e.innerHTML), 
+      text : value((e, text) => text ? e.textContent = text : e.textContent),
+      attr : value((e, name, value) => value ? e.setAttribute(name, value) : e.getAttribute(name)),
+      data : value((e, name, value) => value ? e.dataset[name] = value : e.dataset[name]),
+      css  : self((e, style) => Mimic.isString(style) ? e.style.cssText = style : Object.keys(style).forEach(name => e.style[name] = style[name])),
+      model: value((e, value) => value !== undefined ? e.model = value : e.model),
       toString: value(e => e.outerHTML),
       
       add: value((e, name) => e.classList.add(name)),
@@ -57,7 +58,7 @@ const Mimic = (query, ...args) => {
       
       // In cases where event listeners are registered during event processing, we delay the registration of all event listeners
       // because it may cause an infinite loop or supplement the event at an unintended timing.
-      on: value((e, type, listener, options) => {setTimeout(() => e.addEventListener(type, listener, options), 0)}),
+      on: value((e, type, listener, options) => {setTimeout(() => e.addEventListener(type, options?.where ? event => event.target.matches(options.where + "," + options.where + " *") ? listener(event) : null : listener, options), 0)}),
       off: value((e, type, listener) => e.removeEventListener(type, listener)),
     }
     
@@ -87,12 +88,6 @@ const Mimic = (query, ...args) => {
       return function(...arg) {
         let result = this.nodes.map(n => action(n, ...arg))[0]
         return result === undefined || result === arg[arg.length - 1] ? this : result
-      }
-    }
-    
-    function shorthand(action) {
-      return function(...arg) {
-        return action(this, ...arg)
       }
     }
     
@@ -354,8 +349,24 @@ const DocumentNavi = $.template((h, model) => h
   
 new DocumentNavi().render("main>nav", root)
 
-const APINavi = $.template((h, model) => h
-  `<div id="APINavi" hidden>`
+const APINavi = $.template((h, model) => {
+    var x = $("<xx>").attr("id", "APINavi").attr("hidden", "true")
+  .make("o-select").attr("placeholder", "Select Module").model(root.modules).parent()
+  .make("o-select").attr("placeholder", "Select Package").model(root.packages).parent()
+  .make("o-select").attr("placeholder", "Select Type").attr("separator", ", ").model(['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']).parent()
+  .make("input").attr("id", "SearchByName").attr("placeholder", "Search by Name").parent()
+  .make("div").add("tree")
+    .make("dl", model, (pack, dl) => {
+      dl.make("dt").click(e => $(e.currentTarget).parent().toggle("show"))
+          .make("code").text(pack.name)
+      dl.make("dd", pack.children, (type, dd) => {
+        dd.add(type.type)
+          .make("code").make("a").attr("href", '/api/'+type.packageName+'.'+type.name+'.html').text(type.name)
+      })
+    })
+    
+
+  return h`<div id="APINavi" hidden>`
     `<o-select placeholder="Select Module" model:="root.modules"/>`
     `<o-select placeholder="Select Package" model:="root.packages"/>`
     `<o-select placeholder="Select Type" separator=", " model:="['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']"/>`
@@ -366,7 +377,7 @@ const APINavi = $.template((h, model) => h
         `<dd class="${type.type}"><code><a href="${'/api/'+type.packageName+'.'+type.name+'.html'}">${type.name}</a></code></dd>`)
       `</dl>`)
     `</div>`
-  `</div>`, {
+  `</div>`}, {
     update() {
       $(this).find("dd").each(e => {
         console.log(e)
@@ -427,8 +438,7 @@ class Base extends HTMLElement {
 
   constructor() {
     super()
-    this.attachShadow({mode: "open"})
-    this.root = $(this.shadowRoot).append($("head link[rel=stylesheet]").clone())
+    this.root = $(this)
     
     Array.from(this.attributes).forEach(v => {
       let name = v.name, value = v.value
@@ -444,20 +454,21 @@ class Base extends HTMLElement {
 }
 
 customElements.define("o-select", class Select extends Base {
-  
-  view    = this.root.make("view").click(() => this.list.has("active") ? this.close() : this.open())
-    now   = this.view.make("now").text(this.placeholder)
-    del   = this.view.svg("/main.svg#x").click(e => {e.stopPropagation(); this.deselect()})
-    mark  = this.view.svg("/main.svg#chevron")
-  list    = this.root.make("ol")
-    items = this.list.make(this.model, item => this.list.make("li").text(this.render(item)).click(e => this.select(item, $(e.target))))
     
   selected = new Set()
   
-  constructor(...args) {
+  constructor() {
     super()
     
-    $(this).set({disabled: !this.model.length})
+    this.root.set({disabled: !this.model.length})
+      .make("view").click(e => this.root.find("ol").has("active") ? this.close() : this.open())
+        .make("now").text(this.placeholder).parent()
+        .svg("/main.svg#x").click(e => {e.stopPropagation(); this.deselect()}).parent()
+        .svg("/main.svg#chevron")
+    this.root
+      .make("ol").click(e => this.select(e.target.model, $(e.target)), {where: "li"})
+        .make("li",this.model, (item, li) => li.text(this.render(item)))
+    
     this.closer = e => {
       if (!this.contains(e.target)) this.close()
     }
@@ -475,12 +486,11 @@ customElements.define("o-select", class Select extends Base {
       dom.add("select")
       this.selected.add(item)
     }
-    
     this.update()
   }
   
   deselect() {
-    this.items.remove("select")
+    this.root.find("li").remove("select")
     this.selected.clear()
     this.close()
     
@@ -488,21 +498,18 @@ customElements.define("o-select", class Select extends Base {
   }
   
   update() {
-    this.now.set({select: this.selected.size}).text([...this.selected.keys()].map(this.render).join(this.separator) || this.placeholder)
-    this.del.set({active: this.selected.size})
+    this.root.find("now").set({select: this.selected.size}).text([...this.selected.keys()].map(this.render).join(this.separator) || this.placeholder)
+    this.root.find("svg:first-of-type").set({active: this.selected.size})
   }
   
   open() {
-    this.list.add("active")
-    this.mark.add("active")
+    this.root.find("ol, svg:last-of-type").add("active")
     $(document).click(this.closer)
   }
   
   close() {
-    this.list.remove("active");
-    this.mark.remove("active");
+    this.root.find("ol, svg:last-of-type").remove("active")
     $(document).off("click",this.closer)
   }
 })
-
 
