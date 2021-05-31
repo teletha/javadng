@@ -269,20 +269,24 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         font.weight.bold();
     });
 
+    private static final Color InterfaceColor = Color.hsl(110, 60, 40);
+
+    private static final Color ClassColor = Color.hsl(150, 50, 40);
+
     public static final Style HTMLClassTypeInterface = Style.named(".Interface", () -> {
-        buildMark("I", Color.rgb(128, 88, 165), false, true);
+        buildMark("I", InterfaceColor, false, true);
     });
 
     public static final Style HTMLClassTypeFunctionalInterface = Style.named(".Functional", () -> {
-        buildMark("F", Color.rgb(128, 88, 165), false, true);
+        buildMark("F", InterfaceColor, false, true);
     });
 
     public static final Style HTMLClassTypeAbstractClass = Style.named(".AbstractClass", () -> {
-        buildMark("C", Color.rgb(50, 135, 92), false, true);
+        buildMark("C", ClassColor, false, true);
     });
 
     public static final Style HTMLClassTypeClass = Style.named(".Class", () -> {
-        buildMark("C", Color.rgb(50, 135, 92), true, true);
+        buildMark("C", ClassColor, true, true);
     });
 
     public static final Style HTMLClassTypeEnum = Style.named(".Enum", () -> {
@@ -320,13 +324,13 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
                 background.color(color);
             } else {
                 font.color(color);
-                background.color(Color.White.opacify(80));
+                background.color(theme.back.lighten(theme.front, 20).opacify(-0.7));
             }
         });
     }
 
     public static final Style HTMLClassModifierPublic = Style.named(".PUBLIC", () -> {
-        setMarkColor(Color.rgb(50, 135, 92));
+        setMarkColor(ClassColor);
     });
 
     public static final Style HTMLClassModifierProtected = Style.named(".PROTECTED", () -> {
