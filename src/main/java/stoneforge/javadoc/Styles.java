@@ -548,7 +548,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         });
     });
 
-    public static final Style InputBox = Style.named("#SearchByName", () -> {
+    public static final Style InputBox = Style.named("#NameFilter", () -> {
         display.block().width(100, percent);
         background.color(Color.White);
         margin.vertical(8, px);
@@ -573,7 +573,8 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             });
         });
 
-        $.child(() -> {
+        $.select("dt", () -> {
+            font.weight.bold();
             text.whiteSpace.nowrap().unselectable();
             border.radius(theme.radius);
             padding.horizontal(0.5, em).vertical(0.15, em);
@@ -585,18 +586,24 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             });
         });
 
-        $.select("dt", () -> {
-            font.weight.bold();
-        });
-
         $.select("dd", () -> {
             display.none();
+            text.whiteSpace.nowrap().unselectable();
+            border.radius(theme.radius);
+            padding.horizontal(0.5, em);
+            cursor.pointer();
+
+            $.hover(() -> {
+                font.color(theme.accent);
+                background.color(theme.surface);
+            });
 
             $.child(() -> {
                 display.inlineBlock().width(100, percent);
 
                 $.child(() -> {
                     display.inlineBlock().width(100, percent);
+                    padding.vertical(0.15, em);
                     text.decoration.none();
 
                     $.hover(() -> {

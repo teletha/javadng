@@ -354,19 +354,19 @@ new DocumentNavi().render("main>nav", root)
 const APINavi = $.template((h, model) => {
 
   return h`<div id="APINavi" hidden>`
-    `<o-select placeholder="Select Module" model:="root.modules"/>`
-    `<o-select placeholder="Select Package" model:="root.packages"/>`
-    `<o-select placeholder="Select Type" separator=", " model:="['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']"/>`
-    `<input id="SearchByName" placeholder="Search by Name"/>`
+    `<o-select id="ModuleFilter" placeholder="Select Module" model:="root.modules"/>`
+    `<o-select id="PackageFilter" placeholder="Select Package" model:="root.packages"/>`
+    `<o-select id="TypeFilter" placeholder="Select Type" separator=", " model:="['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']"/>`
+    `<input id="NameFilter" placeholder="Search by Name"/>`
     `<div class="tree">`(model, pack => h
       `<dl>`
-        `<dt @click="${e => $(e.currentTarget).parent().toggle('show')}"><code>${pack.name}</code></dt>`(pack.children, type => h
+        `<dt click=${this.toggle}><code>${pack.name}</code></dt>`(pack.children, type => h
         `<dd class="${type.type}"><code><a href="${'/api/'+type.packageName+'.'+type.name+'.html'}">${type.name}</a></code></dd>`)
       `</dl>`)
     `</div>`
   `</div>`}, {
-    toggle() {
-      
+    toggle(e) {
+      $(e.currentTarget).parent().toggle("show")
     },
   
     update() {
@@ -452,6 +452,12 @@ customElements.define("o-select", class Select extends Base {
     super()
     
     this.root.set({disabled: !this.model.length})
+      .append($("view").click(e => this.root.find("ol").has("active") ? this.close() : this.open())
+        .append($("now").text(this.placeholder))
+        .append($("main.svg#x").click(e => {e.stopPropagation(); this.deselect()}))
+        .append($("main.svg#chevron")))
+    
+    this.root.set({disabled: !this.model.length})
       .make("view").click(e => this.root.find("ol").has("active") ? this.close() : this.open())
         .make("now").text(this.placeholder).parent()
         .svg("/main.svg#x").click(e => {e.stopPropagation(); this.deselect()}).parent()
@@ -504,23 +510,18 @@ customElements.define("o-select", class Select extends Base {
   }
 })
 
-customElements.define("o-api-tree", class APITree extends Base {
+customElements.define("o-tree", class APITree extends Base {
 
   constructor() {
     super()
     
-    this.root.attr("id", "APINavi").attr("hidden", "true")
-      .make("o-select").attr("placeholder", "Select Module").model(root.modules).parent()
-      .make("o-select").attr("placeholder", "Select Package").model(root.packages).parent()
-      .make("o-select").attr("placeholder", "Select Type").attr("separator", ", ").model(['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']).parent()
-      .make("input").attr("id", "SearchByName").attr("placeholder", "Search by Name").parent()
-      .make("div").add("tree")
-        .make("dl", model, (pack, dl) => {
+    this.root.make("div").add("tree")
+        .make("dl", this.model, (pack, dl) => {
           dl.make("dt").click(e => $(e.currentTarget).parent().toggle("show"))
               .make("code").text(pack.name)
           dl.make("dd", pack.children, (type, dd) => {
             dd.add(type.type)
-              .make("code").make("a").attr("href", '/api/'+type.packageName+'.'+type.name+'.html').text(type.name)
+              .make("code").make(`a  href="${'/api/'+type.packageName+'.'+type.name+'.html'}"`).text(type.name)
           })
         })
   }
