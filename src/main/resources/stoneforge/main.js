@@ -65,6 +65,9 @@ const Mimic = (query, ...args) => {
     "blur focus focusin focusout resize scroll click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup contextmenu".split(" ").forEach(type => {
       Mimic.prototype[type] = function(listener, options) { return this.on(type, listener, options) }
     })
+    "id title href placeholder label name src type value".split(" ").forEach(type => {
+      Mimic.prototype[type] = function(value) { return this.attr(type, value) }
+    })
     
     function* all(e, action, stopper) {
       let stop = stopper ? Mimic.isString(stopper) ? e => e.matches(stopper) : e => e === stopper : e => false
@@ -350,6 +353,26 @@ const DocumentNavi = $.template((h, model) => h
 new DocumentNavi().render("main>nav", root)
 
 
+class Navi extends HTMLElement {
+  constructor() {
+    super()
+    
+    this.root.id("APINavi").attr("hidden", true)
+      .make("o-select").id("ModuleFilter").placeholder("Select Module").attr("model:", "root.module").parent()
+      .make("o-select").id("PackageFilter").placeholder("Select Package").attr("model:", "root.paackages").parent()
+      .make("o-select").id("TypeFilter").placeholder("Select Type").attr("separator", ", ").attr("model:", "['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']").parent()
+      .make("input").id("NameFilter").placeholder("Search by Name").parent()
+      .make("div").add("tree")
+        .make("dl", model, (pack, dl) => {
+          dl.make("dt").make("code").text(pack.name)
+          dl.make("dd", pack.children, type => {
+            type.add(type.type).make("code").make("a").href("/api/" + type.packageName + "." + type.name + ".html").text(type.name)
+          })
+        })
+  }
+}
+
+
 
 const APINavi = $.template((h, model) => {
 
@@ -360,7 +383,7 @@ const APINavi = $.template((h, model) => {
     `<input id="NameFilter" placeholder="Search by Name"/>`
     `<div class="tree">`(model, pack => h
       `<dl>`
-        `<dt click=${this.toggle}><code>${pack.name}</code></dt>`(pack.children, type => h
+        `<dt click=${1}><code>${pack.name}</code></dt>`(pack.children, type => h
         `<dd class="${type.type}"><code><a href="${'/api/'+type.packageName+'.'+type.name+'.html'}">${type.name}</a></code></dd>`)
       `</dl>`)
     `</div>`
@@ -450,12 +473,6 @@ customElements.define("o-select", class Select extends Base {
   
   constructor() {
     super()
-    
-    this.root.set({disabled: !this.model.length})
-      .append($("view").click(e => this.root.find("ol").has("active") ? this.close() : this.open())
-        .append($("now").text(this.placeholder))
-        .append($("main.svg#x").click(e => {e.stopPropagation(); this.deselect()}))
-        .append($("main.svg#chevron")))
     
     this.root.set({disabled: !this.model.length})
       .make("view").click(e => this.root.find("ol").has("active") ? this.close() : this.open())
