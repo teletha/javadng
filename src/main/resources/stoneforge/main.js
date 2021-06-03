@@ -342,100 +342,6 @@ const DocumentNavi = $.template((h, model) => h
     `</div>`)
   `</div>`)
   
-new DocumentNavi().render("main>nav", root)
-
-
-class Navi extends HTMLElement {
-	constructor() {
-		super()
-		
-		this.root.id("APINavi").attr("hidden", true)
-			.make("o-select").id("ModuleFilter").placeholder("Select Module").attr("model:", "root.module").parent()
-			.make("o-select").id("PackageFilter").placeholder("Select Package").attr("model:", "root.paackages").parent()
-			.make("o-select").id("TypeFilter").placeholder("Select Type").attr("separator", ", ").attr("model:", "['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']").parent()
-			.make("input").id("NameFilter").placeholder("Search by Name").parent()
-			.make("div").add("tree")
-		  		.make("dl", model, (pack, dl) => {
-		      		dl.make("dt").make("code").text(pack.name)
-		      		dl.make("dd", pack.children, type => {
-		        		type.add(type.type).make("code").make("a").href("/api/" + type.packageName + "." + type.name + ".html").text(type.name)
-		      		})
-		    	})
-		
-	}
-
-	toggle() {
-		$(e.currentTarget).parent().toggle("show")
-	}
-}
-
-
-
-const APINavi = $.template(
-	(h, model, action) => 
-	h`<div id="APINavi" hidden>`
-    	`<o-select id="ModuleFilter" placeholder="Select Module" model:="root.modules"/>`
-    	`<o-select id="PackageFilter" placeholder="Select Package" model:="root.packages"/>`
-    	`<o-select id="TypeFilter" placeholder="Select Type" separator=", " model:="['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']"/>`
-    	`<input id="NameFilter" placeholder="Search by Name"/>`
-    	`<div class="tree">`
-			(model, pack => h
-      		`<dl>`
-        		`<dt click="${action.toggle}"><code>${pack.name}</code></dt>`
-				(pack.children, type => h
-        		`<dd class="${type.type}"><code><a href="${'/api/'+type.packageName+'.'+type.name+'.html'}">${type.name}</a></code></dd>`)
-      		`</dl>`)
-    	`</div>`
-  	`</div>`, {
-    toggle(e) {
-      $(e.currentTarget).parent().toggle("show")
-    },
-  
-    update() {
-      $(this).find("dd").each(e => {
-        console.log(e)
-      })
-    }
-  })
-  
-function sortAndGroup(items) {
-  let map = new Map();
-  items.packages.forEach(item => {
-    map.set(item, {
-      name: item,
-      children: [],
-      isOpen: false
-    });
-  });
-
-  items.types.forEach(item => {
-    map.get(item.packageName).children.push(item);
-  });
-
-  return Array.from(map.values());
-}
-
-function filter(items) {
-  this.expandAll = this.selectedType.length !== 0 || this.selectedPackage !== null || this.selectedName !== "";
-
-  return items.filter(item => {
-    if (this.selectedType.length != 0 && !this.selectedType.includes(item.type)) {
-      return false;
-    }
-
-    if (this.selectedPackage !== null && this.selectedPackage !== item.packageName) {
-      return false;
-    }
-
-    if (this.selectedName !== "" && (item.packageName + "." + item.name).toLowerCase().indexOf(this.selectedName.toLowerCase()) === -1) {
-      return false;
-    }
-    return true;
-  });
-}
-  
-new APINavi().render("main>nav", sortAndGroup(root))
-
 
 // =====================================================
 // Live Reload
@@ -452,6 +358,7 @@ class Base extends HTMLElement {
   constructor() {
     super()
     this.root = $(this)
+    console.log(this.constructor)
     
     Array.from(this.attributes).forEach(v => {
       let name = v.name, value = v.value
@@ -467,6 +374,8 @@ class Base extends HTMLElement {
 }
 
 customElements.define("o-select", class Select extends Base {
+
+  static get observedAttributes() { return ["model:"]; }
     
   selected = new Set()
   
@@ -480,7 +389,7 @@ customElements.define("o-select", class Select extends Base {
         .svg("/main.svg#chevron")
     this.root
       .make("ol").click(e => this.select(e.target.model, $(e.target)), {where: "li"})
-        .make("li",this.model, (item, li) => li.text(this.render(item)))
+        .make("li", this.model, (item, li) => li.text(this.render(item)))
     
     this.closer = e => {
       if (!this.contains(e.target)) this.close()
@@ -526,20 +435,53 @@ customElements.define("o-select", class Select extends Base {
   }
 })
 
-customElements.define("o-tree", class APITree extends Base {
+class APITree extends Base {
 
-  constructor() {
-    super()
-    
-    this.root.make("div").add("tree")
-        .make("dl", this.model, (pack, dl) => {
-          dl.make("dt").click(e => $(e.currentTarget).parent().toggle("show"))
-              .make("code").text(pack.name)
-          dl.make("dd", pack.children, (type, dd) => {
-            dd.add(type.type)
-              .make("code").make(`a  href="${'/api/'+type.packageName+'.'+type.name+'.html'}"`).text(type.name)
-          })
-        })
-  }
-})
+	constructor(model) {
+		super()
+		
+		this.root.id("APINavi").attr("hidden", true)
+			.make("o-select").id("ModuleFilter").placeholder("Select Module").attr("model:", "root.module").parent()
+			.make("o-select").id("PackageFilter").placeholder("Select Package").attr("model:", "root.paackages").parent()
+			.make("o-select").id("TypeFilter").placeholder("Select Type").attr("separator", ", ").attr("model:", "['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']").parent()
+			.make("input").id("NameFilter").placeholder("Search by Name").parent()
+			.make("div").add("tree")
+		  		.make("dl", model, (pack, dl) => {
+		      		dl.make("dt").make("code").text(pack.name)
+		      		dl.make("dd", pack.children, (type, dd) => {
+		        		dd.add(type.type).make("code").make("a").href("/api/" + type.packageName + "." + type.name + ".html").text(type.name)
+		      		})
+		    	})
+		
+	}
 
+	toggle() {
+		$(e.currentTarget).parent().toggle("show")
+	}
+	
+	render(selector) {
+	  $(selector).append(this)
+	}
+}
+
+customElements.define("o-tree", APITree)
+
+
+new APITree(sortAndGroup(root)).render("main>nav")
+
+function sortAndGroup(items) {
+  let map = new Map();
+  items.packages.forEach(item => {
+    map.set(item, {
+      name: item,
+      children: [],
+      isOpen: false
+    });
+  });
+
+  items.types.forEach(item => {
+    map.get(item.packageName).children.push(item);
+  });
+
+  return Array.from(map.values());
+}
