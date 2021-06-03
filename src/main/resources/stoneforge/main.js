@@ -136,12 +136,7 @@ save = () => localStorage.setItem("user", JSON.stringify(user)),
 // =====================================================
 // Utilities
 // =====================================================
-html = $("html"),
-svg = (type) => {
-  var a = document.createElement("a");
-  a.innerHTML = `<svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#${type}"/></svg>`;
-  return a;
-}
+html = $("html")
 
 
 // =====================================================
@@ -271,10 +266,7 @@ FlashMan({
   "pre": e => { 
     hljs.highlightElement(e);
     e.lang = e.classList[0].substring(5).toUpperCase();
-    var a = svg("copy");
-    a.title = "Copy this code";
-    a.onclick = () => navigator.clipboard.writeText(e.textContent);
-    e.appendChild(a);
+	$(e).make("a").title("Copy this code").click(v => navigator.clipboard.writeText(e.textContent)).svg("/main.svg#copy")
   },
   /* Enahnce meta icons */
   ".perp": e => {
@@ -543,3 +535,4 @@ customElements.define("o-tree", class APITree extends Base {
         })
   }
 })
+
