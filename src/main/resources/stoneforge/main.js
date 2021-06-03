@@ -346,40 +346,47 @@ new DocumentNavi().render("main>nav", root)
 
 
 class Navi extends HTMLElement {
-  constructor() {
-    super()
-    
-    this.root.id("APINavi").attr("hidden", true)
-      .make("o-select").id("ModuleFilter").placeholder("Select Module").attr("model:", "root.module").parent()
-      .make("o-select").id("PackageFilter").placeholder("Select Package").attr("model:", "root.paackages").parent()
-      .make("o-select").id("TypeFilter").placeholder("Select Type").attr("separator", ", ").attr("model:", "['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']").parent()
-      .make("input").id("NameFilter").placeholder("Search by Name").parent()
-      .make("div").add("tree")
-        .make("dl", model, (pack, dl) => {
-          dl.make("dt").make("code").text(pack.name)
-          dl.make("dd", pack.children, type => {
-            type.add(type.type).make("code").make("a").href("/api/" + type.packageName + "." + type.name + ".html").text(type.name)
-          })
-        })
-  }
+	constructor() {
+		super()
+		
+		this.root.id("APINavi").attr("hidden", true)
+			.make("o-select").id("ModuleFilter").placeholder("Select Module").attr("model:", "root.module").parent()
+			.make("o-select").id("PackageFilter").placeholder("Select Package").attr("model:", "root.paackages").parent()
+			.make("o-select").id("TypeFilter").placeholder("Select Type").attr("separator", ", ").attr("model:", "['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']").parent()
+			.make("input").id("NameFilter").placeholder("Search by Name").parent()
+			.make("div").add("tree")
+		  		.make("dl", model, (pack, dl) => {
+		      		dl.make("dt").make("code").text(pack.name)
+		      		dl.make("dd", pack.children, type => {
+		        		type.add(type.type).make("code").make("a").href("/api/" + type.packageName + "." + type.name + ".html").text(type.name)
+		      		})
+		    	})
+		
+	}
+
+	toggle() {
+		$(e.currentTarget).parent().toggle("show")
+	}
 }
 
 
 
-const APINavi = $.template((h, model) => {
-
-  return h`<div id="APINavi" hidden>`
-    `<o-select id="ModuleFilter" placeholder="Select Module" model:="root.modules"/>`
-    `<o-select id="PackageFilter" placeholder="Select Package" model:="root.packages"/>`
-    `<o-select id="TypeFilter" placeholder="Select Type" separator=", " model:="['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']"/>`
-    `<input id="NameFilter" placeholder="Search by Name"/>`
-    `<div class="tree">`(model, pack => h
-      `<dl>`
-        `<dt click=${1}><code>${pack.name}</code></dt>`(pack.children, type => h
-        `<dd class="${type.type}"><code><a href="${'/api/'+type.packageName+'.'+type.name+'.html'}">${type.name}</a></code></dd>`)
-      `</dl>`)
-    `</div>`
-  `</div>`}, {
+const APINavi = $.template(
+	(h, model, action) => 
+	h`<div id="APINavi" hidden>`
+    	`<o-select id="ModuleFilter" placeholder="Select Module" model:="root.modules"/>`
+    	`<o-select id="PackageFilter" placeholder="Select Package" model:="root.packages"/>`
+    	`<o-select id="TypeFilter" placeholder="Select Type" separator=", " model:="['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']"/>`
+    	`<input id="NameFilter" placeholder="Search by Name"/>`
+    	`<div class="tree">`
+			(model, pack => h
+      		`<dl>`
+        		`<dt click="${action.toggle}"><code>${pack.name}</code></dt>`
+				(pack.children, type => h
+        		`<dd class="${type.type}"><code><a href="${'/api/'+type.packageName+'.'+type.name+'.html'}">${type.name}</a></code></dd>`)
+      		`</dl>`)
+    	`</div>`
+  	`</div>`, {
     toggle(e) {
       $(e.currentTarget).parent().toggle("show")
     },
