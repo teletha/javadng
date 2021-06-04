@@ -65,7 +65,7 @@ const Mimic = (query, ...args) => {
 	  show: self((e, show) => e.style.display = show ? "" : "none"),
     }
     
-    "blur focus focusin focusout resize scroll click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup contextmenu".split(" ").forEach(type => {
+    "blur focus focusin focusout resize scroll click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change input select submit keydown keypress keyup contextmenu".split(" ").forEach(type => {
       Mimic.prototype[type] = function(listener, options) { return this.on(type, listener, options) }
     })
     "id title href placeholder label name src type value".split(" ").forEach(type => {
@@ -437,12 +437,13 @@ class APITree extends HTMLElement {
 		this.moduleFilter = new Select({placeholder: "Select Module", model: root.modules})
 		this.packageFilter = new Select({placeholder: "Select Package", model: root.packages})
 		this.typeFilter = new Select({placeholder: "Select Type", multiple: true, model: ['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']})
+		this.nameFilter = document.createElement("input")
 		
 		$(this).id("APINavi").attr("hidden", true)
 			.append(this.moduleFilter)
 			.append($(this.packageFilter).change(e => this.update()))
 			.append($(this.typeFilter).change(e => this.update()))
-			.make("input").id("NameFilter").placeholder("Search by Name").parent()
+			.append($(this.nameFilter).id("NameFilter").placeholder("Search by Name").input(e => this.update()))
 			.make("div").add("tree")
 		  		.make("dl", this.model, (pack, dl) => {
 		      		dl.make("dt").click(this.toggle)
@@ -465,7 +466,6 @@ class APITree extends HTMLElement {
 		let filter = this.filter()
 		
 		$(this).find("dd").each(e => {
-			console.log(e, filter(e.model))
 			$(e).show(filter(e.model))
 		})
 	}
@@ -474,12 +474,12 @@ class APITree extends HTMLElement {
 	 * Initialize by user configuration.
 	 */
 	filter() {
-		$(this).find("dl").set({expand: this.typeFilter.selected.size != 0 || this.packageFilter.selected.size != 0 || this.selectedName !== ""})
+		$(this).find("dl").set({expand: this.typeFilter.selected.size != 0 || this.packageFilter.selected.size != 0 || this.nameFilter.value != ""})
 
 		return item => {
 			if (this.typeFilter.selected.size != 0 && !this.typeFilter.selected.has(item.type)) return false
 			if (this.packageFilter.selected.size != 0 && !this.packageFilter.selected.has(item.packageName)) return false
-			// if (this.selectedName !== "" && (item.packageName + "." + item.name).toLowerCase().indexOf(this.selectedName.toLowerCase()) === -1) return false
+			if (this.nameFilter.value != "" && (item.packageName + "." + item.name).toLowerCase().indexOf(this.nameFilter.value.toLowerCase()) == -1) return false
 			return true
 		}
 	}
