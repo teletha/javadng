@@ -445,13 +445,13 @@ class APITree extends HTMLElement {
 			.append($(this.typeFilter).change(e => this.update()))
 			.append($(this.nameFilter).id("NameFilter").placeholder("Search by Name").input(e => this.update()))
 			.make("div").add("tree")
-		  		.make("dl", this.model, (pack, dl) => {
-		      		dl.make("dt").click(this.toggle)
+		  	.make("dl", this.model, (pack, dl) => {
+					dl.make("dt").click(this.toggle)
 						.make("code").text(pack.name)
-		      		dl.make("dd", pack.children, (type, dd) => {
-		        		dd.add(type.type).make("code").make("a").href("/api/" + type.packageName + "." + type.name + ".html").text(type.name)
-		      		})
-		    	})
+					dl.make("dd", pack.children, (type, dd) => {
+						dd.add(type.type).make("code").make("a").href("/api/" + type.packageName + "." + type.name + ".html").text(type.name)
+		      })
+		    })
 		
 	}
 
