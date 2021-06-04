@@ -1,90 +1,58 @@
-function template(blueprint) {
-  let instructions = [];
-  let builder = [];
-  blueprint(capture(builder, instructions), {items:["1", "2"], has:true})
-  console.log(builder)
-  console.log(instructions)
-
-  const root = $("<template>")
-  instructions.reduce((prev, next) => {
-    var result = next(prev)
-    console.log(result.toString())
-    return result
-  }, root)
-  console.log(root.toString())
-
-  return (...args) => {
+function template(input, proto) {
+  function ReactiveElement() {
   }
-}
-
-function capture(builder, instructions) {
-  const capture = {
-    get: (target, name) => {
-      // field
-      if (typeof name !== "symbol") {
-        builder.push("Create element " + name)
-        instructions.push(c => c.make(name))
-      }
-
-      return new Proxy(()=>{}, {
-        get: capture.get,
-        apply: (target, that, args) => {
-          // remove field access info
-          builder.pop()
-          instructions.pop()
-
-          // method
-          if (name === "each") {
-            args[0].forEach(args[1])
-          } else if (name === "when") {
-            builder.push("IF-THEN")
-            instructions.push(c => c)
-            args[1]()
-            builder.push("ELSE")
-            instructions.push(c => c)
-            args[2]()
-            builder.push("END")
-            instructions.push(c => c)
-          } else if (name === "text") {
-            builder.push("Create text[" + args[0] + "]")
-            instructions.push(c => c)
-          } else if (typeof name === "symbol") {
-            builder.push(args[0] === "number" ? "CHILD" : "PARENT")
-            instructions.push(c => c)
-            return 1;
+  
+  Object.setPrototypeOf(ReactiveElement.prototype, HTMLElement.prototype)
+  ReactiveElement.prototype = {...proto, render(locator, model) {
+    let root = $("<div>")
+    let current = root
+    
+    function builder(texts, ...params) {
+      if (texts.raw) {
+        let events = new Map()
+        let html = texts.reduce((base, value, index) => {
+          let p = params[index - 1]
+          if (typeof p == "function") {
+            if (base.endsWith("@click=\"")) {
+              events.set("click", e => {p(e); this.update || this.update()})
+            }
+            return base + value
           } else {
-            builder.push("@" + name + "='" + args[0] + "'")
-            instructions.push(c => c)
-            //instructions.push(c => c.attr(name, args[0]))
+            return base + p + value
           }
-          return new Proxy(()=>{}, capture)
+        }).trim()
+        if (html.match(/\/[^\s\u0022\u0027]*>$/)) {
+          if (html.startsWith("</")) {
+            current = current.parent()
+          } else {
+            let dom = $(html).appendTo(current)
+            events.forEach((value, key) => dom.on(key, value))
+          }
+        } else {
+          current = $(html).appendTo(current)
         }
-      })
+        
+      } else {
+        texts.forEach(params[0])
+      }
+      return builder.bind(this)
     }
-  }
-  return new Proxy({}, capture);
+    input(builder.bind(this), model)
+    $(locator).append(root)
+  }}
+  
+  return ReactiveElement
 }
 
-
-template((h, model) => {
-  +h.view.click(this.toggle)
-    +h.h2.text(this.placeholder)
-      .svg.use("/main.svg#x").onclick(this.select)
-      .svg.use("/main.svg#chevron")
-  -h.section
-    +h.p.text("next section")
-    .p.text("multiple paragraph")
-  -h.ol
-    +h.each(model.items, item => {
-      h.li.text("No" + item)
-       .li.text("Extra" + item)
-    })
-    .when(model.has, () => {
-      h.li.text("TRUE")
-    }, () => {
-      h.li.text("FALSE")
-    })
-    .li.text("END")
-  -h.section
-    +h.p.text("last section")
-})
+const DocumentNavi = template((h, model) => h
+  `<div id="DocNavi" hidden>`(model.docs, doc => h
+    `<div class="doc" id="${doc.path}">`
+      `<a href="${doc.path}">${doc.title}</a>`
+      `<ol class="sub">`(doc.subs, sub => h
+        `<li>`
+          `<a href="${sub.path}"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#chevrons"/></svg>${sub.title}</a>`(sub.subs, foot => h
+          `<a href="${foot.path}"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#chevrons"/></svg><span class="foot">${foot.title}</span></a>`)
+        `</li>`)
+      `</ol>`
+    `</div>`)
+  `</div>`)

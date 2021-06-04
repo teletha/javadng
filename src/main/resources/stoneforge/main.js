@@ -60,6 +60,9 @@ const Mimic = (query, ...args) => {
       // because it may cause an infinite loop or supplement the event at an unintended timing.
       on: value((e, type, listener, options) => {setTimeout(() => e.addEventListener(type, options?.where ? event => event.target.matches(options.where + "," + options.where + " *") ? listener(event) : null : listener, options), 0)}),
       off: value((e, type, listener) => e.removeEventListener(type, listener)),
+	  dispatch: self((e, type) => e.dispatchEvent(new Event(type))),
+
+	  show: self((e, show) => e.style.display = show ? "" : "none"),
     }
     
     "blur focus focusin focusout resize scroll click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select submit keydown keypress keyup contextmenu".split(" ").forEach(type => {
@@ -131,19 +134,13 @@ const $ = Mimic
 // =====================================================
 const
 user = JSON.parse(localStorage.getItem("user")) || {},
-save = () => localStorage.setItem("user", JSON.stringify(user)),
-
-// =====================================================
-// Utilities
-// =====================================================
-html = $("html")
-
+save = () => localStorage.setItem("user", JSON.stringify(user))
 
 // =====================================================
 // View Mode
 // =====================================================
-html.add(user.theme)
-$("#light,#dark").on("click", e => save(html.reset(user.theme = e.currentTarget.id)))
+$("html").add(user.theme)
+$("#light,#dark").on("click", e => save($("html").reset(user.theme = e.currentTarget.id)))
 
 
 // =====================================================
@@ -283,64 +280,22 @@ FlashMan({
     e.rel = "noopener noreferrer";
 }});
 
-Mimic.template = function(input, proto) {
-  function ReactiveElement() {
-  }
-  
-  Object.setPrototypeOf(ReactiveElement.prototype, HTMLElement.prototype)
-  ReactiveElement.prototype = {...proto, render(locator, model) {
-    let root = $("<div>")
-    let current = root
-    
-    function builder(texts, ...params) {
-      if (texts.raw) {
-        let events = new Map()
-        let html = texts.reduce((base, value, index) => {
-          let p = params[index - 1]
-          if (typeof p == "function") {
-            if (base.endsWith("@click=\"")) {
-              events.set("click", e => {p(e); this.update || this.update()})
-            }
-            return base + value
-          } else {
-            return base + p + value
-          }
-        }).trim()
-        if (html.match(/\/[^\s\u0022\u0027]*>$/)) {
-          if (html.startsWith("</")) {
-            current = current.parent()
-          } else {
-            let dom = $(html).appendTo(current)
-            events.forEach((value, key) => dom.on(key, value))
-          }
-        } else {
-          current = $(html).appendTo(current)
-        }
-        
-      } else {
-        texts.forEach(params[0])
-      }
-      return builder.bind(this)
-    }
-    input(builder.bind(this), model)
-    $(locator).append(root)
-  }}
-  
-  return ReactiveElement
-}
 
-const DocumentNavi = $.template((h, model) => h
-  `<div id="DocNavi" hidden>`(model.docs, doc => h
-    `<div class="doc" id="${doc.path}">`
-      `<a href="${doc.path}">${doc.title}</a>`
-      `<ol class="sub">`(doc.subs, sub => h
-        `<li>`
-          `<a href="${sub.path}"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#chevrons"/></svg>${sub.title}</a>`(sub.subs, foot => h
-          `<a href="${foot.path}"><svg class="svg" viewBox="0 0 24 24"><use href="/main.svg#chevrons"/></svg><span class="foot">${foot.title}</span></a>`)
-        `</li>`)
-      `</ol>`
-    `</div>`)
-  `</div>`)
+$("main>nav")
+	.make("div").id("DocNavi").attr("hidden", true)
+	.make("div", root.docs, (doc, div) => {
+		div.add("doc").id(doc.path)
+			.make("a").href(doc.path).text(doc.title).parent()
+			.make("ol").add("sub")
+				.make("li", doc.subs, (sub, li) => {
+					li.make("a").href(sub.path).svg("/main.svg#chevrons").parent()
+						.make("span").text(sub.title)
+					li.make("a", sub.subs, (foot, a) => {
+						a.href(foot.path).svg("/main.svg#chevrons").parent()
+							.make("span").add("foot").text(foot.title)
+					})
+				})
+	}) 
   
 
 // =====================================================
@@ -351,90 +306,147 @@ if (location.hostname == "localhost") setInterval(() => fetch("http://localhost:
 }), 3000);
 
 
+/**
+ * Selection UI
+ */
 class Select extends HTMLElement {
+	
+	/** The assosiated model. */
+	model = []
+	
+	/** The selected model */
+	selected = new Set()
 
+	/** The label builder for each model' */
+	label = item => item.toString()
+	
+	/** The label builder for the selected values. */
+	selectionLabel = selected => selected.map(this.label).join(", ")
+	
+	/** The flag to enable multiple selection. */
+	multiple
+	
+	/** The default message */
+	placeholder = "Select Item"
+  
+	/**
+	 * Initialize by user configuration.
+	 */
+ 	constructor(config) {
+		super()
+		Object.assign(this, config)
 
-  selected = new Set()
-  
-  constructor({model = [], placeholder = "Select Item", separator = ""}) {
-	super()
-	this.model = model
-	this.placeholder = placeholder
-	this.separator = separator
+		$(this).set({disabled: !this.model.length})
+			.make("view").click(e => $(this).find("ol").has("active") ? this.close() : this.open())
+			.make("now").text(this.placeholder).parent()
+			.svg("/main.svg#x").click(e => {e.stopPropagation(); this.deselect()}).parent()
+			.svg("/main.svg#chevron")
+		$(this)
+			.make("ol").click(e => this.select(e.target.model, $(e.target)), {where: "li"})
+			.make("li", this.model, (item, li) => li.text(this.label(item)))
 
-    $(this).set({disabled: !model.length})
-      .make("view").click(e => $(this).find("ol").has("active") ? this.close() : this.open())
-        .make("now").text(placeholder).parent()
-        .svg("/main.svg#x").click(e => {e.stopPropagation(); this.deselect()}).parent()
-        .svg("/main.svg#chevron")
-    $(this)
-      .make("ol").click(e => this.select(e.target.model, $(e.target)), {where: "li"})
-        .make("li", model, (item, li) => li.text(this.render(item)))
-    
-    this.closer = e => {
-      if (!this.contains(e.target)) this.close()
-    }
-  }
-  
-  render(item) {
-    return item.toString()
-  }
-  
-  select(item, dom) {
-    if (this.separator != null) {
-      dom.toggle("select", () => this.selected.add(item), () => this.selected.delete(item)) 
-    } else {
-      this.deselect()
-      dom.add("select")
-      this.selected.add(item)
-    }
-    this.update()
-  }
-  
-  deselect() {
-    $(this).find("li").remove("select")
-    this.selected.clear()
-    this.close()
-    
-    this.update()
-  }
-  
-  update() {
-    $(this).find("now").set({select: this.selected.size}).text([...this.selected.keys()].map(this.render).join(this.separator) || this.placeholder)
-    $(this).find("svg:first-of-type").set({active: this.selected.size})
-  }
-  
-  open() {
-    $(this).find("ol, svg:last-of-type").add("active")
-    $(document).click(this.closer)
-  }
-  
-  close() {
-    $(this).find("ol, svg:last-of-type").remove("active")
-    $(document).off("click",this.closer)
-  }
+		this.closer = e => {
+			if (!this.contains(e.target)) this.close()
+		}
+	}
+
+	/**
+	 * Initialize by user configuration.
+	 */
+	select(item, dom) {
+		if (this.multiple) {
+			dom.toggle("select", () => this.selected.add(item), () => this.selected.delete(item)) 
+		} else {
+			if (this.selected.has(item)) {
+				this.close()
+				return
+			}
+			this.deselect(true)
+			dom.add("select")
+			this.selected.add(item)
+		}
+		this.update()
+	}
+	
+	/**
+	 * Initialize by user configuration.
+	 */
+	deselect(skipUpdate) {
+		$(this).find("li").remove("select")
+		this.selected.clear()
+		this.close()
+
+		if (!skipUpdate) this.update()
+	}
+	
+	/**
+	 * Initialize by user configuration.
+	 */
+	update() {
+		$(this).find("now").set({select: this.selected.size}).text(this.selectionLabel([...this.selected.keys()]) || this.placeholder)
+		$(this).find("svg:first-of-type").set({active: this.selected.size})
+		$(this).dispatch("change")
+	}
+
+	/**
+	 * Initialize by user configuration.
+	 */
+	open() {
+		$(this).find("ol, svg:last-of-type").add("active")
+		$(document).click(this.closer)
+	}
+
+	/**
+	 * Initialize by user configuration.
+	 */
+	close() {
+		$(this).find("ol, svg:last-of-type").remove("active")
+		$(document).off("click",this.closer)
+	}
 }
 customElements.define('o-select', Select);
 
-
-
+/**
+ * Selection UI
+ */
 class APITree extends HTMLElement {
+	
+	/** The assosiated model. */
+	model = []
 
-	constructor(model) {
+	/**
+	 * Initialize by user configuration.
+	 */
+	constructor(items) {
 		super()
 		
-		this.moduleFilter = new Select({placeholder: "Select Module", model: root.module})
-		this.packageFilter = new Select({placeholder: "Select Package", model: root.packages, separator: ", "})
-		this.typeFilter = new Select({placeholder: "Select Type", model: ['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']})
+		let map = new Map()
+		items.packages.forEach(item => {
+			map.set(item, {
+				name: item,
+				children: [],
+				isOpen: false
+			})
+		})
+
+		items.types.forEach(item => {
+			map.get(item.packageName).children.push(item)
+		})
+		this.model = Array.from(map.values())
+		
+		this.moduleFilter = new Select({placeholder: "Select Module", model: root.modules})
+		this.packageFilter = new Select({placeholder: "Select Package", model: root.packages})
+		this.typeFilter = new Select({placeholder: "Select Type", multiple: true, model: ['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']})
 		
 		$(this).id("APINavi").attr("hidden", true)
 			.append(this.moduleFilter)
-			.append(this.packageFilter)
-			.append(this.typeFilter)
+			.append($(this.packageFilter).change(e => this.update()))
+			.append($(this.typeFilter).change(e => this.update()))
 			.make("input").id("NameFilter").placeholder("Search by Name").parent()
 			.make("div").add("tree")
-		  		.make("dl", model, (pack, dl) => {
-		      		dl.make("dt").make("code").text(pack.name)
+		  		.make("dl", this.model, (pack, dl) => {
+		      		dl.make("dt").click(this.toggle)
+						.make("code").text(pack.name)
 		      		dl.make("dd", pack.children, (type, dd) => {
 		        		dd.add(type.type).make("code").make("a").href("/api/" + type.packageName + "." + type.name + ".html").text(type.name)
 		      		})
@@ -442,33 +454,36 @@ class APITree extends HTMLElement {
 		
 	}
 
-	toggle() {
+	/**
+	 * Initialize by user configuration.
+	 */
+	toggle(e) {
 		$(e.currentTarget).parent().toggle("show")
 	}
 	
-	render(selector) {
-	  $(selector).append(this)
+	update() {
+		let filter = this.filter()
+		
+		$(this).find("dd").each(e => {
+			console.log(e, filter(e.model))
+			$(e).show(filter(e.model))
+		})
+	}
+
+	/**
+	 * Initialize by user configuration.
+	 */
+	filter() {
+		$(this).find("dl").set({expand: this.typeFilter.selected.size != 0 || this.packageFilter.selected.size != 0 || this.selectedName !== ""})
+
+		return item => {
+			if (this.typeFilter.selected.size != 0 && !this.typeFilter.selected.has(item.type)) return false
+			if (this.packageFilter.selected.size != 0 && !this.packageFilter.selected.has(item.packageName)) return false
+			// if (this.selectedName !== "" && (item.packageName + "." + item.name).toLowerCase().indexOf(this.selectedName.toLowerCase()) === -1) return false
+			return true
+		}
 	}
 }
-
 customElements.define("o-tree", APITree)
 
-
-new APITree(sortAndGroup(root)).render("main>nav")
-
-function sortAndGroup(items) {
-  let map = new Map();
-  items.packages.forEach(item => {
-    map.set(item, {
-      name: item,
-      children: [],
-      isOpen: false
-    });
-  });
-
-  items.types.forEach(item => {
-    map.get(item.packageName).children.push(item);
-  });
-
-  return Array.from(map.values());
-}
+$("main>nav").append(new APITree(root))

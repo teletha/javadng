@@ -571,6 +571,9 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             $.with(".show dd", () -> {
                 display.block();
             });
+            $.with(".expand dd", () -> {
+                display.block();
+            });
         });
 
         $.select("dt", () -> {
