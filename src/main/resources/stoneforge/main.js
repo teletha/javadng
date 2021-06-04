@@ -351,45 +351,25 @@ if (location.hostname == "localhost") setInterval(() => fetch("http://localhost:
 }), 3000);
 
 
+class Select extends HTMLElement {
 
 
-class Base extends HTMLElement {
-
-  constructor() {
-    super()
-    this.root = $(this)
-    console.log(this.constructor)
-    
-    Array.from(this.attributes).forEach(v => {
-      let name = v.name, value = v.value
-      switch (name.charAt(name.length - 1)) {
-        case ":":
-          name = name.substring(0, name.length - 1)
-          value = Function("return " + value)()
-          break;
-      }
-      this[name] = value
-    })
-  }
-}
-
-customElements.define("o-select", class Select extends Base {
-
-  static get observedAttributes() { return ["model:"]; }
-    
   selected = new Set()
   
-  constructor() {
-    super()
-    
-    this.root.set({disabled: !this.model.length})
-      .make("view").click(e => this.root.find("ol").has("active") ? this.close() : this.open())
-        .make("now").text(this.placeholder).parent()
+  constructor({model = [], placeholder = "Select Item", separator = ""}) {
+	super()
+	this.model = model
+	this.placeholder = placeholder
+	this.separator = separator
+
+    $(this).set({disabled: !model.length})
+      .make("view").click(e => $(this).find("ol").has("active") ? this.close() : this.open())
+        .make("now").text(placeholder).parent()
         .svg("/main.svg#x").click(e => {e.stopPropagation(); this.deselect()}).parent()
         .svg("/main.svg#chevron")
-    this.root
+    $(this)
       .make("ol").click(e => this.select(e.target.model, $(e.target)), {where: "li"})
-        .make("li", this.model, (item, li) => li.text(this.render(item)))
+        .make("li", model, (item, li) => li.text(this.render(item)))
     
     this.closer = e => {
       if (!this.contains(e.target)) this.close()
@@ -401,7 +381,7 @@ customElements.define("o-select", class Select extends Base {
   }
   
   select(item, dom) {
-    if (this.separator) {
+    if (this.separator != null) {
       dom.toggle("select", () => this.selected.add(item), () => this.selected.delete(item)) 
     } else {
       this.deselect()
@@ -412,7 +392,7 @@ customElements.define("o-select", class Select extends Base {
   }
   
   deselect() {
-    this.root.find("li").remove("select")
+    $(this).find("li").remove("select")
     this.selected.clear()
     this.close()
     
@@ -420,30 +400,37 @@ customElements.define("o-select", class Select extends Base {
   }
   
   update() {
-    this.root.find("now").set({select: this.selected.size}).text([...this.selected.keys()].map(this.render).join(this.separator) || this.placeholder)
-    this.root.find("svg:first-of-type").set({active: this.selected.size})
+    $(this).find("now").set({select: this.selected.size}).text([...this.selected.keys()].map(this.render).join(this.separator) || this.placeholder)
+    $(this).find("svg:first-of-type").set({active: this.selected.size})
   }
   
   open() {
-    this.root.find("ol, svg:last-of-type").add("active")
+    $(this).find("ol, svg:last-of-type").add("active")
     $(document).click(this.closer)
   }
   
   close() {
-    this.root.find("ol, svg:last-of-type").remove("active")
+    $(this).find("ol, svg:last-of-type").remove("active")
     $(document).off("click",this.closer)
   }
-})
+}
+customElements.define('o-select', Select);
 
-class APITree extends Base {
+
+
+class APITree extends HTMLElement {
 
 	constructor(model) {
 		super()
 		
-		this.root.id("APINavi").attr("hidden", true)
-			.make("o-select").id("ModuleFilter").placeholder("Select Module").attr("model:", "root.module").parent()
-			.make("o-select").id("PackageFilter").placeholder("Select Package").attr("model:", "root.paackages").parent()
-			.make("o-select").id("TypeFilter").placeholder("Select Type").attr("separator", ", ").attr("model:", "['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']").parent()
+		this.moduleFilter = new Select({placeholder: "Select Module", model: root.module})
+		this.packageFilter = new Select({placeholder: "Select Package", model: root.packages, separator: ", "})
+		this.typeFilter = new Select({placeholder: "Select Type", model: ['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']})
+		
+		$(this).id("APINavi").attr("hidden", true)
+			.append(this.moduleFilter)
+			.append(this.packageFilter)
+			.append(this.typeFilter)
 			.make("input").id("NameFilter").placeholder("Search by Name").parent()
 			.make("div").add("tree")
 		  		.make("dl", model, (pack, dl) => {
