@@ -1,7 +1,7 @@
 // =====================================================
 // The imitation of jQuery
 // =====================================================
-const Mimic = (query, ...args) => {
+const Mimic = function(query) {
   if (!Mimic.html) {
     let noop = () => {}
   
@@ -309,7 +309,7 @@ if (location.hostname == "localhost") setInterval(() => fetch("http://localhost:
 /**
  * Selection UI
  */
-class Select extends HTMLElement {
+class Select extends Mimic {
 	
 	/** The assosiated model. */
 	model = []
@@ -328,20 +328,20 @@ class Select extends HTMLElement {
 	
 	/** The default message */
 	placeholder = "Select Item"
-  
+	
 	/**
 	 * Initialize by user configuration.
 	 */
  	constructor(config) {
-		super()
+		super("<o-select/>")
 		Object.assign(this, config)
 
-		$(this).set({disabled: !this.model.length})
-			.make("view").click(e => $(this).find("ol").has("active") ? this.close() : this.open())
+		this.set({disabled: !this.model.length})
+			.make("view").click(e => this.find("ol").has("active") ? this.close() : this.open())
 			.make("now").text(this.placeholder).parent()
 			.svg("/main.svg#x").click(e => {e.stopPropagation(); this.deselect()}).parent()
 			.svg("/main.svg#chevron")
-		$(this)
+		this
 			.make("ol").click(e => this.select(e.target.model, $(e.target)), {where: "li"})
 			.make("li", this.model, (item, li) => li.text(this.label(item)))
 
@@ -372,7 +372,7 @@ class Select extends HTMLElement {
 	 * Initialize by user configuration.
 	 */
 	deselect(skipUpdate) {
-		$(this).find("li").remove("select")
+		this.find("li").remove("select")
 		this.selected.clear()
 		this.close()
 
@@ -383,16 +383,16 @@ class Select extends HTMLElement {
 	 * Initialize by user configuration.
 	 */
 	update() {
-		$(this).find("now").set({select: this.selected.size}).text(this.selectionLabel([...this.selected.keys()]) || this.placeholder)
-		$(this).find("svg:first-of-type").set({active: this.selected.size})
-		$(this).dispatch("change")
+		this.find("now").set({select: this.selected.size}).text(this.selectionLabel([...this.selected.keys()]) || this.placeholder)
+		this.find("svg:first-of-type").set({active: this.selected.size})
+		this.dispatch("change")
 	}
 
 	/**
 	 * Initialize by user configuration.
 	 */
 	open() {
-		$(this).find("ol, svg:last-of-type").add("active")
+		this.find("ol, svg:last-of-type").add("active")
 		$(document).click(this.closer)
 	}
 
@@ -400,11 +400,10 @@ class Select extends HTMLElement {
 	 * Initialize by user configuration.
 	 */
 	close() {
-		$(this).find("ol, svg:last-of-type").remove("active")
+		this.find("ol, svg:last-of-type").remove("active")
 		$(document).off("click",this.closer)
 	}
 }
-customElements.define('o-select', Select);
 
 /**
  * Selection UI
@@ -441,8 +440,8 @@ class APITree extends HTMLElement {
 		
 		$(this).id("APINavi").attr("hidden", true)
 			.append(this.moduleFilter)
-			.append($(this.packageFilter).change(e => this.update()))
-			.append($(this.typeFilter).change(e => this.update()))
+			.append(this.packageFilter.change(e => this.update()))
+			.append(this.typeFilter.change(e => this.update()))
 			.append($(this.nameFilter).id("NameFilter").placeholder("Search by Name").input(e => this.update()))
 			.make("div").add("tree")
 		  	.make("dl", this.model, (pack, dl) => {
