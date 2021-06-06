@@ -117,7 +117,7 @@ const Mimic = function(query) {
     }
   }
   
-  let o = Object.create(Mimic.prototype)
+  let o = Object.create(this == window ? Mimic.prototype : this.constructor.prototype)
   o.nodes = Mimic.isString(query) ? [...(query.trim()[0] === "<" ? Mimic.html(query).children : document.querySelectorAll(query))]
           : Array.isArray(query) ? query
           : !query ? [document]
@@ -279,32 +279,7 @@ FlashMan({
     e.target = "_blank";
     e.rel = "noopener noreferrer";
 }});
-
-
-$("main>nav")
-	.make("div").id("DocNavi").attr("hidden", true)
-	.make("div", root.docs, (doc, div) => {
-		div.add("doc").id(doc.path)
-			.make("a").href(doc.path).text(doc.title).parent()
-			.make("ol").add("sub")
-				.make("li", doc.subs, (sub, li) => {
-					li.make("a").href(sub.path).svg("/main.svg#chevrons").parent()
-						.make("span").text(sub.title)
-					li.make("a", sub.subs, (foot, a) => {
-						a.href(foot.path).svg("/main.svg#chevrons").parent()
-							.make("span").add("foot").text(foot.title)
-					})
-				})
-	}) 
   
-
-// =====================================================
-// Live Reload
-// =====================================================
-if (location.hostname == "localhost") setInterval(() => fetch("http://localhost:9321/live").then(res => {
-  if(res.status == 200) location.reload();
-}), 3000);
-
 
 /**
  * Selection UI
@@ -346,7 +321,7 @@ class Select extends Mimic {
 			.make("li", this.model, (item, li) => li.text(this.label(item)))
 
 		this.closer = e => {
-			if (!this.contains(e.target)) this.close()
+			if (!this.nodes[0].contains(e.target)) this.close()
 		}
 	}
 
@@ -408,7 +383,7 @@ class Select extends Mimic {
 /**
  * Selection UI
  */
-class APITree extends HTMLElement {
+class APITree extends Mimic {
 	
 	/** The assosiated model. */
 	model = []
@@ -417,7 +392,7 @@ class APITree extends HTMLElement {
 	 * Initialize by user configuration.
 	 */
 	constructor(items) {
-		super()
+		super("<o-tree>")
 		
 		let map = new Map()
 		items.packages.forEach(item => {
@@ -438,7 +413,7 @@ class APITree extends HTMLElement {
 		this.typeFilter = new Select({placeholder: "Select Type", multiple: true, model: ['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']})
 		this.nameFilter = document.createElement("input")
 		
-		$(this).id("APINavi").attr("hidden", true)
+		this.id("APINavi").attr("hidden", true)
 			.append(this.moduleFilter)
 			.append(this.packageFilter.change(e => this.update()))
 			.append(this.typeFilter.change(e => this.update()))
@@ -464,7 +439,7 @@ class APITree extends HTMLElement {
 	update() {
 		let filter = this.filter()
 		
-		$(this).find("dd").each(e => {
+		this.find("dd").each(e => {
 			$(e).show(filter(e.model))
 		})
 	}
@@ -473,7 +448,7 @@ class APITree extends HTMLElement {
 	 * Initialize by user configuration.
 	 */
 	filter() {
-		$(this).find("dl").set({expand: this.typeFilter.selected.size != 0 || this.packageFilter.selected.size != 0 || this.nameFilter.value != ""})
+		this.find("dl").set({expand: this.typeFilter.selected.size != 0 || this.packageFilter.selected.size != 0 || this.nameFilter.value != ""})
 
 		return item => {
 			if (this.typeFilter.selected.size != 0 && !this.typeFilter.selected.has(item.type)) return false
@@ -483,6 +458,27 @@ class APITree extends HTMLElement {
 		}
 	}
 }
-customElements.define("o-tree", APITree)
 
-$("main>nav").append(new APITree(root))
+$("main>nav")
+	.append(new APITree(root))
+	.make("div").id("DocNavi").attr("hidden", true)
+	.make("div", root.docs, (doc, div) => {
+		div.add("doc").id(doc.path)
+			.make("a").href(doc.path).text(doc.title).parent()
+			.make("ol").add("sub")
+				.make("li", doc.subs, (sub, li) => {
+					li.make("a").href(sub.path).svg("/main.svg#chevrons").parent()
+						.make("span").text(sub.title)
+					li.make("a", sub.subs, (foot, a) => {
+						a.href(foot.path).svg("/main.svg#chevrons").parent()
+							.make("span").add("foot").text(foot.title)
+					})
+				})
+	})
+
+// =====================================================
+// Live Reload
+// =====================================================
+if (location.hostname == "localhost") setInterval(() => fetch("http://localhost:9321/live").then(res => {
+  if(res.status == 200) location.reload();
+}), 3000);

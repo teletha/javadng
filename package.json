@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "build": "esbuild docs/main.js --bundle --minify --outfile=out.js"
+  }
+}
