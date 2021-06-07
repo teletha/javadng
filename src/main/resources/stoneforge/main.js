@@ -47,6 +47,7 @@ const Mimic = function(query) {
       data : value((e, name, value) => value ? e.dataset[name] = value : e.dataset[name]),
       css  : self((e, style) => Mimic.isString(style) ? e.style.cssText = style : Object.keys(style).forEach(name => e.style[name] = style[name])),
       model: value((e, value) => value !== undefined ? e.model = value : e.model),
+	  value: value((e, value) => value !== undefined ? e.value = value : e.value),
       toString: value(e => e.outerHTML),
       
       add: value((e, name) => e.classList.add(name)),
@@ -58,9 +59,9 @@ const Mimic = function(query) {
       
       // In cases where event listeners are registered during event processing, we delay the registration of all event listeners
       // because it may cause an infinite loop or supplement the event at an unintended timing.
-      on: value((e, type, listener, options) => {setTimeout(() => e.addEventListener(type, options?.where ? event => event.target.matches(options.where + "," + options.where + " *") ? listener(event) : null : listener, options), 0)}),
+      on: value((e, type, listener, options) => {activatable(e, type); setTimeout(() => e.addEventListener(type, options?.where ? event => event.target.matches(options.where + "," + options.where + " *") ? listener(event) : null : listener, options), 0)}),
       off: value((e, type, listener) => e.removeEventListener(type, listener)),
-	  dispatch: self((e, type) => e.dispatchEvent(new Event(type))),
+	  dispatch: self((e, type) => e.dispatchEvent(new Event(type, {bubbles: true}))),
 
 	  show: self((e, show) => e.style.display = show ? "" : "none"),
     }
@@ -68,7 +69,7 @@ const Mimic = function(query) {
     "blur focus focusin focusout resize scroll click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change input select submit keydown keypress keyup contextmenu".split(" ").forEach(type => {
       Mimic.prototype[type] = function(listener, options) { return this.on(type, listener, options) }
     })
-    "id title href placeholder label name src type value".split(" ").forEach(type => {
+    "id title href placeholder label name src type".split(" ").forEach(type => {
       Mimic.prototype[type] = function(value) { return this.attr(type, value) }
     })
     
@@ -91,10 +92,19 @@ const Mimic = function(query) {
     }
     
     function value(action) {
-      return function(...arg) {
-        let result = this.nodes.map(n => action(n, ...arg))[0]
-        return result === undefined || result === arg[arg.length - 1] ? this : result
-      }
+		return function(...arg) {
+			if (typeof arg[0] == "function") {
+				let component = this.closest(".mimic").nodes[0]
+				if (component) {
+					let info = component.mimic || (component.mimic = {})
+					let renders = info.renders || (info.renders = [])
+					renders.push(arg[0])
+				}
+				arg[0] = arg[0]()
+			}
+			let result = this.nodes.map(n => action(n, ...arg))[0]
+			return result === undefined || result === arg[arg.length - 1] ? this : result
+		}
     }
     
     function nody(v, action) {
@@ -108,12 +118,27 @@ const Mimic = function(query) {
         nody(v.nodes, action)
       }
     }
+
+	function activatable(element, type) {
+		if (element.closest) {
+			let component = element.closest(".mimic")
+			if (component) {
+				let info = component.mimic || (component.mimic = {})
+				let count = ++info[type] || (info[type] = 1)
+				if (count === 1) component.addEventListener(type, e => {
+					console.log("need redraw ", component, e, info)
+					info.renders?.forEach(render => render())
+				})
+			}
+		}
+	}
     
     Mimic.isString = v => typeof v === "string" || v instanceof String
     Mimic.html = text => {
-      let t = document.createElement("template")
-      t.innerHTML = text
-      return t.content
+      	let t = document.createElement("template")
+      	t.innerHTML = text
+		if (text.startsWith("<o-")) $(t.content).children().add("mimic")
+    	return t.content
     }
   }
   
@@ -399,7 +424,7 @@ class APITree extends Mimic {
 			map.set(item, {
 				name: item,
 				children: [],
-				isOpen: false
+				open: false
 			})
 		})
 
@@ -411,16 +436,16 @@ class APITree extends Mimic {
 		this.moduleFilter = new Select({placeholder: "Select Module", model: root.modules})
 		this.packageFilter = new Select({placeholder: "Select Package", model: root.packages})
 		this.typeFilter = new Select({placeholder: "Select Type", multiple: true, model: ['Interface','Functional','AbstractClass','Class','Enum','Annotation','Exception']})
-		this.nameFilter = document.createElement("input")
+		this.nameFilter = $("<input>").id("NameFilter").placeholder("Search by Name")
 		
-		this.id("APINavi").attr("hidden", true)
+		this.id("APINavi").attr("hidden", true).change(e => this.update()).input(e => this.update())
 			.append(this.moduleFilter)
-			.append(this.packageFilter.change(e => this.update()))
-			.append(this.typeFilter.change(e => this.update()))
-			.append($(this.nameFilter).id("NameFilter").placeholder("Search by Name").input(e => this.update()))
+			.append(this.packageFilter)
+			.append(this.typeFilter)
+			.append(this.nameFilter)
 			.make("div").add("tree")
-		  	.make("dl", this.model, (pack, dl) => {
-					dl.make("dt").click(this.toggle)
+				.make("dl", this.model, (pack, dl) => {
+					dl.make("dt").click(e => this.toggle())
 						.make("code").text(pack.name)
 					dl.make("dd", pack.children, (type, dd) => {
 						dd.add(type.type).make("code").make("a").href("/api/" + type.packageName + "." + type.name + ".html").text(type.name)
@@ -433,7 +458,7 @@ class APITree extends Mimic {
 	 * Initialize by user configuration.
 	 */
 	toggle(e) {
-		$(e.currentTarget).parent().toggle("show")
+		$(e.target).parent().toggle("show")
 	}
 	
 	update() {
@@ -453,7 +478,7 @@ class APITree extends Mimic {
 		return item => {
 			if (this.typeFilter.selected.size != 0 && !this.typeFilter.selected.has(item.type)) return false
 			if (this.packageFilter.selected.size != 0 && !this.packageFilter.selected.has(item.packageName)) return false
-			if (this.nameFilter.value != "" && (item.packageName + "." + item.name).toLowerCase().indexOf(this.nameFilter.value.toLowerCase()) == -1) return false
+			if (this.nameFilter.value() != "" && (item.packageName + "." + item.name).toLowerCase().indexOf(this.nameFilter.value().toLowerCase()) == -1) return false
 			return true
 		}
 	}
