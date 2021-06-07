@@ -462,25 +462,17 @@ class APITree extends Mimic {
 	}
 	
 	update() {
-		let filter = this.filter()
-		
-		this.find("dd").each(e => {
-			$(e).show(filter(e.model))
-		})
-	}
-
-	/**
-	 * Initialize by user configuration.
-	 */
-	filter() {
 		this.find("dl").set({expand: this.typeFilter.selected.size != 0 || this.packageFilter.selected.size != 0 || this.nameFilter.value != ""})
-
-		return item => {
+		let filter = item => {
 			if (this.typeFilter.selected.size != 0 && !this.typeFilter.selected.has(item.type)) return false
 			if (this.packageFilter.selected.size != 0 && !this.packageFilter.selected.has(item.packageName)) return false
 			if (this.nameFilter.value() != "" && (item.packageName + "." + item.name).toLowerCase().indexOf(this.nameFilter.value().toLowerCase()) == -1) return false
 			return true
 		}
+		
+		this.find("dd").each(e => {
+			$(e).show(filter(e.model))
+		})
 	}
 }
 
