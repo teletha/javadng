@@ -36,7 +36,7 @@ const Mimic = function(query) {
       insertAfter: self((e, node) => nody(node, n => n.after(e))),
       clone: self(e => e.cloneNode()),
       make: flat((e, name, items, action) => action ? items.map(item => {let dom = $(e).make(name).model(item);action(item, dom);return dom}).flatMap(e => e.nodes) : [e.appendChild(document.createElement(name))], 9),
-      svg: flat((e, path) => [e.appendChild($("<svg class='svg' viewBox='0 0 24 24'><use href='"+ path +"'/></svg>").nodes[0])], 9),
+      svg: flat((e, path) => [e.appendChild($(`<svg class='svg ${path.substring(path.indexOf("#")+1)}' viewBox='0 0 24 24'><use href='${path}'/></svg>`).nodes[0])], 9),
       
       empty: self(e => e.replaceChildren()),
       clear: self(e => e.parentNode.removeChild(e)),
@@ -313,12 +313,12 @@ class Select extends Mimic {
 
 		this.set({disabled: !this.model.length})
 			.make("view").click(e => this.find("ol").has("active") ? this.close() : this.open())
-			.make("now").text(this.placeholder).parent()
-			.svg("/main.svg#x").click(e => {e.stopPropagation(); this.deselect()}).parent()
-			.svg("/main.svg#chevron")
+				.make("now").text(this.placeholder).parent()
+				.svg("/main.svg#chevron").parent().parent()
+			.svg("/main.svg#x").click(e => this.deselect())
 		this
 			.make("ol").click(e => this.select(e.target.model, $(e.target)), {where: "li"})
-			.make("li", this.model, (item, li) => li.text(this.label(item)))
+				.make("li", this.model, (item, li) => li.text(this.label(item)))
 
 		this.closer = e => {
 			if (!this.nodes[0].contains(e.target)) this.close()
@@ -359,7 +359,7 @@ class Select extends Mimic {
 	 */
 	update() {
 		this.find("now").set({select: this.selected.size}).text(this.selectionLabel([...this.selected.keys()]) || this.placeholder)
-		this.find("svg:first-of-type").set({active: this.selected.size})
+		this.find(".x").set({active: this.selected.size})
 		this.dispatch("change")
 	}
 
@@ -367,7 +367,7 @@ class Select extends Mimic {
 	 * Initialize by user configuration.
 	 */
 	open() {
-		this.find("ol, svg:last-of-type").add("active")
+		this.find("ol, .chevron").add("active")
 		$(document).click(this.closer)
 	}
 
@@ -375,7 +375,7 @@ class Select extends Mimic {
 	 * Initialize by user configuration.
 	 */
 	close() {
-		this.find("ol, svg:last-of-type").remove("active")
+		this.find("ol, .chevron").remove("active")
 		$(document).off("click",this.closer)
 	}
 }

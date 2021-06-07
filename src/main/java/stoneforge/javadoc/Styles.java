@@ -490,7 +490,15 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             transition.duration(0.2, s).easeInOut().whenever();
             position.absolute().top(Numeric.of(50, percent).subtract(iconSize.divide(2)));
 
-            $.firstType(() -> {
+            $.with(".chevron", () -> {
+                position.right(iconSize.divide(2));
+
+                $.with(".active", () -> {
+                    transform.rotate(-90, deg);
+                });
+            });
+
+            $.with(".x", () -> {
                 position.right(iconSize.divide(2).plus(iconSize));
                 display.opacity(0);
                 transform.scale(0).origin.center();
@@ -502,14 +510,6 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
                 $.with(".active", () -> {
                     display.opacity(1);
                     transform.scale(1);
-                });
-            });
-
-            $.lastType(() -> {
-                position.right(iconSize.divide(2));
-
-                $.with(".active", () -> {
-                    transform.rotate(-90, deg);
                 });
             });
         });
