@@ -47,7 +47,7 @@ public abstract class Page<T> extends HTML {
                 $("title", text(model.product() + " API"));
                 stylesheetAsync("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/zenburn.min.css");
                 scriptAsync("highlight.js");
-                script("mimic.js");
+                module("mimic.js");
                 stylesheet("/main.css");
             });
             $("body", styles.Workbench, () -> {
@@ -109,7 +109,7 @@ public abstract class Page<T> extends HTML {
                 });
 
                 script("root.js", model.data);
-                script("main.js");
+                module("main.js");
             });
         });
 

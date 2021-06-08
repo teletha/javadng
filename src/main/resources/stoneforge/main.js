@@ -1,3 +1,4 @@
+import {Mimic as $} from  "./mimic.js"
 
 // =====================================================
 // User Settings
@@ -155,7 +156,7 @@ FlashMan({
 /**
  * Selection UI
  */
-class Select extends Mimic {
+class Select extends $ {
 
 	/** The assosiated model. */
 	model = []
@@ -254,7 +255,7 @@ class Select extends Mimic {
 /**
  * Selection UI
  */
-class APITree extends Mimic {
+class APITree extends $ {
 
 	/** The assosiated model. */
 	model = []
@@ -308,7 +309,7 @@ class APITree extends Mimic {
 	}
 
 	update() {
-		this.find("dl").set({ expand: this.typeFilter.selected.size != 0 || this.packageFilter.selected.size != 0 || this.nameFilter.value != "" })
+		this.find("dl").set({ expand: this.typeFilter.selected.size != 0 || this.packageFilter.selected.size != 0 || this.nameFilter.value() != "" })
 		let filter = item => {
 			if (this.typeFilter.selected.size != 0 && !this.typeFilter.selected.has(item.type)) return false
 			if (this.packageFilter.selected.size != 0 && !this.packageFilter.selected.has(item.packageName)) return false
