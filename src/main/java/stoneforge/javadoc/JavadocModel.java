@@ -9,7 +9,7 @@
  */
 package stoneforge.javadoc;
 
-import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
+import static javax.tools.DocumentationTool.Location.*;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -644,6 +644,7 @@ public abstract class JavadocModel {
 
                 // build JS
                 site.build("main.js", SiteBuilder.class.getResourceAsStream("main.js"));
+                site.build("mimic.js", SiteBuilder.class.getResourceAsStream("mimic.js"));
                 site.build("highlight.js", SiteBuilder.class.getResourceAsStream("highlight.js"), I.signal(Highlighter)
                         .map(x -> "https://unpkg.com/@highlightjs/cdn-assets@10.7.2/languages/" + x + ".min.js")
                         .toList());
