@@ -17,8 +17,13 @@ public class Project extends bee.api.Project {
         require("com.github.teletha", "psychopath");
         require("com.github.teletha", "icymanipulator").atAnnotation();
         require("com.github.teletha", "antibug").atTest();
+        require("com.github.teletha", "viewtify").atTest();
         require("com.github.javaparser", "javaparser-core");
         require("org.commonmark", "commonmark");
+        require("com.caoccao.javet", "javet");
+        require("org.graalvm.sdk", "graal-sdk");
+        require("org.graalvm.js", "js");
+        require("org.graalvm.js", "js-scriptengine");
 
         versionControlSystem("https://github.com/teletha/stoneforge");
     }
