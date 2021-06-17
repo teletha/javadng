@@ -24,10 +24,17 @@ public class MimicTest {
     void testName() throws IOException {
         try (Engine engine = Engine.newBuilder().build()) {
             Source source = Source.newBuilder("js", new File("index.mjs")).build();
-            try (Context context = Context.newBuilder().engine(engine).allowIO(true).allowExperimentalOptions(true).build()) {
+            try (Context context = Context.newBuilder("js").engine(engine).allowIO(true).allowExperimentalOptions(true).build()) {
                 context.eval(source);
 
-                Value result = context.eval("js", "$");
+                Value parse = context.eval("js", "JSON.parse");
+                Value stringify = context.eval("js", "JSON.stringify");
+                Value x = stringify.execute(parse.execute("""
+                        {"test": 1}
+                        """), null, 2);
+                System.out.println(x.asString());
+
+                Value result = context.eval("js", "console.log($)");
                 System.out.println(result);
             }
         }
