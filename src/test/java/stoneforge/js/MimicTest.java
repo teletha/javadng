@@ -10,33 +10,52 @@
 package stoneforge.js;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Engine;
 import org.graalvm.polyglot.Source;
 import org.graalvm.polyglot.Value;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.RegisterExtension;
+
+import antibug.CleanRoom;
+import kiss.I;
 
 public class MimicTest {
 
+    @RegisterExtension
+    CleanRoom room = new CleanRoom();
+
     @Test
-    void testName() throws IOException {
+    void dom() {
+        assert dom("""
+                <div>
+                    <span>1</span>
+                </div>
+                """, """
+                $("span")
+                """, """
+                <span>1</span>
+                """);
+    }
+
+    private boolean dom(String input, String js, String output) {
         try (Engine engine = Engine.newBuilder().build()) {
+            // create test code
+            String code = """
+                    import {Mimic as $} from ""
+                    """;
+
             Source source = Source.newBuilder("js", new File("index.mjs")).build();
             try (Context context = Context.newBuilder("js").engine(engine).allowIO(true).allowExperimentalOptions(true).build()) {
-                context.eval(source);
-
-                Value parse = context.eval("js", "JSON.parse");
-                Value stringify = context.eval("js", "JSON.stringify");
-                Value x = stringify.execute(parse.execute("""
-                        {"test": 1}
-                        """), null, 2);
-                System.out.println(x.asString());
+                Value parsed = context.parse(source);
 
                 Value result = context.eval("js", "console.log($)");
                 System.out.println(result);
             }
+        } catch (Exception e) {
+            throw I.quiet(e);
         }
+        return true;
     }
 }
