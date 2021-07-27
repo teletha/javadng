@@ -1,4 +1,4 @@
-import {Mimic as $} from  "./mimic.js"
+import { Mimic as $ } from "./mimic.js"
 
 // =====================================================
 // User Settings
@@ -257,28 +257,11 @@ class Select extends $ {
  */
 class APITree extends $ {
 
-	/** The assosiated model. */
-	model = []
-
 	/**
 	 * Initialize by user configuration.
 	 */
 	constructor(items) {
 		super("<o-tree>")
-
-		let map = new Map()
-		items.packages.forEach(item => {
-			map.set(item, {
-				name: item,
-				children: [],
-				open: false
-			})
-		})
-
-		items.types.forEach(item => {
-			map.get(item.packageName).children.push(item)
-		})
-		this.model = Array.from(map.values())
 
 		this.moduleFilter = new Select({ placeholder: "Select Module", model: root.modules })
 		this.packageFilter = new Select({ placeholder: "Select Package", model: root.packages })
@@ -291,25 +274,18 @@ class APITree extends $ {
 			.append(this.typeFilter)
 			.append(this.nameFilter)
 			.make("div").add("tree")
-			.make("dl", this.model, (pack, dl) => {
-				dl.make("dt").click(e => this.toggle(e))
-					.make("code").text(pack.name)
-				dl.make("dd", pack.children, (type, dd) => {
-					dd.add(type.type).make("code").make("a").href("/api/" + type.packageName + "." + type.name + ".html").text(type.name)
+			.make("dl", items.packages, (pack, dl) => {
+				dl.id(pack).make("dt").click(e => dl.toggle("show"))
+					.make("code").text(pack)
+					
+				dl.make("dd", items.types.filter(type => type.packageName == pack), (type, dd) => {
+					dd.add(type.type)
+						.make("code").make("a").href("/api/" + type.packageName + "." + type.name + ".html").text(type.name)
 				})
 			})
-
-	}
-
-	/**
-	 * Initialize by user configuration.
-	 */
-	toggle(e) {
-		$(e.target).parent().toggle("show")
 	}
 
 	update() {
-		this.find("dl").set({ expand: this.typeFilter.selected.size != 0 || this.packageFilter.selected.size != 0 || this.nameFilter.value() != "" })
 		let filter = item => {
 			if (this.typeFilter.selected.size != 0 && !this.typeFilter.selected.has(item.type)) return false
 			if (this.packageFilter.selected.size != 0 && !this.packageFilter.selected.has(item.packageName)) return false
@@ -317,6 +293,7 @@ class APITree extends $ {
 			return true
 		}
 
+		this.find("dl").set({ expand: this.typeFilter.selected.size != 0 || this.packageFilter.selected.size != 0 || this.nameFilter.value() != "" })
 		this.find("dd").each(e => {
 			$(e).show(filter(e.model))
 		})
