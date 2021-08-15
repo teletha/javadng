@@ -63,8 +63,16 @@ class MinifyTest {
     }
 
     @Test
-    void litereal() {
-        assert Minify.minify("var char = \"+ - * /\"").equals("var char=\"+ - * /\"");
-        assert Minify.minify("call(\"in literal\" , param)").equals("call(\"in literal\",param)");
+    void literealDoubleQuotes() {
+        assert Minify.minify("call( \" a + b \" )").equals("call(\" a + b \")");
+        assert Minify.minify("call( \" \\\" \" )").equals("call(\" \\\" \")");
+        assert Minify.minify("call( \" ' ' \" )").equals("call(\" ' ' \")");
+    }
+
+    @Test
+    void literealSingleQuotes() {
+        assert Minify.minify("call( ' a + b ' )").equals("call(' a + b ')");
+        assert Minify.minify("call( ' \\' ' )").equals("call(' \\' ')");
+        assert Minify.minify("call( ' \" \" ' )").equals("call(' \" \" ')");
     }
 }

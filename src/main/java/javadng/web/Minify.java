@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 import kiss.I;
 import psychopath.File;
@@ -21,13 +23,17 @@ import psychopath.Locator;
 
 public class Minify {
 
+    private final static char BASE = '乀';
+
     private final StringBuilder output = new StringBuilder();
 
     private String line;
 
     private int index;
 
-    private boolean inLiteral;
+    private final Deque<Character> stacks = new ArrayDeque();
+
+    private char end = BASE;
 
     /**
      * 
@@ -40,20 +46,26 @@ public class Minify {
                 for (index = 0; index < line.length(); index++) {
                     char c = line.charAt(index);
 
-                    if (inLiteral) {
+                    if (end != BASE) {
                         output.append(c);
 
-                        if (c == '"') {
-                            inLiteral = false;
+                        if (c == end) {
+                            if (matcheBackward("\\")) {
+
+                            } else {
+                                end = stacks.pollLast();
+                            }
                         }
                         continue;
                     }
 
                     switch (c) {
                     case '"':
+                    case '\'':
                         trimBackward();
                         output.append(c);
-                        inLiteral = true;
+                        stacks.addLast(end);
+                        end = c;
                         break;
 
                     case '(':
@@ -71,7 +83,6 @@ public class Minify {
                     case '>':
                     case '<':
                     case '?':
-                    case '\'':
                     case '`':
                     case ';':
                     case ':':
@@ -118,6 +129,12 @@ public class Minify {
         return c == ' ' || c == '\n' || c == '\r';
     }
 
+    private boolean matcheBackward(String text) {
+        int length = text.length();
+        int size = output.length() - 1;
+        return output.subSequence(size - length, size).equals(text);
+    }
+
     public static String minify(String code) {
         StringWriter writer = new StringWriter();
         new Minify(new BufferedReader(new StringReader(code)), writer);
@@ -130,5 +147,9 @@ public class Minify {
 
     public static void minify(File input, File output) {
         new Minify(input.newBufferedReader(), output.newBufferedWriter());
+    }
+
+    public static void main(String[] args) {
+        minify("docs/main.js", "docs/main.min.js");
     }
 }
