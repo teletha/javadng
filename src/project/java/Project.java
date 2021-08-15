@@ -10,7 +10,7 @@
 public class Project extends bee.api.Project {
 
     {
-        product("com.github.teletha", "stoneforge", ref("version.txt"));
+        product("com.github.teletha", "javadng", ref("version.txt"));
 
         require("com.github.teletha", "sinobu");
         require("com.github.teletha", "stylist");
@@ -20,11 +20,7 @@ public class Project extends bee.api.Project {
         require("com.github.teletha", "viewtify").atTest();
         require("com.github.javaparser", "javaparser-core");
         require("org.commonmark", "commonmark");
-        require("com.caoccao.javet", "javet");
-        require("org.graalvm.sdk", "graal-sdk");
-        require("org.graalvm.js", "js");
-        require("org.graalvm.js", "js-scriptengine");
 
-        versionControlSystem("https://github.com/teletha/stoneforge");
+        versionControlSystem("https://github.com/teletha/javadng");
     }
 }
