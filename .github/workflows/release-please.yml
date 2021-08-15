@@ -11,4 +11,4 @@ jobs:
       - uses: GoogleCloudPlatform/release-please-action@v2
         with:
           release-type: simple
-          package-name: stoneforge
+          package-name: javadng
