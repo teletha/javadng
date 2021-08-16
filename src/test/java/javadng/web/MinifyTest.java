@@ -53,6 +53,18 @@ class MinifyTest {
     }
 
     @Test
+    void operator() {
+        assert Minify.minify("a & b").equals("a&b");
+        assert Minify.minify("a | b").equals("a|b");
+        assert Minify.minify("a ^ b").equals("a^b");
+        assert Minify.minify("a << b").equals("a<<b");
+        assert Minify.minify("a >> b").equals("a>>b");
+        assert Minify.minify("a >>> b").equals("a>>>b");
+        assert Minify.minify("~ a").equals("~a");
+        assert Minify.minify("! a").equals("!a");
+    }
+
+    @Test
     void lambda() {
         assert Minify.minify("() => {}").equals("()=>{}");
     }
@@ -74,5 +86,27 @@ class MinifyTest {
         assert Minify.minify("call( ' a + b ' )").equals("call(' a + b ')");
         assert Minify.minify("call( ' \\' ' )").equals("call(' \\' ')");
         assert Minify.minify("call( ' \" \" ' )").equals("call(' \" \" ')");
+    }
+
+    @Test
+    void lineComment() {
+        assert Minify.minify("// comment").equals("");
+        assert Minify.minify("let a = 0; // comment").equals("let a=0;");
+        assert Minify.minify("""
+                // comment
+                let a = 0;
+                """).equals("let a=0;");
+    }
+
+    @Test
+    void blockComment() {
+        assert Minify.minify("/* comment */").equals("");
+        assert Minify.minify("call(/* comment */)").equals("call()");
+        assert Minify.minify("/** comment */").equals("");
+        assert Minify.minify("""
+                /**
+                  * multi line comment
+                  */
+                """).equals("");
     }
 }
