@@ -114,7 +114,7 @@ public class Minify {
         new Minify(input.newBufferedReader(), output.newBufferedWriter());
     }
 
-    public static void main2(String[] args) {
+    public static void main(String[] args) {
         minify("docs/main.js", "docs/main.min.js");
     }
 
