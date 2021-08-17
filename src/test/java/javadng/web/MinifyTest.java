@@ -109,4 +109,22 @@ class MinifyTest {
                   */
                 """).equals("");
     }
+
+    @Test
+    void line() {
+        assert Minify.minify("""
+
+                method()
+
+                """).equals("method()");
+    }
+
+    @Test
+    void commentOnlyLine() {
+        assert Minify.minify("""
+                // call method!
+                method()
+
+                """).equals("method()");
+    }
 }

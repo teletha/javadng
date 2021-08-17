@@ -115,7 +115,7 @@ public class Minify {
     }
 
     public static void main(String[] args) {
-        minify("docs/main.js", "docs/main.min.js");
+        minify("docs/mimic.js", "docs/mimic.min.js");
     }
 
     private class Context {
@@ -185,7 +185,7 @@ public class Minify {
             case ':':
             case '.':
             case ',':
-                trimBackward();
+                trimBackward(true);
                 output.append(c);
                 trimForward();
                 break;
@@ -197,7 +197,19 @@ public class Minify {
         }
 
         void line() {
-            output.append('\n');
+            if (output.length() == 0) {
+                return;
+            }
+
+            switch (output.charAt(output.length() - 1)) {
+            case ';':
+            case '{':
+                break;
+
+            default:
+                output.append('\n');
+                break;
+            }
         }
     }
 
