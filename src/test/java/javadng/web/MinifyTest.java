@@ -16,6 +16,8 @@ class MinifyTest {
     @Test
     void equal() {
         assert Minify.minify("var test = 0;").equals("var test=0;");
+        assert Minify.minify("a == b").equals("a==b");
+        assert Minify.minify("a === b").equals("a===b");
     }
 
     @Test
@@ -111,7 +113,7 @@ class MinifyTest {
     }
 
     @Test
-    void line() {
+    void emptyLine() {
         assert Minify.minify("""
 
                 method()
@@ -126,5 +128,29 @@ class MinifyTest {
                 method()
 
                 """).equals("method()");
+
+        assert Minify.minify("""
+                /**
+                 * Comment
+                 */
+                method()
+
+                """).equals("method()");
+
+    }
+
+    @Test
+    void compressLineByComma() {
+        assert Minify.minify("""
+                a,
+                b
+                """).equals("a,b");
+
+        assert Minify.minify("""
+                a,
+
+                /* comment */
+                b
+                """).equals("a,b");
     }
 }

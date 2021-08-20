@@ -37,10 +37,12 @@ public class Minify {
             while ((line = reader.readLine()) != null) {
                 line = line.strip();
 
-                for (index = 0; index < line.length(); index++) {
-                    char c = line.charAt(index);
+                if (line.length() == 0) {
+                    continue;
+                }
 
-                    current.process(c);
+                for (index = 0; index < line.length(); index++) {
+                    current.character(line.charAt(index));
                 }
                 current.line();
             }
@@ -79,15 +81,6 @@ public class Minify {
 
     private boolean matcheForward(String text) {
         return line.subSequence(index + 1, index + 1 + text.length()).equals(text);
-    }
-
-    private boolean matcheBackward(String text) {
-        int length = text.length();
-        int size = output.length() - 1;
-        if (size < length) {
-            return false;
-        }
-        return output.subSequence(size - length, size).equals(text);
     }
 
     private boolean escaped() {
@@ -131,7 +124,7 @@ public class Minify {
             current = current.previous;
         }
 
-        void process(char c) {
+        void character(char c) {
             switch (c) {
             case '"':
                 trimBackward();
@@ -204,6 +197,8 @@ public class Minify {
             switch (output.charAt(output.length() - 1)) {
             case ';':
             case '{':
+            case ',':
+            case '\n':
                 break;
 
             default:
@@ -216,7 +211,7 @@ public class Minify {
     private class LineComment extends Context {
 
         @Override
-        void process(char c) {
+        void character(char c) {
             if (c == '/' && line.charAt(index - 1) == '*') {
                 end();
             }
@@ -231,7 +226,7 @@ public class Minify {
     private class BlockComment extends Context {
 
         @Override
-        void process(char c) {
+        void character(char c) {
             if (c == '/' && line.charAt(index - 1) == '*') {
                 end();
             }
@@ -245,7 +240,7 @@ public class Minify {
     private class SingleStringLiteral extends Context {
 
         @Override
-        void process(char c) {
+        void character(char c) {
             if (c == '\'' && !escaped()) {
                 output.append(c);
                 end();
@@ -258,7 +253,7 @@ public class Minify {
     private class DoubleStringLiteral extends Context {
 
         @Override
-        void process(char c) {
+        void character(char c) {
             if (c == '"' && !escaped()) {
                 output.append(c);
                 end();
