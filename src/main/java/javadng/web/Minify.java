@@ -35,11 +35,13 @@ public class Minify {
     private Minify(BufferedReader reader, Writer writer) {
         try {
             while ((line = reader.readLine()) != null) {
+                current.startLine();
+
                 int length = line.length();
                 for (index = 0; index < length; index++) {
                     current.text(line.charAt(index));
                 }
-                current.line();
+                current.endLine();
             }
 
             trimBackward(true);
@@ -71,7 +73,7 @@ public class Minify {
     }
 
     private boolean isDeletable(char c, boolean includeLine) {
-        return c == ' ' || (includeLine && (c == '\r' || c == '\n'));
+        return c == ' ' || c == '\t' || (includeLine && (c == '\r' || c == '\n'));
     }
 
     private boolean matcheForward(String text) {
@@ -106,7 +108,7 @@ public class Minify {
         new Minify(input.newBufferedReader(), output.newBufferedWriter());
     }
 
-    public static void main2(String[] args) {
+    public static void main(String[] args) {
         minify("docs/mimic.js", "docs/mimic.min.js");
     }
 
@@ -166,7 +168,10 @@ public class Minify {
                 }
 
             case ' ':
-
+            case '\t':
+                if (output.length() != 0 && output.charAt(output.length() - 1) != '\n') {
+                    output.append(c);
+                }
                 break;
 
             case '(':
@@ -204,14 +209,21 @@ public class Minify {
             }
         }
 
-        void line() {
+        void startLine() {
+            line = line.stripLeading();
+        }
+
+        void endLine() {
             if (output.length() == 0) {
                 return;
             }
 
+            trimBackward();
+
             switch (output.charAt(output.length() - 1)) {
             case ';':
             case '{':
+            case ',':
             case '/':
                 break;
 
@@ -232,7 +244,7 @@ public class Minify {
         }
 
         @Override
-        void line() {
+        void endLine() {
             end();
         }
     }
@@ -250,7 +262,11 @@ public class Minify {
         }
 
         @Override
-        void line() {
+        void startLine() {
+        }
+
+        @Override
+        void endLine() {
         }
     }
 
@@ -270,7 +286,11 @@ public class Minify {
         }
 
         @Override
-        void line() {
+        void startLine() {
+        }
+
+        @Override
+        void endLine() {
             output.append('\n');
         }
     }
@@ -291,7 +311,11 @@ public class Minify {
         }
 
         @Override
-        void line() {
+        void startLine() {
+        }
+
+        @Override
+        void endLine() {
             output.append('\n');
         }
     }
