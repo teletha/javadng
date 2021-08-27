@@ -35,12 +35,9 @@ public class Minify {
     private Minify(BufferedReader reader, Writer writer) {
         try {
             while ((line = reader.readLine()) != null) {
-                line = line.strip();
-
-                for (index = 0; index < line.length(); index++) {
-                    char c = line.charAt(index);
-
-                    current.process(c);
+                int length = line.length();
+                for (index = 0; index < length; index++) {
+                    current.text(line.charAt(index));
                 }
                 current.line();
             }
@@ -78,16 +75,11 @@ public class Minify {
     }
 
     private boolean matcheForward(String text) {
-        return line.subSequence(index + 1, index + 1 + text.length()).equals(text);
-    }
-
-    private boolean matcheBackward(String text) {
-        int length = text.length();
-        int size = output.length() - 1;
-        if (size < length) {
+        int target = index + 1;
+        if (line.length() <= target) {
             return false;
         }
-        return output.subSequence(size - length, size).equals(text);
+        return line.subSequence(target, target + text.length()).equals(text);
     }
 
     private boolean escaped() {
@@ -114,24 +106,36 @@ public class Minify {
         new Minify(input.newBufferedReader(), output.newBufferedWriter());
     }
 
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
         minify("docs/mimic.js", "docs/mimic.min.js");
     }
 
+    /**
+     * The lexical context.
+     */
     private class Context {
 
-        private Context previous;
+        /** The parent context. */
+        private Context parent;
 
+        /**
+         * Start new {@link Context}.
+         * 
+         * @param context
+         */
         protected final void start(Context context) {
-            context.previous = this;
+            context.parent = this;
             current = context;
         }
 
+        /**
+         * End the current {@link Context}.
+         */
         protected final void end() {
-            current = current.previous;
+            current = current.parent;
         }
 
-        void process(char c) {
+        void text(char c) {
             switch (c) {
             case '"':
                 trimBackward();
@@ -160,6 +164,10 @@ public class Minify {
                     trimForward();
                     break;
                 }
+
+            case ' ':
+
+                break;
 
             case '(':
             case ')':
@@ -204,6 +212,7 @@ public class Minify {
             switch (output.charAt(output.length() - 1)) {
             case ';':
             case '{':
+            case '/':
                 break;
 
             default:
@@ -213,13 +222,13 @@ public class Minify {
         }
     }
 
+    /**
+     * {@link Context} for the single line comment.
+     */
     private class LineComment extends Context {
 
         @Override
-        void process(char c) {
-            if (c == '/' && line.charAt(index - 1) == '*') {
-                end();
-            }
+        void text(char c) {
         }
 
         @Override
@@ -228,10 +237,13 @@ public class Minify {
         }
     }
 
+    /**
+     * {@link Context} for the block comment.
+     */
     private class BlockComment extends Context {
 
         @Override
-        void process(char c) {
+        void text(char c) {
             if (c == '/' && line.charAt(index - 1) == '*') {
                 end();
             }
@@ -242,10 +254,13 @@ public class Minify {
         }
     }
 
+    /**
+     * {@link Context} for the string litereal.
+     */
     private class SingleStringLiteral extends Context {
 
         @Override
-        void process(char c) {
+        void text(char c) {
             if (c == '\'' && !escaped()) {
                 output.append(c);
                 end();
@@ -253,18 +268,31 @@ public class Minify {
                 output.append(c);
             }
         }
+
+        @Override
+        void line() {
+            output.append('\n');
+        }
     }
 
+    /**
+     * {@link Context} for the string litereal.
+     */
     private class DoubleStringLiteral extends Context {
 
         @Override
-        void process(char c) {
+        void text(char c) {
             if (c == '"' && !escaped()) {
                 output.append(c);
                 end();
             } else {
                 output.append(c);
             }
+        }
+
+        @Override
+        void line() {
+            output.append('\n');
         }
     }
 }

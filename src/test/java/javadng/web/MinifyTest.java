@@ -75,10 +75,11 @@ class MinifyTest {
     }
 
     @Test
-    void literealDoubleQuotes() {
-        assert Minify.minify("call( \" a + b \" )").equals("call(\" a + b \")");
-        assert Minify.minify("call( \" \\\" \" )").equals("call(\" \\\" \")");
-        assert Minify.minify("call( \" ' ' \" )").equals("call(\" ' ' \")");
+    void tailedSlash() {
+        assert Minify.minify("""
+                1 /
+                2
+                """).equals("1/2");
     }
 
     @Test
@@ -86,6 +87,38 @@ class MinifyTest {
         assert Minify.minify("call( ' a + b ' )").equals("call(' a + b ')");
         assert Minify.minify("call( ' \\' ' )").equals("call(' \\' ')");
         assert Minify.minify("call( ' \" \" ' )").equals("call(' \" \" ')");
+    }
+
+    @Test
+    void literealSingleQuotesWithLine() {
+        assert Minify.minify("""
+                'tailed semi-colon ;
+                 tailed bracket {
+                 never delete line'
+                """).equals("""
+                'tailed semi-colon ;
+                 tailed bracket {
+                 never delete line'""");
+    }
+
+    @Test
+    void literealDoubleQuotes() {
+        assert Minify.minify("call( \" a + b \" )").equals("call(\" a + b \")");
+        assert Minify.minify("call( \" \\\" \" )").equals("call(\" \\\" \")");
+        assert Minify.minify("call( \" ' ' \" )").equals("call(\" ' ' \")");
+    }
+
+    @Test
+    void literealDoubleQuotesWithLine() {
+        assert Minify.minify("""
+                "tailed semi-colon ;
+                 tailed bracket {
+                 never delete line"
+                """).equals("""
+                "tailed semi-colon ;
+                 tailed bracket {
+                 never delete line"
+                """.trim());
     }
 
     @Test
