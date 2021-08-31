@@ -98,7 +98,6 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
     public static Style JavadocComment = () -> {
         $.select("h2", () -> {
-            position.relative();
             font.size(17, px);
             padding.size(0.5, em).left(0, em);
             margin.top(0.4, em).bottom(0.7, em);
