@@ -36,7 +36,7 @@ public class Design extends AbstractDesignScheme {
 
         base = fontFromGoogle("Roboto");
         condensed = fontFromGoogle("Fira Sans Condensed");
-        title = fontFromGoogle("Ubuntu");
+        title = fontFromGoogle("Vollkorn");
         mono = fontFromGoogle("JetBrains Mono");
         icon = fontFromGoogle("Material Icons");
 
