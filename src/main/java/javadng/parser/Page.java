@@ -227,7 +227,7 @@ public abstract class Page<T> extends HTML {
                     margin.bottom(0.5, em);
 
                     $.select("li", () -> {
-                        padding.vertical(0.25, em);
+                        padding.top(0.25, em).bottom(0.5, em);
                     });
                 });
 
@@ -244,7 +244,7 @@ public abstract class Page<T> extends HTML {
                     $.select("a", () -> {
                         $.select(".foot", () -> {
                             font.style.italic();
-                            padding.left(1.1, em);
+                            padding.left(0.5, em);
                         });
 
                         $.select("svg", () -> {
