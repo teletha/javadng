@@ -234,9 +234,9 @@ public abstract class Page<T> extends HTML {
                 $.select(".sub", () -> {
                     display.height(0, px);
                     listStyle.none();
-                    font.size(0.85, em).color(theme.front.lighten(theme.back, -7));
+                    font.size(0.85, em).color(theme.front.lighten(theme.back, 10));
                     border.left.solid().width(1, px).color(Color.hsl(0, 0, 65));
-                    margin.left(10, px);
+                    margin.left(6, px);
                     overflow.y.hidden();
 
                     transition.duration(0.5, s).whenever();
@@ -249,7 +249,7 @@ public abstract class Page<T> extends HTML {
 
                         $.select("svg", () -> {
                             display.width(16, px).height(16, px);
-                            margin.left(4, px).right(5, px);
+                            margin.left(2, px).right(2, px);
                             stroke.width(2, px).transparent();
 
                             transition.duration(0.25, s).whenever();
@@ -257,6 +257,7 @@ public abstract class Page<T> extends HTML {
                         });
 
                         $.with(".now", () -> {
+                            font.color(theme.front.lighten(theme.back, -15));
                             $.select("svg", () -> {
                                 stroke.color(theme.front.lighten(20));
                                 transform.translateX(0, px);
