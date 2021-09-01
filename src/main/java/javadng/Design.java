@@ -35,7 +35,6 @@ public class Design extends AbstractDesignScheme {
         surface = $.hsl(0, 0, 98);
 
         base = fontFromGoogle("Roboto");
-        condensed = fontFromGoogle("Fira Sans Condensed");
         title = fontFromGoogle("Vollkorn");
         mono = fontFromGoogle("JetBrains Mono");
         icon = fontFromGoogle("Material Icons");

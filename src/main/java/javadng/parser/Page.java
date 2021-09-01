@@ -145,7 +145,7 @@ public abstract class Page<T> extends HTML {
 
             $.after(() -> {
                 content.attr("date").text("\\000AVersion\\00A0").attr("ver");
-                font.size(0.8, rem).lineHeight(1.1).color(theme.front).family(theme.condensed);
+                font.size(0.8, rem).lineHeight(1.1).color(theme.front).family(theme.base).letterSpacing(-0.5, px);
                 display.inlineBlock();
                 padding.left(1.1, rem);
                 text.whiteSpace.pre();
@@ -221,7 +221,7 @@ public abstract class Page<T> extends HTML {
             });
 
             $.select("#DocNavi", () -> {
-                font.size(1.2, em).family(theme.condensed).color(theme.front.lighten(theme.back, -15));
+                font.size(1.2, em).color(theme.front.lighten(theme.back, -15)).letterSpacing(-0.5, px);
 
                 $.select(".doc", () -> {
                     margin.bottom(0.5, em);
