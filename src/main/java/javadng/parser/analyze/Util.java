@@ -25,6 +25,7 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
+import com.github.javaparser.ParserConfiguration.LanguageLevel;
 import com.github.javaparser.Position;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
@@ -40,6 +41,10 @@ import psychopath.Directory;
 import psychopath.File;
 
 public final class Util {
+
+    static {
+        StaticJavaParser.getConfiguration().setLanguageLevel(LanguageLevel.CURRENT);
+    }
 
     /** Guilty Accessor. */
     public static DocTrees DocUtils;

@@ -9,7 +9,7 @@
  */
 package javadng.parser;
 
-import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
+import static javax.tools.DocumentationTool.Location.*;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -59,12 +59,12 @@ import javadng.Design;
 import javadng.SiteBuilder;
 import javadng.parser.analyze.ClassInfo;
 import javadng.parser.analyze.Data;
+import javadng.parser.analyze.Data.Doc;
 import javadng.parser.analyze.MethodInfo;
 import javadng.parser.analyze.SampleInfo;
 import javadng.parser.analyze.TemplateStore;
 import javadng.parser.analyze.TypeResolver;
 import javadng.parser.analyze.Util;
-import javadng.parser.analyze.Data.Doc;
 import javadng.repository.Repository;
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
@@ -646,7 +646,7 @@ public abstract class JavadocModel {
                 site.build("main.js", SiteBuilder.class.getResourceAsStream("main.js"));
                 site.build("mimic.js", SiteBuilder.class.getResourceAsStream("mimic.js"));
                 site.build("highlight.js", SiteBuilder.class.getResourceAsStream("highlight.js"), I.signal(Highlighter)
-                        .map(x -> "https://unpkg.com/@highlightjs/cdn-assets@10.7.2/languages/" + x + ".min.js")
+                        .map(x -> "https://unpkg.com/@highlightjs/cdn-assets@11.2.0/languages/" + x + ".min.js")
                         .toList());
 
                 // build SVG
