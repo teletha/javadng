@@ -132,9 +132,9 @@ FlashMan({
 	preview: "#Article>section",
 	/* Enahnce code highlight */
 	"pre": e => {
-		hljs.highlightElement(e);
-		e.lang = e.classList[0].substring(5).toUpperCase();
-		$(e).make("a").title("Copy this code").click(v => navigator.clipboard.writeText(e.textContent)).svg("/main.svg#copy")
+		hljs.highlightElement(e)
+		e.lang = e.classList[0].substring(5).toUpperCase()
+		$(e).appendTo($("<code>").insertBefore(e)).make("a").title("Copy this code").click(v => navigator.clipboard.writeText(e.textContent)).svg("/main.svg#copy")
 	},
 	/* Enahnce meta icons */
 	".perp": e => {
