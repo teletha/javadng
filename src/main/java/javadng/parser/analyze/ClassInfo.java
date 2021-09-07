@@ -217,6 +217,17 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
         }
     }
 
+    public int nestLevel() {
+        int level = 0;
+        ClassInfo most = outermost();
+        ClassInfo now = this;
+        while (now != most) {
+            now = now.outer;
+            level++;
+        }
+        return level;
+    }
+
     /**
      * List up all inner types with the specified modifiers.
      * 

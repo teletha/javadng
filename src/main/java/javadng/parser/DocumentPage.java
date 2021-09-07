@@ -61,7 +61,7 @@ public class DocumentPage extends Page<ClassInfo> {
         XML heading = doc.find("h,h1,h2,h3,h4,h5,h6,h7").first().remove();
 
         $("header", Styles.JavadocComment, styles.header, () -> {
-            $(xml(heading.size() != 0 ? heading : I.xml("h2").text(info.title())));
+            $(xml(heading.size() != 0 ? heading : I.xml("h" + info.nestLevel()).text(info.title())));
             $("div", styles.meta, () -> {
                 $("a", attr("class", "perp"), styles.icon, () -> {
                     $(svg("copy"));

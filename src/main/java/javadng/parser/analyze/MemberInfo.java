@@ -171,6 +171,13 @@ public abstract class MemberInfo extends DocumentInfo {
         }
 
         // compute from class name
-        return name.replace('_', ' ').replaceAll(".+\\.", "");
+        String title = name.replace('_', ' ').replaceAll(".+\\.", "");
+
+        // append '?'
+        if (title.endsWith(" ")) {
+            title = title.replaceAll(" $", "?");
+        }
+
+        return title;
     }
 }
