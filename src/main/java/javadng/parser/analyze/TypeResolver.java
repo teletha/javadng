@@ -227,7 +227,7 @@ public class TypeResolver {
             enclosings.addFirst(((TypeElement) enclosing).getSimpleName().toString());
             enclosing = enclosing.getEnclosingElement();
         }
-        resolved.enclosingName = I.join(".", enclosings);
+        resolved.enclosingName = String.join(".", enclosings);
 
         // pacakage
         resolved.packageName = enclosing.toString();
