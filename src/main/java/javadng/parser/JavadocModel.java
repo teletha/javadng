@@ -9,7 +9,7 @@
  */
 package javadng.parser;
 
-import static javax.tools.DocumentationTool.Location.*;
+import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -21,6 +21,7 @@ import java.net.URI;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -29,7 +30,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -287,7 +287,7 @@ public abstract class JavadocModel {
             for (String url : urls) {
                 if (url != null && url.startsWith("http") && url.endsWith("/api/")) {
                     I.http(url + "overview-tree.html", XML.class)
-                            .retryWhen(e -> e.delay(200, TimeUnit.MILLISECONDS).take(20))
+                            .retryWhen(e -> e.delay(Duration.ofMillis(200)).take(20))
                             .flatIterable(xml -> xml.find(".horizontal a"))
                             .waitForTerminate()
                             .to(xml -> {
