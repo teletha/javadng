@@ -287,7 +287,7 @@ public abstract class JavadocModel {
             for (String url : urls) {
                 if (url != null && url.startsWith("http") && url.endsWith("/api/")) {
                     I.http(url + "overview-tree.html", XML.class)
-                            .retryWhen(e -> e.delay(Duration.ofMillis(200)).take(20))
+                            .retry(e -> e.delay(Duration.ofMillis(200)).take(20))
                             .flatIterable(xml -> xml.find(".horizontal a"))
                             .waitForTerminate()
                             .to(xml -> {
