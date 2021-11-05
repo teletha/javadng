@@ -23,8 +23,6 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javadng.parser.Javadoc;
-import javadng.parser.JavadocModel;
 import javadng.parser.analyze.MethodInfo;
 import kiss.I;
 import kiss.Variable;
@@ -38,6 +36,8 @@ public class JavadocTestSupport {
             .product("test")
             .project("test")
             .version("1.0")
+            .listener(e -> {
+            })
             .build();
 
     private static final JavadocModel docEx = Javadoc.with.sources("src/test/java")
@@ -45,6 +45,8 @@ public class JavadocTestSupport {
             .product("test")
             .project("test")
             .version("1.0")
+            .listener(e -> {
+            })
             .useExternalJDKDoc()
             .build();
 
