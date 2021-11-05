@@ -1,5 +1,13 @@
 # Changelog
 
+### [1.4.1](https://www.github.com/Teletha/javadng/compare/v1.4.0...v1.4.1) (2021-11-05)
+
+
+### Bug Fixes
+
+* Report the building result. ([0ded766](https://www.github.com/Teletha/javadng/commit/0ded7666eb1ed963a719f4d34b78b173905f78cf))
+* update external jdk location from 16 to 17 ([8a2f8c7](https://www.github.com/Teletha/javadng/commit/8a2f8c783fdd5042f73693399ed6a801fbe27d46))
+
 ## [1.4.0](https://www.github.com/Teletha/javadng/compare/v1.3.0...v1.4.0) (2021-11-02)
 
 
