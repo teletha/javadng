@@ -9,7 +9,8 @@
  */
 package javadng.parser;
 
-import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
+import static javax.tools.Diagnostic.Kind.*;
+import static javax.tools.DocumentationTool.Location.*;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -40,6 +41,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
+import javax.tools.Diagnostic;
 import javax.tools.DiagnosticListener;
 import javax.tools.DocumentationTool;
 import javax.tools.JavaFileObject;
@@ -322,12 +324,19 @@ public abstract class JavadocModel {
                     m.setLocation(SOURCE_PATH, I.signal(sources()).startWith(sample()).map(Directory::asJavaFile).toList());
                     m.setLocation(CLASS_PATH, classpath().stream().map(psychopath.Location::asJavaFile).collect(Collectors.toList()));
 
-                    tool.getTask(null, m, listener(), Internal.class, List.of("-package"), I
+                    boolean result = tool.getTask(null, m, listener(), Internal.class, List.of("-package"), I
                             .signal(m.list(SOURCE_PATH, "", Set.of(Kind.SOURCE), true))
                             .take(o -> o.getName()
                                     .startsWith(sample()
                                             .toString()) && (o.getName().endsWith("Test.java") || o.getName().endsWith("Doc.java")))
                             .toList()).call();
+
+                    if (result) {
+                        listener().report(new Message(OTHER, "sample", "Succeed in scanning sample sources."));
+                    } else {
+                        listener().report(new Message(ERROR, "sample", "Fail in scanning sample sources."));
+                        return (Javadoc) this;
+                    }
                 } catch (Throwable e) {
                     throw I.quiet(e);
                 } finally {
@@ -342,10 +351,18 @@ public abstract class JavadocModel {
                 m.setLocationFromPaths(SOURCE_PATH, sources().stream().map(Directory::asJavaPath).collect(Collectors.toList()));
                 m.setLocationFromPaths(DOCUMENTATION_OUTPUT, List.of(output() == null ? Path.of("") : output().create().asJavaPath()));
 
-                tool.getTask(null, m, listener(), Internal.class, List.of("-protected"), m.list(SOURCE_PATH, "", Set.of(Kind.SOURCE), true))
+                boolean result = tool
+                        .getTask(null, m, listener(), Internal.class, List.of("-protected"), m
+                                .list(SOURCE_PATH, "", Set.of(Kind.SOURCE), true))
                         .call();
-            } catch (Exception e) {
-                e.printStackTrace();
+
+                if (result) {
+                    listener().report(new Message(OTHER, "build", "Succeed in building documents."));
+                } else {
+                    listener().report(new Message(ERROR, "build", "Fail in building documents."));
+                }
+            } catch (Throwable e) {
+                throw I.quiet(e);
             }
         }
         return (Javadoc) this;
@@ -427,6 +444,74 @@ public abstract class JavadocModel {
             return "image/svg+xml";
         default:
             return "text/plain";
+        }
+    }
+
+    /**
+     * 
+     */
+    private static class Message implements Diagnostic<JavaFileObject> {
+
+        private final Kind kind;
+
+        private final String code;
+
+        private final String message;
+
+        private Message(Kind kind, String code, String message) {
+            this.kind = kind;
+            this.code = code;
+            this.message = message;
+        }
+
+        @Override
+        public javax.tools.Diagnostic.Kind getKind() {
+            return kind;
+        }
+
+        @Override
+        public JavaFileObject getSource() {
+            return null;
+        }
+
+        @Override
+        public long getPosition() {
+            return Diagnostic.NOPOS;
+        }
+
+        @Override
+        public long getStartPosition() {
+            return Diagnostic.NOPOS;
+        }
+
+        @Override
+        public long getEndPosition() {
+            return Diagnostic.NOPOS;
+        }
+
+        @Override
+        public long getLineNumber() {
+            return Diagnostic.NOPOS;
+        }
+
+        @Override
+        public long getColumnNumber() {
+            return Diagnostic.NOPOS;
+        }
+
+        @Override
+        public String getCode() {
+            return code;
+        }
+
+        @Override
+        public String getMessage(Locale locale) {
+            return message;
+        }
+
+        @Override
+        public String toString() {
+            return kind + ":" + code + ": " + message;
         }
     }
 
