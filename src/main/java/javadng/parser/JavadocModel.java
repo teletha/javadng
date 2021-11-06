@@ -330,7 +330,7 @@ public abstract class JavadocModel {
             if (sample() != null) {
                 processingMainSource = false;
 
-                try (StandardJavaFileManager m = tool.getStandardFileManager(listener(), Locale.getDefault(), Charset.defaultCharset())) {
+                try (StandardJavaFileManager m = tool.getStandardFileManager(listener(), Locale.getDefault(), encoding())) {
                     m.setLocation(SOURCE_PATH, I.signal(sources()).startWith(sample()).map(Directory::asJavaFile).toList());
                     m.setLocation(CLASS_PATH, classpath().stream().map(psychopath.Location::asJavaFile).collect(Collectors.toList()));
 
@@ -357,7 +357,7 @@ public abstract class JavadocModel {
             // ========================================================
             // Scan javadoc from main source
             // ========================================================
-            try (StandardJavaFileManager m = tool.getStandardFileManager(listener(), Locale.getDefault(), Charset.defaultCharset())) {
+            try (StandardJavaFileManager m = tool.getStandardFileManager(listener(), Locale.getDefault(), encoding())) {
                 m.setLocationFromPaths(SOURCE_PATH, sources().stream().map(Directory::asJavaPath).collect(Collectors.toList()));
                 m.setLocationFromPaths(DOCUMENTATION_OUTPUT, List.of(output() == null ? Path.of("") : output().create().asJavaPath()));
 
