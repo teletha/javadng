@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://www.github.com/Teletha/javadng/compare/v1.4.1...v1.5.0) (2021-11-06)
+
+
+### Features
+
+* Add encoding option to Javadoc. ([af5a97b](https://www.github.com/Teletha/javadng/commit/af5a97bad57e55f61e8ec8eaffdab7597aeeef0b))
+
 ### [1.4.1](https://www.github.com/Teletha/javadng/compare/v1.4.0...v1.4.1) (2021-11-05)
 
 
