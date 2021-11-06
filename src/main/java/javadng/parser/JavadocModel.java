@@ -10,7 +10,7 @@
 package javadng.parser;
 
 import static javax.tools.Diagnostic.Kind.*;
-import static javax.tools.DocumentationTool.Location.*;
+import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -247,6 +247,16 @@ public abstract class JavadocModel {
     @Icy.Overload("sample")
     private Directory sample(Path path) {
         return Locator.directory(path);
+    }
+
+    /**
+     * Specify the source encoding.
+     * 
+     * @return
+     */
+    @Icy.Property
+    public Charset encoding() {
+        return Charset.defaultCharset();
     }
 
     /**
