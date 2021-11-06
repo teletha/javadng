@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://www.github.com/Teletha/javadng/compare/v1.5.0...v1.6.0) (2021-11-06)
+
+
+### Features
+
+* Javadoc supports the nested path. ([61fcf1f](https://www.github.com/Teletha/javadng/commit/61fcf1f236d5e85ab7362c85e22de4b35794a70c))
+
 ## [1.5.0](https://www.github.com/Teletha/javadng/compare/v1.4.1...v1.5.0) (2021-11-06)
 
 
