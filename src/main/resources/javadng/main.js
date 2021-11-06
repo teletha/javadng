@@ -4,6 +4,7 @@ import { Mimic as $ } from "./mimic.js"
 // User Settings
 // =====================================================
 const
+	prefix = "$PREFIX$",
 	user = JSON.parse(localStorage.getItem("user")) || {},
 	save = () => localStorage.setItem("user", JSON.stringify(user))
 
@@ -112,8 +113,8 @@ function FlashMan({ paged, cacheSize = 20, preload = "mouseover", preview = "sec
 
 FlashMan({
 	paged: () => {
-		$("#APINavi").each(e => e.hidden = !location.pathname.startsWith("/api/"));
-		$("#DocNavi").each(e => e.hidden = !location.pathname.startsWith("/doc/"));
+		$("#APINavi").each(e => e.hidden = !location.pathname.startsWith(prefix + "api/"));
+		$("#DocNavi").each(e => e.hidden = !location.pathname.startsWith(prefix + "doc/"));
 		$("#DocNavi>div").each(e => {
 			const sub = e.lastElementChild;
 
@@ -134,7 +135,7 @@ FlashMan({
 	"pre": e => {
 		hljs.highlightElement(e)
 		e.lang = e.classList[0].substring(5).toUpperCase()
-		$(e).appendTo($("<code>").insertBefore(e)).make("a").title("Copy this code").click(v => navigator.clipboard.writeText(e.textContent)).svg("/main.svg#copy")
+		$(e).appendTo($("<code>").insertBefore(e)).make("a").title("Copy this code").click(v => navigator.clipboard.writeText(e.textContent)).svg(prefix + "main.svg#copy")
 	},
 	/* Enahnce meta icons */
 	".perp": e => {
@@ -186,8 +187,8 @@ class Select extends $ {
 		this.set({ disabled: !this.model.length })
 			.make("view").click(e => this.find("ol").has("active") ? this.close() : this.open())
 			.make("now").text(this.placeholder).parent()
-			.svg("/main.svg#chevron").parent().parent()
-			.svg("/main.svg#x").click(e => this.deselect())
+			.svg(prefix + "main.svg#chevron").parent().parent()
+			.svg(prefix + "main.svg#x").click(e => this.deselect())
 		this
 			.make("ol").click(e => this.select(e.target.model, $(e.target)), { where: "li" })
 			.make("li", this.model, (item, li) => li.text(this.label(item)))
@@ -280,7 +281,7 @@ class APITree extends $ {
 					
 				dl.make("dd", items.types.filter(type => type.packageName == pack), (type, dd) => {
 					dd.add(type.type)
-						.make("code").make("a").href("/api/" + type.packageName + "." + type.name + ".html").text(type.name)
+						.make("code").make("a").href(prefix + "api/" + type.packageName + "." + type.name + ".html").text(type.name)
 				})
 			})
 	}
@@ -308,10 +309,10 @@ $("main>nav")
 			.make("a").href(doc.path).text(doc.title).parent()
 			.make("ol").add("sub")
 			.make("li", doc.subs, (sub, li) => {
-				li.make("a").href(sub.path).svg("/main.svg#chevrons").parent()
+				li.make("a").href(sub.path).svg(prefix + "main.svg#chevrons").parent()
 					.make("span").text(sub.title)
 				li.make("a", sub.subs, (foot, a) => {
-					a.href(foot.path).svg("/main.svg#chevrons").parent()
+					a.href(foot.path).svg(prefix + "main.svg#chevrons").parent()
 						.make("span").add("foot").text(foot.title)
 				})
 			})

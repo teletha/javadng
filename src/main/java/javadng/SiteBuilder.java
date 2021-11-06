@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 
 import kiss.I;
 import kiss.XML;
@@ -186,11 +187,18 @@ public class SiteBuilder {
      * 
      * @return A path to the generated file.
      */
-    public final String build(String path, InputStream input) {
+    public final String build(String path, InputStream input, Function<String, String>... after) {
         initialize();
 
         File file = root.file(path);
         file.writeFrom(input);
+
+        String text = file.text();
+        for (Function<String, String> process : after) {
+            text = process.apply(text);
+        }
+        file.text(text);
+
         return root.relativize(file).path();
     }
 

@@ -9,6 +9,7 @@
  */
 package javadng;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 import javadng.parser.Styles;
@@ -25,10 +26,13 @@ import stylist.StyleDeclarable;
  */
 public abstract class HTML extends Tree<String, XML> {
 
+    /** The prefix part of location pathname. */
+    protected final String prefix;
+
     /**
      * 
      */
-    public HTML() {
+    public HTML(String location) {
         super((name, id, context) -> {
             return I.xml("<" + name + "/>");
         }, null, (follower, current) -> {
@@ -41,6 +45,8 @@ public abstract class HTML extends Tree<String, XML> {
                 follower.accept(current);
             }
         });
+
+        this.prefix = Objects.requireNonNullElse(location, "/");
     }
 
     /**
@@ -107,7 +113,7 @@ public abstract class HTML extends Tree<String, XML> {
     protected final Consumer<XML> svg(String type) {
         return parent -> {
             $("svg", attr("viewBox", "0 0 24 24"), Styles.AnimatedSVG, () -> {
-                $("use", attr("href", "/main.svg#" + type));
+                $("use", attr("href", prefix + "main.svg#" + type));
             });
         };
     }
@@ -138,7 +144,7 @@ public abstract class HTML extends Tree<String, XML> {
      * @param uri URI to css.
      */
     protected final void stylesheet(String uri) {
-        $("link", attr("rel", "stylesheet"), attr("href", uri));
+        $("link", attr("rel", "stylesheet"), attr("href", uri.startsWith("http") ? uri : prefix + uri));
     }
 
     /**
@@ -156,7 +162,7 @@ public abstract class HTML extends Tree<String, XML> {
      * @param styles A style definition class to write.
      */
     protected final void stylesheet(String path, Class<? extends StyleDSL> styles) {
-        $("link", attr("rel", "stylesheet"), attr("href", "/" + SiteBuilder.current.buildCSS(path, styles)));
+        $("link", attr("rel", "stylesheet"), attr("href", prefix + SiteBuilder.current.buildCSS(path, styles)));
     }
 
     /**
@@ -165,7 +171,7 @@ public abstract class HTML extends Tree<String, XML> {
      * @param styles A style definition class to write.
      */
     protected final void stylesheet(String path, StyleDeclarable styles) {
-        $("link", attr("rel", "stylesheet"), attr("href", "/" + SiteBuilder.current.buildCSS(path, styles)));
+        $("link", attr("rel", "stylesheet"), attr("href", prefix + SiteBuilder.current.buildCSS(path, styles)));
     }
 
     /**
@@ -174,7 +180,7 @@ public abstract class HTML extends Tree<String, XML> {
      * @param uri URI to script.
      */
     protected final void script(String uri) {
-        $("script", attr("src", uri.startsWith("http") ? uri : "/" + uri));
+        $("script", attr("src", uri.startsWith("http") ? uri : prefix + uri));
     }
 
     /**
@@ -183,7 +189,7 @@ public abstract class HTML extends Tree<String, XML> {
      * @param uri URI to script.
      */
     protected final void module(String uri) {
-        $("script", attr("src", uri.startsWith("http") ? uri : "/" + uri), attr("type", "module"));
+        $("script", attr("src", uri.startsWith("http") ? uri : prefix + uri), attr("type", "module"));
     }
 
     /**
@@ -192,7 +198,7 @@ public abstract class HTML extends Tree<String, XML> {
      * @param uri URI to script.
      */
     protected final void scriptAsync(String uri) {
-        $("script", attr("src", uri.startsWith("http") ? uri : "/" + uri), attr("async", true));
+        $("script", attr("src", uri.startsWith("http") ? uri : prefix + uri), attr("async", true));
     }
 
     /**
@@ -201,6 +207,6 @@ public abstract class HTML extends Tree<String, XML> {
      * @param model A style definition class to write.
      */
     protected final void script(String path, Object model) {
-        $("script", attr("src", "/" + SiteBuilder.current.buildJSONP(path, model)));
+        $("script", attr("src", prefix + SiteBuilder.current.buildJSONP(path, model)));
     }
 }

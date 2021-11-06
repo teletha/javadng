@@ -250,6 +250,16 @@ public abstract class JavadocModel {
     }
 
     /**
+     * Specify the prefix part of Javascript's 'location.pathname'.
+     * 
+     * @return
+     */
+    @Icy.Property
+    public String prefix() {
+        return "/";
+    }
+
+    /**
      * Specify the source encoding.
      * 
      * @return
@@ -410,8 +420,8 @@ public abstract class JavadocModel {
                     context.sendResponseHeaders(204, -1);
                 }
             });
-            server.createContext("/", context -> {
-                psychopath.File file = output().file(context.getRequestURI().getPath().substring(1));
+            server.createContext(prefix(), context -> {
+                psychopath.File file = output().file(context.getRequestURI().getPath().substring(prefix().length()));
                 byte[] body = file.text().getBytes(StandardCharsets.UTF_8);
 
                 Headers headers = context.getResponseHeaders();
@@ -423,7 +433,7 @@ public abstract class JavadocModel {
 
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                 try {
-                    Desktop.getDesktop().browse(new URI("http://localhost:9321/index.html"));
+                    Desktop.getDesktop().browse(new URI("http://localhost:9321" + prefix() + "index.html"));
                 } catch (Exception e) {
                     throw I.quiet(e);
                 }
@@ -647,7 +657,7 @@ public abstract class JavadocModel {
      * @param root A class or interface program element root.
      */
     private void process(TypeElement root) {
-        ClassInfo info = new ClassInfo(root, new TypeResolver(externals, internals, root));
+        ClassInfo info = new ClassInfo(root, new TypeResolver(prefix(), externals, internals, root));
 
         if (processingMainSource) {
             data.add(info);
@@ -708,19 +718,19 @@ public abstract class JavadocModel {
             for (ClassInfo info : docs) {
                 Doc doc = new Doc();
                 doc.title = info.title();
-                doc.path = "/doc/" + info.id() + ".html";
+                doc.path = prefix() + "doc/" + info.id() + ".html";
                 data.docs.add(doc);
 
                 for (ClassInfo child : info.children(Modifier.PUBLIC)) {
                     Doc childDoc = new Doc();
                     childDoc.title = child.title();
-                    childDoc.path = "/doc/" + info.id() + ".html#" + child.id();
+                    childDoc.path = prefix() + "doc/" + info.id() + ".html#" + child.id();
                     doc.subs.add(childDoc);
 
                     for (ClassInfo foot : child.children(Modifier.PUBLIC)) {
                         Doc footDoc = new Doc();
                         footDoc.title = foot.title();
-                        footDoc.path = "/doc/" + info.id() + ".html#" + foot.id();
+                        footDoc.path = prefix() + "doc/" + info.id() + ".html#" + foot.id();
                         childDoc.subs.add(footDoc);
                     }
                 }
@@ -738,7 +748,7 @@ public abstract class JavadocModel {
                         .formatTo(output().file("main.css").asJavaPath());
 
                 // build JS
-                site.build("main.js", SiteBuilder.class.getResourceAsStream("main.js"));
+                site.build("main.js", SiteBuilder.class.getResourceAsStream("main.js"), text -> text.replace("$PREFIX$", prefix()));
                 site.build("mimic.js", SiteBuilder.class.getResourceAsStream("mimic.js"));
                 site.build("highlight.js", SiteBuilder.class.getResourceAsStream("highlight.js"), I.signal(Highlighter)
                         .map(x -> "https://unpkg.com/@highlightjs/cdn-assets@11.2.0/languages/" + x + ".min.js")
@@ -757,7 +767,7 @@ public abstract class JavadocModel {
 
                 I.http(repository().locateChangeLog(), String.class).waitForTerminate().to(md -> {
                     Node root = Parser.builder().build().parse(md);
-                    String html = HtmlRenderer.builder().build().render(root);
+                    String html = HtmlRenderer.builder().escapeHtml(true).build().render(root);
                     site.buildHTML("doc/changelog.html", new DomPage(this, I.xml(html)));
                 });
 
