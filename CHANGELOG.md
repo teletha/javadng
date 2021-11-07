@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.7.0](https://www.github.com/Teletha/javadng/compare/v1.6.0...v1.7.0) (2021-11-07)
+
+
+### Features
+
+* Automatic support for the nested context. ([1bbd7b8](https://www.github.com/Teletha/javadng/commit/1bbd7b86007ddcdc03fc35fd0113ef5bbd4e8553))
+* Remove Repository, use CodeRepository instead. ([c6fd8f7](https://www.github.com/Teletha/javadng/commit/c6fd8f71d317461bc90782d80c64b5246b08a9aa))
+
+
+### Bug Fixes
+
+* Accepts multiple sample directories. ([25097c5](https://www.github.com/Teletha/javadng/commit/25097c5d677c685afc847d9f393eeb4ffabb7fd2))
+* Capitalize product name. ([eba4941](https://www.github.com/Teletha/javadng/commit/eba49415fe0902ac223bc675e78f4f36e1ec8be1))
+* test ([11bfa58](https://www.github.com/Teletha/javadng/commit/11bfa58de1ca3b7e6f15bcfa498a92a15bf3a67c))
+* tests ([5276cf0](https://www.github.com/Teletha/javadng/commit/5276cf0a305b103de4829c5f92576b1c4445ecdb))
+
 ## [1.6.0](https://www.github.com/Teletha/javadng/compare/v1.5.0...v1.6.0) (2021-11-06)
 
 
