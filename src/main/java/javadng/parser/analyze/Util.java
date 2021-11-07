@@ -56,7 +56,7 @@ public final class Util {
     public static Types TypeUtils;
 
     /** Guilty Accessor. */
-    public static Directory Samples;
+    public static List<Directory> Samples;
 
     /**
      * Find the top-level {@link TypeElement} (not member class).
@@ -111,15 +111,19 @@ public final class Util {
      */
     public static String getSourceCode(String fqcn, String memberDescriptor) {
         try {
-            File file = Samples.file(fqcn.replace('.', '/') + ".java");
-            CompilationUnit parsed = StaticJavaParser.parse(file.asJavaFile());
-            for (MethodDeclaration method : parsed.findAll(MethodDeclaration.class)) {
-                if (method.getSignature().asString().equals(memberDescriptor)) {
-                    Position begin = method.getBegin().get();
-                    Position end = method.getEnd().get();
-                    List<String> lines = file.lines().toList().subList(begin.line, end.line);
+            for (Directory sample : Samples) {
+                File file = sample.file(fqcn.replace('.', '/') + ".java");
+                if (file.isPresent()) {
+                    CompilationUnit parsed = StaticJavaParser.parse(file.asJavaFile());
+                    for (MethodDeclaration method : parsed.findAll(MethodDeclaration.class)) {
+                        if (method.getSignature().asString().equals(memberDescriptor)) {
+                            Position begin = method.getBegin().get();
+                            Position end = method.getEnd().get();
+                            List<String> lines = file.lines().toList().subList(begin.line, end.line);
 
-                    return stripHeaderWhitespace(lines.stream().collect(Collectors.joining("\r\n")));
+                            return stripHeaderWhitespace(lines.stream().collect(Collectors.joining("\r\n")));
+                        }
+                    }
                 }
             }
         } catch (Exception e) {

@@ -225,8 +225,8 @@ public abstract class JavadocModel {
      * @return
      */
     @Icy.Property
-    public Directory sample() {
-        return null;
+    public List<Directory> sample() {
+        return List.of();
     }
 
     /**
@@ -235,8 +235,8 @@ public abstract class JavadocModel {
      * @return
      */
     @Icy.Overload("sample")
-    private Directory sample(String path) {
-        return Locator.directory(path);
+    private List<Directory> sample(String path) {
+        return List.of(Locator.directory(path));
     }
 
     /**
@@ -245,8 +245,8 @@ public abstract class JavadocModel {
      * @return
      */
     @Icy.Overload("sample")
-    private Directory sample(Path path) {
-        return Locator.directory(path);
+    private List<Directory> sample(Path path) {
+        return List.of(Locator.directory(path));
     }
 
     /**
