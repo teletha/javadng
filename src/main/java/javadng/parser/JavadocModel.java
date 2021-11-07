@@ -336,9 +336,7 @@ public abstract class JavadocModel {
 
                     boolean result = tool.getTask(null, m, listener(), Internal.class, List.of("-package"), I
                             .signal(m.list(SOURCE_PATH, "", Set.of(Kind.SOURCE), true))
-                            .take(o -> o.getName()
-                                    .startsWith(sample()
-                                            .toString()) && (o.getName().endsWith("Test.java") || o.getName().endsWith("Doc.java")))
+                            .take(o -> accept(o.getName()) && (o.getName().endsWith("Test.java") || o.getName().endsWith("Doc.java")))
                             .toList()).call();
 
                     if (result) {
@@ -376,6 +374,15 @@ public abstract class JavadocModel {
             }
         }
         return (Javadoc) this;
+    }
+
+    private boolean accept(String name) {
+        for (Directory directory : sample()) {
+            if (name.startsWith(directory.toString())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
