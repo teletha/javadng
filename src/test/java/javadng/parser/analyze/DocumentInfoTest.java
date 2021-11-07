@@ -24,7 +24,7 @@ import kiss.Ⅱ;
  */
 public class DocumentInfoTest extends JavadocTestSupport {
 
-    private static final String BASE = "/api/" + DocumentInfoTest.class.getName() + ".html";
+    private static final String BASE = "api/" + DocumentInfoTest.class.getName() + ".html";
 
     /**
      * Text
