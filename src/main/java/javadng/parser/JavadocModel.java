@@ -327,7 +327,7 @@ public abstract class JavadocModel {
             // ========================================================
             // Collect sample source
             // ========================================================
-            if (sample() != null) {
+            if (!sample().isEmpty()) {
                 processingMainSource = false;
 
                 try (StandardJavaFileManager m = tool.getStandardFileManager(listener(), Locale.getDefault(), encoding())) {
