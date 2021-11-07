@@ -11,6 +11,7 @@ package javadng.parser;
 
 import static javax.tools.Diagnostic.Kind.*;
 import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
+import static javax.tools.JavaFileObject.Kind.SOURCE;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -44,8 +45,8 @@ import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticListener;
 import javax.tools.DocumentationTool;
+import javax.tools.DocumentationTool.DocumentationTask;
 import javax.tools.JavaFileObject;
-import javax.tools.JavaFileObject.Kind;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
@@ -334,12 +335,13 @@ public abstract class JavadocModel {
                     m.setLocation(SOURCE_PATH, I.signal(sources()).startWith(sample()).map(Directory::asJavaFile).toList());
                     m.setLocation(CLASS_PATH, classpath().stream().map(psychopath.Location::asJavaFile).collect(Collectors.toList()));
 
-                    boolean result = tool.getTask(null, m, listener(), Internal.class, List.of("-package"), I
-                            .signal(m.list(SOURCE_PATH, "", Set.of(Kind.SOURCE), true))
+                    List<JavaFileObject> files = I.signal(m.list(SOURCE_PATH, "", Set.of(SOURCE), true))
                             .take(o -> accept(o.getName()) && (o.getName().endsWith("Test.java") || o.getName().endsWith("Doc.java")))
-                            .toList()).call();
+                            .toList();
 
-                    if (result) {
+                    DocumentationTask task = tool.getTask(null, m, listener(), Internal.class, List.of("-package"), files);
+
+                    if (task.call()) {
                         listener().report(new Message(OTHER, "sample", "Succeed in scanning sample sources."));
                     } else {
                         listener().report(new Message(ERROR, "sample", "Fail in scanning sample sources."));
@@ -359,12 +361,10 @@ public abstract class JavadocModel {
                 m.setLocationFromPaths(SOURCE_PATH, sources().stream().map(Directory::asJavaPath).collect(Collectors.toList()));
                 m.setLocationFromPaths(DOCUMENTATION_OUTPUT, List.of(output() == null ? Path.of("") : output().create().asJavaPath()));
 
-                boolean result = tool
-                        .getTask(null, m, listener(), Internal.class, List.of("-protected"), m
-                                .list(SOURCE_PATH, "", Set.of(Kind.SOURCE), true))
-                        .call();
+                DocumentationTask task = tool
+                        .getTask(null, m, listener(), Internal.class, List.of("-protected"), m.list(SOURCE_PATH, "", Set.of(SOURCE), true));
 
-                if (result) {
+                if (task.call()) {
                     listener().report(new Message(OTHER, "build", "Succeed in building documents."));
                 } else {
                     listener().report(new Message(ERROR, "build", "Fail in building documents."));
