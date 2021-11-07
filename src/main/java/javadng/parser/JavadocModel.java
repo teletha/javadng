@@ -145,7 +145,7 @@ public abstract class JavadocModel {
      */
     @Icy.Property
     public List<psychopath.Location> classpath() {
-        return List.of();
+        return null;
     }
 
     /**
@@ -338,7 +338,8 @@ public abstract class JavadocModel {
 
                 try (StandardJavaFileManager m = tool.getStandardFileManager(listener(), Locale.getDefault(), encoding())) {
                     m.setLocation(SOURCE_PATH, I.signal(sources()).startWith(sample()).map(Directory::asJavaFile).toList());
-                    m.setLocation(CLASS_PATH, classpath().stream().map(psychopath.Location::asJavaFile).collect(Collectors.toList()));
+                    m.setLocation(CLASS_PATH, classpath() == null ? null
+                            : classpath().stream().map(psychopath.Location::asJavaFile).collect(Collectors.toList()));
 
                     List<JavaFileObject> files = I.signal(m.list(SOURCE_PATH, "", Set.of(SOURCE), true))
                             .take(o -> accept(o.getName()) && (o.getName().endsWith("Test.java") || o.getName().endsWith("Doc.java")))
@@ -363,7 +364,9 @@ public abstract class JavadocModel {
             // Scan javadoc from main source
             // ========================================================
             try (StandardJavaFileManager m = tool.getStandardFileManager(listener(), Locale.getDefault(), encoding())) {
-                m.setLocationFromPaths(SOURCE_PATH, sources().stream().map(Directory::asJavaPath).collect(Collectors.toList()));
+                m.setLocation(SOURCE_PATH, I.signal(sources()).map(Directory::asJavaFile).toList());
+                m.setLocation(CLASS_PATH, classpath() == null ? null
+                        : classpath().stream().map(psychopath.Location::asJavaFile).collect(Collectors.toList()));
                 m.setLocationFromPaths(DOCUMENTATION_OUTPUT, List.of(output() == null ? Path.of("") : output().create().asJavaPath()));
 
                 DocumentationTask task = tool
