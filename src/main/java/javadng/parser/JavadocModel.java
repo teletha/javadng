@@ -204,6 +204,11 @@ public abstract class JavadocModel {
     @Icy.Property
     public abstract String product();
 
+    @Icy.Intercept("product")
+    private String capitalize(String name) {
+        return Character.toUpperCase(name.charAt(0)) + name.substring(1);
+    }
+
     /**
      * The project name.
      * 
