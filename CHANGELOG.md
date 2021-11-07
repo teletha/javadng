@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.7.1](https://www.github.com/Teletha/javadng/compare/v1.7.0...v1.7.1) (2021-11-07)
+
+
+### Bug Fixes
+
+* Use user specified classpath properly. ([aab473f](https://www.github.com/Teletha/javadng/commit/aab473fc4a0e3c5dbf802463e63bfd8745c8559c))
+
 ## [1.7.0](https://www.github.com/Teletha/javadng/compare/v1.6.0...v1.7.0) (2021-11-07)
 
 
