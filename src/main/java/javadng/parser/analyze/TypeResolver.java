@@ -67,9 +67,6 @@ public class TypeResolver {
         }
     }
 
-    /** The prefix part of location path. */
-    private final String prefix;
-
     /** PackageName-URL pair */
     private final Map<String, String> externals;
 
@@ -82,8 +79,7 @@ public class TypeResolver {
     /**
      * @param externals
      */
-    public TypeResolver(String prefix, Map<String, String> externals, Set<String> internals, TypeElement clazz) {
-        this.prefix = prefix;
+    public TypeResolver(Map<String, String> externals, Set<String> internals, TypeElement clazz) {
         this.externals = externals == null ? Map.of() : externals;
         this.internals = internals == null ? Set.of() : internals;
 
@@ -205,7 +201,7 @@ public class TypeResolver {
         }
 
         if (internals.contains(type.packageName)) {
-            StringBuilder builder = new StringBuilder(prefix).append("api/");
+            StringBuilder builder = new StringBuilder("api/");
             if (type.packageName.length() != 0) builder.append(type.packageName).append('.');
             if (type.enclosingName.length() != 0) builder.append(type.enclosingName).append('.');
             builder.append(type.typeName).append(".html");

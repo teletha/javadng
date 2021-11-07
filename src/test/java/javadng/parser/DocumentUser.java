@@ -41,7 +41,6 @@ public class DocumentUser {
                 .sample("../sinobu/src/test/java")
                 .classpath(path.toArray(String[]::new))
                 .repository(new Github("Teletha", "sinobu", "master"))
-                .prefix("/application/")
                 .useExternalJDKDoc()
                 .build()
                 .show();

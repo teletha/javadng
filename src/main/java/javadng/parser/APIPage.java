@@ -27,11 +27,12 @@ import stylist.value.Numeric;
 public class APIPage extends Page<ClassInfo> {
 
     /**
+     * @param depth
      * @param model
      * @param info
      */
-    public APIPage(JavadocModel model, ClassInfo info) {
-        super(model, info);
+    public APIPage(int depth, JavadocModel model, ClassInfo info) {
+        super(depth, model, info);
     }
 
     /**

@@ -27,15 +27,17 @@ public abstract class Page<T> extends HTML {
 
     protected final T contents;
 
+    private final String base;
+
     /**
+     * @param depth
      * @param model
      * @param info
      */
-    protected Page(JavadocModel model, T info) {
-        super(model.prefix());
-
+    protected Page(int depth, JavadocModel model, T info) {
         this.model = model;
         this.contents = info;
+        this.base = "../".repeat(depth);
     }
 
     /**
@@ -47,6 +49,7 @@ public abstract class Page<T> extends HTML {
             $("head", () -> {
                 $("meta", attr("charset", "UTF-8"));
                 $("title", text(model.product() + " API"));
+                $("base", attr("href", base));
                 stylesheetAsync("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/zenburn.min.css");
                 scriptAsync("highlight.js");
                 module("mimic.js");
@@ -62,12 +65,12 @@ public abstract class Page<T> extends HTML {
                     $("h1", styles.HeaderTitle, attr("date", date), attr("ver", model.version()), code(model.product()));
                     $("nav", styles.HeaderNav, () -> {
                         for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
-                            $("a", attr("href", prefix + "doc/" + info.children().get(0).id() + ".html"), svg("text"), text(info.title()));
+                            $("a", attr("href", "doc/" + info.children().get(0).id() + ".html"), svg("text"), text(info.title()));
                         }
-                        $("a", attr("href", prefix + "api/"), svg("package"), code("API"));
+                        $("a", attr("href", "api/"), svg("package"), code("API"));
                         $("a", attr("href", model.repository()
                                 .locateCommunity()), attr("target", "_blank"), svg("user"), text("Community"));
-                        $("a", attr("href", prefix + "doc/changelog.html"), svg("activity"), text("Activity"));
+                        $("a", attr("href", "doc/changelog.html"), svg("activity"), text("Activity"));
                         $("a", attr("href", model.repository().locate()), attr("target", "_blank"), svg("github"), text("Repository"));
                     });
                     $("div", attr("id", "ViewMode"), styles.ViewMode, () -> {

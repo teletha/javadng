@@ -14,6 +14,7 @@ import java.util.Set;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
 
 import kiss.I;
 import kiss.XML;
@@ -26,8 +27,13 @@ public abstract class MemberInfo extends DocumentInfo {
     /** The modifier of this member. */
     public final Set<Modifier> modifiers;
 
+    /** The source type. */
+    private final DocumentInfo parent;
+
     /**
      * @param e
+     * @param resolver
+     * @param parent
      */
     public MemberInfo(Element e, TypeResolver resolver, DocumentInfo parent) {
         super(e, resolver, parent);
@@ -39,6 +45,7 @@ public abstract class MemberInfo extends DocumentInfo {
 
         this.name = name;
         this.modifiers = e.getModifiers();
+        this.parent = parent;
     }
 
     /**
@@ -146,7 +153,11 @@ public abstract class MemberInfo extends DocumentInfo {
      * @return
      */
     public final XML createName() {
-        return I.xml("code").child("a").attr("href", "#" + id()).text(name).parent();
+        return I.xml("code")
+                .child("a")
+                .attr("href", resolver.resolveDocumentLocation((TypeElement) parent.e) + "#" + id())
+                .text(name)
+                .parent();
     }
 
     /**

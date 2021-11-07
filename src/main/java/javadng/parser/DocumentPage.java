@@ -21,11 +21,12 @@ import stylist.value.Numeric;
 public class DocumentPage extends Page<ClassInfo> {
 
     /**
+     * @param depth
      * @param model
      * @param info
      */
-    public DocumentPage(JavadocModel model, ClassInfo info) {
-        super(model, info);
+    public DocumentPage(int depth, JavadocModel model, ClassInfo info) {
+        super(depth, model, info);
     }
 
     /**

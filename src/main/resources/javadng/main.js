@@ -4,10 +4,10 @@ import { Mimic as $ } from "./mimic.js"
 // User Settings
 // =====================================================
 const
-	prefix = "$PREFIX$",
+	prefix = import.meta.url.substring(location.protocol.length + location.host.length + 2, import.meta.url.length - 7),
 	user = JSON.parse(localStorage.getItem("user")) || {},
 	save = () => localStorage.setItem("user", JSON.stringify(user))
-
+	
 // =====================================================
 // View Mode
 // =====================================================
@@ -87,7 +87,7 @@ function FlashMan({ paged, cacheSize = 20, preload = "mouseover", preview = "sec
 		if (location.hash == "") {
 			setTimeout(() => window.scrollTo(0, 0), 200); // wait rendering
 		} else {
-			location.replace(location.hash);
+			location.replace(location.href);
 		}
 	}
 
@@ -118,7 +118,7 @@ FlashMan({
 		$("#DocNavi>div").each(e => {
 			const sub = e.lastElementChild;
 
-			if (e.id == location.pathname) {
+			if (location.pathname.endsWith(e.id)) {
 				e.classList.add("active");
 				sub.style.height = sub.scrollHeight + "px";
 			} else {

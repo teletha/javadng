@@ -17,8 +17,8 @@ public class DomPage extends Page<XML> {
     /**
      * @param model
      */
-    public DomPage(JavadocModel model, XML xml) {
-        super(model, xml);
+    public DomPage(int depth, JavadocModel model, XML xml) {
+        super(depth, model, xml);
     }
 
     /**
