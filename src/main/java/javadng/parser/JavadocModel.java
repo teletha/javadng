@@ -58,6 +58,7 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpServer;
 
 import icy.manipulator.Icy;
+import javadng.CodeRepository;
 import javadng.Design;
 import javadng.SiteBuilder;
 import javadng.parser.analyze.ClassInfo;
@@ -68,7 +69,6 @@ import javadng.parser.analyze.SampleInfo;
 import javadng.parser.analyze.TemplateStore;
 import javadng.parser.analyze.TypeResolver;
 import javadng.parser.analyze.Util;
-import javadng.repository.Repository;
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
 import jdk.javadoc.doclet.Reporter;
@@ -281,7 +281,7 @@ public abstract class JavadocModel {
      * @return
      */
     @Icy.Property
-    public Repository repository() {
+    public CodeRepository repository() {
         return null;
     }
 

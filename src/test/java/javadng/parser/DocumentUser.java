@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javadng.repository.Github;
+import javadng.CodeRepository;
 import psychopath.Locator;
 
 public class DocumentUser {
@@ -40,7 +40,7 @@ public class DocumentUser {
                 .version("1.0")
                 .sample("../sinobu/src/test/java")
                 .classpath(path.toArray(String[]::new))
-                .repository(new Github("Teletha", "sinobu", "master"))
+                .repository(CodeRepository.of("https://github.com/teletha/sinobu", "main"))
                 .useExternalJDKDoc()
                 .build()
                 .show();
