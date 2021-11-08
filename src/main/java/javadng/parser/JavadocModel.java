@@ -271,7 +271,7 @@ public abstract class JavadocModel {
      * @return
      */
     @Icy.Property
-    public DiagnosticListener<JavaFileObject> listener() {
+    public DiagnosticListener<? super JavaFileObject> listener() {
         return o -> System.out.println(o);
     }
 
