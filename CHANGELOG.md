@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.7.2](https://www.github.com/Teletha/javadng/compare/v1.7.1...v1.7.2) (2021-11-08)
+
+
+### Bug Fixes
+
+* DiagnosticListener is compatible with tools API. ([6008244](https://www.github.com/Teletha/javadng/commit/600824417d48ffbc797294c3a38a104c474c1925))
+
 ### [1.7.1](https://www.github.com/Teletha/javadng/compare/v1.7.0...v1.7.1) (2021-11-07)
 
 
