@@ -10,8 +10,9 @@
 package javadng.parser;
 
 import static javax.tools.Diagnostic.Kind.*;
-import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
-import static javax.tools.JavaFileObject.Kind.SOURCE;
+import static javax.tools.Diagnostic.Kind.OTHER;
+import static javax.tools.DocumentationTool.Location.*;
+import static javax.tools.JavaFileObject.Kind.*;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -345,7 +346,7 @@ public abstract class JavadocModel {
                             .take(o -> accept(o.getName()) && (o.getName().endsWith("Test.java") || o.getName().endsWith("Doc.java")))
                             .toList();
 
-                    DocumentationTask task = tool.getTask(null, m, listener(), Internal.class, List.of("-package"), files);
+                    DocumentationTask task = tool.getTask(null, m, listener(), Internal.class, null, files);
 
                     if (task.call()) {
                         listener().report(new Message(OTHER, "sample", "Succeed in scanning sample sources."));
@@ -370,7 +371,7 @@ public abstract class JavadocModel {
                 m.setLocationFromPaths(DOCUMENTATION_OUTPUT, List.of(output() == null ? Path.of("") : output().create().asJavaPath()));
 
                 DocumentationTask task = tool
-                        .getTask(null, m, listener(), Internal.class, List.of("-protected"), m.list(SOURCE_PATH, "", Set.of(SOURCE), true));
+                        .getTask(null, m, listener(), Internal.class, null, m.list(SOURCE_PATH, "", Set.of(SOURCE), true));
 
                 if (task.call()) {
                     listener().report(new Message(OTHER, "build", "Succeed in building documents."));

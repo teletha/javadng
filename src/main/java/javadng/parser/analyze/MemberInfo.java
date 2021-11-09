@@ -63,7 +63,7 @@ public abstract class MemberInfo extends DocumentInfo {
     }
 
     /**
-     * Check whether this member has static modifier or not.
+     * Check whether this member has public modifier or not.
      * 
      * @return Result.
      */
