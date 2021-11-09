@@ -10,7 +10,9 @@
 package javadng;
 
 import java.net.URI;
-import java.util.Objects;
+
+import kiss.I;
+import kiss.JSON;
 
 public abstract class CodeRepository {
 
@@ -55,11 +57,11 @@ public abstract class CodeRepository {
      * @param uri
      * @return
      */
-    public static CodeRepository of(String uri, String branch) {
+    public static CodeRepository of(String uri) {
         if (uri == null) {
             return null;
         }
-        return of(URI.create(uri), branch);
+        return of(URI.create(uri));
     }
 
     /**
@@ -68,14 +70,14 @@ public abstract class CodeRepository {
      * @param uri
      * @return
      */
-    public static CodeRepository of(URI uri, String branch) {
+    public static CodeRepository of(URI uri) {
         if (uri == null) {
             return null;
         }
 
         switch (uri.getHost()) {
         case "github.com":
-            return new Github(uri, branch);
+            return new Github(uri);
 
         default:
             return null;
@@ -93,12 +95,14 @@ public abstract class CodeRepository {
 
         private final String branch;
 
-        private Github(URI uri, String branch) {
+        private Github(URI uri) {
             String path = uri.getPath();
-            int index = path.indexOf('/');
+            int index = path.indexOf('/', 1);
             this.owner = path.substring(0, index);
             this.name = path.substring(index + 1);
-            this.branch = Objects.requireNonNull(branch);
+
+            JSON json = I.json("https://api.github.com/repos" + path);
+            this.branch = json.get(String.class, "default_branch");
         }
 
         /**

@@ -40,7 +40,7 @@ public class DocumentUser {
                 .version("1.0")
                 .sample("../sinobu/src/test/java")
                 .classpath(path.toArray(String[]::new))
-                .repository(CodeRepository.of("https://github.com/teletha/sinobu", "main"))
+                .repository(CodeRepository.of("https://github.com/teletha/sinobu"))
                 .useExternalJDKDoc()
                 .build()
                 .show();
