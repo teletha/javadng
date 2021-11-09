@@ -1,5 +1,15 @@
 # Changelog
 
+### [1.7.3](https://www.github.com/Teletha/javadng/compare/v1.7.2...v1.7.3) (2021-11-09)
+
+
+### Bug Fixes
+
+* Change css. ([a8ccdbd](https://www.github.com/Teletha/javadng/commit/a8ccdbd68feeb75fe24fe619531d76252c4ce99d))
+* CodeRepository recgnize the default branch automatically. ([c3bd92e](https://www.github.com/Teletha/javadng/commit/c3bd92e0ac3c6121a4580fd4ba3d8c867a3ff703))
+* Update highlight.js from 11.2.0 to 11.3.1 ([2ff5db3](https://www.github.com/Teletha/javadng/commit/2ff5db3f2b8d4ce1b562461ec63002e83c2163e5))
+* Use the latest grammer definition of highlight.js automatically. ([7fb3e43](https://www.github.com/Teletha/javadng/commit/7fb3e434ec30f0b23b17a6243d232cde302d300e))
+
 ### [1.7.2](https://www.github.com/Teletha/javadng/compare/v1.7.1...v1.7.2) (2021-11-08)
 
 
