@@ -370,8 +370,8 @@ public abstract class JavadocModel {
                         : classpath().stream().map(psychopath.Location::asJavaFile).collect(Collectors.toList()));
                 m.setLocationFromPaths(DOCUMENTATION_OUTPUT, List.of(output() == null ? Path.of("") : output().create().asJavaPath()));
 
-                DocumentationTask task = tool.getTask(null, m, listener(), Internal.class, List.of("-protected", "-Xdoclint:none"), m
-                        .list(SOURCE_PATH, "", Set.of(SOURCE), true));
+                DocumentationTask task = tool
+                        .getTask(null, m, listener(), Internal.class, List.of("-protected"), m.list(SOURCE_PATH, "", Set.of(SOURCE), true));
 
                 if (task.call()) {
                     listener().report(new Message(OTHER, "build", "Succeed in building documents."));
