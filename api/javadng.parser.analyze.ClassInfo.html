@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Javadng API</title>
+		<base href="../"/>
+		<link href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/zenburn.min.css" media="print" onload="this.media=&#39;all&#39;" rel="stylesheet"/>
+		<script async="true" src="highlight.js"></script>
+		<script src="mimic.js" type="module"></script>
+		<link href="main.css" rel="stylesheet"/>
+	</head>
+	<body class="Z">
+		<header class="L">
+			<h1 class="S" date="2021-12-05" ver="1.7.3"><code>Javadng</code></h1>
+			<nav class="i"><a href="api/"><svg class="A svg" viewBox="0 0 24 24">
+						<use href="main.svg#package"/>
+					</svg><code>API</code></a><a href="https://github.com//teletha/javadng/discussions" target="_blank"><svg class="A svg" viewBox="0 0 24 24">
+						<use href="main.svg#user"/>
+					</svg>Community</a><a href="doc/changelog.html"><svg class="A svg" viewBox="0 0 24 24">
+						<use href="main.svg#activity"/>
+					</svg>Activity</a><a href="https://github.com//teletha/javadng" target="_blank"><svg class="A svg" viewBox="0 0 24 24">
+						<use href="main.svg#github"/>
+					</svg>Repository</a></nav>
+			<div class="K" id="ViewMode"><a id="light" title="Change to a brighter color scheme"><svg class="A svg" viewBox="0 0 24 24">
+						<use href="main.svg#sun"/>
+					</svg>
+				</a><a id="dark" title="Change to a darker color scheme"><svg class="A svg" viewBox="0 0 24 24">
+						<use href="main.svg#moon"/>
+					</svg>
+				</a></div>
+		</header>
+		<main class="P">
+			<nav class="f">
+				<div></div>
+			</nav>
+			<article class="Q" id="Article">
+				<section class="M"><code class="a">javadng.parser.analyze</code>
+					<h2 class="Class V"><code class="X">ClassInfo</code></h2>
+					<ul class="C E">
+						<li><code><a href="api/javadng.parser.analyze.ParameterizableInfo.html">ParameterizableInfo</a></code></li>
+						<li><code><a href="api/javadng.parser.analyze.MemberInfo.html">MemberInfo</a></code></li>
+						<li><code><a href="api/javadng.parser.analyze.DocumentInfo.html">DocumentInfo</a></code></li>
+					</ul>
+					<ul class="C F">
+						<li><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Comparable.html">Comparable</a><code class="parameters"><code><a href="api/javadng.parser.analyze.ClassInfo.html">ClassInfo</a></code></code></code></li>
+					</ul>
+				</section>
+				<section class="M" id="packageName">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">packageName</code><i class="U"><code class="return"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></h2><span class="B">The package name.</span></section>
+				<section class="M" id="name">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">name</code><i class="U"><code class="return"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></h2><span class="B">The simple class name.</span></section>
+				<section class="M" id="type">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">type</code><i class="U"><code class="return"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></h2><span class="B">The kind of type (interface, abstract class, class etc)</span></section>
+				<section class="M" id="ClassInfo(javax.lang.model.element.TypeElement,javadng.parser.analyze.TypeResolver)">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">ClassInfo</code><code class="W">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/TypeElement.html">TypeElement</a></code> <code class="parameterName">root</code>, <code><a href="api/javadng.parser.analyze.TypeResolver.html">TypeResolver</a></code> <code class="parameterName">resolver</code>)</code></h2>
+					<table class="R">
+						<tr class="d">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/TypeElement.html">TypeElement</a></code> <code>root</code></td>
+							<td></td>
+						</tr>
+						<tr class="d">
+							<td><code><a href="api/javadng.parser.analyze.TypeResolver.html">TypeResolver</a></code> <code>resolver</code></td>
+							<td></td>
+						</tr>
+					</table>
+				</section>
+				<section class="M" id="isTest()">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">isTest</code><code class="W">()</code><i class="U"><code>boolean</code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code>boolean</code></td>
+							<td></td>
+						</tr>
+					</table><span class="B">Detect whether this class is test case class or not.</span></section>
+				<section class="M" id="createSuperTypes()">
+					<h2 class="g"><i class="FINAL"><i class="PUBLIC"></i></i><code class="X">createSuperTypes</code><code class="W">()</code><i class="U"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>kiss.XML</code></code></code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>kiss.XML</code></code></code></td>
+							<td></td>
+						</tr>
+					</table><span class="B">Build super type element.</span></section>
+				<section class="M" id="createInterfaceTypes()">
+					<h2 class="g"><i class="FINAL"><i class="PUBLIC"></i></i><code class="X">createInterfaceTypes</code><code class="W">()</code><i class="U"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>kiss.XML</code></code></code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>kiss.XML</code></code></code></td>
+							<td></td>
+						</tr>
+					</table><span class="B">Build interface type element.</span></section>
+				<section class="M" id="createSubTypes()">
+					<h2 class="g"><i class="FINAL"><i class="PUBLIC"></i></i><code class="X">createSubTypes</code><code class="W">()</code><i class="U"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>kiss.XML</code></code></code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>kiss.XML</code></code></code></td>
+							<td></td>
+						</tr>
+					</table><span class="B">Build sub type element.</span></section>
+				<section class="M" id="outer()">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">outer</code><code class="W">()</code><i class="U"><code>kiss.Variable<code class="parameters"><code><a href="api/javadng.parser.analyze.ClassInfo.html">ClassInfo</a></code></code></code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code>kiss.Variable<code class="parameters"><code><a href="api/javadng.parser.analyze.ClassInfo.html">ClassInfo</a></code></code></code></td>
+							<td></td>
+						</tr>
+					</table><span class="B">Retrieve the outside type.</span></section>
+				<section class="M" id="outermost()">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">outermost</code><code class="W">()</code><i class="U"><code><a href="api/javadng.parser.analyze.ClassInfo.html">ClassInfo</a></code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code><a href="api/javadng.parser.analyze.ClassInfo.html">ClassInfo</a></code></td>
+							<td></td>
+						</tr>
+					</table><span class="B">Retrieve the top-level type.</span></section>
+				<section class="M" id="nestLevel()">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">nestLevel</code><code class="W">()</code><i class="U"><code>int</code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code>int</code></td>
+							<td></td>
+						</tr>
+					</table>
+				</section>
+				<section class="M" id="children(javax.lang.model.element.Modifier...)">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">children</code><code class="W">(<code array="var"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code> <code class="parameterName">modifiers</code>)</code><i class="U"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.ClassInfo.html">ClassInfo</a></code></code></code></i></h2>
+					<table class="R">
+						<tr class="d">
+							<td><code array="var"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code> <code>modifiers</code></td>
+							<td></td>
+						</tr>
+						<tr class="c">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.ClassInfo.html">ClassInfo</a></code></code></code></td>
+							<td></td>
+						</tr>
+					</table><span class="B">List up all inner types with the specified modifiers.</span></section>
+				<section class="M" id="constructors(javax.lang.model.element.Modifier...)">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">constructors</code><code class="W">(<code array="var"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code> <code class="parameterName">modifiers</code>)</code><i class="U"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.ExecutableInfo.html">ExecutableInfo</a></code></code></code></i></h2>
+					<table class="R">
+						<tr class="d">
+							<td><code array="var"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code> <code>modifiers</code></td>
+							<td></td>
+						</tr>
+						<tr class="c">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.ExecutableInfo.html">ExecutableInfo</a></code></code></code></td>
+							<td></td>
+						</tr>
+					</table><span class="B">List up all constructors.</span></section>
+				<section class="M" id="fields(javax.lang.model.element.Modifier...)">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">fields</code><code class="W">(<code array="var"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code> <code class="parameterName">modifiers</code>)</code><i class="U"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.FieldInfo.html">FieldInfo</a></code></code></code></i></h2>
+					<table class="R">
+						<tr class="d">
+							<td><code array="var"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code> <code>modifiers</code></td>
+							<td></td>
+						</tr>
+						<tr class="c">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.FieldInfo.html">FieldInfo</a></code></code></code></td>
+							<td></td>
+						</tr>
+					</table><span class="B">List up all fields.</span></section>
+				<section class="M" id="methods(javax.lang.model.element.Modifier...)">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">methods</code><code class="W">(<code array="var"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code> <code class="parameterName">modifiers</code>)</code><i class="U"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.MethodInfo.html">MethodInfo</a></code></code></code></i></h2>
+					<table class="R">
+						<tr class="d">
+							<td><code array="var"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code> <code>modifiers</code></td>
+							<td></td>
+						</tr>
+						<tr class="c">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.MethodInfo.html">MethodInfo</a></code></code></code></td>
+							<td></td>
+						</tr>
+					</table><span class="B">List up all methods.</span></section>
+				<section class="M" id="staticFields()">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">staticFields</code><code class="W">()</code><i class="U"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.FieldInfo.html">FieldInfo</a></code></code></code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.FieldInfo.html">FieldInfo</a></code></code></code></td>
+							<td><span>A filtered fields.</span></td>
+						</tr>
+					</table><span class="B">List up all static fields.</span></section>
+				<section class="M" id="nonStaticFields()">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">nonStaticFields</code><code class="W">()</code><i class="U"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.FieldInfo.html">FieldInfo</a></code></code></code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.FieldInfo.html">FieldInfo</a></code></code></code></td>
+							<td><span>A filtered fields.</span></td>
+						</tr>
+					</table><span class="B">List up all non-static fields.</span></section>
+				<section class="M" id="staticMethods()">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">staticMethods</code><code class="W">()</code><i class="U"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.MethodInfo.html">MethodInfo</a></code></code></code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.MethodInfo.html">MethodInfo</a></code></code></code></td>
+							<td><span>A filtered methods.</span></td>
+						</tr>
+					</table><span class="B">List up all static methods.</span></section>
+				<section class="M" id="nonStaticMethods()">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">nonStaticMethods</code><code class="W">()</code><i class="U"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.MethodInfo.html">MethodInfo</a></code></code></code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.MethodInfo.html">MethodInfo</a></code></code></code></td>
+							<td><span>A filtered methods.</span></td>
+						</tr>
+					</table><span class="B">List up all non-static methods.</span></section>
+				<section class="M" id="findByMethodSignature(java.lang.String,java.lang.Class...)">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">findByMethodSignature</code><code class="W">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">methodName</code>, <code array="var"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html">Class</a><code class="parameters"><code>?</code></code></code> <code class="parameterName">paramTypes</code>)</code><i class="U"><code>kiss.Variable<code class="parameters"><code><a href="api/javadng.parser.analyze.MethodInfo.html">MethodInfo</a></code></code></code></i></h2>
+					<table class="R">
+						<tr class="d">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code> <code>methodName</code></td>
+							<td></td>
+						</tr>
+						<tr class="d">
+							<td><code array="var"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html">Class</a><code class="parameters"><code>?</code></code></code> <code>paramTypes</code></td>
+							<td></td>
+						</tr>
+						<tr class="c">
+							<td><code>kiss.Variable<code class="parameters"><code><a href="api/javadng.parser.analyze.MethodInfo.html">MethodInfo</a></code></code></code></td>
+							<td></td>
+						</tr>
+					</table>
+				</section>
+				<section class="M" id="compareTo(javadng.parser.analyze.ClassInfo)">
+					<h2 class="g"><i class="OVERRIDE PUBLIC"></i><code class="X">compareTo</code><code class="W">(<code><a href="api/javadng.parser.analyze.ClassInfo.html">ClassInfo</a></code> <code class="parameterName">o</code>)</code><i class="U"><code>int</code></i></h2>
+					<table class="R">
+						<tr class="d">
+							<td><code><a href="api/javadng.parser.analyze.ClassInfo.html">ClassInfo</a></code> <code>o</code></td>
+							<td></td>
+						</tr>
+						<tr class="c">
+							<td><code>int</code></td>
+							<td></td>
+						</tr>
+					</table>
+				</section>
+				<section class="M" id="id()">
+					<h2 class="g"><i class="OVERRIDE PUBLIC"></i><code class="X">id</code><code class="W">()</code><i class="U"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></td>
+							<td></td>
+						</tr>
+					</table>
+				</section>
+				<section class="M" id="filePath()">
+					<h2 class="g"><i class="FINAL"><i class="PUBLIC"></i></i><code class="X">filePath</code><code class="W">()</code><i class="U"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></td>
+							<td></td>
+						</tr>
+					</table><span class="B">Compute the file path.</span></section>
+				<section class="M" id="addSub(javadng.parser.analyze.ClassInfo)">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">addSub</code><code class="W">(<code><a href="api/javadng.parser.analyze.ClassInfo.html">ClassInfo</a></code> <code class="parameterName">sub</code>)</code><i class="U"><code>void</code></i></h2>
+					<table class="R">
+						<tr class="d">
+							<td><code><a href="api/javadng.parser.analyze.ClassInfo.html">ClassInfo</a></code> <code>sub</code></td>
+							<td></td>
+						</tr>
+					</table>
+				</section>
+			</article>
+			<aside class="b" id="SubNavi">
+				<div class="e">
+					<h5 class="h">Constructors</h5>
+					<ul>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#ClassInfo(javax.lang.model.element.TypeElement,javadng.parser.analyze.TypeResolver)">ClassInfo</a></code><code class="W">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/TypeElement.html">TypeElement</a></code> <code class="parameterName">root</code>, <code><a href="api/javadng.parser.analyze.TypeResolver.html">TypeResolver</a></code> <code class="parameterName">resolver</code>)</code></li>
+					</ul>
+					<h5 class="h">Fields</h5>
+					<ul>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#packageName">packageName</a></code><i class="I"><code class="return"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#name">name</a></code><i class="I"><code class="return"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#type">type</a></code><i class="I"><code class="return"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+					</ul>
+					<h5 class="h">Methods</h5>
+					<ul>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#isTest()">isTest</a></code><code class="W">()</code><i class="I"><code>boolean</code></i></li>
+						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#createSuperTypes()">createSuperTypes</a></code><code class="W">()</code><i class="I"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>kiss.XML</code></code></code></i></li>
+						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#createInterfaceTypes()">createInterfaceTypes</a></code><code class="W">()</code><i class="I"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>kiss.XML</code></code></code></i></li>
+						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#createSubTypes()">createSubTypes</a></code><code class="W">()</code><i class="I"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>kiss.XML</code></code></code></i></li>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#outer()">outer</a></code><code class="W">()</code><i class="I"><code>kiss.Variable<code class="parameters"><code><a href="api/javadng.parser.analyze.ClassInfo.html">ClassInfo</a></code></code></code></i></li>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#outermost()">outermost</a></code><code class="W">()</code><i class="I"><code><a href="api/javadng.parser.analyze.ClassInfo.html">ClassInfo</a></code></i></li>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#nestLevel()">nestLevel</a></code><code class="W">()</code><i class="I"><code>int</code></i></li>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#children(javax.lang.model.element.Modifier...)">children</a></code><code class="W">(<code array="var"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code> <code class="parameterName">modifiers</code>)</code><i class="I"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.ClassInfo.html">ClassInfo</a></code></code></code></i></li>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#constructors(javax.lang.model.element.Modifier...)">constructors</a></code><code class="W">(<code array="var"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code> <code class="parameterName">modifiers</code>)</code><i class="I"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.ExecutableInfo.html">ExecutableInfo</a></code></code></code></i></li>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#fields(javax.lang.model.element.Modifier...)">fields</a></code><code class="W">(<code array="var"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code> <code class="parameterName">modifiers</code>)</code><i class="I"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.FieldInfo.html">FieldInfo</a></code></code></code></i></li>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#methods(javax.lang.model.element.Modifier...)">methods</a></code><code class="W">(<code array="var"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code> <code class="parameterName">modifiers</code>)</code><i class="I"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.MethodInfo.html">MethodInfo</a></code></code></code></i></li>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#staticFields()">staticFields</a></code><code class="W">()</code><i class="I"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.FieldInfo.html">FieldInfo</a></code></code></code></i></li>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#nonStaticFields()">nonStaticFields</a></code><code class="W">()</code><i class="I"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.FieldInfo.html">FieldInfo</a></code></code></code></i></li>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#staticMethods()">staticMethods</a></code><code class="W">()</code><i class="I"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.MethodInfo.html">MethodInfo</a></code></code></code></i></li>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#nonStaticMethods()">nonStaticMethods</a></code><code class="W">()</code><i class="I"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a href="api/javadng.parser.analyze.MethodInfo.html">MethodInfo</a></code></code></code></i></li>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#findByMethodSignature(java.lang.String,java.lang.Class...)">findByMethodSignature</a></code><code class="W">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">methodName</code>, <code array="var"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Class.html">Class</a><code class="parameters"><code>?</code></code></code> <code class="parameterName">paramTypes</code>)</code><i class="I"><code>kiss.Variable<code class="parameters"><code><a href="api/javadng.parser.analyze.MethodInfo.html">MethodInfo</a></code></code></code></i></li>
+						<li><i class="OVERRIDE PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#compareTo(javadng.parser.analyze.ClassInfo)">compareTo</a></code><code class="W">(<code><a href="api/javadng.parser.analyze.ClassInfo.html">ClassInfo</a></code> <code class="parameterName">o</code>)</code><i class="I"><code>int</code></i></li>
+						<li><i class="OVERRIDE PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#id()">id</a></code><code class="W">()</code><i class="I"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#filePath()">filePath</a></code><code class="W">()</code><i class="I"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.ClassInfo.html#addSub(javadng.parser.analyze.ClassInfo)">addSub</a></code><code class="W">(<code><a href="api/javadng.parser.analyze.ClassInfo.html">ClassInfo</a></code> <code class="parameterName">sub</code>)</code><i class="I"><code>void</code></i></li>
+					</ul>
+				</div>
+			</aside>
+		</main>
+		<script src="root.js"></script>
+		<script src="main.js" type="module"></script>
+	</body>
+</html>

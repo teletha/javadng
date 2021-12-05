@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Javadng API</title>
+		<base href="../"/>
+		<link href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/zenburn.min.css" media="print" onload="this.media=&#39;all&#39;" rel="stylesheet"/>
+		<script async="true" src="highlight.js"></script>
+		<script src="mimic.js" type="module"></script>
+		<link href="main.css" rel="stylesheet"/>
+	</head>
+	<body class="Z">
+		<header class="L">
+			<h1 class="S" date="2021-12-05" ver="1.7.3"><code>Javadng</code></h1>
+			<nav class="i"><a href="api/"><svg class="A svg" viewBox="0 0 24 24">
+						<use href="main.svg#package"/>
+					</svg><code>API</code></a><a href="https://github.com//teletha/javadng/discussions" target="_blank"><svg class="A svg" viewBox="0 0 24 24">
+						<use href="main.svg#user"/>
+					</svg>Community</a><a href="doc/changelog.html"><svg class="A svg" viewBox="0 0 24 24">
+						<use href="main.svg#activity"/>
+					</svg>Activity</a><a href="https://github.com//teletha/javadng" target="_blank"><svg class="A svg" viewBox="0 0 24 24">
+						<use href="main.svg#github"/>
+					</svg>Repository</a></nav>
+			<div class="K" id="ViewMode"><a id="light" title="Change to a brighter color scheme"><svg class="A svg" viewBox="0 0 24 24">
+						<use href="main.svg#sun"/>
+					</svg>
+				</a><a id="dark" title="Change to a darker color scheme"><svg class="A svg" viewBox="0 0 24 24">
+						<use href="main.svg#moon"/>
+					</svg>
+				</a></div>
+		</header>
+		<main class="P">
+			<nav class="f">
+				<div></div>
+			</nav>
+			<article class="Q" id="Article">
+				<section class="M"><code class="a">javadng.parser.analyze</code>
+					<h2 class="AbstractClass V"><code class="X">MemberInfo</code></h2>
+					<ul class="C E">
+						<li><code><a href="api/javadng.parser.analyze.DocumentInfo.html">DocumentInfo</a></code></li>
+					</ul>
+					<ul class="C G">
+						<li><code><a href="api/javadng.parser.analyze.ClassInfo.html">ClassInfo</a></code></li>
+						<li><code><a href="api/javadng.parser.analyze.ExecutableInfo.html">ExecutableInfo</a></code></li>
+						<li><code><a href="api/javadng.parser.analyze.FieldInfo.html">FieldInfo</a></code></li>
+						<li><code><a href="api/javadng.parser.analyze.MethodInfo.html">MethodInfo</a></code></li>
+						<li><code><a href="api/javadng.parser.analyze.ParameterizableInfo.html">ParameterizableInfo</a></code></li>
+					</ul>
+				</section>
+				<section class="M" id="name">
+					<h2 class="g"><i class="FINAL"><i class="PUBLIC"></i></i><code class="X">name</code><i class="U"><code class="return"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></h2><span class="B">The name of this member.</span></section>
+				<section class="M" id="modifiers">
+					<h2 class="g"><i class="FINAL"><i class="PUBLIC"></i></i><code class="X">modifiers</code><i class="U"><code class="return"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html">Set</a><code class="parameters"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code></code></code></i></h2><span class="B">The modifier of this member.</span></section>
+				<section class="M" id="MemberInfo(javax.lang.model.element.Element,javadng.parser.analyze.TypeResolver,javadng.parser.analyze.DocumentInfo)">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">MemberInfo</code><code class="W">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Element.html">Element</a></code> <code class="parameterName">e</code>, <code><a href="api/javadng.parser.analyze.TypeResolver.html">TypeResolver</a></code> <code class="parameterName">resolver</code>, <code><a href="api/javadng.parser.analyze.DocumentInfo.html">DocumentInfo</a></code> <code class="parameterName">parent</code>)</code></h2>
+					<table class="R">
+						<tr class="d">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Element.html">Element</a></code> <code>e</code></td>
+							<td></td>
+						</tr>
+						<tr class="d">
+							<td><code><a href="api/javadng.parser.analyze.TypeResolver.html">TypeResolver</a></code> <code>resolver</code></td>
+							<td></td>
+						</tr>
+						<tr class="d">
+							<td><code><a href="api/javadng.parser.analyze.DocumentInfo.html">DocumentInfo</a></code> <code>parent</code></td>
+							<td></td>
+						</tr>
+					</table>
+				</section>
+				<section class="M" id="is(javax.lang.model.element.Modifier...)">
+					<h2 class="g"><i class="FINAL"><i class="PUBLIC"></i></i><code class="X">is</code><code class="W">(<code array="var"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code> <code class="parameterName">modifiers</code>)</code><i class="U"><code>boolean</code></i></h2>
+					<table class="R">
+						<tr class="d">
+							<td><code array="var"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code> <code>modifiers</code></td>
+							<td></td>
+						</tr>
+						<tr class="c">
+							<td><code>boolean</code></td>
+							<td><span>Result.</span></td>
+						</tr>
+					</table><span class="B">Check whether this member has the specified modifiers or not.</span></section>
+				<section class="M" id="isPublic()">
+					<h2 class="g"><i class="FINAL"><i class="PUBLIC"></i></i><code class="X">isPublic</code><code class="W">()</code><i class="U"><code>boolean</code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code>boolean</code></td>
+							<td><span>Result.</span></td>
+						</tr>
+					</table><span class="B">Check whether this member has public modifier or not.</span></section>
+				<section class="M" id="isStatic()">
+					<h2 class="g"><i class="FINAL"><i class="PUBLIC"></i></i><code class="X">isStatic</code><code class="W">()</code><i class="U"><code>boolean</code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code>boolean</code></td>
+							<td><span>Result.</span></td>
+						</tr>
+					</table><span class="B">Check whether this member has static modifier or not.</span></section>
+				<section class="M" id="isDeprecated()">
+					<h2 class="g"><i class="FINAL"><i class="PUBLIC"></i></i><code class="X">isDeprecated</code><code class="W">()</code><i class="U"><code>boolean</code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code>boolean</code></td>
+							<td><span>Result.</span></td>
+						</tr>
+					</table><span class="B">Check whether this member is deprecated or not.</span></section>
+				<section class="M" id="isOverridden()">
+					<h2 class="g"><i class="FINAL"><i class="PUBLIC"></i></i><code class="X">isOverridden</code><code class="W">()</code><i class="U"><code>boolean</code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code>boolean</code></td>
+							<td><span>Result.</span></td>
+						</tr>
+					</table><span class="B">Check whether this member is overridden or not.</span></section>
+				<section class="M" id="createModifier()">
+					<h2 class="g"><i class="FINAL"><i class="PUBLIC"></i></i><code class="X">createModifier</code><code class="W">()</code><i class="U"><code>kiss.XML</code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code>kiss.XML</code></td>
+							<td></td>
+						</tr>
+					</table><span class="B">Build modifier element.</span></section>
+				<section class="M" id="createName()">
+					<h2 class="g"><i class="FINAL"><i class="PUBLIC"></i></i><code class="X">createName</code><code class="W">()</code><i class="U"><code>kiss.XML</code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code>kiss.XML</code></td>
+							<td></td>
+						</tr>
+					</table><span class="B">Build name element.</span></section>
+				<section class="M" id="id()">
+					<h2 class="g"><i class="ABSTRACT"><i class="PUBLIC"></i></i><code class="X">id</code><code class="W">()</code><i class="U"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></td>
+							<td></td>
+						</tr>
+					</table><span class="B">Compute the member identifier.</span></section>
+				<section class="M" id="title()">
+					<h2 class="g"><i class="PUBLIC"></i><code class="X">title</code><code class="W">()</code><i class="U"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
+					<table class="R">
+						<tr class="c">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></td>
+							<td></td>
+						</tr>
+					</table><span class="B">Compute the documentation title</span></section>
+			</article>
+			<aside class="b" id="SubNavi">
+				<div class="e">
+					<h5 class="h">Constructors</h5>
+					<ul>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.MemberInfo.html#MemberInfo(javax.lang.model.element.Element,javadng.parser.analyze.TypeResolver,javadng.parser.analyze.DocumentInfo)">MemberInfo</a></code><code class="W">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Element.html">Element</a></code> <code class="parameterName">e</code>, <code><a href="api/javadng.parser.analyze.TypeResolver.html">TypeResolver</a></code> <code class="parameterName">resolver</code>, <code><a href="api/javadng.parser.analyze.DocumentInfo.html">DocumentInfo</a></code> <code class="parameterName">parent</code>)</code></li>
+					</ul>
+					<h5 class="h">Fields</h5>
+					<ul>
+						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.MemberInfo.html#name">name</a></code><i class="I"><code class="return"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.MemberInfo.html#modifiers">modifiers</a></code><i class="I"><code class="return"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html">Set</a><code class="parameters"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code></code></code></i></li>
+					</ul>
+					<h5 class="h">Methods</h5>
+					<ul>
+						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.MemberInfo.html#is(javax.lang.model.element.Modifier...)">is</a></code><code class="W">(<code array="var"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code> <code class="parameterName">modifiers</code>)</code><i class="I"><code>boolean</code></i></li>
+						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.MemberInfo.html#isPublic()">isPublic</a></code><code class="W">()</code><i class="I"><code>boolean</code></i></li>
+						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.MemberInfo.html#isStatic()">isStatic</a></code><code class="W">()</code><i class="I"><code>boolean</code></i></li>
+						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.MemberInfo.html#isDeprecated()">isDeprecated</a></code><code class="W">()</code><i class="I"><code>boolean</code></i></li>
+						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.MemberInfo.html#isOverridden()">isOverridden</a></code><code class="W">()</code><i class="I"><code>boolean</code></i></li>
+						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.MemberInfo.html#createModifier()">createModifier</a></code><code class="W">()</code><i class="I"><code>kiss.XML</code></i></li>
+						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.MemberInfo.html#createName()">createName</a></code><code class="W">()</code><i class="I"><code>kiss.XML</code></i></li>
+						<li><i class="ABSTRACT"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.MemberInfo.html#id()">id</a></code><code class="W">()</code><i class="I"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.MemberInfo.html#title()">title</a></code><code class="W">()</code><i class="I"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+					</ul>
+				</div>
+			</aside>
+		</main>
+		<script src="root.js"></script>
+		<script src="main.js" type="module"></script>
+	</body>
+</html>
