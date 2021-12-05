@@ -10,9 +10,8 @@
 package javadng.parser;
 
 import static javax.tools.Diagnostic.Kind.*;
-import static javax.tools.Diagnostic.Kind.OTHER;
-import static javax.tools.DocumentationTool.Location.*;
-import static javax.tools.JavaFileObject.Kind.*;
+import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
+import static javax.tools.JavaFileObject.Kind.SOURCE;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
