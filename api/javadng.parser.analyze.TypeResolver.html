@@ -9,10 +9,10 @@
 		<script src="mimic.js" type="module"></script>
 		<link href="main.css" rel="stylesheet"/>
 	</head>
-	<body class="Z">
-		<header class="L">
-			<h1 class="S" date="2021-12-05" ver="1.7.3"><code>Javadng</code></h1>
-			<nav class="i"><a href="api/"><svg class="A svg" viewBox="0 0 24 24">
+	<body class="L">
+		<header class="K">
+			<h1 class="a" date="2021-12-08" ver="1.7.3"><code>Javadng</code></h1>
+			<nav class="d"><a href="api/"><svg class="A svg" viewBox="0 0 24 24">
 						<use href="main.svg#package"/>
 					</svg><code>API</code></a><a href="https://github.com//teletha/javadng/discussions" target="_blank"><svg class="A svg" viewBox="0 0 24 24">
 						<use href="main.svg#user"/>
@@ -21,7 +21,7 @@
 					</svg>Activity</a><a href="https://github.com//teletha/javadng" target="_blank"><svg class="A svg" viewBox="0 0 24 24">
 						<use href="main.svg#github"/>
 					</svg>Repository</a></nav>
-			<div class="K" id="ViewMode"><a id="light" title="Change to a brighter color scheme"><svg class="A svg" viewBox="0 0 24 24">
+			<div class="R" id="ViewMode"><a id="light" title="Change to a brighter color scheme"><svg class="A svg" viewBox="0 0 24 24">
 						<use href="main.svg#sun"/>
 					</svg>
 				</a><a id="dark" title="Change to a darker color scheme"><svg class="A svg" viewBox="0 0 24 24">
@@ -29,92 +29,92 @@
 					</svg>
 				</a></div>
 		</header>
-		<main class="P">
-			<nav class="f">
+		<main class="Q">
+			<nav class="U">
 				<div></div>
 			</nav>
-			<article class="Q" id="Article">
-				<section class="M"><code class="a">javadng.parser.analyze</code>
-					<h2 class="Class V"><code class="X">TypeResolver</code></h2>
+			<article class="O" id="Article">
+				<section class="W"><code class="i">javadng.parser.analyze</code>
+					<h2 class="Class b"><code class="Z">TypeResolver</code></h2>
 				</section>
-				<section class="M" id="TypeResolver(java.util.Map,java.util.Set,javax.lang.model.element.TypeElement)">
-					<h2 class="g"><i class="PUBLIC"></i><code class="X">TypeResolver</code><code class="W">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html">Map</a><code class="parameters"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></code></code> <code class="parameterName">externals</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html">Set</a><code class="parameters"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></code></code> <code class="parameterName">internals</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/TypeElement.html">TypeElement</a></code> <code class="parameterName">clazz</code>)</code></h2>
-					<table class="R">
-						<tr class="d">
+				<section class="W" id="TypeResolver(java.util.Map,java.util.Set,javax.lang.model.element.TypeElement)">
+					<h2 class="V"><i class="PUBLIC"></i><code class="Z">TypeResolver</code><code class="P">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html">Map</a><code class="parameters"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></code></code> <code class="parameterName">externals</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html">Set</a><code class="parameters"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></code></code> <code class="parameterName">internals</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/TypeElement.html">TypeElement</a></code> <code class="parameterName">clazz</code>)</code></h2>
+					<table class="c">
+						<tr class="h">
 							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html">Map</a><code class="parameters"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></code></code> <code>externals</code></td>
 							<td></td>
 						</tr>
-						<tr class="d">
+						<tr class="h">
 							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html">Set</a><code class="parameters"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></code></code> <code>internals</code></td>
 							<td></td>
 						</tr>
-						<tr class="d">
+						<tr class="h">
 							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/TypeElement.html">TypeElement</a></code> <code>clazz</code></td>
 							<td></td>
 						</tr>
 					</table>
 				</section>
-				<section class="M" id="resolveFQCN(java.lang.String)">
-					<h2 class="g"><i class="FINAL"><i class="PUBLIC"></i></i><code class="X">resolveFQCN</code><code class="W">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">className</code>)</code><i class="U"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
-					<table class="R">
-						<tr class="d">
+				<section class="W" id="resolveFQCN(java.lang.String)">
+					<h2 class="V"><i class="FINAL"><i class="PUBLIC"></i></i><code class="Z">resolveFQCN</code><code class="P">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">className</code>)</code><i class="S"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
+					<table class="c">
+						<tr class="h">
 							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code> <code>className</code></td>
 							<td></td>
 						</tr>
-						<tr class="c">
+						<tr class="k">
 							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></td>
 							<td></td>
 						</tr>
 					</table><span class="B">Compute FQCN from the specified simple name.</span></section>
-				<section class="M" id="resolveDocumentLocation(java.lang.String)">
-					<h2 class="g"><i class="FINAL"><i class="PUBLIC"></i></i><code class="X">resolveDocumentLocation</code><code class="W">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">type</code>)</code><i class="U"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
-					<table class="R">
-						<tr class="d">
+				<section class="W" id="resolveDocumentLocation(java.lang.String)">
+					<h2 class="V"><i class="FINAL"><i class="PUBLIC"></i></i><code class="Z">resolveDocumentLocation</code><code class="P">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">type</code>)</code><i class="S"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
+					<table class="c">
+						<tr class="h">
 							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code> <code>type</code></td>
 							<td><span>A target type to locate document.</span></td>
 						</tr>
-						<tr class="c">
+						<tr class="k">
 							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></td>
 							<td></td>
 						</tr>
 					</table><span class="B">Return the URL of the document for the specified type.</span></section>
-				<section class="M" id="resolveDocumentLocation(javax.lang.model.type.DeclaredType)">
-					<h2 class="g"><i class="FINAL"><i class="PUBLIC"></i></i><code class="X">resolveDocumentLocation</code><code class="W">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/type/DeclaredType.html">DeclaredType</a></code> <code class="parameterName">type</code>)</code><i class="U"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
-					<table class="R">
-						<tr class="d">
+				<section class="W" id="resolveDocumentLocation(javax.lang.model.type.DeclaredType)">
+					<h2 class="V"><i class="FINAL"><i class="PUBLIC"></i></i><code class="Z">resolveDocumentLocation</code><code class="P">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/type/DeclaredType.html">DeclaredType</a></code> <code class="parameterName">type</code>)</code><i class="S"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
+					<table class="c">
+						<tr class="h">
 							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/type/DeclaredType.html">DeclaredType</a></code> <code>type</code></td>
 							<td><span>A target type to locate document.</span></td>
 						</tr>
-						<tr class="c">
+						<tr class="k">
 							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></td>
 							<td></td>
 						</tr>
 					</table><span class="B">Return the URL of the document for the specified type.</span></section>
-				<section class="M" id="resolveDocumentLocation(javax.lang.model.element.TypeElement)">
-					<h2 class="g"><i class="FINAL"><i class="PUBLIC"></i></i><code class="X">resolveDocumentLocation</code><code class="W">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/TypeElement.html">TypeElement</a></code> <code class="parameterName">type</code>)</code><i class="U"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
-					<table class="R">
-						<tr class="d">
+				<section class="W" id="resolveDocumentLocation(javax.lang.model.element.TypeElement)">
+					<h2 class="V"><i class="FINAL"><i class="PUBLIC"></i></i><code class="Z">resolveDocumentLocation</code><code class="P">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/TypeElement.html">TypeElement</a></code> <code class="parameterName">type</code>)</code><i class="S"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
+					<table class="c">
+						<tr class="h">
 							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/TypeElement.html">TypeElement</a></code> <code>type</code></td>
 							<td><span>A target type to locate document.</span></td>
 						</tr>
-						<tr class="c">
+						<tr class="k">
 							<td><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></td>
 							<td></td>
 						</tr>
 					</table><span class="B">Return the URL of the document for the specified type.</span></section>
 			</article>
-			<aside class="b" id="SubNavi">
-				<div class="e">
-					<h5 class="h">Constructors</h5>
+			<aside class="e" id="SubNavi">
+				<div class="g">
+					<h5 class="Y">Constructors</h5>
 					<ul>
-						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.TypeResolver.html#TypeResolver(java.util.Map,java.util.Set,javax.lang.model.element.TypeElement)">TypeResolver</a></code><code class="W">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html">Map</a><code class="parameters"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></code></code> <code class="parameterName">externals</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html">Set</a><code class="parameters"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></code></code> <code class="parameterName">internals</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/TypeElement.html">TypeElement</a></code> <code class="parameterName">clazz</code>)</code></li>
+						<li><i class="PUBLIC"></i><code><a href="api/javadng.parser.analyze.TypeResolver.html#TypeResolver(java.util.Map,java.util.Set,javax.lang.model.element.TypeElement)">TypeResolver</a></code><code class="P">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html">Map</a><code class="parameters"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></code></code> <code class="parameterName">externals</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Set.html">Set</a><code class="parameters"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></code></code> <code class="parameterName">internals</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/TypeElement.html">TypeElement</a></code> <code class="parameterName">clazz</code>)</code></li>
 					</ul>
-					<h5 class="h">Methods</h5>
+					<h5 class="Y">Methods</h5>
 					<ul>
-						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.TypeResolver.html#resolveFQCN(java.lang.String)">resolveFQCN</a></code><code class="W">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">className</code>)</code><i class="I"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
-						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.TypeResolver.html#resolveDocumentLocation(java.lang.String)">resolveDocumentLocation</a></code><code class="W">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">type</code>)</code><i class="I"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
-						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.TypeResolver.html#resolveDocumentLocation(javax.lang.model.type.DeclaredType)">resolveDocumentLocation</a></code><code class="W">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/type/DeclaredType.html">DeclaredType</a></code> <code class="parameterName">type</code>)</code><i class="I"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
-						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.TypeResolver.html#resolveDocumentLocation(javax.lang.model.element.TypeElement)">resolveDocumentLocation</a></code><code class="W">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/TypeElement.html">TypeElement</a></code> <code class="parameterName">type</code>)</code><i class="I"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.TypeResolver.html#resolveFQCN(java.lang.String)">resolveFQCN</a></code><code class="P">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">className</code>)</code><i class="J"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.TypeResolver.html#resolveDocumentLocation(java.lang.String)">resolveDocumentLocation</a></code><code class="P">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">type</code>)</code><i class="J"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.TypeResolver.html#resolveDocumentLocation(javax.lang.model.type.DeclaredType)">resolveDocumentLocation</a></code><code class="P">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/type/DeclaredType.html">DeclaredType</a></code> <code class="parameterName">type</code>)</code><i class="J"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+						<li><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.parser.analyze.TypeResolver.html#resolveDocumentLocation(javax.lang.model.element.TypeElement)">resolveDocumentLocation</a></code><code class="P">(<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.compiler/javax/lang/model/element/TypeElement.html">TypeElement</a></code> <code class="parameterName">type</code>)</code><i class="J"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
 					</ul>
 				</div>
 			</aside>
