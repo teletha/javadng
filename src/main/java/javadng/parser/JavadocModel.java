@@ -18,6 +18,8 @@ import static javax.tools.StandardLocation.*;
 import java.awt.Desktop;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.Writer;
 import java.net.BindException;
 import java.net.InetSocketAddress;
 import java.net.URI;
@@ -44,6 +46,7 @@ import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
+import javax.tools.Diagnostic.Kind;
 import javax.tools.DiagnosticListener;
 import javax.tools.DocumentationTool;
 import javax.tools.DocumentationTool.DocumentationTask;
@@ -337,7 +340,8 @@ public abstract class JavadocModel {
             if (!sample().isEmpty()) {
                 processingMainSource = false;
 
-                try (StandardJavaFileManager m = tool.getStandardFileManager(listener(), Locale.getDefault(), encoding())) {
+                try (ToListener listener = new ToListener("sample");
+                        StandardJavaFileManager m = tool.getStandardFileManager(listener(), Locale.getDefault(), encoding())) {
                     m.setLocation(SOURCE_PATH, I.signal(sources()).startWith(sample()).map(Directory::asJavaFile).toList());
                     m.setLocation(CLASS_PATH, classpath() == null ? null
                             : classpath().stream().map(psychopath.Location::asJavaFile).collect(Collectors.toList()));
@@ -346,7 +350,7 @@ public abstract class JavadocModel {
                             .take(o -> accept(o.getName()) && (o.getName().endsWith("Test.java") || o.getName().endsWith("Doc.java")))
                             .toList();
 
-                    DocumentationTask task = tool.getTask(null, m, listener(), Internal.class, List.of("-package"), files);
+                    DocumentationTask task = tool.getTask(listener, m, listener(), Internal.class, List.of("-package"), files);
 
                     if (task.call()) {
                         listener().report(new Message(OTHER, "sample", "Succeed in scanning sample sources."));
@@ -364,14 +368,15 @@ public abstract class JavadocModel {
             // ========================================================
             // Scan javadoc from main source
             // ========================================================
-            try (StandardJavaFileManager m = tool.getStandardFileManager(listener(), Locale.getDefault(), encoding())) {
+            try (ToListener listener = new ToListener("build");
+                    StandardJavaFileManager m = tool.getStandardFileManager(listener(), Locale.getDefault(), encoding())) {
                 m.setLocation(SOURCE_PATH, I.signal(sources()).map(Directory::asJavaFile).toList());
                 m.setLocation(CLASS_PATH, classpath() == null ? null
                         : classpath().stream().map(psychopath.Location::asJavaFile).collect(Collectors.toList()));
                 m.setLocationFromPaths(DOCUMENTATION_OUTPUT, List.of(output() == null ? Path.of("") : output().create().asJavaPath()));
 
-                DocumentationTask task = tool
-                        .getTask(null, m, listener(), Internal.class, List.of("-protected"), m.list(SOURCE_PATH, "", Set.of(SOURCE), true));
+                DocumentationTask task = tool.getTask(listener, m, listener(), Internal.class, List.of("-protected"), m
+                        .list(SOURCE_PATH, "", Set.of(SOURCE), true));
 
                 if (task.call()) {
                     listener().report(new Message(OTHER, "build", "Succeed in building documents."));
@@ -471,6 +476,46 @@ public abstract class JavadocModel {
             return "image/svg+xml";
         default:
             return "text/plain";
+        }
+    }
+
+    /**
+     * 
+     */
+    private class ToListener extends Writer {
+
+        private final String code;
+
+        /**
+         * @param code
+         */
+        private ToListener(String code) {
+            this.code = code;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void write(char[] cbuf, int off, int len) throws IOException {
+            String message = new String(cbuf, off, len).trim();
+            if (message.length() != 0) {
+                listener().report(new Message(Kind.NOTE, code, message));
+            }
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void flush() throws IOException {
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void close() throws IOException {
         }
     }
 
