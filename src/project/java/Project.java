@@ -1,3 +1,5 @@
+import javax.lang.model.SourceVersion;
+
 /*
  * Copyright (C) 2020 stoneforge Development Team
  *
@@ -11,6 +13,8 @@ public class Project extends bee.api.Project {
 
     {
         product("com.github.teletha", "javadng", ref("version.txt"));
+
+        require(SourceVersion.RELEASE_16, SourceVersion.RELEASE_11);
 
         require("com.github.teletha", "sinobu");
         require("com.github.teletha", "stylist");
