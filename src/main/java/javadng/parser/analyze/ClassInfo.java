@@ -30,7 +30,7 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
-import javax.lang.model.util.SimpleElementVisitor14;
+import javax.lang.model.util.SimpleElementVisitor9;
 
 import kiss.I;
 import kiss.Variable;
@@ -354,7 +354,7 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
     /**
      * 
      */
-    private class Scanner extends SimpleElementVisitor14<ClassInfo, ClassInfo> {
+    private class Scanner extends SimpleElementVisitor9<ClassInfo, ClassInfo> {
 
         /**
          * {@inheritDoc}
