@@ -1,5 +1,15 @@
 # Changelog
 
+### [1.7.4](https://www.github.com/teletha/javadng/compare/v1.7.3...v1.7.4) (2022-01-18)
+
+
+### Bug Fixes
+
+* Support java release 11. ([37e783c](https://www.github.com/teletha/javadng/commit/37e783cdbce2b5f1d2fc8a711062a38564ade8e4))
+* Update icy-manipulator. ([a5ae93c](https://www.github.com/teletha/javadng/commit/a5ae93ceb5604c9967bc404d7de30d3911778f45))
+* update psychopath ([ba09371](https://www.github.com/teletha/javadng/commit/ba09371540487383a3b19425ad9133552f19c312))
+* Update to Java 17. ([1c8e54d](https://www.github.com/teletha/javadng/commit/1c8e54d3ea38439c2c0d680889e08de537105380))
+
 ### [1.7.3](https://www.github.com/Teletha/javadng/compare/v1.7.2...v1.7.3) (2021-11-09)
 
 
