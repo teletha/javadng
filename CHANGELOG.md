@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.7.5](https://www.github.com/teletha/javadng/compare/v1.7.4...v1.7.5) (2022-01-22)
+
+
+### Bug Fixes
+
+* update bee ([a04d08a](https://www.github.com/teletha/javadng/commit/a04d08a4d8469674ff75104ef7e56d7dc15d0cd3))
+
 ### [1.7.4](https://www.github.com/teletha/javadng/compare/v1.7.3...v1.7.4) (2022-01-18)
 
 
