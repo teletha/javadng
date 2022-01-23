@@ -47,43 +47,45 @@ public class APIPage extends Page<ClassInfo> {
                 $(contents.createTypeVariableNames());
             });
 
-            // type parameters
-            int size = contents.numberOfTypeVariables();
-            if (size != 0) {
-                $("ul", style.typeParameter, foŕ(size, i -> {
-                    $("li", contents.createTypeVariable(i), contents.createTypeVariableComment(i));
-                }));
-            }
+            $("div", style.traitList, () -> {
+                // type parameters
+                int size = contents.numberOfTypeVariables();
+                if (size != 0) {
+                    $("ul", style.typeParameter, foŕ(size, i -> {
+                        $("li", contents.createTypeVariable(i), contents.createTypeVariableComment(i));
+                    }));
+                }
 
-            // super types
-            List<XML> supers = contents.createSuperTypes();
-            if (!supers.isEmpty()) {
-                $("ul", style.extend, () -> {
-                    for (XML sup : supers) {
-                        $("li", sup);
-                    }
-                });
-            }
+                // super types
+                List<XML> supers = contents.createSuperTypes();
+                if (!supers.isEmpty()) {
+                    $("ul", style.extend, () -> {
+                        for (XML sup : supers) {
+                            $("li", sup);
+                        }
+                    });
+                }
 
-            // implemented types
-            List<XML> interfaces = contents.createInterfaceTypes();
-            if (!interfaces.isEmpty()) {
-                $("ul", style.implement, () -> {
-                    for (XML xml : interfaces) {
-                        $("li", xml);
-                    }
-                });
-            }
+                // implemented types
+                List<XML> interfaces = contents.createInterfaceTypes();
+                if (!interfaces.isEmpty()) {
+                    $("ul", style.implement, () -> {
+                        for (XML xml : interfaces) {
+                            $("li", xml);
+                        }
+                    });
+                }
 
-            // sub types
-            List<XML> subs = contents.createSubTypes();
-            if (!subs.isEmpty()) {
-                $("ul", style.sub, () -> {
-                    for (XML xml : subs) {
-                        $("li", xml);
-                    }
-                });
-            }
+                // sub types
+                List<XML> subs = contents.createSubTypes();
+                if (!subs.isEmpty()) {
+                    $("ul", style.sub, () -> {
+                        for (XML xml : subs) {
+                            $("li", xml);
+                        }
+                    });
+                }
+            });
 
             $(contents.createComment());
         });
@@ -121,8 +123,8 @@ public class APIPage extends Page<ClassInfo> {
             List<SampleInfo> list = model.samples.get(contents.id() + "#" + member.id());
             if (list != null) {
                 for (SampleInfo sample : list) {
-                    $("pre", () -> {
-                        $("code", attr("class", "lang-java"), text(sample.code));
+                    $("pre", attr("class", "lang-java"), () -> {
+                        $("code", text(sample.code));
                     });
                 }
             }
@@ -186,8 +188,8 @@ public class APIPage extends Page<ClassInfo> {
             List<SampleInfo> list = model.samples.get(contents.id() + "#" + member.id());
             if (list != null) {
                 for (SampleInfo sample : list) {
-                    $("pre", () -> {
-                        $("code", attr("class", "lang-java"), text(sample.code));
+                    $("pre", attr("class", "lang-java"), () -> {
+                        $("code", text(sample.code));
                     });
                 }
             }
@@ -274,7 +276,8 @@ public class APIPage extends Page<ClassInfo> {
 
         Style SignatureTable = () -> {
             padding.left(signatureLabelWidth);
-            margin.top(0.1, rem).bottom(0.6, rem);
+            margin.top(0.5, rem).bottom(1.5, rem);
+            font.size(0.85, em);
 
             $.select("td", () -> {
                 padding.right(0.8, rem);
@@ -333,6 +336,11 @@ public class APIPage extends Page<ClassInfo> {
             $.before(() -> {
                 content.text("Throw");
             });
+        };
+
+        Style traitList = () -> {
+            font.size(0.85, em);
+            margin.bottom(2, em);
         };
 
         Style traits = () -> {

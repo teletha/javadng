@@ -405,7 +405,6 @@ public class ClassInfo extends ParameterizableInfo implements Comparable<ClassIn
          */
         @Override
         public ClassInfo visitUnknown(Element e, ClassInfo p) {
-            System.out.println("Unknown " + e);
             return p;
         }
     }

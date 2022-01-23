@@ -499,6 +499,7 @@ public class DocumentInfo {
                 if (text.length() == 0) {
                     return emptyXML();
                 } else {
+                    if (text.charAt(0) != '<') text.insert(0, "<p>").append("</p>");
                     // Since Javadoc text is rarely correct HTML, switch by inserting dock type
                     // declarations to use the tag soup parser instead of the XML parser.
                     text.insert(0, "<!DOCTYPE span><span>").append("</span>");

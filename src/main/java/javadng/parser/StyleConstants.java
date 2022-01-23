@@ -19,7 +19,11 @@ public interface StyleConstants {
 
     Design theme = I.make(Design.class);
 
-    Numeric MaxWidth = Numeric.of(90, vw);
+    Numeric MaxWidth = Numeric.of(1320, px);
+
+    Numeric MaxNaviWidth = Numeric.of(220, px);
+
+    Numeric MaxSubNaviWidth = Numeric.of(220, px);
 
     Numeric SmallGap = Numeric.of(1, px);
 

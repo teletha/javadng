@@ -96,6 +96,20 @@ public class DocumentPage extends Page<ClassInfo> {
 
         Style header = () -> {
             position.relative();
+
+            $.before(() -> {
+                font.family(theme.icon).size(54, px).color(theme.surface);
+                position.absolute().top(-20, px).left(-50, px);
+                display.zIndex(-1);
+                content.text("\\eb39");
+                transform.rotate(30, deg);
+            });
+
+            $.after(() -> {
+                font.family(theme.icon).size(26, px).color(theme.accent.lighten(15).opacify(-0.3));
+                position.absolute().top(3, px).left(-37, px);
+                content.text("\\eaa6");
+            });
         };
 
         Style meta = () -> {
@@ -109,7 +123,6 @@ public class DocumentPage extends Page<ClassInfo> {
         };
 
         Style foot = () -> {
-            margin.top(3, em);
         };
     }
 }

@@ -76,8 +76,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         block();
         font.family(theme.mono).size(11.5, px).letterSpacing(-0.3, px);
         border.radius(theme.radius);
-        margin.vertical(1, em);
-        padding.left(1.2, em).vertical(1, em);
+        padding.left(1.6, em).vertical(1.2, em);
         position.relative();
         overflow.x.visible();
 
@@ -105,9 +104,8 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         });
 
         $.select("h3", () -> {
-            font.size(17, px);
-            padding.vertical(0.7, em);
-            margin.top(1.1, em);
+            font.size(15, px);
+            padding.vertical(0.8, em);
         });
 
         $.select("p", () -> {
@@ -119,15 +117,16 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             display.flex().wrap.enable();
 
             Color borderColor = Color.hsl(0, 0, 85);
-            Numeric pad = Numeric.of(2.3, em);
+            Numeric pad = Numeric.of(1, em);
 
             $.select(">dt", () -> {
-                flexItem.basis(20, percent);
+                display.maxWidth(15, percent);
+                flexItem.basis(15, percent);
                 position.relative();
                 margin.vertical(7, px);
-                padding.vertical(0.6, em).right(pad);
+                padding.right(pad);
                 border.right.solid().width(1, px).color(borderColor);
-                text.align.right();
+                text.wordBreak.breakWord();
 
                 $.not($.lastType(), () -> {
                     $.before(() -> {
@@ -141,9 +140,9 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             });
 
             $.select(">dd", () -> {
-                flexItem.basis(70, percent);
+                flexItem.basis(75, percent);
                 margin.vertical(7, px);
-                padding.vertical(0.6, em).left(pad);
+                padding.left(pad);
             });
         });
 
@@ -173,14 +172,14 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     };
 
     public static Style Section = () -> {
-        margin.bottom(1.6, rem).top(0.6, rem);
-        padding.horizontal(1.7, rem).vertical(1, rem);
+        margin.bottom(2.2, rem).top(0.6, rem);
+        padding.horizontal(1.8, rem).vertical(1, rem);
         border.radius(theme.radius);
         background.color(theme.surface);
     };
 
     private static void block() {
-        margin.bottom(0.8, rem);
+        margin.bottom(2, em);
     }
 
     /**

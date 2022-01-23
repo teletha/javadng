@@ -55,7 +55,7 @@ public abstract class Page<T> extends HTML {
                 module("mimic.js");
                 stylesheet("main.css");
             });
-            $("body", styles.Workbench, () -> {
+            $("body", styles.Body, () -> {
                 // =============================
                 // Top Navigation
                 // =============================
@@ -131,15 +131,16 @@ public abstract class Page<T> extends HTML {
 
         Numeric NavigationWidth = Numeric.of(17, vw);
 
-        Style Workbench = () -> {
+        Style Body = () -> {
             background.color(theme.back).image(theme.backImage).repeat();
             font.size(theme.font).family(theme.base).color(theme.front).lineHeight(theme.line);
+            margin.horizontal(15, px).vertical(8, px);
         };
 
         Style HeaderArea = () -> {
             background.color(Color.Inherit).image(BackgroundImage.inherit()).repeat();
             position.sticky().top(0, rem);
-            display.width(MaxWidth).height(HeaderHeight).zIndex(10).flex().alignItems.center();
+            display.maxWidth(MaxWidth).height(HeaderHeight).zIndex(10).flex().alignItems.center();
             margin.auto();
             padding.top(22, px);
             border.bottom.color(theme.primary).width(1, px).solid();
@@ -208,12 +209,12 @@ public abstract class Page<T> extends HTML {
         });
 
         Style MainArea = () -> {
-            display.width(MaxWidth).flex().direction.row();
+            display.maxWidth(MaxWidth).flex().direction.row();
             margin.auto();
         };
 
         Style Navigation = () -> {
-            display.maxWidth(300, px);
+            display.maxWidth(MaxNaviWidth);
             flexItem.basis(NavigationWidth).shrink(0).alignSelf.start();
             position.sticky().top(80, px);
             padding.top(StyleConstants.BlockVerticalGap);
@@ -297,12 +298,15 @@ public abstract class Page<T> extends HTML {
         };
 
         Style Contents = () -> {
+            Numeric gap = Numeric.of(1.8, rem);
+            display.maxWidth(MaxWidth.subtract(MaxNaviWidth).subtract(MaxSubNaviWidth).subtract(gap.multiply(2)));
             flexItem.grow(1);
-            margin.horizontal(2, rem);
+            margin.horizontal(gap);
+            font.size(14.2, px).letterSpacing(0.04, em);
         };
 
         Style SubNavigation = () -> {
-            flexItem.basis(RightNavigationWidth).shrink(0);
+            display.maxWidth(MaxSubNaviWidth);
         };
 
         Style SubNavigationStickyBlock = () -> {
@@ -316,7 +320,7 @@ public abstract class Page<T> extends HTML {
             });
 
             $.child().child(() -> {
-                padding.vertical(0.15, em);
+                padding.vertical(0.25, em);
             });
         };
     }
