@@ -206,7 +206,7 @@ public class SiteBuilder {
         File file = root.file(path);
         file.writeFrom(input);
         for (String add : additions) {
-            I.http(add, String.class).waitForTerminate().to(script -> file.textAtTail(script));
+            file.textAtTail(add);
         }
         return root.relativize(file).path();
     }

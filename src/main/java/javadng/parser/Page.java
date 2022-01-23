@@ -51,7 +51,7 @@ public abstract class Page<T> extends HTML {
                 $("title", text(model.product() + " API"));
                 $("base", attr("href", base));
                 stylesheetAsync("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/zenburn.min.css");
-                scriptAsync("highlight.js");
+                moduleAsync("highlight.js");
                 module("mimic.js");
                 stylesheet("main.css");
             });

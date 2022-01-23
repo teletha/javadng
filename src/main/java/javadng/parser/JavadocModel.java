@@ -802,7 +802,9 @@ public abstract class JavadocModel {
                 site.build("main.js", SiteBuilder.class.getResourceAsStream("main.js"));
                 site.build("mimic.js", SiteBuilder.class.getResourceAsStream("mimic.js"));
                 site.build("highlight.js", SiteBuilder.class.getResourceAsStream("highlight.js"), I.signal(Highlighter)
-                        .map(x -> "https://unpkg.com/@highlightjs/cdn-assets/languages/" + x + ".min.js")
+                        .flatMap(x -> I.http("https://unpkg.com/@highlightjs/cdn-assets/es/languages/" + x + ".min.js", String.class)
+                                .waitForTerminate()
+                                .map(text -> text.replaceAll("export default hljsGrammar", "J.registerLanguage('" + x + "', hljsGrammar)")))
                         .toList());
 
                 // build SVG
