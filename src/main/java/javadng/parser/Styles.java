@@ -75,10 +75,11 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     public static Style HLJS = Style.named(".hljs", () -> {
         block();
         font.family(theme.mono).size(11.5, px).letterSpacing(-0.3, px);
-        border.radius(theme.radius);
+        border.radius(theme.radius).width(1, px).solid().color(theme.surface.lighten(theme.front, 6));
         padding.left(1.6, em).vertical(1.2, em);
         position.relative();
         overflow.x.visible();
+        background.color(theme.surface.lighten(theme.front, 3));
 
         $.before(() -> {
             content.attr("lang");
@@ -92,6 +93,122 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
                 display.width(14, px);
                 stroke.current().width(2, px);
             }));
+        });
+
+        $.select(".hljs-emphasis", () -> {
+            font.style.italic();
+        });
+
+        $.select(".hljs-strong", () -> {
+            font.weight(700);
+        });
+    });
+
+    public static Style HLJS_LIGHT = Style.named(".light", () -> {
+        $.select(".hljs-subst", () -> {
+            font.color("#2f3337");
+        });
+
+        $.select(".hljs-comment", () -> {
+            font.color("#656e77");
+        });
+
+        $.select(".hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag", () -> {
+            font.color("#015692");
+        });
+
+        $.select(".hljs-attribute", () -> {
+            font.color("#803378");
+        });
+
+        $.select(".hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type", () -> {
+            font.color("#b75501");
+        });
+
+        $.select(".hljs-selector-class", () -> {
+            font.color("#015692");
+        });
+
+        $.select(".hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable", () -> {
+            font.color("#54790d");
+        });
+
+        $.select(".hljs-meta,.hljs-selector-pseudo", () -> {
+            font.color("#015692");
+        });
+
+        $.select(".hljs-built_in,.hljs-literal,.hljs-title", () -> {
+            font.color("#b75501");
+        });
+
+        $.select(".hljs-bullet,.hljs-code", () -> {
+            font.color("#535a60");
+        });
+
+        $.select(".hljs-meta .hljs-string", () -> {
+            font.color("#54790d");
+        });
+
+        $.select(".hljs-deletion", () -> {
+            font.color("#c02d2e");
+        });
+
+        $.select(".hljs-addition", () -> {
+            font.color("#2f6f44");
+        });
+    });
+
+    public static Style HLJS_DARK = Style.named(".dark", () -> {
+        $.select(".hljs-subst", () -> {
+            font.color("#fff");
+        });
+
+        $.select(".hljs-comment", () -> {
+            font.color("#999");
+        });
+
+        $.select(".hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag", () -> {
+            font.color("#88aece");
+        });
+
+        $.select(".hljs-attribute", () -> {
+            font.color("#c59bc1");
+        });
+
+        $.select(".hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type", () -> {
+            font.color("#f08d49");
+        });
+
+        $.select(".hljs-selector-class", () -> {
+            font.color("#88aece");
+        });
+
+        $.select(".hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable", () -> {
+            font.color("#b5bd68");
+        });
+
+        $.select(".hljs-meta,.hljs-selector-pseudo", () -> {
+            font.color("#88aece");
+        });
+
+        $.select(".hljs-built_in,.hljs-literal,.hljs-title", () -> {
+            font.color("#f08d49");
+        });
+
+        $.select(".hljs-bullet,.hljs-code", () -> {
+            font.color("#ccc");
+        });
+
+        $.select(".hljs-meta .hljs-string", () -> {
+            font.color("#b5bd68");
+        });
+
+        $.select(".hljs-deletion", () -> {
+            font.color("#de7176");
+        });
+
+        $.select(".hljs-addition", () -> {
+            font.color("#76c490");
         });
     });
 
