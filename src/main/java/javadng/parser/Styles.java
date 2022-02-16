@@ -74,7 +74,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
     public static Style HLJS = Style.named(".hljs", () -> {
         block();
-        font.family(theme.mono).size(11.5, px).letterSpacing(-0.3, px);
+        font.family(theme.mono).size(11, px).letterSpacing(-0.3, px);
         border.radius(theme.radius);
         padding.left(1.6, em).vertical(1.2, em);
         position.relative();
