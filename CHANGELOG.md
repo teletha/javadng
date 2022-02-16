@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://www.github.com/teletha/javadng/compare/v1.8.0...v1.9.0) (2022-01-29)
+
+
+### Features
+
+* Themed highlight style. ([52ce1f6](https://www.github.com/teletha/javadng/commit/52ce1f60291a56e7124927714c2ddd1d5d161f9d))
+
 ## [1.8.0](https://www.github.com/teletha/javadng/compare/v1.7.5...v1.8.0) (2022-01-23)
 
 
