@@ -35,5 +35,7 @@ public interface StyleConstants {
 
     Numeric HeaderHeight = Numeric.of(80, px);
 
+    Numeric HeaderBottomMargin = Numeric.of(12, px);
+
     Numeric RightNavigationWidth = Numeric.of(20, vw);
 }

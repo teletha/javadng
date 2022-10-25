@@ -20,17 +20,17 @@ public class DocumentUser {
 
     public static void main(String[] args) throws IOException {
         String repo = Locator.directory("F:/Application/Maven Repository/").isPresent() ? "F:/Application/Maven Repository/"
-                : "F:/Application/Java/lib/bee/repository/";
+                : "D:/Application/Java/lib/bee/repository/";
 
         List<String> path = new ArrayList();
         path.add(repo + "com/fasterxml/jackson/core/jackson-core/2.12.2/jackson-core-2.12.2.jar");
         path.add(repo + "com/fasterxml/jackson/core/jackson-databind/2.12.2/jackson-databind-2.12.2.jar");
-        path.add(repo + "com/alibaba/fastjson/1.2.75/fastjson-1.2.75.jar");
-        path.add(repo + "com/google/code/gson/gson/2.8.6/gson-2.8.6.jar");
+        path.add(repo + "com/alibaba/fastjson/2.0.15.graal/fastjson-2.0.15.graal.jar");
+        path.add(repo + "com/google/code/gson/gson/2.9.1/gson-2.9.1.jar");
         path.add(repo + "com/pgs-soft/HttpClientMock/1.0.0/HttpClientMock-1.0.0.jar");
-        path.add(repo + "net/bytebuddy/byte-buddy/1.10.22/byte-buddy-1.10.22.jar");
-        path.add(repo + "org/junit/jupiter/junit-jupiter-api/5.7.1/junit-jupiter-api-5.7.1.jar");
-        path.add(repo + "org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar");
+        path.add(repo + "net/bytebuddy/byte-buddy/1.12.18/byte-buddy-1.12.18.jar");
+        path.add(repo + "org/junit/jupiter/junit-jupiter-api/5.9.0-M1/junit-jupiter-api-5.9.0-M1.jar");
+        path.add(repo + "org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar");
         path.add(repo + "com/github/teletha/antibug/1.0.3/antibug-1.0.3.jar");
 
         Javadoc.with.sources("../sinobu/src/main/java")

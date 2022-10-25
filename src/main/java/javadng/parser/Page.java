@@ -133,14 +133,14 @@ public abstract class Page<T> extends HTML {
         Style Body = () -> {
             background.color(theme.back).image(theme.backImage).repeat();
             font.size(theme.font).family(theme.base).color(theme.front).lineHeight(theme.line);
-            margin.horizontal(15, px).vertical(8, px);
+            margin.horizontal(35, px).vertical(14, px);
         };
 
         Style HeaderArea = () -> {
             background.color(Color.Inherit).image(BackgroundImage.inherit()).repeat();
             position.sticky().top(0, rem);
             display.maxWidth(MaxWidth).height(HeaderHeight).zIndex(10).flex().alignItems.center();
-            margin.auto();
+            margin.auto().bottom(HeaderBottomMargin);
             padding.top(22, px);
             border.bottom.color(theme.primary).width(1, px).solid();
         };
@@ -226,52 +226,51 @@ public abstract class Page<T> extends HTML {
             });
 
             $.select("#DocNavi", () -> {
-                font.size(1.2, em).color(theme.front.lighten(theme.back, -15)).letterSpacing(-0.5, px);
+                font.size(1.1, em).color(theme.front.lighten(theme.back, -15)).letterSpacing(-0.5, px);
 
                 $.select(".doc", () -> {
-                    margin.bottom(0.5, em);
+                    margin.bottom(1, em);
 
                     $.select("li", () -> {
-                        padding.top(0.15, em).bottom(0.15, em);
+                        padding.vertical(0.3, em);
                     });
                 });
 
                 $.select(".sub", () -> {
                     display.height(0, px);
                     listStyle.none();
-                    font.size(0.85, em).color(theme.front.lighten(theme.back, 10));
+                    font.size(0.9, em).color(theme.front.lighten(theme.back, 10));
                     border.left.solid().width(1, px).color(Color.hsl(0, 0, 65));
-                    margin.left(6, px);
                     overflow.y.hidden();
 
                     transition.duration(0.5, s).whenever();
 
                     $.select("a", () -> {
                         $.select(".foot", () -> {
-                            padding.left(0.5, em);
+                            padding.left(1, em);
                         });
 
                         $.select("svg", () -> {
                             display.width(16, px).height(16, px);
-                            margin.left(2, px).right(2, px);
+                            margin.left(-16, px);
                             stroke.width(2, px).transparent();
 
                             transition.duration(0.25, s).whenever();
-                            transform.translateX(-16, px);
+                            transform.translateX(0, px);
                         });
 
                         $.with(".now", () -> {
-                            font.color(theme.front.lighten(theme.back, -15));
+                            font.color(theme.accent);
                             $.select("svg", () -> {
-                                stroke.color(theme.front.lighten(20));
-                                transform.translateX(0, px);
+                                stroke.color(theme.accent);
+                                transform.translateX(10, px);
                             });
                         });
 
                         $.hover(() -> {
                             $.select("svg", () -> {
-                                stroke.color(theme.link);
-                                transform.translateX(0, px);
+                                stroke.color(theme.accent);
+                                transform.translateX(10, px);
                             });
                         });
 
@@ -285,7 +284,7 @@ public abstract class Page<T> extends HTML {
 
                 $.select("a", () -> {
                     display.block();
-                    text.decoration.none();
+                    text.decoration.none().whiteSpace.pre();
 
                     $.select("svg", () -> {
                         display.width(20, px).height(20, px);
