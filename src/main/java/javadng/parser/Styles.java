@@ -78,8 +78,8 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         border.radius(theme.radius).width(1, px).solid().color(theme.surface.lighten(theme.front, 6));
         padding.left(1.6, em).vertical(1.2, em);
         position.relative();
-        overflow.x.visible();
         background.color(theme.surface.lighten(theme.front, 3));
+        text.whiteSpace.preWrap().wordBreak.breakAll();
 
         $.before(() -> {
             content.attr("lang");

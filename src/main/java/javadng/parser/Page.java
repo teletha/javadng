@@ -50,7 +50,6 @@ public abstract class Page<T> extends HTML {
                 $("meta", attr("charset", "UTF-8"));
                 $("title", text(model.product() + " API"));
                 $("base", attr("href", base));
-                moduleAsync("highlight.js");
                 module("mimic.js");
                 stylesheet("main.css");
             });
