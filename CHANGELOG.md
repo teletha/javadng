@@ -1,5 +1,14 @@
 # Changelog
 
+### [1.9.1](https://www.github.com/teletha/javadng/compare/v1.9.0...v1.9.1) (2022-10-30)
+
+
+### Bug Fixes
+
+* change code style ([4b871af](https://www.github.com/teletha/javadng/commit/4b871af9326364f08245c2a23de17067088c251a))
+* change style ([6dab11f](https://www.github.com/teletha/javadng/commit/6dab11f7e8597a343cbc4b872f12f15b07d54544))
+* Decrease font size for code. ([a663837](https://www.github.com/teletha/javadng/commit/a6638376ba3ba28c16b15386a7dc078728213084))
+
 ## [1.9.0](https://www.github.com/teletha/javadng/compare/v1.8.0...v1.9.0) (2022-01-29)
 
 
