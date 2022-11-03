@@ -147,10 +147,6 @@ public abstract class Page<T> extends HTML {
         Style HeaderTitle = () -> {
             font.size(2.5, rem).family(theme.title).weight.normal().color(theme.primary);
 
-            $.media(Small, () -> {
-                cursor.alias();
-            });
-
             $.after(() -> {
                 content.attr("date").text("\\000AVersion\\00A0").attr("ver");
                 font.size(0.8, rem).lineHeight(1.1).color(theme.front).family(theme.base).letterSpacing(-0.5, px);
@@ -159,7 +155,7 @@ public abstract class Page<T> extends HTML {
                 text.whiteSpace.pre();
 
                 $.media(Small, () -> {
-                    cursor.alias();
+                    display.none();
                 });
             });
         };
@@ -207,6 +203,10 @@ public abstract class Page<T> extends HTML {
 
             $.select("svg", () -> {
                 display.width(20, px).height(20, px);
+            });
+
+            $.media(Small, () -> {
+                display.none();
             });
         };
 

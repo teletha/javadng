@@ -18,7 +18,7 @@ import stylist.value.Numeric;
 
 public interface StyleConstants {
 
-    MediaQuery Small = MediaQuery.screen().minWidth(600, px);
+    MediaQuery Small = MediaQuery.screen().maxWidth(900, px);
 
     Design theme = I.make(Design.class);
 
