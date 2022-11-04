@@ -116,7 +116,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             font.color("#656e77");
         });
 
-        $.select(".hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag", () -> {
+        $.select(":is(.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag)", () -> {
             font.color("#015692");
         });
 
@@ -124,7 +124,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             font.color("#803378");
         });
 
-        $.select(".hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type", () -> {
+        $.select(":is(.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type)", () -> {
             font.color("#b75501");
         });
 
@@ -132,23 +132,23 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             font.color("#015692");
         });
 
-        $.select(".hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable", () -> {
+        $.select(":is(.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable)", () -> {
             font.color("#54790d");
         });
 
-        $.select(".hljs-meta,.hljs-selector-pseudo", () -> {
+        $.select(":is(.hljs-meta,.hljs-selector-pseudo)", () -> {
             font.color("#015692");
         });
 
-        $.select(".hljs-built_in,.hljs-literal,.hljs-title", () -> {
+        $.select(":is(.hljs-built_in,.hljs-literal,.hljs-title)", () -> {
             font.color("#b75501");
         });
 
-        $.select(".hljs-bullet,.hljs-code", () -> {
+        $.select(":is(.hljs-bullet,.hljs-code)", () -> {
             font.color("#535a60");
         });
 
-        $.select(".hljs-meta .hljs-string", () -> {
+        $.select(":is(.hljs-meta .hljs-string)", () -> {
             font.color("#54790d");
         });
 
@@ -170,7 +170,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             font.color("#999");
         });
 
-        $.select(".hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag", () -> {
+        $.select(":is(.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag)", () -> {
             font.color("#88aece");
         });
 
@@ -178,7 +178,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             font.color("#c59bc1");
         });
 
-        $.select(".hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type", () -> {
+        $.select(":is(.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type)", () -> {
             font.color("#f08d49");
         });
 
@@ -186,23 +186,23 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             font.color("#88aece");
         });
 
-        $.select(".hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable", () -> {
+        $.select(":is(.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable)", () -> {
             font.color("#b5bd68");
         });
 
-        $.select(".hljs-meta,.hljs-selector-pseudo", () -> {
+        $.select(":is(.hljs-meta,.hljs-selector-pseudo)", () -> {
             font.color("#88aece");
         });
 
-        $.select(".hljs-built_in,.hljs-literal,.hljs-title", () -> {
+        $.select(":is(.hljs-built_in,.hljs-literal,.hljs-title)", () -> {
             font.color("#f08d49");
         });
 
-        $.select(".hljs-bullet,.hljs-code", () -> {
+        $.select(":is(.hljs-bullet,.hljs-code)", () -> {
             font.color("#ccc");
         });
 
-        $.select(".hljs-meta .hljs-string", () -> {
+        $.select(":is(.hljs-meta .hljs-string)", () -> {
             font.color("#b5bd68");
         });
 
