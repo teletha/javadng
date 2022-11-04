@@ -99,7 +99,7 @@ public class DocumentPage extends Page<ClassInfo> {
 
             $.before(() -> {
                 font.family(theme.icon).size(54, px).color(theme.surface);
-                position.absolute().top(-20, px).left(-50, px);
+                position.absolute().top(-20, px).left(-55, px);
                 display.zIndex(-1);
                 content.text("\\eb39");
                 transform.rotate(30, deg);
@@ -107,7 +107,7 @@ public class DocumentPage extends Page<ClassInfo> {
 
             $.after(() -> {
                 font.family(theme.icon).size(26, px).color(theme.accent.lighten(15).opacify(-0.3));
-                position.absolute().top(3, px).left(-37, px);
+                position.absolute().top(3, px).left(-42, px);
                 content.text("\\eaa6");
             });
         };
@@ -123,6 +123,7 @@ public class DocumentPage extends Page<ClassInfo> {
         };
 
         Style foot = () -> {
+            margin.top(3, rem).bottom(1, rem);
         };
     }
 }

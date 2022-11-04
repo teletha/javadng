@@ -27,16 +27,16 @@ public class Design extends AbstractDesignScheme {
         secondary = $.hsl(48, 95, 60);
         accent = $.hsl(0, 55, 60);
 
-        front = $.hsl(0, 0, 45);
+        front = $.hsl(0, 0, 30);
         link = $.hsl(0, 55, 60);
 
         back = $.hsl(185, 43, 95);
         backImage = Image.slash(Color.rgb(220, 222, 225, 0.7), 3);
         surface = $.hsl(0, 0, 98);
 
-        base = fontFromGoogle("Roboto");
+        base = fontFromGoogle("Inter");
         title = fontFromGoogle("Vollkorn");
-        mono = fontFromGoogle("JetBrains Mono");
+        mono = fontFromGoogle("Inter");
         icon = fontFromGoogle("Material Icons");
 
         font = Numeric.of(13, px);
@@ -49,7 +49,7 @@ public class Design extends AbstractDesignScheme {
         primary = $.hsl(200, 70, 50);
         accent = $.hsl(0, 65, 65);
 
-        front = $.hsl(0, 0, 95);
+        front = $.hsl(0, 0, 90);
         link = $.hsl(0, 65, 65);
 
         back = $.hsl(0, 0, 20);

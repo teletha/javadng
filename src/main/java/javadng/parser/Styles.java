@@ -78,7 +78,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
     public static Style HLJS = Style.named(".hljs", () -> {
         block();
-        font.family(theme.mono).size(11.5, px).letterSpacing(-0.3, px);
+        font.family(theme.mono).size(11.5, px);
         border.radius(theme.radius).width(1, px).solid().color(theme.surface.lighten(theme.front, 6));
         padding.left(1.6, em).vertical(1.2, em);
         position.relative();
@@ -217,14 +217,14 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
     public static Style JavadocComment = () -> {
         $.select("h2", () -> {
-            font.size(17, px);
+            font.size(17, px).color(theme.front);
             padding.size(0.5, em).left(0, em);
             margin.top(0.4, em).bottom(0.7, em);
             border.vertical.dotted().width(1, px).color("gray");
         });
 
         $.select("h3", () -> {
-            font.size(15, px);
+            font.size(15, px).color(theme.front);
             padding.vertical(0.8, em);
         });
 
@@ -293,7 +293,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
     public static Style Section = () -> {
         margin.bottom(2.2, rem).top(0.6, rem);
-        padding.horizontal(1.8, rem).vertical(1, rem);
+        padding.horizontal(2, rem).vertical(1, rem);
         border.radius(theme.radius);
         background.color(theme.surface);
     };

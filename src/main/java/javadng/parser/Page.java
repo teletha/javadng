@@ -133,7 +133,7 @@ public abstract class Page<T> extends HTML {
 
         Style Body = () -> {
             background.color(theme.back).image(theme.backImage).repeat();
-            font.size(theme.font).family(theme.base).color(theme.front).lineHeight(theme.line);
+            font.size(theme.font).family(theme.base).color(theme.front.lighten(theme.back, 15)).lineHeight(theme.line);
             margin.horizontal(35, px).vertical(14, px);
         };
 
@@ -165,7 +165,7 @@ public abstract class Page<T> extends HTML {
             display.minWidth(HeaderMinWidth);
 
             $.child(() -> {
-                font.size(11, px);
+                font.size(11, px).color(theme.front);
                 display.width(90, px).inlineFlex().alignItems.center().direction.column();
                 padding.horizontal(1.8, rem).vertical(0.5, rem);
                 margin.top(-4, px);
@@ -301,6 +301,7 @@ public abstract class Page<T> extends HTML {
                 $.select("a", () -> {
                     display.block();
                     text.decoration.none().whiteSpace.pre();
+                    padding.vertical(0.2, rem);
 
                     $.select("svg", () -> {
                         display.width(20, px).height(20, px);
@@ -316,7 +317,7 @@ public abstract class Page<T> extends HTML {
             display.maxWidth(MaxWidth.subtract(MaxNaviWidth).subtract(MaxSubNaviWidth).subtract(gap.multiply(2)));
             flexItem.grow(1);
             margin.horizontal(gap);
-            font.size(14.2, px).letterSpacing(0.04, em);
+            font.size(14.2, px).letterSpacing(0.01, rem);
         };
 
         Style SubNavigation = () -> {
