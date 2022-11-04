@@ -169,7 +169,7 @@ public abstract class Page<T> extends HTML {
                 display.width(90, px).inlineFlex().alignItems.center().direction.column();
                 padding.horizontal(1.8, rem).vertical(0.5, rem);
                 margin.top(-4, px);
-                text.decoration.none();
+                text.decoration.none().whiteSpace.nowrap();
                 transition.duration(0.2, s).whenever();
 
                 $.select("svg", () -> {
