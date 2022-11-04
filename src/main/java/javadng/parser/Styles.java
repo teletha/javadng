@@ -72,6 +72,10 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         });
     });
 
+    public static Style PRE = Style.named("pre", () -> {
+        text.whiteSpace.preWrap().wordBreak.breakAll();
+    });
+
     public static Style HLJS = Style.named(".hljs", () -> {
         block();
         font.family(theme.mono).size(11.5, px).letterSpacing(-0.3, px);
@@ -79,7 +83,6 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         padding.left(1.6, em).vertical(1.2, em);
         position.relative();
         background.color(theme.surface.lighten(theme.front, 3));
-        text.whiteSpace.preWrap().wordBreak.breakAll();
 
         $.before(() -> {
             content.attr("lang");

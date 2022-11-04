@@ -127,6 +127,8 @@ public abstract class Page<T> extends HTML {
      */
     private interface styles extends StyleDSL, StyleConstants {
 
+        Numeric HeaderMinWidth = Numeric.of(300, px);
+
         Numeric NavigationWidth = Numeric.of(17, vw);
 
         Style Body = () -> {
@@ -138,7 +140,7 @@ public abstract class Page<T> extends HTML {
         Style HeaderArea = () -> {
             background.color(Color.Inherit).image(BackgroundImage.inherit()).repeat();
             position.sticky().top(0, rem);
-            display.maxWidth(MaxWidth).height(HeaderHeight).zIndex(10).flex().alignItems.center();
+            display.minWidth(HeaderMinWidth).maxWidth(MaxWidth).minHeight(HeaderHeight).zIndex(10).flex().alignItems.center().wrap.enable();
             margin.auto().bottom(HeaderBottomMargin);
             padding.top(22, px);
             border.bottom.color(theme.primary).width(1, px).solid();
@@ -146,27 +148,26 @@ public abstract class Page<T> extends HTML {
 
         Style HeaderTitle = () -> {
             font.size(2.5, rem).family(theme.title).weight.normal().color(theme.primary);
+            margin.right(3.5, rem);
+            display.flex().wrap.disable();
 
             $.after(() -> {
                 content.attr("date").text("\\000AVersion\\00A0").attr("ver");
                 font.size(0.8, rem).lineHeight(1.1).color(theme.front).family(theme.base).letterSpacing(-0.5, px);
                 display.inlineBlock();
-                padding.left(1.1, rem);
+                padding.left(1.1, rem).bottom(1.3, rem);
                 text.whiteSpace.pre();
-
-                $.media(Small, () -> {
-                    display.none();
-                });
+                flexItem.alignSelf.end();
             });
         };
 
         Style HeaderNav = () -> {
-            margin.left(4, rem);
+            display.minWidth(HeaderMinWidth);
 
             $.child(() -> {
                 font.size(11, px);
-                display.inlineFlex().alignItems.center().direction.column();
-                padding.horizontal(1.8, rem);
+                display.width(90, px).inlineFlex().alignItems.center().direction.column();
+                padding.horizontal(1.8, rem).vertical(0.5, rem);
                 margin.top(-4, px);
                 text.decoration.none();
                 transition.duration(0.2, s).whenever();
@@ -217,6 +218,10 @@ public abstract class Page<T> extends HTML {
         Style MainArea = () -> {
             display.maxWidth(MaxWidth).flex().direction.row();
             margin.auto();
+
+            $.media(Small, () -> {
+                display.flex().wrap.enable();
+            });
         };
 
         Style Navigation = () -> {
@@ -225,6 +230,10 @@ public abstract class Page<T> extends HTML {
             position.sticky().top(80, px);
             padding.top(StyleConstants.BlockVerticalGap);
             margin.bottom(1.6, rem);
+
+            $.media(Small, () -> {
+                flexItem.order(2);
+            });
 
             $.select("#APINavi", () -> {
                 $.select(">*", () -> {
@@ -312,6 +321,10 @@ public abstract class Page<T> extends HTML {
 
         Style SubNavigation = () -> {
             display.maxWidth(MaxSubNaviWidth);
+
+            $.media(Small, () -> {
+                display.none();
+            });
         };
 
         Style SubNavigationStickyBlock = () -> {
