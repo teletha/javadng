@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.10.0](https://www.github.com/teletha/javadng/compare/v1.9.0...v1.10.0) (2022-11-04)
+
+
+### Features
+
+* Support responsive style. ([16bea95](https://www.github.com/teletha/javadng/commit/16bea958c1723af2e3f1139ef4d591e84c13bce8))
+
+
+### Bug Fixes
+
+* change code style ([4b871af](https://www.github.com/teletha/javadng/commit/4b871af9326364f08245c2a23de17067088c251a))
+* change style ([6dab11f](https://www.github.com/teletha/javadng/commit/6dab11f7e8597a343cbc4b872f12f15b07d54544))
+* Decrease font size for code. ([a663837](https://www.github.com/teletha/javadng/commit/a6638376ba3ba28c16b15386a7dc078728213084))
+* highlight style is broken ([9f3a2fc](https://www.github.com/teletha/javadng/commit/9f3a2fca2ae8fbcb82808512ebf217ee634dbd35))
+* Navi text doesn't wrap itself. ([14aa15c](https://www.github.com/teletha/javadng/commit/14aa15c44ee571c93d5cd2ffa7416a0bfdecb013))
+
 ## [1.9.0](https://www.github.com/teletha/javadng/compare/v1.8.0...v1.9.0) (2022-01-29)
 
 
