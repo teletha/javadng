@@ -7,7 +7,12 @@
 </p>
 
 
-## About The Project
+## Summary
+
+<p align="right"><a href="#top">back to top</a></p>
+
+
+## Usage
 
 <p align="right"><a href="#top">back to top</a></p>
 
@@ -23,7 +28,7 @@ OpenJDK 64-Bit Server VM (build 16+36-2231, mixed mode, sharing)
 ```
 <p align="right"><a href="#top">back to top</a></p>
 
-## Using in your build
+## Install
 For any code snippet below, please substitute the version given with the version of Javadng you wish to use.
 #### [Maven](https://maven.apache.org/)
 Add JitPack repository at the end of repositories element in your build.xml:
@@ -38,20 +43,18 @@ Add it into in the dependencies element like so:
 <dependency>
     <groupId>com.github.teletha</groupId>
     <artifactId>javadng</artifactId>
-    <version>1.7.4</version>
+    <version>1.10.0</version>
 </dependency>
 ```
 #### [Gradle](https://gradle.org/)
 Add JitPack repository at the end of repositories in your build.gradle:
 ```gradle
-repositories {
-    maven { url "https://jitpack.io" }
+repositories } url "https://jitpack.io" }
 }
 ```
 Add it into the dependencies section like so:
 ```gradle
-dependencies {
-    implementation 'com.github.teletha:javadng:1.7.4'
+dependencies :javadng:1.10.0'
 }
 ```
 #### [SBT](https://www.scala-sbt.org/)
@@ -61,7 +64,7 @@ resolvers += "jitpack" at "https://jitpack.io"
 ```
 Add it into the libraryDependencies section like so:
 ```scala
-libraryDependencies += "com.github.teletha" % "javadng" % "1.7.4"
+libraryDependencies += "com.github.teletha" % "javadng" % "1.10.0"
 ```
 #### [Leiningen](https://leiningen.org/)
 Add JitPack repository at the end of repositories in your project.clj:
@@ -70,12 +73,12 @@ Add JitPack repository at the end of repositories in your project.clj:
 ```
 Add it into the dependencies section like so:
 ```clj
-:dependencies [[com.github.teletha/javadng "1.7.4"]]
+:dependencies [[com.github.teletha/javadng "1.10.0"]]
 ```
 #### [Bee](https://teletha.github.io/bee)
 Add it into your project definition class like so:
 ```java
-require("com.github.teletha", "javadng", "1.7.4");
+require("com.github.teletha", "javadng", "1.10.0");
 ```
 <p align="right"><a href="#top">back to top</a></p>
 
@@ -101,43 +104,13 @@ If you think something might be a bug, but you're not sure, ask on StackOverflow
 <p align="right"><a href="#top">back to top</a></p>
 
 
-## Built with
+## Dependency
 Javadng depends on the following products on runtime.
-* [commonmark-0.18.1](https://mvnrepository.com/artifact/org.commonmark/commonmark/0.18.1)
-* [javaparser-core-3.24.0](https://mvnrepository.com/artifact/com.github.javaparser/javaparser-core/3.24.0)
+* [commonmark-0.20.0](https://mvnrepository.com/artifact/org.commonmark/commonmark/0.20.0)
+* [javaparser-core-3.24.7](https://mvnrepository.com/artifact/com.github.javaparser/javaparser-core/3.24.7)
 * [psychopath-1.6.0](https://mvnrepository.com/artifact/com.github.teletha/psychopath/1.6.0)
-* [sinobu-2.13.0](https://mvnrepository.com/artifact/com.github.teletha/sinobu/2.13.0)
-* [stylist-1.3.3](https://mvnrepository.com/artifact/com.github.teletha/stylist/1.3.3)
-
-Javadng depends on the following products on test.
-* [altfx-1.1.1](https://mvnrepository.com/artifact/com.github.teletha/altfx/1.1.1)
-* [antibug-1.2.7](https://mvnrepository.com/artifact/com.github.teletha/antibug/1.2.7)
-* [apiguardian-api-1.1.2](https://mvnrepository.com/artifact/org.apiguardian/apiguardian-api/1.1.2)
-* [byte-buddy-1.12.7](https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy/1.12.7)
-* [byte-buddy-agent-1.12.7](https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy-agent/1.12.7)
-* [controlsfx-11.1.1](https://mvnrepository.com/artifact/org.controlsfx/controlsfx/11.1.1)
-* [javafx-base-18-ea+9](https://mvnrepository.com/artifact/org.openjfx/javafx-base/18-ea+9)
-* [javafx-base-18-ea+9-win](https://mvnrepository.com/artifact/org.openjfx/javafx-base/18-ea+9)
-* [javafx-controls-18-ea+9](https://mvnrepository.com/artifact/org.openjfx/javafx-controls/18-ea+9)
-* [javafx-controls-18-ea+9-win](https://mvnrepository.com/artifact/org.openjfx/javafx-controls/18-ea+9)
-* [javafx-graphics-18-ea+9](https://mvnrepository.com/artifact/org.openjfx/javafx-graphics/18-ea+9)
-* [javafx-graphics-18-ea+9-win](https://mvnrepository.com/artifact/org.openjfx/javafx-graphics/18-ea+9)
-* [javafx-media-18-ea+9](https://mvnrepository.com/artifact/org.openjfx/javafx-media/18-ea+9)
-* [javafx-media-18-ea+9-win](https://mvnrepository.com/artifact/org.openjfx/javafx-media/18-ea+9)
-* [javafx-web-18-ea+9](https://mvnrepository.com/artifact/org.openjfx/javafx-web/18-ea+9)
-* [javafx-web-18-ea+9-win](https://mvnrepository.com/artifact/org.openjfx/javafx-web/18-ea+9)
-* [junit-jupiter-api-5.8.2](https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api/5.8.2)
-* [junit-jupiter-engine-5.8.2](https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine/5.8.2)
-* [junit-jupiter-params-5.8.2](https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params/5.8.2)
-* [junit-platform-commons-1.8.2](https://mvnrepository.com/artifact/org.junit.platform/junit-platform-commons/1.8.2)
-* [junit-platform-engine-1.8.2](https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine/1.8.2)
-* [junit-platform-launcher-1.8.2](https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher/1.8.2)
-* [openjfx-monocle-jdk-12.0.1+2](https://mvnrepository.com/artifact/org.testfx/openjfx-monocle/jdk-12.0.1+2)
-* [opentest4j-1.2.0](https://mvnrepository.com/artifact/org.opentest4j/opentest4j/1.2.0)
-* [psychopath-1.6.0](https://mvnrepository.com/artifact/com.github.teletha/psychopath/1.6.0)
-* [sinobu-2.13.0](https://mvnrepository.com/artifact/com.github.teletha/sinobu/2.13.0)
-* [stylist-1.3.3](https://mvnrepository.com/artifact/com.github.teletha/stylist/1.3.3)
-* [viewtify-2.2.1](https://mvnrepository.com/artifact/com.github.teletha/viewtify/2.2.1)
+* [sinobu-2.20.0](https://mvnrepository.com/artifact/com.github.teletha/sinobu/2.20.0)
+* [stylist-1.4.0](https://mvnrepository.com/artifact/com.github.teletha/stylist/1.4.0)
 <p align="right"><a href="#top">back to top</a></p>
 
 
