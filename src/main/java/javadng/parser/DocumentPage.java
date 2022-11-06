@@ -36,19 +36,19 @@ public class DocumentPage extends Page<ClassInfo> {
     protected void declareContents() {
         if (contents.hasDocument()) {
             $("section", Styles.Section, Styles.JavadocComment, () -> {
-                write(contents);
+                write(contents, styles.SectionLevel1);
             });
         }
 
         for (ClassInfo child : contents.children(Modifier.PUBLIC)) {
             if (child.hasDocument()) {
                 $("section", attr("id", child.id()), Styles.Section, Styles.JavadocComment, () -> {
-                    write(child);
+                    write(child, styles.SectionLevel1);
 
                     for (ClassInfo foot : child.children(Modifier.PUBLIC)) {
                         if (foot.hasDocument()) {
                             $("section", attr("id", foot.id()), Styles.JavadocComment, styles.foot, () -> {
-                                write(foot);
+                                write(foot, styles.SectionLevel2);
                             });
                         }
                     }
@@ -57,11 +57,11 @@ public class DocumentPage extends Page<ClassInfo> {
         }
     }
 
-    private void write(ClassInfo info) {
+    private void write(ClassInfo info, Style additionalStyle) {
         XML doc = info.createComment();
         XML heading = doc.find("h,h1,h2,h3,h4,h5,h6,h7").first().remove();
 
-        $("header", Styles.JavadocComment, styles.header, () -> {
+        $("header", Styles.JavadocComment, additionalStyle, () -> {
             $(xml(heading.size() != 0 ? heading : I.xml("h" + info.nestLevel()).text(info.title())));
             $("div", styles.meta, () -> {
                 $("a", attr("class", "perp"), styles.icon, () -> {
@@ -94,22 +94,28 @@ public class DocumentPage extends Page<ClassInfo> {
 
         Numeric IconSize = Numeric.of(14, px);
 
-        Style header = () -> {
+        Style SectionLevel1 = () -> {
             position.relative();
 
             $.before(() -> {
-                font.family(theme.icon).size(54, px).color(theme.surface);
-                position.absolute().top(-20, px).left(-55, px);
+                font.family(theme.icon).size(57, px).color($.rgba(20, 20, 70, 0.2));
+                position.absolute().top(-34, px).left(-33, px);
                 display.zIndex(-1);
                 content.text("\\eb39");
-                transform.rotate(30, deg);
+                transform.rotate(-27, deg);
+                display.zIndex(1);
             });
 
             $.after(() -> {
-                font.family(theme.icon).size(26, px).color(theme.accent.lighten(15).opacify(-0.3));
-                position.absolute().top(3, px).left(-42, px);
-                content.text("\\eaa6");
+                font.family(theme.icon).size(26, px).color($.rgba(90, 30, 20, 0.2));
+                position.absolute().top(-20, px).left(-24, px);
+                content.text("\\eb39");
+                display.zIndex(2);
+                transform.rotate(8, deg);
             });
+        };
+
+        Style SectionLevel2 = () -> {
         };
 
         Style meta = () -> {

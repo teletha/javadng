@@ -313,7 +313,7 @@ public abstract class Page<T> extends HTML {
         };
 
         Style Contents = () -> {
-            Numeric gap = Numeric.of(1.8, rem);
+            Numeric gap = Numeric.of(2, rem);
             display.maxWidth(MaxWidth.subtract(MaxNaviWidth).subtract(MaxSubNaviWidth).subtract(gap.multiply(2)));
             flexItem.grow(1);
             margin.horizontal(gap);

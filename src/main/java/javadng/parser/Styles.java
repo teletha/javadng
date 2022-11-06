@@ -292,8 +292,8 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     };
 
     public static Style Section = () -> {
-        margin.bottom(2.2, rem).top(0.6, rem);
-        padding.horizontal(2, rem).vertical(1, rem);
+        margin.bottom(2.2, rem).top(0.8, rem);
+        padding.horizontal(2.4, rem).vertical(1, rem);
         border.radius(theme.radius);
         background.color(theme.surface);
     };

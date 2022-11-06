@@ -22,7 +22,7 @@ public interface StyleConstants {
 
     Design theme = I.make(Design.class);
 
-    Numeric MaxWidth = Numeric.of(1320, px);
+    Numeric MaxWidth = Numeric.of(1300, px);
 
     Numeric MaxNaviWidth = Numeric.of(220, px);
 
