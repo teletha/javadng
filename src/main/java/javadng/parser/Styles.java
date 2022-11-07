@@ -220,12 +220,20 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             font.size(17, px).color(theme.front);
             padding.size(0.5, em).left(0, em);
             margin.top(0.4, em).bottom(0.7, em);
-            border.vertical.dotted().width(1, px).color("gray");
+            border.vertical.doubles().width(3, px).color(theme.front.lighten(theme.surface, 40));
+
+            $.firstLetter(() -> {
+                font.color(theme.accent);
+            });
         });
 
         $.select("h3", () -> {
             font.size(15, px).color(theme.front);
             padding.vertical(0.8, em);
+
+            $.firstLetter(() -> {
+                font.color(theme.secondary);
+            });
         });
 
         $.select("p", () -> {

@@ -96,26 +96,25 @@ public class DocumentPage extends Page<ClassInfo> {
 
         Style SectionLevel1 = () -> {
             position.relative();
+            content.counterIncrement("top");
 
             $.before(() -> {
-                font.family(theme.icon).size(57, px).color($.rgba(20, 20, 70, 0.2));
-                position.absolute().top(-34, px).left(-33, px);
+                font.family(theme.icon).size(54, px).color(theme.surface);
+                position.absolute().top(-20, px).left(-58, px);
                 display.zIndex(-1);
                 content.text("\\eb39");
-                transform.rotate(-27, deg);
-                display.zIndex(1);
+                transform.rotate(30, deg);
             });
 
             $.after(() -> {
-                font.family(theme.icon).size(26, px).color($.rgba(90, 30, 20, 0.2));
-                position.absolute().top(-20, px).left(-24, px);
-                content.text("\\eb39");
-                display.zIndex(2);
-                transform.rotate(8, deg);
+                font.family(theme.icon).size(26, px).color(theme.front.opacify(-0.8));
+                position.absolute().top(3, px).left(-46, px);
+                content.text("\\eaa6");
             });
         };
 
         Style SectionLevel2 = () -> {
+            position.relative();
         };
 
         Style meta = () -> {
