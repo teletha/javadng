@@ -96,7 +96,6 @@ public class DocumentPage extends Page<ClassInfo> {
 
         Style SectionLevel1 = () -> {
             position.relative();
-            content.counterIncrement("top");
 
             $.before(() -> {
                 font.family(theme.icon).size(54, px).color(theme.surface);

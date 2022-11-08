@@ -54,7 +54,7 @@ public class Design extends AbstractDesignScheme {
 
         back = $.hsl(0, 0, 20);
         backImage = Image.slash(Color.rgb(10, 15, 35, 0.7), 3);
-        surface = $.hsl(0, 0, 30);
+        surface = $.hsl(0, 0, 23);
 
     }
 }
