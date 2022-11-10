@@ -116,7 +116,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             font.color("#656e77");
         });
 
-        $.select(":is(.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag)", () -> {
+        $.select(":is(.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-selector-tag)", () -> {
             font.color("#015692");
         });
 
@@ -124,7 +124,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             font.color("#803378");
         });
 
-        $.select(":is(.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type)", () -> {
+        $.select(":is(.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag)", () -> {
             font.color("#b75501");
         });
 
@@ -132,15 +132,15 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             font.color("#015692");
         });
 
-        $.select(":is(.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable)", () -> {
+        $.select(":is(.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol)", () -> {
             font.color("#54790d");
         });
 
         $.select(":is(.hljs-meta,.hljs-selector-pseudo)", () -> {
-            font.color("#015692");
+            font.color($.hsl(100, 42, 30));
         });
 
-        $.select(":is(.hljs-built_in,.hljs-literal,.hljs-title)", () -> {
+        $.select(":is(.hljs-built_in,.hljs-literal)", () -> {
             font.color("#b75501");
         });
 
@@ -170,7 +170,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             font.color("#999");
         });
 
-        $.select(":is(.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag)", () -> {
+        $.select(":is(.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-selector-tag)", () -> {
             font.color("#88aece");
         });
 
@@ -178,7 +178,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             font.color("#c59bc1");
         });
 
-        $.select(":is(.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type)", () -> {
+        $.select(":is(.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag)", () -> {
             font.color("#f08d49");
         });
 
@@ -186,15 +186,15 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             font.color("#88aece");
         });
 
-        $.select(":is(.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable)", () -> {
+        $.select(":is(.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol)", () -> {
             font.color("#b5bd68");
         });
 
         $.select(":is(.hljs-meta,.hljs-selector-pseudo)", () -> {
-            font.color("#88aece");
+            font.color($.hsl(100, 42, 60));
         });
 
-        $.select(":is(.hljs-built_in,.hljs-literal,.hljs-title)", () -> {
+        $.select(":is(.hljs-built_in,.hljs-literal)", () -> {
             font.color("#f08d49");
         });
 
@@ -218,9 +218,9 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     public static Style JavadocComment = () -> {
         $.select("h2", () -> {
             font.size(17, px).color(theme.front);
-            padding.size(0.5, em).left(0, em);
-            margin.top(0.4, em).bottom(0.7, em);
-            border.vertical.doubles().width(3, px).color(theme.front.lighten(theme.surface, 40));
+            padding.size(0.7, rem).left(0, rem);
+            margin.top(0.7, rem).bottom(0.9, rem);
+            border.vertical.doubles().width(3, px).color(theme.front.lighten(theme.surface, 40).opacify(-0.3));
 
             $.firstLetter(() -> {
                 font.color(theme.accent);
@@ -229,7 +229,9 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
         $.select("h3", () -> {
             font.size(15, px).color(theme.front);
-            padding.vertical(0.8, em);
+            padding.size(0.7, rem).left(0, rem);
+            text.decoration.underline().decorationStyle.doubles().underlineOffset.length(5, px).decorationColor
+                    .color(theme.front.lighten(theme.surface, 40).opacify(-0.3));
 
             $.firstLetter(() -> {
                 font.color(theme.secondary);
@@ -244,15 +246,16 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             block();
             display.flex().wrap.enable();
 
-            Color borderColor = Color.hsl(0, 0, 85);
-            Numeric pad = Numeric.of(1, em);
+            Color borderColor = theme.front.opacify(-0.7);
+
+            Numeric pad = Numeric.of(0.8, rem);
+            Numeric verticalPad = Numeric.of(0.6, rem);
 
             $.select(">dt", () -> {
                 display.maxWidth(15, percent);
                 flexItem.basis(15, percent);
                 position.relative();
-                margin.vertical(7, px);
-                padding.right(pad);
+                padding.right(pad).vertical(verticalPad);
                 border.right.solid().width(1, px).color(borderColor);
                 text.wordBreak.breakWord();
 
@@ -260,38 +263,29 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
                     $.before(() -> {
                         content.text("");
                         display.block().width(3, px).height(3, px);
-                        position.absolute().right(-2, px).bottom(-8, px);
+                        position.absolute().right(-2, px).bottom(-2, px);
                         border.radius(50, percent).solid().width(1, px).transparent();
-                        background.color(theme.secondary);
+                        background.color(borderColor);
                     });
                 });
             });
 
             $.select(">dd", () -> {
                 flexItem.basis(75, percent);
-                margin.vertical(7, px);
-                padding.left(pad);
+                padding.left(pad).vertical(verticalPad);
             });
         });
 
         $.select("ul", () -> {
             block();
-            margin.left(1, rem);
+            margin.left(1.8, rem);
             listStyle.outside();
-
-            $.select(">li", () -> {
-                margin.vertical(0.2, em);
-            });
         });
 
         $.select("ol", () -> {
             block();
-            margin.left(1, rem);
+            margin.left(1.8, rem);
             listStyle.outside();
-
-            $.select(">li", () -> {
-                margin.vertical(0.2, em);
-            });
         });
 
         $.select("blockquote", () -> {

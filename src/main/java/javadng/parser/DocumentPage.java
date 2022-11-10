@@ -99,17 +99,17 @@ public class DocumentPage extends Page<ClassInfo> {
 
             $.before(() -> {
                 font.family(theme.icon).size(54, px).color(theme.surface);
-                position.absolute().top(-20, px).left(-58, px);
+                position.absolute().top(-17, px).left(-58, px);
                 display.zIndex(-1);
                 content.text("\\eb39");
                 transform.rotate(30, deg);
             });
 
-            $.after(() -> {
-                font.family(theme.icon).size(26, px).color(theme.front.opacify(-0.8));
-                position.absolute().top(3, px).left(-46, px);
-                content.text("\\eaa6");
-            });
+            // $.after(() -> {
+            // font.family(theme.icon).size(26, px).color(theme.front.opacify(-0.8));
+            // position.absolute().top(3, px).left(-46, px);
+            // content.text("\\eaa6");
+            // });
         };
 
         Style SectionLevel2 = () -> {
@@ -117,7 +117,7 @@ public class DocumentPage extends Page<ClassInfo> {
         };
 
         Style meta = () -> {
-            position.absolute().top(Numeric.of(50, percent).subtract(IconSize.divide(2))).right(IconSize.divide(2));
+            position.absolute().top(Numeric.of(50, percent).subtract(IconSize.divide(2)).subtract(3, px)).right(IconSize.divide(2));
         };
 
         Style icon = () -> {
