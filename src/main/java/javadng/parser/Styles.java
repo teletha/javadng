@@ -167,7 +167,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         });
 
         $.select(".hljs-comment", () -> {
-            font.color("#999");
+            font.color($.hsl(55, 42, 60));
         });
 
         $.select(":is(.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-selector-tag)", () -> {
@@ -219,7 +219,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         $.select("h2", () -> {
             font.size(17, px).color(theme.front);
             padding.size(0.7, rem).left(0, rem);
-            margin.top(0.7, rem).bottom(0.9, rem);
+            margin.top(0.7, rem);
             border.vertical.doubles().width(3, px).color(theme.front.lighten(theme.surface, 40).opacify(-0.3));
 
             $.firstLetter(() -> {
@@ -229,7 +229,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
         $.select("h3", () -> {
             font.size(15, px).color(theme.front);
-            padding.size(0.7, rem).left(0, rem);
+            margin.top(0.7, rem);
             text.decoration.underline().decorationStyle.doubles().underlineOffset.length(5, px).decorationColor
                     .color(theme.front.lighten(theme.surface, 40).opacify(-0.3));
 
@@ -243,7 +243,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         });
 
         $.select("dl", () -> {
-            block();
+            margin.top(1, rem);
             display.flex().wrap.enable();
 
             Color borderColor = theme.front.opacify(-0.7);
@@ -277,31 +277,35 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         });
 
         $.select("ul", () -> {
-            block();
+            margin.top(1, rem);
             margin.left(1.8, rem);
             listStyle.outside();
         });
 
         $.select("ol", () -> {
-            block();
+            margin.top(1, rem);
             margin.left(1.8, rem);
             listStyle.outside();
         });
 
         $.select("blockquote", () -> {
-            block();
+            margin.top(1, rem);
         });
     };
 
     public static Style Section = () -> {
         margin.bottom(2.2, rem).top(0.8, rem);
-        padding.horizontal(2.4, rem).vertical(1, rem);
+        padding.horizontal(2, rem).vertical(1, rem);
         border.radius(theme.radius);
         background.color(theme.surface);
     };
 
     private static void block() {
-        margin.bottom(2, em);
+        margin.top(2.2, rem);
+
+        $.firstChild(() -> {
+            margin.top(1, rem);
+        });
     }
 
     /**
