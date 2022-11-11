@@ -116,10 +116,7 @@ public class TypeResolver {
         String fqcn = clazz.getQualifiedName().toString();
         importedTypes.put(fqcn.substring(fqcn.lastIndexOf(".") + 1), fqcn);
 
-        I.signal(clazz.getEnclosedElements())
-                .take(e -> e.getKind() == ElementKind.CLASS)
-                .as(TypeElement.class)
-                .to(this::collectMemberTypes);
+        I.signal(clazz.getEnclosedElements()).take(e -> e.getKind().isDeclaredType()).as(TypeElement.class).to(this::collectMemberTypes);
     }
 
     private static final Pattern ARRAY = Pattern.compile("([^\\[\\]\\.]+)([\\[\\]\\.]+)$");
