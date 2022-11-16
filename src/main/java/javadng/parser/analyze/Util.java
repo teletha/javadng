@@ -26,10 +26,10 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
 import com.github.javaparser.ParserConfiguration.LanguageLevel;
-import com.github.javaparser.Position;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.sun.source.doctree.DocCommentTree;
@@ -113,33 +113,41 @@ public final class Util {
      */
     public static String getSourceCode(String fqcn, String memberDescriptor) {
         try {
-
             for (Directory sample : Samples) {
-                File file = sample.file(fqcn.replace('.', '/') + ".java");
-                if (file.isPresent()) {
-                    CompilationUnit parsed = StaticJavaParser.parse(file.asJavaFile());
-                    // full code
-                    Node node = parsed.findRootNode().removeComment();
-
-                    // remove unnecessary annotations
-                    for (MethodDeclaration method : node.findAll(MethodDeclaration.class)) {
-                        String[] removables = {"Override"};
-                        for (String removable : removables) {
-                            method.getAnnotationByName(removable).ifPresent(AnnotationExpr::remove);
+                List<String> split = List.of(fqcn.split("\\."));
+                int max = split.size();
+                int current = max;
+                while (0 < current) {
+                    File file = sample.file(split.subList(0, current--).stream().collect(Collectors.joining("/", "", ".java")));
+                    if (file.isPresent()) {
+                        if (current + 1 != max) {
+                            memberDescriptor = split.subList(current + 1, max).stream().collect(Collectors.joining("."));
                         }
-                    }
 
-                    if (memberDescriptor == null) {
-                        return node.toString();
-                    } else {
-                        // member code
-                        for (MethodDeclaration method : parsed.findAll(MethodDeclaration.class)) {
-                            if (method.getSignature().asString().equals(memberDescriptor)) {
-                                Position begin = method.getBegin().get();
-                                Position end = method.getEnd().get();
-                                List<String> lines = file.lines().toList().subList(begin.line, end.line);
+                        CompilationUnit parsed = StaticJavaParser.parse(file.asJavaFile());
+                        Node node = parsed.findRootNode().removeComment();
 
-                                return stripHeaderWhitespace(lines.stream().collect(Collectors.joining("\r\n")));
+                        // remove unnecessary annotations
+                        for (MethodDeclaration method : node.findAll(MethodDeclaration.class)) {
+                            String[] removables = {"Override"};
+                            for (String removable : removables) {
+                                method.getAnnotationByName(removable).ifPresent(AnnotationExpr::remove);
+                            }
+                        }
+
+                        if (memberDescriptor == null) {
+                            return node.toString();
+                        } else {
+                            for (MethodDeclaration method : parsed.findAll(MethodDeclaration.class)) {
+                                if (method.getSignature().asString().equals(memberDescriptor)) {
+                                    return method.removeComment().toString();
+                                }
+                            }
+
+                            for (ClassOrInterfaceDeclaration type : parsed.findAll(ClassOrInterfaceDeclaration.class)) {
+                                if (type.getNameAsString().equals(memberDescriptor)) {
+                                    return type.removeComment().toString();
+                                }
                             }
                         }
                     }
@@ -175,7 +183,8 @@ public final class Util {
                 return getSourceCode(e);
             }
         }
-        return "";
+
+        return getSourceCode(memberDescriptor, null);
     }
 
     /**
