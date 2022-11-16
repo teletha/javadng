@@ -8,13 +8,13 @@ const
 	prefix = import.meta.url.substring(location.protocol.length + location.host.length + 2, import.meta.url.length - 7),
 	user = JSON.parse(localStorage.getItem("user")) || {},
 	save = () => localStorage.setItem("user", JSON.stringify(user))
+hljs.configure({ignoreUnescapedHTML: true})
 	
 // =====================================================
 // View Mode
 // =====================================================
 $("html").add(user.theme)
 $("#light,#dark").on("click", e => save($("html").reset(user.theme = e.currentTarget.id)))
-
 
 // =====================================================
 // Dynamic Navigation Indicator
@@ -24,7 +24,6 @@ const navi = new IntersectionObserver(e => {
 	if (0 < e.length) {
 		const i = e.reduce((a, b) => a.intersectionRation > b.intersectionRatio ? a : b);
 		if (i) {
-			console.log(i.target.id, i.intersectionRatio);
 			$("#DocNavi .now").remove("now");
 			$(`#DocNavi a[href$='#${i.target.id}']`).add("now");
 		}
@@ -87,13 +86,18 @@ function FlashMan({ paged, cacheSize = 20, preload = "mouseover", preview = "sec
 		// scroll to top or #hash
 		if (location.hash == "") {
 			setTimeout(() => window.scrollTo(0, 0), 200); // wait rendering
+			console.log("scroll");
 		} else {
 			location.replace(location.href);
+			console.log("change");
 		}
 	}
 
 	// Detect all URL changes
-	window.addEventListener("popstate", v => changed())
+	window.addEventListener("popstate", v => {
+		console.log("poped ", v.state);
+		changed()
+	})
 	document.addEventListener("DOMContentLoaded", v => { update(); cache.set(location.pathname, document.documentElement.outerHTML) })
 	document.addEventListener("click", v => {
 		let e = v.target.closest("a");
@@ -104,6 +108,10 @@ function FlashMan({ paged, cacheSize = 20, preload = "mouseover", preview = "sec
 			}
 			v.preventDefault()
 		}
+	})
+	// Detect scroll position
+	window.addEventListener("scroll", v => {
+		localStorage.setItem(location.pathname, window.pageYOffset)
 	})
 	// Preloader
 	document.addEventListener(preload, v => {
