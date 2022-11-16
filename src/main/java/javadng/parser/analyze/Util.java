@@ -147,6 +147,10 @@ public final class Util {
             memberDescriptor = memberDescriptor.substring(1);
         }
 
+        if (type.toString().equals(memberDescriptor)) {
+            return getSourceCode(type);
+        }
+
         for (Element e : type.getEnclosedElements()) {
             if (e.toString().equals(memberDescriptor)) {
                 return getSourceCode(e);
