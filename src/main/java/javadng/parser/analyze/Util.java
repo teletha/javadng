@@ -29,7 +29,9 @@ import com.github.javaparser.ParserConfiguration.LanguageLevel;
 import com.github.javaparser.Position;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.sun.source.doctree.DocCommentTree;
 import com.sun.source.tree.CompilationUnitTree;
 import com.sun.source.util.DocSourcePositions;
@@ -111,17 +113,34 @@ public final class Util {
      */
     public static String getSourceCode(String fqcn, String memberDescriptor) {
         try {
+
             for (Directory sample : Samples) {
                 File file = sample.file(fqcn.replace('.', '/') + ".java");
                 if (file.isPresent()) {
                     CompilationUnit parsed = StaticJavaParser.parse(file.asJavaFile());
-                    for (MethodDeclaration method : parsed.findAll(MethodDeclaration.class)) {
-                        if (method.getSignature().asString().equals(memberDescriptor)) {
-                            Position begin = method.getBegin().get();
-                            Position end = method.getEnd().get();
-                            List<String> lines = file.lines().toList().subList(begin.line, end.line);
+                    // full code
+                    Node node = parsed.findRootNode().removeComment();
 
-                            return stripHeaderWhitespace(lines.stream().collect(Collectors.joining("\r\n")));
+                    // remove unnecessary annotations
+                    for (MethodDeclaration method : node.findAll(MethodDeclaration.class)) {
+                        String[] removables = {"Override"};
+                        for (String removable : removables) {
+                            method.getAnnotationByName(removable).ifPresent(AnnotationExpr::remove);
+                        }
+                    }
+
+                    if (memberDescriptor == null) {
+                        return node.toString();
+                    } else {
+                        // member code
+                        for (MethodDeclaration method : parsed.findAll(MethodDeclaration.class)) {
+                            if (method.getSignature().asString().equals(memberDescriptor)) {
+                                Position begin = method.getBegin().get();
+                                Position end = method.getEnd().get();
+                                List<String> lines = file.lines().toList().subList(begin.line, end.line);
+
+                                return stripHeaderWhitespace(lines.stream().collect(Collectors.joining("\r\n")));
+                            }
                         }
                     }
                 }
