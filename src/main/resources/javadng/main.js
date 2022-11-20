@@ -9,6 +9,7 @@ const
 	user = JSON.parse(localStorage.getItem("user")) || {},
 	save = () => localStorage.setItem("user", JSON.stringify(user))
 hljs.configure({ignoreUnescapedHTML: true})
+history.scrollRestoration = "manual"
 	
 // =====================================================
 // View Mode
@@ -46,19 +47,19 @@ function FlashMan({ paged, cacheSize = 20, preload = "mouseover", preview = "sec
 		if (path == location.pathname) {
 			if (hash != location.hash) {
 				hash = location.hash;
-				hashed(poped);
+				hashed(poped, true);
 			}
 		} else {
 			path = location.pathname;
 			hash = location.hash;
-			load(path, poped);
+			load(path, poped, false);
 		}
 	}
 
 	// Reads the contents of the specified path into the cache. If it is already cached or currently being read, it will be ignored.
-	function load(p, poped) {
+	function load(p, poped, same) {
 		if (cache.has(p)) {
-			if (path == p) update(cache.get(p), poped)
+			if (path == p) update(cache.get(p), poped, same)
 		} else if (!loading.has(p)) {
 			loading.add(p)
 			fetch(p)
@@ -66,23 +67,34 @@ function FlashMan({ paged, cacheSize = 20, preload = "mouseover", preview = "sec
 				.then(html => {
 					loading.delete(p)
 					cache.set(p, html)
-					if (path == p) update(html, poped)
+					if (path == p) update(html, poped, same)
 					if (cacheSize < cache.size) cache.delete(cache.keys().next().value)
 				})
 		}
 	}
 
-	function update(text, poped) {
+	function update(text, poped, same) {
 		if (text) {
 			$("article").html(text.substring(text.indexOf(">", text.indexOf("<article")) + 1, text.lastIndexOf("</article>")));
 			$("aside").html(text.substring(text.indexOf(">", text.indexOf("<aside")) + 1, text.lastIndexOf("</aside>"))); 
 		}
 		paged();
 		$(preview).each(e => observer.observe(e));
-		hashed(poped);
+		hashed(poped, same);
 	}
 
-	function hashed(poped) {
+	function hashed(poped, same) {
+		console.log(poped, same)
+		if (same) {
+			location.replace(location.href)
+		} else {
+			if (poped) {
+				setTimeout(() => window.scrollTo(0, localStorage.getItem(location.pathname) || 0), 200); // wait rendering
+			} else {
+				setTimeout(() => window.scrollTo(0, 0), 200); // wait rendering
+			}
+		}
+		/*
 		// scroll to top or #hash
 		if (location.hash == "" || poped) {
 			setTimeout(() => window.scrollTo(0, location.hash == "" ? 0 : localStorage.getItem(location.pathname) || 0), 200); // wait rendering
@@ -90,6 +102,7 @@ function FlashMan({ paged, cacheSize = 20, preload = "mouseover", preview = "sec
 			location.replace(location.href);
 			console.log("change")
 		}
+		*/
 	}
 
 	// Detect all URL changes
