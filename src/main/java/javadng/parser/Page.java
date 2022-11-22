@@ -317,7 +317,7 @@ public abstract class Page<T> extends HTML {
             display.maxWidth(MaxWidth.subtract(MaxNaviWidth).subtract(MaxSubNaviWidth).subtract(gap.multiply(2)));
             flexItem.grow(1);
             margin.horizontal(gap);
-            font.size(14.2, px).letterSpacing(0.01, rem);
+            font.size(14.2, px).letterSpacing(-0.025, rem);
         };
 
         Style SubNavigation = () -> {
