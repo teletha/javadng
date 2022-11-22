@@ -89,7 +89,7 @@ function FlashMan({ paged, cacheSize = 20, preload = "mouseover", preview = "sec
 			location.replace(location.href)
 		} else {
 			if (poped) {
-				setTimeout(() => window.scrollTo(0, localStorage.getItem(location.pathname) || 0), 200); // wait rendering
+				setTimeout(() => window.scrollTo({left:0, top:localStorage.getItem(location.pathname) || 0, behavior:"instant"}), 200); // wait rendering
 			} else {
 				setTimeout(() => window.scrollTo(0, 0), 200); // wait rendering
 			}
