@@ -74,35 +74,45 @@ function FlashMan({ paged, cacheSize = 20, preload = "mouseover", preview = "sec
 	}
 
 	function update(text, poped, same) {
-		if (text) {
-			$("article").html(text.substring(text.indexOf(">", text.indexOf("<article")) + 1, text.lastIndexOf("</article>")));
-			$("aside").html(text.substring(text.indexOf(">", text.indexOf("<aside")) + 1, text.lastIndexOf("</aside>"))); 
-		}
-		paged();
-		$(preview).each(e => observer.observe(e));
-		hashed(poped, same);
+		$("article").add("fadeout")
+		setTimeout(() => {
+			if (text) {
+				$("article").html(text.substring(text.indexOf(">", text.indexOf("<article")) + 1, text.lastIndexOf("</article>")));
+				$("aside").html(text.substring(text.indexOf(">", text.indexOf("<aside")) + 1, text.lastIndexOf("</aside>"))); 
+			}
+			paged();
+			$(preview).each(e => observer.observe(e));
+			setTimeout(() => {
+				hashed(poped, same)
+				$("article").remove("fadeout")
+			}, 200);
+		}, 200)
 	}
 
 	function hashed(poped, same) {
-		console.log(poped, same)
 		if (same) {
-			location.replace(location.href)
+			if (poped) {
+				var hash = location.hash
+				if (hash) {
+					document.getElementById(hash.substring(1)).scrollIntoView()
+				} else {
+					window.scrollTo(0, 0)
+				}
+			} else {
+				location.replace(location.href)
+			}
 		} else {
 			if (poped) {
-				setTimeout(() => window.scrollTo({left:0, top:localStorage.getItem(location.pathname) || 0, behavior:"instant"}), 200); // wait rendering
+				window.scrollTo({left:0, top:localStorage.getItem(location.pathname) || 0, behavior:"instant"})
 			} else {
-				setTimeout(() => window.scrollTo(0, 0), 200); // wait rendering
+				var hash = location.hash
+				if (hash) {
+					document.getElementById(hash.substring(1)).scrollIntoView()
+				} else {
+					window.scrollTo(0, 0)
+				}
 			}
 		}
-		/*
-		// scroll to top or #hash
-		if (location.hash == "" || poped) {
-			setTimeout(() => window.scrollTo(0, location.hash == "" ? 0 : localStorage.getItem(location.pathname) || 0), 200); // wait rendering
-		} else {
-			location.replace(location.href);
-			console.log("change")
-		}
-		*/
 	}
 
 	// Detect all URL changes

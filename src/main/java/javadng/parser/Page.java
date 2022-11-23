@@ -318,6 +318,19 @@ public abstract class Page<T> extends HTML {
             flexItem.grow(1);
             margin.horizontal(gap);
             font.size(14.2, px).letterSpacing(-0.025, rem);
+            position.relative();
+
+            $.after(() -> {
+                content.text("");
+                position.absolute().top(0, px).left(0, px);
+                display.width(100, percent).height(100, percent).zIndex(5).opacity(0).block();
+                background.color(theme.surface);
+                pointerEvents.none();
+
+                $.transit().ease().duration(0.2, s).when().with(".fadeout", () -> {
+                    display.opacity(1);
+                });
+            });
         };
 
         Style SubNavigation = () -> {
