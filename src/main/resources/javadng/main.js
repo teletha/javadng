@@ -85,8 +85,8 @@ function FlashMan({ paged, cacheSize = 20, preload = "mouseover", preview = "sec
 			setTimeout(() => {
 				hashed(poped, same)
 				$("article").remove("fadeout")
-			}, 200);
-		}, 200)
+			}, 350);
+		}, 350)
 	}
 
 	function hashed(poped, same) {
