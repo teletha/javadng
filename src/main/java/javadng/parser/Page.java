@@ -134,7 +134,7 @@ public abstract class Page<T> extends HTML {
         Style Body = () -> {
             background.color(theme.back).image(theme.backImage).repeat();
             font.size(theme.font).family(theme.base).color(theme.front.lighten(theme.back, 15)).lineHeight(theme.line);
-            margin.horizontal(35, px).vertical(14, px);
+            margin.horizontal(35, px).bottom(14, px);
         };
 
         Style HeaderArea = () -> {
