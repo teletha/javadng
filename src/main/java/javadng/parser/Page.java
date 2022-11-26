@@ -227,7 +227,7 @@ public abstract class Page<T> extends HTML {
         Style Navigation = () -> {
             display.maxWidth(MaxNaviWidth);
             flexItem.basis(NavigationWidth).shrink(0).alignSelf.start();
-            position.sticky().top(80, px);
+            position.sticky().top(95, px);
             padding.top(StyleConstants.BlockVerticalGap);
             margin.bottom(1.6, rem);
 
