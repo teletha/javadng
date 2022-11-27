@@ -85,33 +85,22 @@ function FlashMan({ paged, cacheSize = 20, preload = "mouseover", preview = "sec
 			setTimeout(() => {
 				hashed(poped, same)
 				$("article").remove("fadeout")
-			}, 350);
-		}, 350)
+			}, 150);
+		}, 150)
 	}
 
 	function hashed(poped, same) {
-		if (same) {
-			if (poped) {
-				var hash = location.hash
-				if (hash) {
-					document.getElementById(hash.substring(1)).scrollIntoView()
-				} else {
-					window.scrollTo(0, 0)
-				}
-			} else {
-				location.replace(location.href)
-			}
+		let h = location.hash?.substring(1)
+		let o = {
+			top: !same && poped ? localStorage.getItem(location.pathname) || 0 : 0,
+			left: 0,
+			behavior: same ? "smooth":"instant"
+		}
+		
+		if (h && (same || !poped)) {
+			document.getElementById(h).scrollIntoView(o)
 		} else {
-			if (poped) {
-				window.scrollTo({left:0, top:localStorage.getItem(location.pathname) || 0, behavior:"instant"})
-			} else {
-				var hash = location.hash
-				if (hash) {
-					document.getElementById(hash.substring(1)).scrollIntoView()
-				} else {
-					window.scrollTo(0, 0)
-				}
-			}
+			window.scrollTo(o)
 		}
 	}
 

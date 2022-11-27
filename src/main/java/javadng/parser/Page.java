@@ -327,7 +327,7 @@ public abstract class Page<T> extends HTML {
                 background.color(theme.surface);
                 pointerEvents.none();
 
-                $.transit().ease().duration(0.35, s).when().with(".fadeout", () -> {
+                $.transit().ease().duration(0.15, s).when().with(".fadeout", () -> {
                     display.opacity(1);
                 });
             });
