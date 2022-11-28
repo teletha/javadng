@@ -40,7 +40,7 @@ function FlashMan({ paged, cacheSize = 20, preload = "mouseover", preview = "sec
 		set.filter(x => x.isIntersecting && !x.target.init && (x.target.init = true)).forEach(x => {
 			for (let q in previews) x.target.querySelectorAll(q).forEach(e => previews[q](e))
 		})
-	}, { rootMargin: "80px", threshold: 0.3 });
+	}, { rootMargin: "80px 0px", threshold: 0.3 });
 
 	// This is the state immediately after a page change has been requested by a user operation.
 	function changed(poped) {
@@ -82,11 +82,9 @@ function FlashMan({ paged, cacheSize = 20, preload = "mouseover", preview = "sec
 			}
 			paged();
 			$(preview).each(e => observer.observe(e));
-			setTimeout(() => {
-				hashed(poped, same)
-				$("article").remove("fadeout")
-			}, 150);
-		}, 150)
+			hashed(poped, same)
+			$("article").remove("fadeout")
+		}, 300)
 	}
 
 	// Scroll into view automatically when hash is changed
