@@ -89,19 +89,14 @@ function FlashMan({ paged, cacheSize = 20, preload = "mouseover", preview = "sec
 		}, 150)
 	}
 
+	// Scroll into view automatically when hash is changed
 	function hashed(poped, same) {
 		let h = location.hash?.substring(1)
-		let o = {
-			top: !same && poped ? localStorage.getItem(location.pathname) || 0 : 0,
+		window.scrollTo({
+			top: !same && poped ? localStorage.getItem(location.pathname) || 0 : h ? document.getElementById(h).offsetTop : 0,
 			left: 0,
 			behavior: same ? "smooth":"instant"
-		}
-		
-		if (h && (same || !poped)) {
-			document.getElementById(h).scrollIntoView(o)
-		} else {
-			window.scrollTo(o)
-		}
+		})
 	}
 
 	// Detect all URL changes

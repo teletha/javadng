@@ -259,7 +259,7 @@ public abstract class Page<T> extends HTML {
                     border.left.solid().width(1, px).color(Color.hsl(0, 0, 65));
                     overflow.y.hidden();
 
-                    transition.duration(0.5, s).whenever();
+                    transition.duration(0.3, s).whenever();
 
                     $.select("a", () -> {
                         $.select(".foot", () -> {
