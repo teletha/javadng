@@ -7,22 +7,21 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng;
+package javadng.design;
 
-import stylist.AbstractStyleDSL;
 import stylist.Browsers;
 import stylist.Style;
 import stylist.value.Color;
 import stylist.value.Numeric;
 
-public class Styles extends AbstractStyleDSL implements StyleConstants {
+public class Styles implements JavadngStyleDSL {
 
     // =====================================================
     // HTML Elements
     // =====================================================
     public static Style HTML = Style.named("html", () -> {
         font.size(14, px);
-        scroll.smooth().padding.top(HeaderHeight);
+        scroll.smooth().padding.top(JavadngStyleDSL.HeaderHeight);
         overflow.y.scroll();
 
         $.select(".disabled", () -> {
@@ -42,15 +41,15 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         cursor.pointer();
 
         $.hover(() -> {
-            font.color(theme.link);
+            font.color(JavadngStyleDSL.Theme.link);
             text.decoration.underline();
-            text.decorationColor.color(theme.front.opacify(-0.5));
+            text.decorationColor.color(JavadngStyleDSL.Theme.front.opacify(-0.5));
         });
     });
 
-    public static Style HTMLCheckbox = Browsers.checkbox(theme.link);
+    public static Style HTMLCheckbox = Browsers.checkbox(JavadngStyleDSL.Theme.link);
 
-    public static Style HTMLSelectbox = Browsers.selectbox(theme.back, theme.front);
+    public static Style HTMLSelectbox = Browsers.selectbox(JavadngStyleDSL.Theme.back, JavadngStyleDSL.Theme.front);
 
     public static Style HTMLToolTip = Browsers.tooltip("title", true, Color.rgb(227, 227, 227), Color.rgb(63, 63, 63));
 
@@ -61,10 +60,10 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     });
 
     public static Style AnimatedSVG = SVG.with(() -> {
-        stroke.width(2.5, px).color(theme.front.opacify(-0.6));
+        stroke.width(2.5, px).color(JavadngStyleDSL.Theme.front.opacify(-0.6));
 
         $.transit().duration(0.5, s).when().hover(() -> {
-            stroke.color(theme.accent);
+            stroke.color(JavadngStyleDSL.Theme.accent);
         });
 
         $.transit().duration(0.05, s).ease().when().active(() -> {
@@ -78,11 +77,11 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
     public static Style HLJS = Style.named(".hljs", () -> {
         block();
-        font.family(theme.mono).size(11.5, px);
-        border.radius(theme.radius).width(1, px).solid().color(theme.surface.lighten(theme.front, 6));
+        font.family(JavadngStyleDSL.Theme.mono).size(11.5, px);
+        border.radius(JavadngStyleDSL.Theme.radius).width(1, px).solid().color(JavadngStyleDSL.Theme.surface.lighten(JavadngStyleDSL.Theme.front, 6));
         padding.left(1.6, em).vertical(1.2, em);
         position.relative();
-        background.color(theme.surface.lighten(theme.front, 3));
+        background.color(JavadngStyleDSL.Theme.surface.lighten(JavadngStyleDSL.Theme.front, 3));
 
         $.before(() -> {
             content.attr("lang");
@@ -217,24 +216,24 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
     public static Style JavadocComment = () -> {
         $.select("h2", () -> {
-            font.size(17, px).color(theme.front);
+            font.size(17, px).color(JavadngStyleDSL.Theme.front);
             padding.size(0.7, rem).left(0, rem);
             margin.top(0.7, rem);
-            border.vertical.doubles().width(3, px).color(theme.front.lighten(theme.surface, 40).opacify(-0.3));
+            border.vertical.doubles().width(3, px).color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.surface, 40).opacify(-0.3));
 
             $.firstLetter(() -> {
-                font.color(theme.accent);
+                font.color(JavadngStyleDSL.Theme.accent);
             });
         });
 
         $.select("h3", () -> {
-            font.size(15, px).color(theme.front);
+            font.size(15, px).color(JavadngStyleDSL.Theme.front);
             margin.top(0.7, rem);
             text.decoration.underline().decorationStyle.doubles().underlineOffset.length(5, px).decorationColor
-                    .color(theme.front.lighten(theme.surface, 40).opacify(-0.3));
+                    .color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.surface, 40).opacify(-0.3));
 
             $.firstLetter(() -> {
-                font.color(theme.secondary);
+                font.color(JavadngStyleDSL.Theme.secondary);
             });
         });
 
@@ -246,7 +245,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             margin.top(1, rem);
             display.flex().wrap.enable();
 
-            Color borderColor = theme.front.opacify(-0.7);
+            Color borderColor = JavadngStyleDSL.Theme.front.opacify(-0.7);
 
             Numeric pad = Numeric.of(0.8, rem);
             Numeric verticalPad = Numeric.of(0.6, rem);
@@ -296,8 +295,8 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     public static Style Section = () -> {
         margin.bottom(2.2, rem).top(0.8, rem);
         padding.horizontal(2, rem).vertical(1, rem);
-        border.radius(theme.radius);
-        background.color(theme.surface);
+        border.radius(JavadngStyleDSL.Theme.radius);
+        background.color(JavadngStyleDSL.Theme.surface);
     };
 
     private static void block() {
@@ -315,9 +314,9 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
      */
     public static void block(Color color, boolean paintBackground) {
         margin.left(0, px);
-        padding.vertical(StyleConstants.BlockVerticalGap).horizontal(StyleConstants.BlockHorizontalGap);
-        border.left.width(StyleConstants.BlockBorderWidth).solid().color(color);
-        font.family(theme.base).lineHeight(theme.line);
+        padding.vertical(JavadngStyleDSL.BlockVerticalGap).horizontal(JavadngStyleDSL.BlockHorizontalGap);
+        border.left.width(JavadngStyleDSL.BlockBorderWidth).solid().color(color);
+        font.family(JavadngStyleDSL.Theme.base).lineHeight(JavadngStyleDSL.Theme.line);
         if (paintBackground) background.color(color.opacify(-0.8d));
     }
 
@@ -327,10 +326,10 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
      * @param color
      */
     public static void block2(Color color, boolean paintBackground) {
-        padding.vertical(StyleConstants.BlockVerticalGap).horizontal(StyleConstants.BlockHorizontalGap);
-        border.left.width(StyleConstants.BlockBorderWidth).solid().color(color);
-        border.radius(theme.radius);
-        font.family(theme.base).lineHeight(theme.line);
+        padding.vertical(JavadngStyleDSL.BlockVerticalGap).horizontal(JavadngStyleDSL.BlockHorizontalGap);
+        border.left.width(JavadngStyleDSL.BlockBorderWidth).solid().color(color);
+        border.radius(JavadngStyleDSL.Theme.radius);
+        font.family(JavadngStyleDSL.Theme.base).lineHeight(JavadngStyleDSL.Theme.line);
         position.relative();
         if (paintBackground) background.color(color.opacify(-0.8d));
 
@@ -342,7 +341,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     }
 
     public static final Style SignatureParameterPart = () -> {
-        font.color(theme.front.lighten(18));
+        font.color(JavadngStyleDSL.Theme.front.lighten(18));
     };
 
     public static final Style HTMLClassParameters = Style.named(".parameters", () -> {
@@ -407,11 +406,11 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     });
 
     public static final Style HTMLClassTypeAnnotation = Style.named(".Annotation", () -> {
-        buildMark("A", theme.primary, true, false);
+        buildMark("A", JavadngStyleDSL.Theme.primary, true, false);
     });
 
     public static final Style HTMLClassTypeException = Style.named(".Exception", () -> {
-        buildMark("T", theme.accent, true, false);
+        buildMark("T", JavadngStyleDSL.Theme.accent, true, false);
     });
 
     private static void buildMark(String mark, Color color, boolean fill, boolean circle) {
@@ -438,7 +437,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
                 background.color(color);
             } else {
                 font.color(color);
-                background.color(theme.back.lighten(theme.front, 20).opacify(-0.7));
+                background.color(JavadngStyleDSL.Theme.back.lighten(JavadngStyleDSL.Theme.front, 20).opacify(-0.7));
             }
         });
     }
@@ -448,15 +447,15 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     });
 
     public static final Style HTMLClassModifierProtected = Style.named(".PROTECTED", () -> {
-        setMarkColor(theme.secondary);
+        setMarkColor(JavadngStyleDSL.Theme.secondary);
     });
 
     public static final Style HTMLClassModifierPackagePrivate = Style.named(".PACKAGEPRIVATE", () -> {
-        setMarkColor(theme.primary);
+        setMarkColor(JavadngStyleDSL.Theme.primary);
     });
 
     public static final Style HTMLClassModifierPrivate = Style.named(".PRIVATE", () -> {
-        setMarkColor(theme.accent);
+        setMarkColor(JavadngStyleDSL.Theme.accent);
     });
 
     /** The circle icon. */
@@ -532,7 +531,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     private static void overlayAlphabetRightTop(String mark) {
         position.relative();
         $.before(() -> {
-            font.color(theme.primary).size(0.6, rem).family(theme.mono);
+            font.color(JavadngStyleDSL.Theme.primary).size(0.6, rem).family(JavadngStyleDSL.Theme.mono);
             content.text(mark);
             position.absolute().top(-0.2, rem).left(0.7, rem);
         });
@@ -546,7 +545,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     private static void overlayAlphabetLeftTop(String mark) {
         position.relative();
         $.after(() -> {
-            font.color(theme.accent).size(0.6, rem).family(theme.mono);
+            font.color(JavadngStyleDSL.Theme.accent).size(0.6, rem).family(JavadngStyleDSL.Theme.mono);
             content.text(mark);
             position.absolute().top(-0.2, rem).left(0.3, rem);
         });
@@ -560,7 +559,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
     private static void overlayIconRightBottom(String mark) {
         position.relative();
         $.after(() -> {
-            font.color(theme.primary).size(0.7, rem).family(theme.icon);
+            font.color(JavadngStyleDSL.Theme.primary).size(0.7, rem).family(JavadngStyleDSL.Theme.icon);
             content.text(mark);
             position.absolute().top(0.5, rem).left(0.4, rem);
         });
@@ -571,9 +570,9 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         Numeric iconSize = Numeric.of(18, px);
 
         display.block().height(32, px);
-        font.lineHeight(30, px).color(theme.front);
-        background.color(theme.surface);
-        border.radius(theme.radius).solid().width(1, px).color(theme.front.opacify(-0.6));
+        font.lineHeight(30, px).color(JavadngStyleDSL.Theme.front);
+        background.color(JavadngStyleDSL.Theme.surface);
+        border.radius(JavadngStyleDSL.Theme.radius).solid().width(1, px).color(JavadngStyleDSL.Theme.front.opacify(-0.6));
         outline.none();
         text.whiteSpace.nowrap().unselectable();
         position.relative();
@@ -587,12 +586,12 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         $.select("now", () -> {
             display.block().width(Numeric.of(100, percent).subtract(iconSize.multiply(2.5)));
             padding.horizontal(gap);
-            font.color(theme.front.lighten(theme.surface, 25));
+            font.color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.surface, 25));
             overflow.hidden();
             text.whiteSpace.nowrap().overflow.ellipsis();
 
             $.with(".select", () -> {
-                font.color(theme.front);
+                font.color(JavadngStyleDSL.Theme.front);
             });
         });
 
@@ -617,7 +616,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
                 transform.scale(0).origin.center();
 
                 $.hover(() -> {
-                    stroke.color(theme.link);
+                    stroke.color(JavadngStyleDSL.Theme.link);
                 });
 
                 $.with(".active", () -> {
@@ -629,8 +628,8 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
 
         $.select("ol", () -> {
             display.block().opacity(0).zIndex(10).width(Numeric.of(100, percent).plus(1.5, px));
-            background.color(theme.surface);
-            border.radius(theme.radius).width(1, px).solid().color(theme.front.opacify(-0.6));
+            background.color(JavadngStyleDSL.Theme.surface);
+            border.radius(JavadngStyleDSL.Theme.radius).width(1, px).solid().color(JavadngStyleDSL.Theme.front.opacify(-0.6));
             margin.top(6, px);
             overflow.hidden();
             pointerEvents.none();
@@ -652,11 +651,11 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
             padding.horizontal(gap);
 
             $.hover(() -> {
-                background.color(theme.surface.lighten(theme.back, 10));
+                background.color(JavadngStyleDSL.Theme.surface.lighten(JavadngStyleDSL.Theme.back, 10));
             });
 
             $.with(".select", () -> {
-                font.color(theme.accent);
+                font.color(JavadngStyleDSL.Theme.accent);
             });
         });
     });
@@ -666,7 +665,7 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         background.color(Color.White);
         margin.vertical(8, px);
         padding.vertical(3, px).horizontal(8, px);
-        border.color(Color.rgb(60, 60, 60, 0.26)).width(1, px).solid().radius(theme.radius);
+        border.color(Color.rgb(60, 60, 60, 0.26)).width(1, px).solid().radius(JavadngStyleDSL.Theme.radius);
     });
 
     public static final Style Tree = Style.named(".tree", () -> {
@@ -692,26 +691,26 @@ public class Styles extends AbstractStyleDSL implements StyleConstants {
         $.select("dt", () -> {
             font.weight.bold();
             text.whiteSpace.nowrap().unselectable();
-            border.radius(theme.radius);
+            border.radius(JavadngStyleDSL.Theme.radius);
             padding.horizontal(0.5, em).vertical(0.15, em);
             cursor.pointer();
 
             $.hover(() -> {
-                font.color(theme.accent);
-                background.color(theme.surface);
+                font.color(JavadngStyleDSL.Theme.accent);
+                background.color(JavadngStyleDSL.Theme.surface);
             });
         });
 
         $.select("dd", () -> {
             display.none();
             text.whiteSpace.nowrap().unselectable();
-            border.radius(theme.radius);
+            border.radius(JavadngStyleDSL.Theme.radius);
             padding.horizontal(0.5, em);
             cursor.pointer();
 
             $.hover(() -> {
-                font.color(theme.accent);
-                background.color(theme.surface);
+                font.color(JavadngStyleDSL.Theme.accent);
+                background.color(JavadngStyleDSL.Theme.surface);
             });
 
             $.child(() -> {

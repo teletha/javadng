@@ -7,7 +7,7 @@
  *
  *          http://opensource.org/licenses/mit-license.php
  */
-package javadng;
+package javadng.repository;
 
 import java.net.URI;
 

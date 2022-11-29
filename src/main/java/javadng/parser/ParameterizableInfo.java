@@ -15,7 +15,7 @@ import java.util.List;
 import javax.lang.model.element.Parameterizable;
 import javax.lang.model.type.TypeMirror;
 
-import javadng.Styles;
+import javadng.design.Styles;
 import kiss.I;
 import kiss.XML;
 

@@ -12,8 +12,8 @@ package javadng.page;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import javadng.StyleConstants;
-import javadng.Styles;
+import javadng.design.JavadngStyleDSL;
+import javadng.design.Styles;
 import javadng.parser.ClassInfo;
 import javadng.parser.ExecutableInfo;
 import javadng.parser.FieldInfo;
@@ -22,7 +22,6 @@ import javadng.parser.MethodInfo;
 import javadng.parser.SampleInfo;
 import kiss.XML;
 import stylist.Style;
-import stylist.StyleDSL;
 import stylist.value.Color;
 import stylist.value.Numeric;
 
@@ -238,11 +237,11 @@ public class APIPage extends Page<ClassInfo> {
     /**
      * Style definition.
      */
-    private interface style extends StyleDSL, StyleConstants {
+    private interface style extends JavadngStyleDSL {
 
         Color keyword = Color.hsl(0, 29, 49);
 
-        Color RETURN = theme.secondary.lighten(theme.back, -25);
+        Color RETURN = JavadngStyleDSL.Theme.secondary.lighten(JavadngStyleDSL.Theme.back, -25);
 
         Numeric signatureLabelWidth = Numeric.of(3, rem);
 
@@ -253,12 +252,12 @@ public class APIPage extends Page<ClassInfo> {
         };
 
         Style TypeName = () -> {
-            font.family(theme.base).size(1.2, rem).weight.normal();
+            font.family(JavadngStyleDSL.Theme.base).size(1.2, rem).weight.normal();
             margin.bottom(0.3, rem);
         };
 
         Style MemberName = () -> {
-            font.family(theme.base).size(1, rem).weight.normal();
+            font.family(JavadngStyleDSL.Theme.base).size(1, rem).weight.normal();
             display.block();
         };
 
@@ -390,7 +389,7 @@ public class APIPage extends Page<ClassInfo> {
             });
 
             $.select("li").not($.lastChild()).after(() -> {
-                font.color(theme.front.lighten(30)).size.smaller();
+                font.color(JavadngStyleDSL.Theme.front.lighten(30)).size.smaller();
                 content.text("\\025b6");
                 margin.horizontal(0.8, rem);
             });

@@ -18,7 +18,7 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.ArrayType;
 import javax.lang.model.type.TypeMirror;
 
-import javadng.Styles;
+import javadng.design.Styles;
 import kiss.I;
 import kiss.XML;
 

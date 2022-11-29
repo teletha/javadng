@@ -61,7 +61,7 @@ import com.sun.source.doctree.ValueTree;
 import com.sun.source.doctree.VersionTree;
 import com.sun.source.util.SimpleDocTreeVisitor;
 
-import javadng.Styles;
+import javadng.design.Styles;
 import javadng.page.Javadoc;
 import kiss.I;
 import kiss.Variable;

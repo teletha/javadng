@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javadng.page.Javadoc;
+import javadng.repository.CodeRepository;
 import psychopath.Locator;
 
 public class DocumentUser {

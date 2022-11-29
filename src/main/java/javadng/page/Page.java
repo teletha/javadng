@@ -13,11 +13,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import javadng.HTML;
-import javadng.StyleConstants;
+import javadng.design.JavadngStyleDSL;
 import javadng.parser.ClassInfo;
 import kiss.I;
 import stylist.Style;
-import stylist.StyleDSL;
 import stylist.property.Background.BackgroundImage;
 import stylist.value.Color;
 import stylist.value.Numeric;
@@ -126,35 +125,39 @@ public abstract class Page<T> extends HTML {
     /**
      * Style definition.
      */
-    private interface styles extends StyleDSL, StyleConstants {
+    private interface styles extends JavadngStyleDSL {
 
         Numeric HeaderMinWidth = Numeric.of(300, px);
 
         Numeric NavigationWidth = Numeric.of(17, vw);
 
         Style Body = () -> {
-            background.color(theme.back).image(theme.backImage).repeat();
-            font.size(theme.font).family(theme.base).color(theme.front.lighten(theme.back, 15)).lineHeight(theme.line);
+            background.color(JavadngStyleDSL.Theme.back).image(JavadngStyleDSL.Theme.backImage).repeat();
+            font.size(JavadngStyleDSL.Theme.font)
+                    .family(JavadngStyleDSL.Theme.base)
+                    .color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.back, 15))
+                    .lineHeight(JavadngStyleDSL.Theme.line);
             margin.horizontal(35, px).bottom(14, px);
         };
 
         Style HeaderArea = () -> {
             background.color(Color.Inherit).image(BackgroundImage.inherit()).repeat();
             position.sticky().top(0, rem);
-            display.minWidth(HeaderMinWidth).maxWidth(MaxWidth).minHeight(HeaderHeight).zIndex(10).flex().alignItems.center().wrap.enable();
-            margin.auto().bottom(HeaderBottomMargin);
+            display.minWidth(HeaderMinWidth).maxWidth(JavadngStyleDSL.MaxWidth).minHeight(JavadngStyleDSL.HeaderHeight).zIndex(10).flex().alignItems
+                    .center().wrap.enable();
+            margin.auto().bottom(JavadngStyleDSL.HeaderBottomMargin);
             padding.top(22, px);
-            border.bottom.color(theme.primary).width(1, px).solid();
+            border.bottom.color(JavadngStyleDSL.Theme.primary).width(1, px).solid();
         };
 
         Style HeaderTitle = () -> {
-            font.size(2.5, rem).family(theme.title).weight.normal().color(theme.primary);
+            font.size(2.5, rem).family(JavadngStyleDSL.Theme.title).weight.normal().color(JavadngStyleDSL.Theme.primary);
             margin.right(3.5, rem);
             display.flex().wrap.disable();
 
             $.after(() -> {
                 content.attr("date").text("\\000AVersion\\00A0").attr("ver");
-                font.size(0.8, rem).lineHeight(1.1).color(theme.front).family(theme.base).letterSpacing(-0.5, px);
+                font.size(0.8, rem).lineHeight(1.1).color(JavadngStyleDSL.Theme.front).family(JavadngStyleDSL.Theme.base).letterSpacing(-0.5, px);
                 display.inlineBlock();
                 padding.left(1.1, rem).bottom(1.3, rem);
                 text.whiteSpace.pre();
@@ -166,7 +169,7 @@ public abstract class Page<T> extends HTML {
             display.minWidth(HeaderMinWidth);
 
             $.child(() -> {
-                font.size(11, px).color(theme.front);
+                font.size(11, px).color(JavadngStyleDSL.Theme.front);
                 display.width(90, px).inlineFlex().alignItems.center().direction.column();
                 padding.horizontal(1.8, rem).vertical(0.5, rem);
                 margin.top(-4, px);
@@ -177,16 +180,16 @@ public abstract class Page<T> extends HTML {
                     Numeric size = Numeric.of(26, px);
 
                     display.width(size).height(size);
-                    stroke.color(theme.front.lighten(theme.back, -15)).width(1.2, px);
+                    stroke.color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.back, -15)).width(1.2, px);
                     transition.duration(0.2, s).whenever();
                 });
 
                 $.hover(() -> {
                     text.decoration.none();
-                    font.color(theme.link);
+                    font.color(JavadngStyleDSL.Theme.link);
 
                     $.select("svg", () -> {
-                        stroke.color(theme.link).width(2, px);
+                        stroke.color(JavadngStyleDSL.Theme.link).width(2, px);
                         transform.translateY(-4, px);
                     });
                 });
@@ -207,7 +210,7 @@ public abstract class Page<T> extends HTML {
                 display.width(20, px).height(20, px);
             });
 
-            $.media(Small, () -> {
+            $.media(JavadngStyleDSL.Small, () -> {
                 display.none();
             });
         };
@@ -217,33 +220,33 @@ public abstract class Page<T> extends HTML {
         });
 
         Style MainArea = () -> {
-            display.maxWidth(MaxWidth).flex().direction.row();
+            display.maxWidth(JavadngStyleDSL.MaxWidth).flex().direction.row();
             margin.auto();
 
-            $.media(Small, () -> {
+            $.media(JavadngStyleDSL.Small, () -> {
                 display.flex().wrap.enable();
             });
         };
 
         Style Navigation = () -> {
-            display.maxWidth(MaxNaviWidth);
+            display.maxWidth(JavadngStyleDSL.MaxNaviWidth);
             flexItem.basis(NavigationWidth).shrink(0).alignSelf.start();
             position.sticky().top(95, px);
-            padding.top(StyleConstants.BlockVerticalGap);
+            padding.top(JavadngStyleDSL.BlockVerticalGap);
             margin.bottom(1.6, rem);
 
-            $.media(Small, () -> {
+            $.media(JavadngStyleDSL.Small, () -> {
                 flexItem.order(2);
             });
 
             $.select("#APINavi", () -> {
                 $.select(">*", () -> {
-                    margin.bottom(StyleConstants.BlockVerticalGap);
+                    margin.bottom(JavadngStyleDSL.BlockVerticalGap);
                 });
             });
 
             $.select("#DocNavi", () -> {
-                font.size(1.1, em).color(theme.front.lighten(theme.back, -15)).letterSpacing(-0.5, px);
+                font.size(1.1, em).color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.back, -15)).letterSpacing(-0.5, px);
 
                 $.select(".doc", () -> {
                     margin.bottom(1, em);
@@ -256,7 +259,7 @@ public abstract class Page<T> extends HTML {
                 $.select(".sub", () -> {
                     display.height(0, px);
                     listStyle.none();
-                    font.size(0.9, em).color(theme.front.lighten(theme.back, 10));
+                    font.size(0.9, em).color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.back, 10));
                     border.left.solid().width(1, px).color(Color.hsl(0, 0, 65));
                     overflow.y.hidden();
 
@@ -277,16 +280,16 @@ public abstract class Page<T> extends HTML {
                         });
 
                         $.with(".now", () -> {
-                            font.color(theme.accent);
+                            font.color(JavadngStyleDSL.Theme.accent);
                             $.select("svg", () -> {
-                                stroke.color(theme.accent);
+                                stroke.color(JavadngStyleDSL.Theme.accent);
                                 transform.translateX(10, px);
                             });
                         });
 
                         $.hover(() -> {
                             $.select("svg", () -> {
-                                stroke.color(theme.accent);
+                                stroke.color(JavadngStyleDSL.Theme.accent);
                                 transform.translateX(10, px);
                             });
                         });
@@ -315,7 +318,9 @@ public abstract class Page<T> extends HTML {
 
         Style Contents = () -> {
             Numeric gap = Numeric.of(2, rem);
-            display.maxWidth(MaxWidth.subtract(MaxNaviWidth).subtract(MaxSubNaviWidth).subtract(gap.multiply(2)));
+            display.maxWidth(JavadngStyleDSL.MaxWidth.subtract(JavadngStyleDSL.MaxNaviWidth)
+                    .subtract(JavadngStyleDSL.MaxSubNaviWidth)
+                    .subtract(gap.multiply(2)));
             flexItem.grow(1);
             margin.horizontal(gap);
             font.size(14.2, px).letterSpacing(-0.025, rem);
@@ -325,7 +330,7 @@ public abstract class Page<T> extends HTML {
                 content.text("");
                 position.absolute().top(0, px).left(0, px);
                 display.width(100, percent).height(100, percent).zIndex(5).opacity(0).block();
-                background.color(theme.surface);
+                background.color(JavadngStyleDSL.Theme.surface);
                 pointerEvents.none();
 
                 $.transit().ease().duration(0.15, s).when().with(".fadeout", () -> {
@@ -335,16 +340,16 @@ public abstract class Page<T> extends HTML {
         };
 
         Style SubNavigation = () -> {
-            display.maxWidth(MaxSubNaviWidth);
+            display.maxWidth(JavadngStyleDSL.MaxSubNaviWidth);
 
-            $.media(Small, () -> {
+            $.media(JavadngStyleDSL.Small, () -> {
                 display.none();
             });
         };
 
         Style SubNavigationStickyBlock = () -> {
-            position.sticky().top(HeaderHeight);
-            display.block().height(Numeric.of(90, vh).subtract(HeaderHeight)).maxWidth(RightNavigationWidth);
+            position.sticky().top(JavadngStyleDSL.HeaderHeight);
+            display.block().height(Numeric.of(90, vh).subtract(JavadngStyleDSL.HeaderHeight)).maxWidth(JavadngStyleDSL.RightNavigationWidth);
             overflow.auto().scrollbar.thin();
             text.whiteSpace.nowrap();
 

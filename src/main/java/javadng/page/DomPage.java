@@ -9,10 +9,9 @@
  */
 package javadng.page;
 
-import javadng.StyleConstants;
-import javadng.Styles;
+import javadng.design.JavadngStyleDSL;
+import javadng.design.Styles;
 import kiss.XML;
-import stylist.StyleDSL;
 
 public class DomPage extends Page<XML> {
 
@@ -40,6 +39,6 @@ public class DomPage extends Page<XML> {
     protected void declareSubNavigation() {
     }
 
-    interface styles extends StyleDSL, StyleConstants {
+    interface styles extends JavadngStyleDSL {
     }
 }

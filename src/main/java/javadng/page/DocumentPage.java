@@ -11,13 +11,12 @@ package javadng.page;
 
 import javax.lang.model.element.Modifier;
 
-import javadng.StyleConstants;
-import javadng.Styles;
+import javadng.design.JavadngStyleDSL;
+import javadng.design.Styles;
 import javadng.parser.ClassInfo;
 import kiss.I;
 import kiss.XML;
 import stylist.Style;
-import stylist.StyleDSL;
 import stylist.value.Numeric;
 
 public class DocumentPage extends Page<ClassInfo> {
@@ -92,7 +91,7 @@ public class DocumentPage extends Page<ClassInfo> {
     protected void declareSubNavigation() {
     }
 
-    interface styles extends StyleDSL, StyleConstants {
+    interface styles extends JavadngStyleDSL {
 
         Numeric IconSize = Numeric.of(14, px);
 
@@ -100,7 +99,7 @@ public class DocumentPage extends Page<ClassInfo> {
             position.relative();
 
             $.before(() -> {
-                font.family(theme.icon).size(54, px).color(theme.surface);
+                font.family(JavadngStyleDSL.Theme.icon).size(54, px).color(JavadngStyleDSL.Theme.surface);
                 position.absolute().top(-17, px).left(-58, px);
                 display.zIndex(-1);
                 content.text("\\eb39");
