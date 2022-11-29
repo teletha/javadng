@@ -822,12 +822,30 @@ public abstract class JavadocModel {
                 I.http(repository().locateChangeLog(), String.class).waitForTerminate().to(md -> {
                     Node root = Parser.builder().build().parse(md);
                     String html = HtmlRenderer.builder().escapeHtml(true).build().render(root);
-                    site.buildHTML("doc/changelog.html", new DomPage(1, this, I.xml(html)));
+                    html = structulize(html, "h2", "section2");
+                    html = structulize(html, "h3", "section3");
+                    site.buildHTML("doc/changelog.html", new ActivityPage(1, this, I.xml(html)));
                 });
 
                 // create at last for live reload
                 site.buildHTML("index.html", new APIPage(0, this, null));
             }
         }
+    }
+
+    private String structulize(String text, String targetTag, String structureTag) {
+        int counter = 0;
+        StringBuilder builder = new StringBuilder();
+        Matcher matcher = Pattern.compile("<" + targetTag + ">").matcher(text);
+        while (matcher.find()) {
+            String replacer = "<" + structureTag + "><" + targetTag + ">";
+            if (counter++ != 0) {
+                replacer = "</" + structureTag + ">" + replacer;
+            }
+            matcher.appendReplacement(builder, replacer);
+        }
+        matcher.appendTail(builder).append("</" + structureTag + ">");
+
+        return builder.toString();
     }
 }

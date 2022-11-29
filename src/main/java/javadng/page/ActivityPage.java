@@ -13,12 +13,12 @@ import javadng.design.JavadngStyleDSL;
 import javadng.design.Styles;
 import kiss.XML;
 
-public class DomPage extends Page<XML> {
+public class ActivityPage extends Page<XML> {
 
     /**
      * @param model
      */
-    public DomPage(int depth, JavadocModel model, XML xml) {
+    public ActivityPage(int depth, JavadocModel model, XML xml) {
         super(depth, model, xml);
     }
 
