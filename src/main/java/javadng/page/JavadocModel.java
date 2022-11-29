@@ -88,7 +88,7 @@ import stylist.Stylist;
 public abstract class JavadocModel {
 
     /** The default JDK API's location. */
-    public static final String JDK = "https://docs.oracle.com/en/java/javase/17/docs/api/";
+    public static final String JDK = "https://docs.oracle.com/en/java/javase/19/docs/api/";
 
     /** The language set to highlight code. */
     public static final Set<String> Highlighter = new HashSet();
