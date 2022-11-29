@@ -7,11 +7,10 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser;
+package javadng;
 
 import static stylist.StyleDSL.*;
 
-import javadng.Design;
 import kiss.I;
 import stylist.MediaQuery;
 import stylist.value.Numeric;

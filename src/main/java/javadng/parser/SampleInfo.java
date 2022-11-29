@@ -7,7 +7,7 @@
  *
  *          http://opensource.org/licenses/mit-license.php
  */
-package javadng.parser.analyze;
+package javadng.parser;
 
 import kiss.Variable;
 import kiss.XML;

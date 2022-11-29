@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javadng.parser.Javadoc;
+import javadng.page.Javadoc;
 import psychopath.Locator;
 
 public class DocumentUser {

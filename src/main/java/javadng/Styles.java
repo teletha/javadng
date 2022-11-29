@@ -7,7 +7,7 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser;
+package javadng;
 
 import stylist.AbstractStyleDSL;
 import stylist.Browsers;

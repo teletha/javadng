@@ -7,8 +7,10 @@
  *
  *          http://opensource.org/licenses/mit-license.php
  */
-package javadng.parser;
+package javadng.page;
 
+import javadng.StyleConstants;
+import javadng.Styles;
 import kiss.XML;
 import stylist.StyleDSL;
 

@@ -7,7 +7,7 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser.analyze;
+package javadng.parser;
 
 import java.util.List;
 import java.util.Map;
@@ -16,8 +16,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import javadng.parser.JavadocTestSupport;
-import javadng.parser.analyze.ExecutableInfo;
+import javadng.page.JavadocTestSupport;
+import javadng.parser.ExecutableInfo;
 
 public class StructuredTypeTest extends JavadocTestSupport {
 

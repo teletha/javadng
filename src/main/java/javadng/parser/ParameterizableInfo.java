@@ -7,7 +7,7 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser.analyze;
+package javadng.parser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
 import javax.lang.model.element.Parameterizable;
 import javax.lang.model.type.TypeMirror;
 
-import javadng.parser.Styles;
+import javadng.Styles;
 import kiss.I;
 import kiss.XML;
 

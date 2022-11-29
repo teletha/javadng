@@ -7,7 +7,7 @@
  *
  *          http://opensource.org/licenses/mit-license.php
  */
-package javadng.parser.analyze;
+package javadng.parser;
 
 import java.util.Map;
 import java.util.function.Consumer;
@@ -15,7 +15,8 @@ import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 
-import javadng.parser.JavadocTestSupport;
+import javadng.page.JavadocTestSupport;
+import javadng.parser.ExecutableInfo;
 
 public class CanonicalizeParamTest extends JavadocTestSupport {
 

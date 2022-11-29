@@ -7,7 +7,7 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser.analyze;
+package javadng.parser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,8 +61,8 @@ import com.sun.source.doctree.ValueTree;
 import com.sun.source.doctree.VersionTree;
 import com.sun.source.util.SimpleDocTreeVisitor;
 
-import javadng.parser.Javadoc;
-import javadng.parser.Styles;
+import javadng.Styles;
+import javadng.page.Javadoc;
 import kiss.I;
 import kiss.Variable;
 import kiss.XML;

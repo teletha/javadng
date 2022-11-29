@@ -7,17 +7,19 @@
  *
  *          http://opensource.org/licenses/mit-license.php
  */
-package javadng.parser;
+package javadng.page;
 
 import java.util.List;
 import java.util.stream.IntStream;
 
-import javadng.parser.analyze.ClassInfo;
-import javadng.parser.analyze.ExecutableInfo;
-import javadng.parser.analyze.FieldInfo;
-import javadng.parser.analyze.MemberInfo;
-import javadng.parser.analyze.MethodInfo;
-import javadng.parser.analyze.SampleInfo;
+import javadng.StyleConstants;
+import javadng.Styles;
+import javadng.parser.ClassInfo;
+import javadng.parser.ExecutableInfo;
+import javadng.parser.FieldInfo;
+import javadng.parser.MemberInfo;
+import javadng.parser.MethodInfo;
+import javadng.parser.SampleInfo;
 import kiss.XML;
 import stylist.Style;
 import stylist.StyleDSL;

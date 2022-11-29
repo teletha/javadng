@@ -7,13 +7,14 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser;
+package javadng.page;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import javadng.HTML;
-import javadng.parser.analyze.ClassInfo;
+import javadng.StyleConstants;
+import javadng.parser.ClassInfo;
 import kiss.I;
 import stylist.Style;
 import stylist.StyleDSL;

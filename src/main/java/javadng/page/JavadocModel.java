@@ -7,11 +7,12 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser;
+package javadng.page;
 
 import static javax.tools.Diagnostic.Kind.*;
-import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
-import static javax.tools.JavaFileObject.Kind.SOURCE;
+import static javax.tools.Diagnostic.Kind.OTHER;
+import static javax.tools.DocumentationTool.Location.*;
+import static javax.tools.JavaFileObject.Kind.*;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -64,14 +65,14 @@ import icy.manipulator.Icy;
 import javadng.CodeRepository;
 import javadng.Design;
 import javadng.SiteBuilder;
-import javadng.parser.analyze.ClassInfo;
-import javadng.parser.analyze.Data;
-import javadng.parser.analyze.Data.Doc;
-import javadng.parser.analyze.MethodInfo;
-import javadng.parser.analyze.SampleInfo;
-import javadng.parser.analyze.TemplateStore;
-import javadng.parser.analyze.TypeResolver;
-import javadng.parser.analyze.Util;
+import javadng.parser.ClassInfo;
+import javadng.parser.Data;
+import javadng.parser.MethodInfo;
+import javadng.parser.SampleInfo;
+import javadng.parser.TemplateStore;
+import javadng.parser.TypeResolver;
+import javadng.parser.Util;
+import javadng.parser.Data.Doc;
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
 import jdk.javadoc.doclet.Reporter;
@@ -791,7 +792,7 @@ public abstract class JavadocModel {
                 SiteBuilder site = SiteBuilder.root(output()).guard("index.html", "main.css", "mocha.html", "mimic.test.js");
 
                 // build CSS
-                I.load(JavadocModel.class);
+                I.load(SiteBuilder.class);
                 Stylist.pretty()
                         .importNormalizeStyle()
                         .scheme(Design.class)

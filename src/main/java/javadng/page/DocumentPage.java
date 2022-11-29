@@ -7,11 +7,13 @@
  *
  *          http://opensource.org/licenses/mit-license.php
  */
-package javadng.parser;
+package javadng.page;
 
 import javax.lang.model.element.Modifier;
 
-import javadng.parser.analyze.ClassInfo;
+import javadng.StyleConstants;
+import javadng.Styles;
+import javadng.parser.ClassInfo;
 import kiss.I;
 import kiss.XML;
 import stylist.Style;
