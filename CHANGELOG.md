@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.11.0](https://github.com/teletha/javadng/compare/v1.10.0...v1.11.0) (2022-11-29)
+
+
+### Features
+
+* Restore scroll position when browser's back. ([730fa5d](https://github.com/teletha/javadng/commit/730fa5d1b2d4331f4a16e6a2f73bf6611580b254))
+
+
+### Bug Fixes
+
+* Cannot import source code by class. ([d411b81](https://github.com/teletha/javadng/commit/d411b8150191af92fa8e9d8a34fe29df5873db08))
+* Cannot parse full source code by class file. ([3975896](https://github.com/teletha/javadng/commit/3975896f6697bec95c9563de069829651c22f3f1))
+* Cannot parse interface source code. ([8077cc7](https://github.com/teletha/javadng/commit/8077cc78fd96f42b99e0af830d058d58a84ec2dc))
+* Cannot parse source code from internal independent file. ([080656f](https://github.com/teletha/javadng/commit/080656f4c34191b311b8b5a70a5accc2568ca267))
+* change style ([48da863](https://github.com/teletha/javadng/commit/48da86365d50b1b319da487d1386dd1f887b0b34))
+* Support java 16. ([9d48c23](https://github.com/teletha/javadng/commit/9d48c237ee05e094eea33adcf22f8af966c76382))
+* Unknown class reference stops the javadoc processing. ([01018ba](https://github.com/teletha/javadng/commit/01018ba4a4cb5e0b5be981657c0cab06d860e42d))
+* update style ([d6aa6e9](https://github.com/teletha/javadng/commit/d6aa6e95f6c82f241e26992bba112073418f7d16))
+* update style ([7b20fbc](https://github.com/teletha/javadng/commit/7b20fbcdae20717b0171372b2077d6fcd2471efd))
+
 ## [1.10.0](https://www.github.com/teletha/javadng/compare/v1.9.0...v1.10.0) (2022-11-04)
 
 
