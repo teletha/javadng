@@ -20,6 +20,13 @@ const root = {
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "ActivityPage",
+			"packageName": "javadng.page",
+			"type": "Class"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "ClassInfo",
 			"packageName": "javadng.parser",
 			"type": "Class"
@@ -63,13 +70,6 @@ const root = {
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "DocumentPage",
-			"packageName": "javadng.page",
-			"type": "Class"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "DomPage",
 			"packageName": "javadng.page",
 			"type": "Class"
 		},
