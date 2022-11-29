@@ -54,7 +54,7 @@ public class TypeResolver {
                         .map(name -> {
                             try {
                                 return Class.forName(name);
-                            } catch (ClassNotFoundException e) {
+                            } catch (Throwable e) {
                                 return null;
                             }
                         })
