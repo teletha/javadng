@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.1](https://github.com/teletha/javadng/compare/v1.11.0...v1.11.1) (2022-11-29)
+
+
+### Bug Fixes
+
+* Fails to parse text literal with expression tag. ([d784267](https://github.com/teletha/javadng/commit/d7842674554f5fa9592bd284f34891e80fd39163))
+
 ## [1.11.0](https://github.com/teletha/javadng/compare/v1.10.0...v1.11.0) (2022-11-29)
 
 
