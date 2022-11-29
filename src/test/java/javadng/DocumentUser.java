@@ -7,13 +7,13 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser;
+package javadng;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javadng.CodeRepository;
+import javadng.parser.Javadoc;
 import psychopath.Locator;
 
 public class DocumentUser {
