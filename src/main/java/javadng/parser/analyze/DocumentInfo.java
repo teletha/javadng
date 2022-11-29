@@ -661,10 +661,12 @@ public class DocumentInfo {
         @Override
         public DocumentXMLBuilder visitLiteral(LiteralTree node, DocumentXMLBuilder p) {
             String name = node.getTagName();
-            String body = I.express(escape(node.getBody().getBody()), templateTags);
+            String body = escape(node.getBody().getBody());
 
             if (inPre) {
                 body = Util.stripHeaderWhitespace(body);
+            } else {
+                body = I.express(body, templateTags);
             }
 
             if (name.equals("code")) {
@@ -745,7 +747,11 @@ public class DocumentInfo {
          */
         @Override
         public DocumentXMLBuilder visitText(TextTree node, DocumentXMLBuilder p) {
-            text.append(I.express(node.getBody(), templateTags));
+            if (inPre) {
+                text.append(node.getBody());
+            } else {
+                text.append(I.express(node.getBody(), templateTags));
+            }
             return p;
         }
 
