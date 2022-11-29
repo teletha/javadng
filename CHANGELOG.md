@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.2](https://github.com/teletha/javadng/compare/v1.11.1...v1.11.2) (2022-11-29)
+
+
+### Bug Fixes
+
+* Update JDK javadoc version. ([82a86a6](https://github.com/teletha/javadng/commit/82a86a642d23a6bf0dbe14277945fd94a7d2f5d9))
+
 ## [1.11.1](https://github.com/teletha/javadng/compare/v1.11.0...v1.11.1) (2022-11-29)
 
 
