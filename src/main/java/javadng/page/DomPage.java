@@ -39,6 +39,6 @@ public class DomPage extends Page<XML> {
     protected void declareSubNavigation() {
     }
 
-    interface styles extends JavadngStyleDSL {
+    interface S extends JavadngStyleDSL {
     }
 }

@@ -53,15 +53,15 @@ public abstract class Page<T> extends HTML {
                 module("mimic.js");
                 stylesheet("main.css");
             });
-            $("body", styles.Body, () -> {
+            $("body", S.Body, () -> {
                 // =============================
                 // Top Navigation
                 // =============================
                 String date = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDateTime.now());
 
-                $("header", styles.HeaderArea, () -> {
-                    $("h1", styles.HeaderTitle, attr("date", date), attr("ver", model.version()), code(model.product()));
-                    $("nav", styles.HeaderNav, () -> {
+                $("header", S.HeaderArea, () -> {
+                    $("h1", S.HeaderTitle, attr("date", date), attr("ver", model.version()), code(model.product()));
+                    $("nav", S.HeaderNav, () -> {
                         for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
                             $("a", attr("href", "doc/" + info.children().get(0).id() + ".html"), svg("text"), text(info.title()));
                         }
@@ -71,7 +71,7 @@ public abstract class Page<T> extends HTML {
                         $("a", attr("href", "doc/changelog.html"), svg("activity"), text("Activity"));
                         $("a", attr("href", model.repository().locate()), attr("target", "_blank"), svg("github"), text("Repository"));
                     });
-                    $("div", attr("id", "ViewMode"), styles.ViewMode, () -> {
+                    $("div", attr("id", "ViewMode"), S.ViewMode, () -> {
                         $("a", attr("id", "light"), attr("title", "Change to a brighter color scheme"), () -> {
                             $(svg("sun"));
                         });
@@ -82,18 +82,18 @@ public abstract class Page<T> extends HTML {
                     });
                 });
 
-                $("main", styles.MainArea, () -> {
+                $("main", S.MainArea, () -> {
                     // =============================
                     // Left Side Navigation
                     // =============================
-                    $("nav", styles.Navigation, () -> {
+                    $("nav", S.Navigation, () -> {
                         $("div");
                     });
 
                     // =============================
                     // Main Contents
                     // =============================
-                    $("article", attr("id", "Article"), styles.Contents, () -> {
+                    $("article", attr("id", "Article"), S.Contents, () -> {
                         if (contents != null) {
                             declareContents();
                         }
@@ -102,8 +102,8 @@ public abstract class Page<T> extends HTML {
                     // =============================
                     // Right Side Navigation
                     // =============================
-                    $("aside", attr("id", "SubNavi"), styles.SubNavigation, () -> {
-                        $("div", styles.SubNavigationStickyBlock, () -> {
+                    $("aside", attr("id", "SubNavi"), S.SubNavigation, () -> {
+                        $("div", S.SubNavigationStickyBlock, () -> {
                             if (contents != null) {
                                 declareSubNavigation();
                             }
@@ -125,7 +125,7 @@ public abstract class Page<T> extends HTML {
     /**
      * Style definition.
      */
-    private interface styles extends JavadngStyleDSL {
+    private interface S extends JavadngStyleDSL {
 
         Numeric HeaderMinWidth = Numeric.of(300, px);
 

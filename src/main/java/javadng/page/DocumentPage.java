@@ -37,19 +37,19 @@ public class DocumentPage extends Page<ClassInfo> {
     protected void declareContents() {
         if (contents.hasDocument()) {
             $("section", Styles.Section, Styles.JavadocComment, () -> {
-                write(contents, styles.SectionLevel1);
+                write(contents, S.SectionLevel1);
             });
         }
 
         for (ClassInfo child : contents.children(Modifier.PUBLIC)) {
             if (child.hasDocument()) {
                 $("section", attr("id", child.id()), Styles.Section, Styles.JavadocComment, () -> {
-                    write(child, styles.SectionLevel1);
+                    write(child, S.SectionLevel1);
 
                     for (ClassInfo foot : child.children(Modifier.PUBLIC)) {
                         if (foot.hasDocument()) {
-                            $("section", attr("id", foot.id()), Styles.JavadocComment, styles.foot, () -> {
-                                write(foot, styles.SectionLevel2);
+                            $("section", attr("id", foot.id()), Styles.JavadocComment, S.foot, () -> {
+                                write(foot, S.SectionLevel2);
                             });
                         }
                     }
@@ -64,18 +64,18 @@ public class DocumentPage extends Page<ClassInfo> {
 
         $("header", Styles.JavadocComment, additionalStyle, () -> {
             $(xml(heading.size() != 0 ? heading : I.xml("h" + info.nestLevel()).text(info.title())));
-            $("div", styles.meta, () -> {
-                $("a", attr("class", "perp"), styles.icon, () -> {
+            $("div", S.meta, () -> {
+                $("a", attr("class", "perp"), S.icon, () -> {
                     $(svg("copy"));
                 });
 
-                $("a", attr("class", "tweet"), styles.icon, () -> {
+                $("a", attr("class", "tweet"), S.icon, () -> {
                     $(svg("twitter"));
                 });
 
                 String editor = model.repository().locateEditor(info.filePath(), info.documentLine());
                 if (editor != null) {
-                    $("a", attr("href", editor), attr("class", "edit"), styles.icon, () -> {
+                    $("a", attr("href", editor), attr("class", "edit"), S.icon, () -> {
                         $(svg("edit"));
                     });
                 }
@@ -91,7 +91,7 @@ public class DocumentPage extends Page<ClassInfo> {
     protected void declareSubNavigation() {
     }
 
-    interface styles extends JavadngStyleDSL {
+    interface S extends JavadngStyleDSL {
 
         Numeric IconSize = Numeric.of(14, px);
 

@@ -42,17 +42,17 @@ public class APIPage extends Page<ClassInfo> {
     @Override
     protected void declareContents() {
         $("section", Styles.Section, () -> {
-            $("code", style.PackcageName, text(contents.packageName));
-            $("h2", attr("class", contents.type), style.TypeName, () -> {
-                $("code", style.Name, text(contents.name));
+            $("code", S.PackcageName, text(contents.packageName));
+            $("h2", attr("class", contents.type), S.TypeName, () -> {
+                $("code", S.Name, text(contents.name));
                 $(contents.createTypeVariableNames());
             });
 
-            $("div", style.traitList, () -> {
+            $("div", S.traitList, () -> {
                 // type parameters
                 int size = contents.numberOfTypeVariables();
                 if (size != 0) {
-                    $("ul", style.typeParameter, foŕ(size, i -> {
+                    $("ul", S.typeParameter, foŕ(size, i -> {
                         $("li", contents.createTypeVariable(i), contents.createTypeVariableComment(i));
                     }));
                 }
@@ -60,7 +60,7 @@ public class APIPage extends Page<ClassInfo> {
                 // super types
                 List<XML> supers = contents.createSuperTypes();
                 if (!supers.isEmpty()) {
-                    $("ul", style.extend, () -> {
+                    $("ul", S.extend, () -> {
                         for (XML sup : supers) {
                             $("li", sup);
                         }
@@ -70,7 +70,7 @@ public class APIPage extends Page<ClassInfo> {
                 // implemented types
                 List<XML> interfaces = contents.createInterfaceTypes();
                 if (!interfaces.isEmpty()) {
-                    $("ul", style.implement, () -> {
+                    $("ul", S.implement, () -> {
                         for (XML xml : interfaces) {
                             $("li", xml);
                         }
@@ -80,7 +80,7 @@ public class APIPage extends Page<ClassInfo> {
                 // sub types
                 List<XML> subs = contents.createSubTypes();
                 if (!subs.isEmpty()) {
-                    $("ul", style.sub, () -> {
+                    $("ul", S.sub, () -> {
                         for (XML xml : subs) {
                             $("li", xml);
                         }
@@ -111,12 +111,12 @@ public class APIPage extends Page<ClassInfo> {
      */
     private void writeMember(FieldInfo member) {
         $("section", attr("id", member.id()), Styles.Section, () -> {
-            $("h2", style.MemberName, () -> {
+            $("h2", S.MemberName, () -> {
                 XML type = member.createType();
 
                 $(member.createModifier());
-                $("code", style.Name, text(member.name));
-                if (type != null) $("i", style.Return, type);
+                $("code", S.Name, text(member.name));
+                if (type != null) $("i", S.Return, type);
             });
 
             $(member.createComment());
@@ -139,13 +139,13 @@ public class APIPage extends Page<ClassInfo> {
      */
     private void writeMember(ExecutableInfo member) {
         $("section", attr("id", member.id()), Styles.Section, () -> {
-            $("h2", style.MemberName, () -> {
+            $("h2", S.MemberName, () -> {
                 XML type = member.createReturnType();
 
                 $(member.createModifier());
-                $("code", style.Name, text(member.name));
+                $("code", S.Name, text(member.name));
                 $(member.createParameter());
-                if (type != null) $("i", style.Return, type);
+                if (type != null) $("i", S.Return, type);
             });
 
             int types = member.numberOfTypeVariables();
@@ -154,30 +154,30 @@ public class APIPage extends Page<ClassInfo> {
             int exceptions = member.numberOfExceptions();
 
             if (0 < types + params + returns + exceptions) {
-                $("table", style.SignatureTable, () -> {
+                $("table", S.SignatureTable, () -> {
                     IntStream.range(0, types).forEach(i -> {
-                        $("tr", style.SignatureTypeVariable, () -> {
+                        $("tr", S.SignatureTypeVariable, () -> {
                             $("td", member.createTypeVariable(i));
                             $("td", member.createTypeVariableComment(i));
                         });
                     });
 
                     IntStream.range(0, params).forEach(i -> {
-                        $("tr", style.SignatureParameter, () -> {
+                        $("tr", S.SignatureParameter, () -> {
                             $("td", member.createParameter(i), text(" "), member.createParameterName(i));
                             $("td", member.createParameterComment(i));
                         });
                     });
 
                     if (0 < returns) {
-                        $("tr", style.SignatureReturn, () -> {
+                        $("tr", S.SignatureReturn, () -> {
                             $("td", member.createReturnType());
                             $("td", member.createReturnComment());
                         });
                     }
 
                     IntStream.range(0, exceptions).forEach(i -> {
-                        $("tr", style.SignatureException, () -> {
+                        $("tr", S.SignatureException, () -> {
                             $("td", member.createException(i));
                             $("td", member.createExceptionComment(i));
                         });
@@ -211,7 +211,7 @@ public class APIPage extends Page<ClassInfo> {
 
     private void members(String title, List<? extends MemberInfo> members) {
         if (members.size() != 0) {
-            $("h5", style.Title, text(title));
+            $("h5", S.Title, text(title));
             $("ul", foŕ(members, m -> {
                 $("li", () -> {
                     $(m.createModifier());
@@ -223,11 +223,11 @@ public class APIPage extends Page<ClassInfo> {
                     }
 
                     if (m instanceof MethodInfo) {
-                        $("i", style.NaviReturn, ((MethodInfo) m).createReturnType());
+                        $("i", S.NaviReturn, ((MethodInfo) m).createReturnType());
                     }
 
                     if (m instanceof FieldInfo) {
-                        $("i", style.NaviReturn, ((FieldInfo) m).createType());
+                        $("i", S.NaviReturn, ((FieldInfo) m).createType());
                     }
                 });
             }));
@@ -237,7 +237,7 @@ public class APIPage extends Page<ClassInfo> {
     /**
      * Style definition.
      */
-    private interface style extends JavadngStyleDSL {
+    private interface S extends JavadngStyleDSL {
 
         Color keyword = Color.hsl(0, 29, 49);
 
