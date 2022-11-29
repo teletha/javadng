@@ -43,18 +43,20 @@ Add it into in the dependencies element like so:
 <dependency>
     <groupId>com.github.teletha</groupId>
     <artifactId>javadng</artifactId>
-    <version>1.10.0</version>
+    <version>1.11.1</version>
 </dependency>
 ```
 #### [Gradle](https://gradle.org/)
 Add JitPack repository at the end of repositories in your build.gradle:
 ```gradle
-repositories } url "https://jitpack.io" }
+repositories {
+    maven { url "https://jitpack.io" }
 }
 ```
 Add it into the dependencies section like so:
 ```gradle
-dependencies :javadng:1.10.0'
+dependencies {
+    implementation 'com.github.teletha:javadng:1.11.1'
 }
 ```
 #### [SBT](https://www.scala-sbt.org/)
@@ -64,7 +66,7 @@ resolvers += "jitpack" at "https://jitpack.io"
 ```
 Add it into the libraryDependencies section like so:
 ```scala
-libraryDependencies += "com.github.teletha" % "javadng" % "1.10.0"
+libraryDependencies += "com.github.teletha" % "javadng" % "1.11.1"
 ```
 #### [Leiningen](https://leiningen.org/)
 Add JitPack repository at the end of repositories in your project.clj:
@@ -73,12 +75,12 @@ Add JitPack repository at the end of repositories in your project.clj:
 ```
 Add it into the dependencies section like so:
 ```clj
-:dependencies [[com.github.teletha/javadng "1.10.0"]]
+:dependencies [[com.github.teletha/javadng "1.11.1"]]
 ```
 #### [Bee](https://teletha.github.io/bee)
 Add it into your project definition class like so:
 ```java
-require("com.github.teletha", "javadng", "1.10.0");
+require("com.github.teletha", "javadng", "1.11.1");
 ```
 <p align="right"><a href="#top">back to top</a></p>
 
@@ -106,11 +108,11 @@ If you think something might be a bug, but you're not sure, ask on StackOverflow
 
 ## Dependency
 Javadng depends on the following products on runtime.
-* [commonmark-0.20.0](https://mvnrepository.com/artifact/org.commonmark/commonmark/0.20.0)
-* [javaparser-core-3.24.7](https://mvnrepository.com/artifact/com.github.javaparser/javaparser-core/3.24.7)
+* [commonmark-0.21.0](https://mvnrepository.com/artifact/org.commonmark/commonmark/0.21.0)
+* [javaparser-core-3.24.8](https://mvnrepository.com/artifact/com.github.javaparser/javaparser-core/3.24.8)
 * [psychopath-1.6.0](https://mvnrepository.com/artifact/com.github.teletha/psychopath/1.6.0)
-* [sinobu-2.20.0](https://mvnrepository.com/artifact/com.github.teletha/sinobu/2.20.0)
-* [stylist-1.4.0](https://mvnrepository.com/artifact/com.github.teletha/stylist/1.4.0)
+* [sinobu-2.21.0](https://mvnrepository.com/artifact/com.github.teletha/sinobu/2.21.0)
+* [stylist-1.5.0](https://mvnrepository.com/artifact/com.github.teletha/stylist/1.5.0)
 <p align="right"><a href="#top">back to top</a></p>
 
 
