@@ -18,10 +18,10 @@
 	--font: 13px;
 	--line: 1.7;
 	--radius: 4px;
-	--front-opacify--06: hsla(0,0%,30%,0.4);
 	--front-lightenD-40: hsl(0,0%,70%);
 	--front-lightenD-40-opacify--03: hsla(0,0%,70%,0.7);
 	--front-opacify--07: hsla(0,0%,30%,0.30000000000000004);
+	--front-opacify--06: hsla(0,0%,30%,0.4);
 }
 
 .dark:root {
@@ -32,10 +32,10 @@
 	--link: hsl(0,65%,65%);
 	--back: hsl(0,0%,20%);
 	--surface: hsl(0,0%,23%);
-	--front-opacify--06: hsla(0,0%,90%,0.4);
 	--front-lightenD-40: hsl(0,0%,50%);
 	--front-lightenD-40-opacify--03: hsla(0,0%,50%,0.7);
 	--front-opacify--07: hsla(0,0%,90%,0.30000000000000004);
+	--front-opacify--06: hsla(0,0%,90%,0.4);
 }
 
 /* javadng.design.Styles#JavadocComment */.B h2 {
