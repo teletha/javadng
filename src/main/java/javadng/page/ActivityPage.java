@@ -27,9 +27,10 @@ public class ActivityPage extends Page<XML> {
      */
     @Override
     protected void declareContents() {
-        $("section", Styles.Section, Styles.JavadocComment, () -> {
-            $(xml(contents));
-        });
+        XML xml = contents.parent().find(">section");
+        for (XML section : xml) {
+            $(xml(section), Styles.JavadocComment, Styles.Section);
+        }
     }
 
     /**

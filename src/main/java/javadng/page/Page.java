@@ -32,11 +32,11 @@ public abstract class Page<T> extends HTML {
     /**
      * @param depth
      * @param model
-     * @param info
+     * @param contents
      */
-    protected Page(int depth, JavadocModel model, T info) {
+    protected Page(int depth, JavadocModel model, T contents) {
         this.model = model;
-        this.contents = info;
+        this.contents = contents;
         this.base = "../".repeat(depth);
     }
 

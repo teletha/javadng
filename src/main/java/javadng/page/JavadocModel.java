@@ -820,11 +820,41 @@ public abstract class JavadocModel {
                 }
 
                 I.http(repository().locateChangeLog(), String.class).waitForTerminate().to(md -> {
-                    Node root = Parser.builder().build().parse(md);
-                    String html = HtmlRenderer.builder().escapeHtml(true).build().render(root);
-                    html = structulize(html, "h2", "section2");
-                    html = structulize(html, "h3", "section3");
-                    site.buildHTML("doc/changelog.html", new ActivityPage(1, this, I.xml(html)));
+                    try {
+                        Node root = Parser.builder().build().parse(md);
+                        String html = HtmlRenderer.builder().escapeHtml(true).build().render(root);
+
+                        // remove h1
+                        html = html.replaceAll("<h1>.+</h1>", "");
+
+                        // structure flat HTML
+                        StringBuilder b = new StringBuilder();
+                        int[] ranks = {0, 0, 0, 0, 0, 0};
+                        Matcher matcher = Pattern.compile("<h(\\d)>").matcher(html);
+                        while (matcher.find()) {
+                            int rank = Integer.parseInt(matcher.group(1));
+                            int count = ranks[rank]++;
+                            int reset = 0;
+
+                            // reset lower rank's count
+                            for (int i = rank + 1; i < ranks.length; i++) {
+                                if (ranks[i] != 0) {
+                                    reset++;
+                                    ranks[i] = 0;
+                                }
+                            }
+
+                            matcher.appendReplacement(b, count == 0 ? "<section><h" + rank + ">"
+                                    : "</section>".repeat(reset + 1) + "<section><h" + rank + ">");
+                        }
+                        matcher.appendTail(b);
+                        b.append("</section></section>");
+
+                        site.buildHTML("doc/changelog.html", new ActivityPage(1, this, I.xml(b.toString())));
+                    } catch (Throwable e) {
+                        e.printStackTrace();
+                        throw I.quiet(e);
+                    }
                 });
 
                 // create at last for live reload
