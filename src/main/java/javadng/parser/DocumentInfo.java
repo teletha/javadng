@@ -221,7 +221,7 @@ public class DocumentInfo {
      * 
      * @return
      */
-    public final XML createComment() {
+    public final XML document() {
         return comment.isAbsent() ? null : comment.v.clone();
     }
 

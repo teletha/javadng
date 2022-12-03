@@ -13,21 +13,20 @@ import javax.lang.model.element.Modifier;
 
 import javadng.design.JavadngStyleDSL;
 import javadng.design.Styles;
-import javadng.parser.ClassInfo;
 import kiss.I;
 import kiss.XML;
 import stylist.Style;
 import stylist.value.Numeric;
 
-public class DocumentPage extends Page<ClassInfo> {
+public class DocumentPage extends Page<DocumentProvider> {
 
     /**
      * @param depth
      * @param model
-     * @param info
+     * @param content
      */
-    public DocumentPage(int depth, JavadocModel model, ClassInfo info) {
-        super(depth, model, info);
+    public DocumentPage(int depth, JavadocModel model, DocumentProvider content) {
+        super(depth, model, content);
     }
 
     /**
@@ -41,12 +40,12 @@ public class DocumentPage extends Page<ClassInfo> {
             });
         }
 
-        for (ClassInfo child : contents.children(Modifier.PUBLIC)) {
+        for (DocumentProvider child : contents.children(Modifier.PUBLIC)) {
             if (child.hasDocument()) {
                 $("section", attr("id", child.id()), Styles.Section, Styles.JavadocComment, () -> {
                     write(child, S.SectionLevel1);
 
-                    for (ClassInfo foot : child.children(Modifier.PUBLIC)) {
+                    for (DocumentProvider foot : child.children(Modifier.PUBLIC)) {
                         if (foot.hasDocument()) {
                             $("section", attr("id", foot.id()), Styles.JavadocComment, S.foot, () -> {
                                 write(foot, S.SectionLevel2);
@@ -58,12 +57,12 @@ public class DocumentPage extends Page<ClassInfo> {
         }
     }
 
-    private void write(ClassInfo info, Style additionalStyle) {
-        XML doc = info.createComment();
+    private void write(DocumentProvider provider, Style additionalStyle) {
+        XML doc = provider.document();
         XML heading = doc.find("h,h1,h2,h3,h4,h5,h6,h7").first().remove();
 
         $("header", Styles.JavadocComment, additionalStyle, () -> {
-            $(xml(heading.size() != 0 ? heading : I.xml("h" + info.nestLevel()).text(info.title())));
+            $(xml(heading.size() != 0 ? heading : I.xml("h" + provider.nestLevel()).text(provider.title())));
             $("div", S.meta, () -> {
                 $("a", attr("class", "perp"), S.icon, () -> {
                     $(svg("copy"));
@@ -73,7 +72,7 @@ public class DocumentPage extends Page<ClassInfo> {
                     $(svg("twitter"));
                 });
 
-                String editor = model.repository().locateEditor(info.filePath(), info.documentLine());
+                String editor = model.repository().locateEditor(provider.filePath(), provider.documentLine());
                 if (editor != null) {
                     $("a", attr("href", editor), attr("class", "edit"), S.icon, () -> {
                         $(svg("edit"));

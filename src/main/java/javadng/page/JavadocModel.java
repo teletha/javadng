@@ -54,10 +54,6 @@ import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
-import org.commonmark.node.Node;
-import org.commonmark.parser.Parser;
-import org.commonmark.renderer.html.HtmlRenderer;
-
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpServer;
 
@@ -725,7 +721,7 @@ public abstract class JavadocModel {
                         for (XML see : method.getSeeTags()) {
                             String[] id = info.identify(see.text());
                             SampleInfo sample = new SampleInfo(id[0], id[1], code);
-                            sample.comment.set(method.createComment());
+                            sample.comment.set(method.document());
 
                             samples.computeIfAbsent(sample.id(), x -> new ArrayList()).add(sample);
                         }
@@ -773,13 +769,13 @@ public abstract class JavadocModel {
                 doc.path = "doc/" + info.id() + ".html";
                 data.docs.add(doc);
 
-                for (ClassInfo child : info.children(Modifier.PUBLIC)) {
+                for (DocumentProvider child : info.children(Modifier.PUBLIC)) {
                     Doc childDoc = new Doc();
                     childDoc.title = child.title();
                     childDoc.path = "doc/" + info.id() + ".html#" + child.id();
                     doc.subs.add(childDoc);
 
-                    for (ClassInfo foot : child.children(Modifier.PUBLIC)) {
+                    for (DocumentProvider foot : child.children(Modifier.PUBLIC)) {
                         Doc footDoc = new Doc();
                         footDoc.title = foot.title();
                         footDoc.path = "doc/" + info.id() + ".html#" + foot.id();
@@ -819,63 +815,14 @@ public abstract class JavadocModel {
                     site.buildHTML("doc/" + info.id() + ".html", new DocumentPage(1, this, info));
                 }
 
+                // build change log
                 I.http(repository().locateChangeLog(), String.class).waitForTerminate().to(md -> {
-                    try {
-                        Node root = Parser.builder().build().parse(md);
-                        String html = HtmlRenderer.builder().escapeHtml(true).build().render(root);
-
-                        // remove h1
-                        html = html.replaceAll("<h1>.+</h1>", "");
-
-                        // structure flat HTML
-                        StringBuilder b = new StringBuilder();
-                        int[] ranks = {0, 0, 0, 0, 0, 0};
-                        Matcher matcher = Pattern.compile("<h(\\d)>").matcher(html);
-                        while (matcher.find()) {
-                            int rank = Integer.parseInt(matcher.group(1));
-                            int count = ranks[rank]++;
-                            int reset = 0;
-
-                            // reset lower rank's count
-                            for (int i = rank + 1; i < ranks.length; i++) {
-                                if (ranks[i] != 0) {
-                                    reset++;
-                                    ranks[i] = 0;
-                                }
-                            }
-
-                            matcher.appendReplacement(b, count == 0 ? "<section><h" + rank + ">"
-                                    : "</section>".repeat(reset + 1) + "<section><h" + rank + ">");
-                        }
-                        matcher.appendTail(b);
-                        b.append("</section></section>");
-
-                        site.buildHTML("doc/changelog.html", new ActivityPage(1, this, I.xml(b.toString())));
-                    } catch (Throwable e) {
-                        e.printStackTrace();
-                        throw I.quiet(e);
-                    }
+                    site.buildHTML("doc/changelog.html", new DocumentPage(1, this, repository().buildChangeLog(md)));
                 });
 
                 // create at last for live reload
                 site.buildHTML("index.html", new APIPage(0, this, null));
             }
         }
-    }
-
-    private String structulize(String text, String targetTag, String structureTag) {
-        int counter = 0;
-        StringBuilder builder = new StringBuilder();
-        Matcher matcher = Pattern.compile("<" + targetTag + ">").matcher(text);
-        while (matcher.find()) {
-            String replacer = "<" + structureTag + "><" + targetTag + ">";
-            if (counter++ != 0) {
-                replacer = "</" + structureTag + ">" + replacer;
-            }
-            matcher.appendReplacement(builder, replacer);
-        }
-        matcher.appendTail(builder).append("</" + structureTag + ">");
-
-        return builder.toString();
     }
 }

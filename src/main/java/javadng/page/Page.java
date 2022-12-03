@@ -32,11 +32,11 @@ public abstract class Page<T> extends HTML {
     /**
      * @param depth
      * @param model
-     * @param contents
+     * @param content
      */
-    protected Page(int depth, JavadocModel model, T contents) {
+    protected Page(int depth, JavadocModel model, T content) {
         this.model = model;
-        this.contents = contents;
+        this.contents = content;
         this.base = "../".repeat(depth);
     }
 
@@ -143,8 +143,11 @@ public abstract class Page<T> extends HTML {
         Style HeaderArea = () -> {
             background.color(Color.Inherit).image(BackgroundImage.inherit()).repeat();
             position.sticky().top(0, rem);
-            display.minWidth(HeaderMinWidth).maxWidth(JavadngStyleDSL.MaxWidth).minHeight(JavadngStyleDSL.HeaderHeight).zIndex(10).flex().alignItems
-                    .center().wrap.enable();
+            display.minWidth(HeaderMinWidth)
+                    .maxWidth(JavadngStyleDSL.MaxWidth)
+                    .minHeight(JavadngStyleDSL.HeaderHeight)
+                    .zIndex(10)
+                    .flex().alignItems.center().wrap.enable();
             margin.auto().bottom(JavadngStyleDSL.HeaderBottomMargin);
             padding.top(22, px);
             border.bottom.color(JavadngStyleDSL.Theme.primary).width(1, px).solid();
@@ -157,7 +160,11 @@ public abstract class Page<T> extends HTML {
 
             $.after(() -> {
                 content.attr("date").text("\\000AVersion\\00A0").attr("ver");
-                font.size(0.8, rem).lineHeight(1.1).color(JavadngStyleDSL.Theme.front).family(JavadngStyleDSL.Theme.base).letterSpacing(-0.5, px);
+                font.size(0.8, rem)
+                        .lineHeight(1.1)
+                        .color(JavadngStyleDSL.Theme.front)
+                        .family(JavadngStyleDSL.Theme.base)
+                        .letterSpacing(-0.5, px);
                 display.inlineBlock();
                 padding.left(1.1, rem).bottom(1.3, rem);
                 text.whiteSpace.pre();
@@ -349,7 +356,9 @@ public abstract class Page<T> extends HTML {
 
         Style SubNavigationStickyBlock = () -> {
             position.sticky().top(JavadngStyleDSL.HeaderHeight);
-            display.block().height(Numeric.of(90, vh).subtract(JavadngStyleDSL.HeaderHeight)).maxWidth(JavadngStyleDSL.RightNavigationWidth);
+            display.block()
+                    .height(Numeric.of(90, vh).subtract(JavadngStyleDSL.HeaderHeight))
+                    .maxWidth(JavadngStyleDSL.RightNavigationWidth);
             overflow.auto().scrollbar.thin();
             text.whiteSpace.nowrap();
 
