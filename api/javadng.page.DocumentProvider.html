@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Javadng API</title>
+		<base href="../"/>
+		<script src="mimic.js" type="module"></script>
+		<link href="main.css" rel="stylesheet"/>
+	</head>
+	<body class="C">
+		<header class="D">
+			<h1 class="E" date="2022-12-03" ver="1.11.2"><code>Javadng</code></h1>
+			<nav class="F"><a href="api/"><svg class="A svg" viewBox="0 0 24 24">
+						<use href="main.svg#package"/>
+					</svg><code>API</code></a><a href="https://github.com//teletha/javadng/discussions" target="_blank"><svg class="A svg" viewBox="0 0 24 24">
+						<use href="main.svg#user"/>
+					</svg>Community</a><a href="doc/changelog.html"><svg class="A svg" viewBox="0 0 24 24">
+						<use href="main.svg#activity"/>
+					</svg>Activity</a><a href="https://github.com//teletha/javadng" target="_blank"><svg class="A svg" viewBox="0 0 24 24">
+						<use href="main.svg#github"/>
+					</svg>Repository</a></nav>
+			<div class="G" id="ViewMode"><a id="light" title="Change to a brighter color scheme"><svg class="A svg" viewBox="0 0 24 24">
+						<use href="main.svg#sun"/>
+					</svg>
+				</a><a id="dark" title="Change to a darker color scheme"><svg class="A svg" viewBox="0 0 24 24">
+						<use href="main.svg#moon"/>
+					</svg>
+				</a></div>
+		</header>
+		<main class="H">
+			<nav class="I">
+				<div></div>
+			</nav>
+			<article class="J" id="Article">
+				<section class="K"><code class="Q">javadng.page</code>
+					<h2 class="Interface R"><code class="S">DocumentProvider</code></h2>
+					<div class="T">
+						<ul class="P L">
+							<li><code><a href="api/javadng.parser.ClassInfo.html">ClassInfo</a></code></li>
+						</ul>
+					</div>
+				</section>
+				<section class="K" id="id()">
+					<h2 class="U"><i class="ABSTRACT"><i class="PUBLIC"></i></i><code class="S">id</code><code class="V">()</code><i class="Y"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
+					<table class="W">
+						<tr class="d">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></td>
+							<td></td>
+						</tr>
+					</table><span class="B"><p>Compute its identifier.</p>
+					</span></section>
+				<section class="K" id="title()">
+					<h2 class="U"><i class="ABSTRACT"><i class="PUBLIC"></i></i><code class="S">title</code><code class="V">()</code><i class="Y"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
+					<table class="W">
+						<tr class="d">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></td>
+							<td></td>
+						</tr>
+					</table><span class="B"><p>Compute its title.</p>
+					</span></section>
+				<section class="K" id="nestLevel()">
+					<h2 class="U"><i class="ABSTRACT"><i class="PUBLIC"></i></i><code class="S">nestLevel</code><code class="V">()</code><i class="Y"><code>int</code></i></h2>
+					<table class="W">
+						<tr class="d">
+							<td><code>int</code></td>
+							<td></td>
+						</tr>
+					</table><span class="B"><p>Compute its nest level.</p>
+					</span></section>
+				<section class="K" id="filePath()">
+					<h2 class="U"><i class="ABSTRACT"><i class="PUBLIC"></i></i><code class="S">filePath</code><code class="V">()</code><i class="Y"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
+					<table class="W">
+						<tr class="d">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></td>
+							<td></td>
+						</tr>
+					</table><span class="B"><p>Compute the file path.</p>
+					</span></section>
+				<section class="K" id="hasDocument()">
+					<h2 class="U"><i class="ABSTRACT"><i class="PUBLIC"></i></i><code class="S">hasDocument</code><code class="V">()</code><i class="Y"><code>boolean</code></i></h2>
+					<table class="W">
+						<tr class="d">
+							<td><code>boolean</code></td>
+							<td></td>
+						</tr>
+					</table><span class="B"><p>Determines if this provider has any contents.</p>
+					</span></section>
+				<section class="K" id="documentLine()">
+					<h2 class="U"><i class="ABSTRACT"><i class="PUBLIC"></i></i><code class="S">documentLine</code><code class="V">()</code><i class="Y"><code array="fix">int</code></i></h2>
+					<table class="W">
+						<tr class="d">
+							<td><code array="fix">int</code></td>
+							<td></td>
+						</tr>
+					</table><span class="B"><p>Get the line positions of documentation comments for this element.</p>
+					</span></section>
+				<section class="K" id="document()">
+					<h2 class="U"><i class="ABSTRACT"><i class="PUBLIC"></i></i><code class="S">document</code><code class="V">()</code><i class="Y"><code>kiss.XML</code></i></h2>
+					<table class="W">
+						<tr class="d">
+							<td><code>kiss.XML</code></td>
+							<td></td>
+						</tr>
+					</table><span class="B"><p>Build contents.</p>
+					</span></section>
+				<section class="K" id="children(javax.lang.model.element.Modifier...)">
+					<h2 class="U"><i class="ABSTRACT"><i class="PUBLIC"></i></i><code class="S">children</code><code class="V">(<code array="var"><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code> <code class="parameterName">modifier</code>)</code><i class="Y"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>?</code><code class="extends"><code><a href="api/javadng.page.DocumentProvider.html">DocumentProvider</a></code></code></code></code></i></h2>
+					<table class="W">
+						<tr class="X">
+							<td><code array="var"><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code> <code>modifier</code></td>
+							<td></td>
+						</tr>
+						<tr class="d">
+							<td><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>?</code><code class="extends"><code><a href="api/javadng.page.DocumentProvider.html">DocumentProvider</a></code></code></code></code></td>
+							<td></td>
+						</tr>
+					</table><span class="B"><p>List up all sub contents with the specified modifiers.</p>
+					</span></section>
+			</article>
+			<aside class="Z" id="SubNavi">
+				<div class="a">
+					<h5 class="b">Methods</h5>
+					<ul>
+						<li><i class="ABSTRACT"><i class="PUBLIC"></i></i><code><a href="api/javadng.page.DocumentProvider.html#id()">id</a></code><code class="V">()</code><i class="c"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+						<li><i class="ABSTRACT"><i class="PUBLIC"></i></i><code><a href="api/javadng.page.DocumentProvider.html#title()">title</a></code><code class="V">()</code><i class="c"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+						<li><i class="ABSTRACT"><i class="PUBLIC"></i></i><code><a href="api/javadng.page.DocumentProvider.html#nestLevel()">nestLevel</a></code><code class="V">()</code><i class="c"><code>int</code></i></li>
+						<li><i class="ABSTRACT"><i class="PUBLIC"></i></i><code><a href="api/javadng.page.DocumentProvider.html#filePath()">filePath</a></code><code class="V">()</code><i class="c"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+						<li><i class="ABSTRACT"><i class="PUBLIC"></i></i><code><a href="api/javadng.page.DocumentProvider.html#hasDocument()">hasDocument</a></code><code class="V">()</code><i class="c"><code>boolean</code></i></li>
+						<li><i class="ABSTRACT"><i class="PUBLIC"></i></i><code><a href="api/javadng.page.DocumentProvider.html#documentLine()">documentLine</a></code><code class="V">()</code><i class="c"><code array="fix">int</code></i></li>
+						<li><i class="ABSTRACT"><i class="PUBLIC"></i></i><code><a href="api/javadng.page.DocumentProvider.html#document()">document</a></code><code class="V">()</code><i class="c"><code>kiss.XML</code></i></li>
+						<li><i class="ABSTRACT"><i class="PUBLIC"></i></i><code><a href="api/javadng.page.DocumentProvider.html#children(javax.lang.model.element.Modifier...)">children</a></code><code class="V">(<code array="var"><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code> <code class="parameterName">modifier</code>)</code><i class="c"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>?</code><code class="extends"><code><a href="api/javadng.page.DocumentProvider.html">DocumentProvider</a></code></code></code></code></i></li>
+					</ul>
+				</div>
+			</aside>
+		</main>
+		<script src="root.js"></script>
+		<script src="main.js" type="module"></script>
+	</body>
+</html>
