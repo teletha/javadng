@@ -34,26 +34,31 @@ public class DocumentPage extends Page<DocumentProvider> {
      */
     @Override
     protected void declareContents() {
-        if (contents.hasDocument()) {
-            $("section", Styles.Section, Styles.JavadocComment, () -> {
-                write(contents, S.SectionLevel1);
-            });
-        }
-
-        for (DocumentProvider child : contents.children(Modifier.PUBLIC)) {
-            if (child.hasDocument()) {
-                $("section", attr("id", child.id()), Styles.Section, Styles.JavadocComment, () -> {
-                    write(child, S.SectionLevel1);
-
-                    for (DocumentProvider foot : child.children(Modifier.PUBLIC)) {
-                        if (foot.hasDocument()) {
-                            $("section", attr("id", foot.id()), Styles.JavadocComment, S.foot, () -> {
-                                write(foot, S.SectionLevel2);
-                            });
-                        }
-                    }
+        try {
+            if (contents.hasDocument()) {
+                $("section", Styles.Section, Styles.JavadocComment, () -> {
+                    write(contents, S.SectionLevel1);
                 });
             }
+
+            for (DocumentProvider child : contents.children(Modifier.PUBLIC)) {
+                if (child.hasDocument()) {
+                    $("section", attr("id", child.id()), Styles.Section, Styles.JavadocComment, () -> {
+                        write(child, S.SectionLevel1);
+
+                        for (DocumentProvider foot : child.children(Modifier.PUBLIC)) {
+                            if (foot.hasDocument()) {
+                                $("section", attr("id", foot.id()), Styles.JavadocComment, S.foot, () -> {
+                                    write(foot, S.SectionLevel2);
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+        } catch (Throwable e) {
+            e.printStackTrace();
+            throw I.quiet(e);
         }
     }
 
@@ -88,6 +93,7 @@ public class DocumentPage extends Page<DocumentProvider> {
      */
     @Override
     protected void declareSubNavigation() {
+
     }
 
     interface S extends JavadngStyleDSL {
@@ -128,6 +134,10 @@ public class DocumentPage extends Page<DocumentProvider> {
 
         Style foot = () -> {
             margin.top(3, rem).bottom(1, rem);
+
+            $.prev(SectionLevel1, () -> {
+                margin.top(1, rem);
+            });
         };
     }
 }

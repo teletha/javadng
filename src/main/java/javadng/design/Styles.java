@@ -78,7 +78,10 @@ public class Styles implements JavadngStyleDSL {
     public static Style HLJS = Style.named(".hljs", () -> {
         block();
         font.family(JavadngStyleDSL.Theme.mono).size(11.5, px);
-        border.radius(JavadngStyleDSL.Theme.radius).width(1, px).solid().color(JavadngStyleDSL.Theme.surface.lighten(JavadngStyleDSL.Theme.front, 6));
+        border.radius(JavadngStyleDSL.Theme.radius)
+                .width(1, px)
+                .solid()
+                .color(JavadngStyleDSL.Theme.surface.lighten(JavadngStyleDSL.Theme.front, 6));
         padding.left(1.6, em).vertical(1.2, em);
         position.relative();
         background.color(JavadngStyleDSL.Theme.surface.lighten(JavadngStyleDSL.Theme.front, 3));
@@ -219,7 +222,9 @@ public class Styles implements JavadngStyleDSL {
             font.size(17, px).color(JavadngStyleDSL.Theme.front);
             padding.size(0.7, rem).left(0, rem);
             margin.top(0.7, rem);
-            border.vertical.doubles().width(3, px).color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.surface, 40).opacify(-0.3));
+            border.vertical.doubles()
+                    .width(3, px)
+                    .color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.surface, 40).opacify(-0.3));
 
             $.firstLetter(() -> {
                 font.color(JavadngStyleDSL.Theme.accent);
@@ -293,7 +298,7 @@ public class Styles implements JavadngStyleDSL {
     };
 
     public static Style Section = () -> {
-        margin.bottom(2.2, rem).top(0.8, rem);
+        margin.bottom(2.2, rem).top(JavadngStyleDSL.BlockVerticalGap);
         padding.horizontal(2, rem).vertical(1, rem);
         border.radius(JavadngStyleDSL.Theme.radius);
         background.color(JavadngStyleDSL.Theme.surface);

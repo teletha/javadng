@@ -84,6 +84,9 @@ class Github extends CodeRepository {
      */
     @Override
     public String locateEditor(String file, int[] lines) {
+        if (lines == null || lines.length == 0) {
+            return null;
+        }
         return locate() + "/edit/" + branch + "/src/test/java/" + file + "#L" + lines[0] + "-L" + lines[1];
     }
 
@@ -96,6 +99,9 @@ class Github extends CodeRepository {
         Node root = Parser.builder().build().parse(text);
         String html = HtmlRenderer.builder().escapeHtml(true).build().render(root);
 
+        // convert h3 with bugfix to h2
+        html = html.replaceAll("<h3>(.+\\(.+)</h3>", "<h2>$1</h2>");
+
         // structure flat HTML
         StringBuilder b = new StringBuilder();
         int[] ranks = {0, 0, 0, 0, 0, 0};
@@ -103,23 +109,25 @@ class Github extends CodeRepository {
         while (matcher.find()) {
             int rank = Integer.parseInt(matcher.group(1));
             int count = ranks[rank]++;
-            int reset = 0;
+            int nest = 0;
 
             // reset lower rank's count
             for (int i = rank + 1; i < ranks.length; i++) {
                 if (ranks[i] != 0) {
-                    reset++;
+                    nest++;
                     ranks[i] = 0;
                 }
             }
 
             matcher.appendReplacement(b, count == 0 ? "<section><h" + rank + ">"
-                    : "</section>".repeat(reset + 1) + "<section><h" + rank + ">");
+                    : "</section>".repeat(nest + 1) + "<section><h" + rank + ">");
         }
         matcher.appendTail(b);
         b.append("</section></section></section>");
 
-        return new ChangeLogProvider(I.xml(b.toString()), 1);
+        ChangeLogProvider p = new ChangeLogProvider(I.xml(b.toString()), 1);
+        System.out.println(p);
+        return p;
     }
 
     /**
@@ -141,7 +149,7 @@ class Github extends CodeRepository {
         private ChangeLogProvider(XML xml, int nest) {
             this.nest = nest;
             this.title = xml.find(">h" + nest).text();
-            this.doc = xml.find("> not(section)");
+            this.doc = xml.find(">ul)");
             xml.find(">section").forEach(sec -> {
                 children.add(new ChangeLogProvider(sec, nest + 1));
             });
@@ -184,7 +192,7 @@ class Github extends CodeRepository {
          */
         @Override
         public boolean hasDocument() {
-            return true;
+            return 2 <= nest;
         }
 
         /**
@@ -210,5 +218,14 @@ class Github extends CodeRepository {
         public List<? extends DocumentProvider> children(Modifier... modifier) {
             return children;
         }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public String toString() {
+            return "ChangeLogProvider [title=" + title + ", nest=" + nest + ", doc=" + doc.size() + " children=" + children + "]";
+        }
+
     }
 }

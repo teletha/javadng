@@ -238,7 +238,7 @@ public abstract class Page<T> extends HTML {
         Style Navigation = () -> {
             display.maxWidth(JavadngStyleDSL.MaxNaviWidth);
             flexItem.basis(NavigationWidth).shrink(0).alignSelf.start();
-            position.sticky().top(95, px);
+            position.sticky().top(JavadngStyleDSL.HeaderHeight.plus(15, px));
             padding.top(JavadngStyleDSL.BlockVerticalGap);
             margin.bottom(1.6, rem);
 
@@ -335,7 +335,7 @@ public abstract class Page<T> extends HTML {
 
             $.after(() -> {
                 content.text("");
-                position.absolute().top(0, px).left(0, px);
+                position.absolute().top(JavadngStyleDSL.BlockVerticalGap).left(0, px);
                 display.width(100, percent).height(100, percent).zIndex(5).opacity(0).block();
                 background.color(JavadngStyleDSL.Theme.surface);
                 pointerEvents.none();
@@ -355,7 +355,7 @@ public abstract class Page<T> extends HTML {
         };
 
         Style SubNavigationStickyBlock = () -> {
-            position.sticky().top(JavadngStyleDSL.HeaderHeight);
+            position.sticky().top(JavadngStyleDSL.HeaderHeight.plus(15, px));
             display.block()
                     .height(Numeric.of(90, vh).subtract(JavadngStyleDSL.HeaderHeight))
                     .maxWidth(JavadngStyleDSL.RightNavigationWidth);
