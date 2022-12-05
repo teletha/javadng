@@ -112,7 +112,7 @@ Javadng depends on the following products on runtime.
 * [javaparser-core-3.24.8](https://mvnrepository.com/artifact/com.github.javaparser/javaparser-core/3.24.8)
 * [psychopath-1.6.0](https://mvnrepository.com/artifact/com.github.teletha/psychopath/1.6.0)
 * [sinobu-2.21.0](https://mvnrepository.com/artifact/com.github.teletha/sinobu/2.21.0)
-* [stylist-1.5.0](https://mvnrepository.com/artifact/com.github.teletha/stylist/1.5.0)
+* [stylist-1.6.0](https://mvnrepository.com/artifact/com.github.teletha/stylist/1.6.0)
 <p align="right"><a href="#top">back to top</a></p>
 
 
