@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.4](https://github.com/teletha/javadng/compare/v1.11.3...v1.11.4) (2022-12-06)
+
+
+### Bug Fixes
+
+* update highlight.js to 11.7.0 ([0d2b39f](https://github.com/teletha/javadng/commit/0d2b39fcdf2bc1af8517f6f6a6cf4b31c57f81df))
+
 ## [1.11.3](https://github.com/teletha/javadng/compare/v1.11.2...v1.11.3) (2022-12-06)
 
 
