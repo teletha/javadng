@@ -164,7 +164,7 @@ class Github extends CodeRepository {
          */
         @Override
         public String id() {
-            return title.replaceAll("\s", "");
+            return title.replaceAll("\\s", "");
         }
 
         /**
