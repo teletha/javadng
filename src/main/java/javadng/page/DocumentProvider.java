@@ -9,6 +9,7 @@
  */
 package javadng.page;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.lang.model.element.Modifier;
@@ -43,21 +44,27 @@ public interface DocumentProvider {
      * 
      * @return
      */
-    String filePath();
+    default String filePath() {
+        return null;
+    }
 
     /**
      * Determines if this provider has any contents.
      * 
      * @return
      */
-    boolean hasDocument();
+    default boolean hasDocument() {
+        return document() != null;
+    }
 
     /**
      * Get the line positions of documentation comments for this element.
      * 
      * @return
      */
-    int[] documentLine();
+    default int[] documentLine() {
+        return new int[0];
+    }
 
     /**
      * Build contents.
@@ -71,5 +78,7 @@ public interface DocumentProvider {
      * 
      * @return
      */
-    List<? extends DocumentProvider> children(Modifier... modifier);
+    default List<? extends DocumentProvider> children(Modifier... modifier) {
+        return Collections.EMPTY_LIST;
+    }
 }

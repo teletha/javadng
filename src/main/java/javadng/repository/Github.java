@@ -133,9 +133,9 @@ class Github extends CodeRepository {
     /**
      * Document for change log.
      */
-    private static class ChangeLogProvider implements DocumentProvider {
+    private class ChangeLogProvider implements DocumentProvider {
 
-        private final List<Github.ChangeLogProvider> children = new ArrayList();
+        private final List<DocumentProvider> children = new ArrayList();
 
         private final String title;
 
@@ -153,6 +153,10 @@ class Github extends CodeRepository {
             xml.find(">section").forEach(sec -> {
                 children.add(new ChangeLogProvider(sec, nest + 1));
             });
+
+            if (nest == 2) {
+                children.add(new AssetProvider(title.substring(0, title.indexOf(" "))));
+            }
         }
 
         /**
@@ -160,7 +164,7 @@ class Github extends CodeRepository {
          */
         @Override
         public String id() {
-            return "";
+            return title.replaceAll("\s", "");
         }
 
         /**
@@ -218,14 +222,49 @@ class Github extends CodeRepository {
         public List<? extends DocumentProvider> children(Modifier... modifier) {
             return children;
         }
+    }
+
+    /**
+     * 
+     */
+    private class AssetProvider implements DocumentProvider {
+
+        private final String version;
+
+        private AssetProvider(String version) {
+            this.version = version;
+        }
 
         /**
          * {@inheritDoc}
          */
         @Override
-        public String toString() {
-            return "ChangeLogProvider [title=" + title + ", nest=" + nest + ", doc=" + doc.size() + " children=" + children + "]";
+        public String id() {
+            return "Asserts";
         }
 
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public String title() {
+            return "Assets";
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public int nestLevel() {
+            return 3;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public XML document() {
+            return I.xml("<ul><li><a href=\"https://github.com/" + owner + "/" + name + "/archive/refs/tags/v" + version + ".zip\">Source code</a> (zip)</li></ul>");
+        }
     }
 }

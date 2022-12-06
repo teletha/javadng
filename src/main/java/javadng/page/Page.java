@@ -347,7 +347,7 @@ public abstract class Page<T> extends HTML {
         };
 
         Style SubNavigation = () -> {
-            display.maxWidth(JavadngStyleDSL.MaxSubNaviWidth);
+            display.width(JavadngStyleDSL.MaxSubNaviWidth);
 
             $.media(JavadngStyleDSL.Small, () -> {
                 display.none();

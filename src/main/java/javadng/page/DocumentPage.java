@@ -93,7 +93,6 @@ public class DocumentPage extends Page<DocumentProvider> {
      */
     @Override
     protected void declareSubNavigation() {
-
     }
 
     interface S extends JavadngStyleDSL {
