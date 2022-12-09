@@ -140,13 +140,13 @@ public final class Util {
                         } else {
                             for (MethodDeclaration method : parsed.findAll(MethodDeclaration.class)) {
                                 if (method.getSignature().asString().equals(memberDescriptor)) {
-                                    return method.removeComment().toString();
+                                    return readCode(file, method);
                                 }
                             }
 
                             for (ClassOrInterfaceDeclaration type : parsed.findAll(ClassOrInterfaceDeclaration.class)) {
                                 if (type.getNameAsString().equals(memberDescriptor)) {
-                                    return type.removeComment().toString();
+                                    return readCode(file, type);
                                 }
                             }
                         }
@@ -157,6 +157,20 @@ public final class Util {
             throw I.quiet(e);
         }
         return "";
+    }
+
+    /**
+     * Get the source code from source file.
+     * 
+     * @param file
+     * @param node
+     * @return
+     */
+    private static String readCode(File file, Node node) {
+        int start = node.getBegin().get().line;
+        int end = node.getEnd().get().line;
+        String code = file.lines().skip(start).take(end - start).scan(Collectors.joining("\r\n")).to().exact();
+        return stripHeaderWhitespace(code);
     }
 
     /**
