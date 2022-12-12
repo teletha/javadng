@@ -77,8 +77,8 @@
 						</tr>
 					</table><span class="B"><p>Get the document line numbers of the specified <code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.compiler/javax/lang/model/element/Element.html">Element</a></code>.</p>
 					</span></section>
-				<section class="K" id="getSourceCode(java.lang.String,java.lang.String)">
-					<h2 class="U"><i class="PUBLIC STATIC"></i><code class="S">getSourceCode</code><code class="V">(<code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">fqcn</code>, <code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">memberDescriptor</code>)</code><i class="Y"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
+				<section class="K" id="getSourceCode(java.lang.String,java.lang.String,boolean)">
+					<h2 class="U"><i class="PUBLIC STATIC"></i><code class="S">getSourceCode</code><code class="V">(<code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">fqcn</code>, <code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">memberDescriptor</code>, <code>boolean</code> <code class="parameterName">bodyOnly</code>)</code><i class="Y"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
 					<table class="W">
 						<tr class="X">
 							<td><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code> <code>fqcn</code></td>
@@ -86,6 +86,10 @@
 						</tr>
 						<tr class="X">
 							<td><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code> <code>memberDescriptor</code></td>
+							<td></td>
+						</tr>
+						<tr class="X">
+							<td><code>boolean</code> <code>bodyOnly</code></td>
 							<td></td>
 						</tr>
 						<tr class="d">
@@ -107,8 +111,8 @@
 						</tr>
 					</table><span class="B"><p>Get the source code of the specified <code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.compiler/javax/lang/model/element/Element.html">Element</a></code>.</p>
 					</span></section>
-				<section class="K" id="getSourceCode(javax.lang.model.element.Element,java.lang.String)">
-					<h2 class="U"><i class="PUBLIC STATIC"></i><code class="S">getSourceCode</code><code class="V">(<code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.compiler/javax/lang/model/element/Element.html">Element</a></code> <code class="parameterName">type</code>, <code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">memberDescriptor</code>)</code><i class="Y"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
+				<section class="K" id="getSourceCode(javax.lang.model.element.Element,java.lang.String,boolean)">
+					<h2 class="U"><i class="PUBLIC STATIC"></i><code class="S">getSourceCode</code><code class="V">(<code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.compiler/javax/lang/model/element/Element.html">Element</a></code> <code class="parameterName">type</code>, <code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">memberDescriptor</code>, <code>boolean</code> <code class="parameterName">bodyOnly</code>)</code><i class="Y"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
 					<table class="W">
 						<tr class="X">
 							<td><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.compiler/javax/lang/model/element/Element.html">Element</a></code> <code>type</code></td>
@@ -116,6 +120,10 @@
 						</tr>
 						<tr class="X">
 							<td><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code> <code>memberDescriptor</code></td>
+							<td></td>
+						</tr>
+						<tr class="X">
+							<td><code>boolean</code> <code>bodyOnly</code></td>
 							<td></td>
 						</tr>
 						<tr class="d">
@@ -181,9 +189,9 @@
 					<ul>
 						<li><i class="PUBLIC STATIC"></i><code><a href="api/javadng.parser.Util.html#getTopLevelTypeElement(javax.lang.model.element.Element)">getTopLevelTypeElement</a></code><code class="V">(<code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.compiler/javax/lang/model/element/Element.html">Element</a></code> <code class="parameterName">e</code>)</code><i class="c"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.compiler/javax/lang/model/element/TypeElement.html">TypeElement</a></code></i></li>
 						<li><i class="PUBLIC STATIC"></i><code><a href="api/javadng.parser.Util.html#getDocumentLineNumbers(javax.lang.model.element.Element)">getDocumentLineNumbers</a></code><code class="V">(<code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.compiler/javax/lang/model/element/Element.html">Element</a></code> <code class="parameterName">e</code>)</code><i class="c"><code array="fix">int</code></i></li>
-						<li><i class="PUBLIC STATIC"></i><code><a href="api/javadng.parser.Util.html#getSourceCode(java.lang.String,java.lang.String)">getSourceCode</a></code><code class="V">(<code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">fqcn</code>, <code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">memberDescriptor</code>)</code><i class="c"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+						<li><i class="PUBLIC STATIC"></i><code><a href="api/javadng.parser.Util.html#getSourceCode(java.lang.String,java.lang.String,boolean)">getSourceCode</a></code><code class="V">(<code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">fqcn</code>, <code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">memberDescriptor</code>, <code>boolean</code> <code class="parameterName">bodyOnly</code>)</code><i class="c"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
 						<li><i class="PUBLIC STATIC"></i><code><a href="api/javadng.parser.Util.html#getSourceCode(javadng.parser.DocumentInfo)">getSourceCode</a></code><code class="V">(<code><a href="api/javadng.parser.DocumentInfo.html">DocumentInfo</a></code> <code class="parameterName">doc</code>)</code><i class="c"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
-						<li><i class="PUBLIC STATIC"></i><code><a href="api/javadng.parser.Util.html#getSourceCode(javax.lang.model.element.Element,java.lang.String)">getSourceCode</a></code><code class="V">(<code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.compiler/javax/lang/model/element/Element.html">Element</a></code> <code class="parameterName">type</code>, <code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">memberDescriptor</code>)</code><i class="c"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+						<li><i class="PUBLIC STATIC"></i><code><a href="api/javadng.parser.Util.html#getSourceCode(javax.lang.model.element.Element,java.lang.String,boolean)">getSourceCode</a></code><code class="V">(<code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.compiler/javax/lang/model/element/Element.html">Element</a></code> <code class="parameterName">type</code>, <code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">memberDescriptor</code>, <code>boolean</code> <code class="parameterName">bodyOnly</code>)</code><i class="c"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
 						<li><i class="PUBLIC STATIC"></i><code><a href="api/javadng.parser.Util.html#getSourceCode(javax.lang.model.element.Element)">getSourceCode</a></code><code class="V">(<code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.compiler/javax/lang/model/element/Element.html">Element</a></code> <code class="parameterName">e</code>)</code><i class="c"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
 						<li><i class="PUBLIC STATIC"></i><code><a href="api/javadng.parser.Util.html#stripHeaderWhitespace(java.lang.String)">stripHeaderWhitespace</a></code><code class="V">(<code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code> <code class="parameterName">text</code>)</code><i class="c"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
 						<li><i class="PUBLIC STATIC"></i><code><a href="api/javadng.parser.Util.html#getAllTypes(javax.lang.model.element.Element)">getAllTypes</a></code><code class="V">(<code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.compiler/javax/lang/model/element/Element.html">Element</a></code> <code class="parameterName">type</code>)</code><i class="c"><code array="fix"><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/Set.html">Set</a><code class="parameters"><code><a href="https://docs.oracle.com/en/java/javase/19/docs/api/java.compiler/javax/lang/model/type/TypeMirror.html">TypeMirror</a></code></code></code></i></li>
