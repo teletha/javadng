@@ -113,7 +113,7 @@ public final class Util {
     /**
      * Get the source code of the specified class.
      */
-    public static String getSourceCode(String fqcn, String memberDescriptor) {
+    public static String getSourceCode(String fqcn, String memberDescriptor, boolean bodyOnly) {
         try {
             for (Directory sample : Samples) {
                 List<String> split = List.of(fqcn.split("\\."));
@@ -142,20 +142,20 @@ public final class Util {
                         } else {
                             for (MethodDeclaration method : parsed.findAll(MethodDeclaration.class)) {
                                 if (method.getSignature().asString().equals(memberDescriptor)) {
-                                    return readCode(file, method);
+                                    return readCode(file, method, bodyOnly);
                                 }
                             }
 
                             for (ClassOrInterfaceDeclaration type : parsed.findAll(ClassOrInterfaceDeclaration.class)) {
                                 if (type.getNameAsString().equals(memberDescriptor)) {
-                                    return readCode(file, type);
+                                    return readCode(file, type, false);
                                 }
                             }
 
                             for (FieldDeclaration field : parsed.findAll(FieldDeclaration.class)) {
                                 for (VariableDeclarator variable : field.findAll(VariableDeclarator.class)) {
                                     if (variable.getNameAsString().equals(memberDescriptor)) {
-                                        return readCode(file, field);
+                                        return readCode(file, field, false);
                                     }
                                 }
                             }
@@ -176,10 +176,14 @@ public final class Util {
      * @param node
      * @return
      */
-    private static String readCode(File file, Node node) {
+    private static String readCode(File file, Node node, boolean bodyOnly) {
         int start = node.getBegin().get().line;
         int end = node.getEnd().get().line;
         if (node instanceof FieldDeclaration) start--;
+        if (bodyOnly) {
+            start++;
+            end--;
+        }
         String code = file.lines().skip(start).take(end - start).scan(Collectors.joining("\r\n")).to().exact();
         return stripHeaderWhitespace(code);
     }
@@ -194,7 +198,7 @@ public final class Util {
         return getSourceCode(doc.e);
     }
 
-    public static String getSourceCode(Element type, String memberDescriptor) {
+    public static String getSourceCode(Element type, String memberDescriptor, boolean bodyOnly) {
         if (memberDescriptor.charAt(0) == '#') {
             memberDescriptor = memberDescriptor.substring(1);
         }
@@ -209,7 +213,7 @@ public final class Util {
             }
         }
 
-        return getSourceCode(memberDescriptor, null);
+        return getSourceCode(memberDescriptor, null, bodyOnly);
     }
 
     /**

@@ -615,6 +615,7 @@ public class DocumentInfo {
          */
         @Override
         public DocumentXMLBuilder visitLink(LinkTree node, DocumentXMLBuilder p) {
+            boolean plain = node.getTagName().equals("linkplain");
             String ref = node.getReference().toString();
             String[] id = identify(node.getReference().toString());
             String uri = resolver.resolveDocumentLocation(id[0]);
@@ -628,9 +629,9 @@ public class DocumentInfo {
 
                 text.append("<code>");
                 if (id[0].endsWith("Test")) {
-                    text.append(escape(Util.getSourceCode(id[0], id[1])));
+                    text.append(escape(Util.getSourceCode(id[0], id[1], plain)));
                 } else {
-                    text.append(escape(Util.getSourceCode(e, id[1] == null ? id[0] : id[1])));
+                    text.append(escape(Util.getSourceCode(e, id[1] == null ? id[0] : id[1], plain)));
                 }
                 text.append("</code>");
             } else {
