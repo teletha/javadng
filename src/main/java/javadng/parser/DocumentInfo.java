@@ -747,10 +747,6 @@ public class DocumentInfo {
          */
         @Override
         public DocumentXMLBuilder visitText(TextTree node, DocumentXMLBuilder p) {
-            String a = node.getBody();
-            if (a.contains("enclosed in single")) {
-                System.out.println(a);
-            }
             if (inPre) {
                 text.append(node.getBody());
             } else {
