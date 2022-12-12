@@ -10,7 +10,9 @@
 package javadng.parser;
 
 import java.io.IOException;
+import java.util.ArrayDeque;
 import java.util.Comparator;
+import java.util.Deque;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ListIterator;
@@ -122,9 +124,9 @@ public final class Util {
                 while (0 < current) {
                     File file = sample.file(split.subList(0, current--).stream().collect(Collectors.joining("/", "", ".java")));
                     if (file.isPresent()) {
-                        if (current + 1 != max) {
-                            memberDescriptor = split.subList(current + 1, max).stream().collect(Collectors.joining("."));
-                        }
+                        Deque<String> members = new ArrayDeque();
+                        if (current + 1 != max) split.subList(current + 1, max).forEach(members::add);
+                        if (memberDescriptor != null) members.add(memberDescriptor);
 
                         CompilationUnit parsed = StaticJavaParser.parse(file.asJavaFile());
                         Node node = parsed.findRootNode().removeComment();
@@ -140,22 +142,30 @@ public final class Util {
                         if (memberDescriptor == null) {
                             return node.toString();
                         } else {
-                            for (MethodDeclaration method : parsed.findAll(MethodDeclaration.class)) {
-                                if (method.getSignature().asString().equals(memberDescriptor)) {
-                                    return readCode(file, method, bodyOnly);
-                                }
-                            }
+                            root: while (!members.isEmpty()) {
+                                memberDescriptor = members.pollFirst();
 
-                            for (ClassOrInterfaceDeclaration type : parsed.findAll(ClassOrInterfaceDeclaration.class)) {
-                                if (type.getNameAsString().equals(memberDescriptor)) {
-                                    return readCode(file, type, false);
+                                for (MethodDeclaration method : parsed.findAll(MethodDeclaration.class)) {
+                                    if (method.getSignature().asString().equals(memberDescriptor)) {
+                                        return readCode(file, method, bodyOnly);
+                                    }
                                 }
-                            }
 
-                            for (FieldDeclaration field : parsed.findAll(FieldDeclaration.class)) {
-                                for (VariableDeclarator variable : field.findAll(VariableDeclarator.class)) {
-                                    if (variable.getNameAsString().equals(memberDescriptor)) {
-                                        return readCode(file, field, false);
+                                for (ClassOrInterfaceDeclaration type : parsed.findAll(ClassOrInterfaceDeclaration.class)) {
+                                    if (type.getNameAsString().equals(memberDescriptor)) {
+                                        if (members.isEmpty()) {
+                                            return readCode(file, type, bodyOnly);
+                                        } else {
+                                            continue root;
+                                        }
+                                    }
+                                }
+
+                                for (FieldDeclaration field : parsed.findAll(FieldDeclaration.class)) {
+                                    for (VariableDeclarator variable : field.findAll(VariableDeclarator.class)) {
+                                        if (variable.getNameAsString().equals(memberDescriptor)) {
+                                            return readCode(file, field, false);
+                                        }
                                     }
                                 }
                             }
@@ -247,7 +257,7 @@ public final class Util {
         List<String> lines = I.list(text.split("\\r\\n|\\r|\\n"));
 
         if (lines.size() == 1) {
-            return text;
+            return text.trim();
         }
 
         // remove the empty line from head

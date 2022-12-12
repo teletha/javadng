@@ -628,7 +628,7 @@ public class DocumentInfo {
                 }
 
                 text.append("<code>");
-                if (id[0].endsWith("Test")) {
+                if (id[0].endsWith("Test") || id[0].contains("Test.")) {
                     text.append(escape(Util.getSourceCode(id[0], id[1], plain)));
                 } else {
                     text.append(escape(Util.getSourceCode(e, id[1] == null ? id[0] : id[1], plain)));
