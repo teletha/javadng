@@ -29,7 +29,6 @@ import javax.lang.model.util.Types;
 
 import com.github.javaparser.ParserConfiguration.LanguageLevel;
 import com.github.javaparser.StaticJavaParser;
-import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.FieldDeclaration;
@@ -128,7 +127,7 @@ public final class Util {
                         if (current + 1 != max) split.subList(current + 1, max).forEach(members::add);
                         if (memberDescriptor != null) members.add(memberDescriptor);
 
-                        CompilationUnit parsed = StaticJavaParser.parse(file.asJavaFile());
+                        Node parsed = StaticJavaParser.parse(file.asJavaFile());
                         Node node = parsed.findRootNode().removeComment();
 
                         // remove unnecessary annotations
@@ -139,37 +138,37 @@ public final class Util {
                             }
                         }
 
-                        if (memberDescriptor == null) {
-                            return node.toString();
-                        } else {
-                            root: while (!members.isEmpty()) {
-                                memberDescriptor = members.pollFirst();
+                        root: while (!members.isEmpty()) {
+                            memberDescriptor = members.pollFirst();
+                            System.out.println(memberDescriptor);
 
-                                for (MethodDeclaration method : parsed.findAll(MethodDeclaration.class)) {
-                                    if (method.getSignature().asString().equals(memberDescriptor)) {
-                                        return readCode(file, method, bodyOnly);
+                            for (MethodDeclaration method : node.findAll(MethodDeclaration.class)) {
+                                if (method.getSignature().asString().equals(memberDescriptor)) {
+                                    return readCode(file, method, bodyOnly);
+                                }
+                            }
+
+                            for (ClassOrInterfaceDeclaration type : node.findAll(ClassOrInterfaceDeclaration.class)) {
+                                System.out.println(type);
+                                if (type.getNameAsString().equals(memberDescriptor)) {
+                                    if (members.isEmpty()) {
+                                        return readCode(file, type, bodyOnly);
+                                    } else {
+                                        node = type;
+                                        continue root;
                                     }
                                 }
+                            }
 
-                                for (ClassOrInterfaceDeclaration type : parsed.findAll(ClassOrInterfaceDeclaration.class)) {
-                                    if (type.getNameAsString().equals(memberDescriptor)) {
-                                        if (members.isEmpty()) {
-                                            return readCode(file, type, bodyOnly);
-                                        } else {
-                                            continue root;
-                                        }
-                                    }
-                                }
-
-                                for (FieldDeclaration field : parsed.findAll(FieldDeclaration.class)) {
-                                    for (VariableDeclarator variable : field.findAll(VariableDeclarator.class)) {
-                                        if (variable.getNameAsString().equals(memberDescriptor)) {
-                                            return readCode(file, field, false);
-                                        }
+                            for (FieldDeclaration field : node.findAll(FieldDeclaration.class)) {
+                                for (VariableDeclarator variable : field.findAll(VariableDeclarator.class)) {
+                                    if (variable.getNameAsString().equals(memberDescriptor)) {
+                                        return readCode(file, field, false);
                                     }
                                 }
                             }
                         }
+                        return node.toString();
                     }
                 }
             }
