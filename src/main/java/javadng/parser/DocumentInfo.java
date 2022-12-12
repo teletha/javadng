@@ -574,7 +574,8 @@ public class DocumentInfo {
          */
         @Override
         public DocumentXMLBuilder visitEntity(EntityTree node, DocumentXMLBuilder p) {
-            return super.visitEntity(node, p);
+            text.append(node);
+            return p;
         }
 
         /**
@@ -662,7 +663,6 @@ public class DocumentInfo {
         public DocumentXMLBuilder visitLiteral(LiteralTree node, DocumentXMLBuilder p) {
             String name = node.getTagName();
             String body = escape(node.getBody().getBody());
-
             if (inPre) {
                 body = Util.stripHeaderWhitespace(body);
             } else {
@@ -747,6 +747,10 @@ public class DocumentInfo {
          */
         @Override
         public DocumentXMLBuilder visitText(TextTree node, DocumentXMLBuilder p) {
+            String a = node.getBody();
+            if (a.contains("enclosed in single")) {
+                System.out.println(a);
+            }
             if (inPre) {
                 text.append(node.getBody());
             } else {
