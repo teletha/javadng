@@ -129,7 +129,7 @@ public final class Util {
 
                         // remove unnecessary annotations
                         for (MethodDeclaration method : node.findAll(MethodDeclaration.class)) {
-                            String[] removables = {"Override"};
+                            String[] removables = {"Override", "SuppressWarnings"};
                             for (String removable : removables) {
                                 method.getAnnotationByName(removable).ifPresent(AnnotationExpr::remove);
                             }
@@ -259,8 +259,8 @@ public final class Util {
         // remove @Override
         iter = lines.listIterator();
         while (iter.hasNext()) {
-            String line = iter.next();
-            if (line.trim().equals("@Override")) {
+            String line = iter.next().trim();
+            if (line.equals("@Override") || line.startsWith("@SuppressWarnings") || line.startsWith("@Test")) {
                 iter.remove();
             }
         }
