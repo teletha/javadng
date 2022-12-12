@@ -30,7 +30,9 @@ import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.sun.source.doctree.DocCommentTree;
 import com.sun.source.tree.CompilationUnitTree;
@@ -149,6 +151,14 @@ public final class Util {
                                     return readCode(file, type);
                                 }
                             }
+
+                            for (FieldDeclaration field : parsed.findAll(FieldDeclaration.class)) {
+                                for (VariableDeclarator variable : field.findAll(VariableDeclarator.class)) {
+                                    if (variable.getNameAsString().equals(memberDescriptor)) {
+                                        return readCode(file, field);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -169,6 +179,7 @@ public final class Util {
     private static String readCode(File file, Node node) {
         int start = node.getBegin().get().line;
         int end = node.getEnd().get().line;
+        if (node instanceof FieldDeclaration) start--;
         String code = file.lines().skip(start).take(end - start).scan(Collectors.joining("\r\n")).to().exact();
         return stripHeaderWhitespace(code);
     }
@@ -213,6 +224,7 @@ public final class Util {
 
             TreePath path = Util.DocUtils.getPath(e);
             CompilationUnitTree cut = path.getCompilationUnit();
+
             int start = (int) positions.getStartPosition(cut, path.getLeaf());
             int end = (int) positions.getEndPosition(cut, path.getLeaf());
             return stripHeaderWhitespace(cut.getSourceFile().getCharContent(true).subSequence(start, end).toString());
