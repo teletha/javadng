@@ -63,7 +63,7 @@ public abstract class Page<T> extends HTML {
                     $("h1", S.HeaderTitle, attr("date", date), attr("ver", model.version()), code(model.product()));
                     $("nav", S.HeaderNav, () -> {
                         for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
-                            $("a", attr("href", "doc/" + info.children().get(0).id() + ".html"), svg("text"), text(info.title()));
+                            $("a", attr("href", "doc/" + info.children().get(0).id() + ".html"), svg("text"), text("Document"));
                         }
                         $("a", attr("href", "api/"), svg("package"), code("API"));
                         $("a", attr("href", model.repository()

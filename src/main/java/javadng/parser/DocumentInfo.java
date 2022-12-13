@@ -51,6 +51,7 @@ import com.sun.source.doctree.ReferenceTree;
 import com.sun.source.doctree.ReturnTree;
 import com.sun.source.doctree.SeeTree;
 import com.sun.source.doctree.SinceTree;
+import com.sun.source.doctree.SnippetTree;
 import com.sun.source.doctree.StartElementTree;
 import com.sun.source.doctree.SummaryTree;
 import com.sun.source.doctree.TextTree;
@@ -615,25 +616,26 @@ public class DocumentInfo {
          */
         @Override
         public DocumentXMLBuilder visitLink(LinkTree node, DocumentXMLBuilder p) {
-            boolean plain = node.getTagName().equals("linkplain");
             String ref = node.getReference().toString();
             String[] id = identify(node.getReference().toString());
             String uri = resolver.resolveDocumentLocation(id[0]);
+            String label = I.signal(node.getLabel()).as(TextTree.class).map(TextTree::getBody).to().or("");
+            boolean code = label.contains("@");
+            boolean plain = label.contains("body");
 
-            if (inPre) {
+            if (inPre || code) {
                 Javadoc.Highlighter.add("java");
 
-                if (endsWith("<pre>")) {
+                if (code) {
+                    text.append("<pre class='lang-java'>");
+                } else if (endsWith("<pre>")) {
                     text.deleteCharAt(text.length() - 1).append(" class='lang-java'>");
                 }
 
                 text.append("<code>");
-                if (id[0].endsWith("Test") || id[0].contains("Test.")) {
-                    text.append(escape(Util.getSourceCode(id[0], id[1], plain)));
-                } else {
-                    text.append(escape(Util.getSourceCode(e, id[1] == null ? id[0] : id[1], plain)));
-                }
+                text.append(escape(SourceCode.read(id[0], id[1], plain)));
                 text.append("</code>");
+                if (code) text.append("</pre>");
             } else {
                 if (uri == null) {
                     text.append(ref);
@@ -665,7 +667,7 @@ public class DocumentInfo {
             String name = node.getTagName();
             String body = escape(node.getBody().getBody());
             if (inPre) {
-                body = Util.stripHeaderWhitespace(body);
+                body = SourceCode.stripHeaderWhitespace(body);
             } else {
                 body = I.express(body, templateTags);
             }
@@ -732,6 +734,30 @@ public class DocumentInfo {
             text.append("<").append(name);
             node.getAttributes().forEach(attr -> attr.accept(this, this));
             text.append(node.isSelfClosing() ? "/>" : ">");
+            return p;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public DocumentXMLBuilder visitSnippet(SnippetTree node, DocumentXMLBuilder p) {
+            String lang = "java";
+            for (DocTree tree : node.getAttributes()) {
+                if (tree instanceof AttributeTree attr) {
+                    String name = attr.getName().toString();
+                    if (name.equalsIgnoreCase("language") || name.equalsIgnoreCase("lang")) {
+                        lang = attr.getValue().get(0).toString().toLowerCase();
+                    }
+                }
+            }
+
+            Javadoc.Highlighter.add(lang);
+
+            text.append("<pre class='lang-").append(lang).append("'><code>");
+            text.append(escape(node.getBody().getBody().trim()));
+            text.append("</code></pre>");
+
             return p;
         }
 

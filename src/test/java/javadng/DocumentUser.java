@@ -31,6 +31,7 @@ public class DocumentUser {
         path.add(repo + "com/pgs-soft/HttpClientMock/1.0.0/HttpClientMock-1.0.0.jar");
         path.add(repo + "net/bytebuddy/byte-buddy/1.12.18/byte-buddy-1.12.18.jar");
         path.add(repo + "org/junit/jupiter/junit-jupiter-api/5.9.0-M1/junit-jupiter-api-5.9.0-M1.jar");
+        path.add(repo + "org/junit/platform/junit-platform-commons/1.9.0-M1/junit-platform-commons-1.9.0-M1.jar");
         path.add(repo + "org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar");
         path.add(repo + "com/github/teletha/antibug/1.0.3/antibug-1.0.3.jar");
 

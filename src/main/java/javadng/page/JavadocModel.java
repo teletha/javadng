@@ -65,6 +65,7 @@ import javadng.parser.Data;
 import javadng.parser.Data.Doc;
 import javadng.parser.MethodInfo;
 import javadng.parser.SampleInfo;
+import javadng.parser.SourceCode;
 import javadng.parser.TemplateStore;
 import javadng.parser.TypeResolver;
 import javadng.parser.Util;
@@ -717,7 +718,7 @@ public abstract class JavadocModel {
             } else {
                 for (MethodInfo method : info.methods()) {
                     if (!method.getSeeTags().isEmpty()) {
-                        String code = Util.getSourceCode(method);
+                        String code = SourceCode.read(method);
                         for (XML see : method.getSeeTags()) {
                             String[] id = info.identify(see.text());
                             SampleInfo sample = new SampleInfo(id[0], id[1], code);
