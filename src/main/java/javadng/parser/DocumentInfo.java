@@ -518,6 +518,9 @@ public class DocumentInfo {
         @Override
         public DocumentXMLBuilder visitAttribute(AttributeTree node, DocumentXMLBuilder p) {
             if (inPre && node.getName().contentEquals("class")) {
+                if (inPre) {
+                    System.out.println("arrribute");
+                }
                 for (String lang : node.getValue().toString().split(" ")) {
                     if (lang.startsWith("lang-")) {
                         Javadoc.Highlighter.add(lang.substring(5));
@@ -623,6 +626,10 @@ public class DocumentInfo {
             boolean code = label.contains("@");
             boolean plain = label.contains("body");
 
+            if (inPre) {
+                System.out.println("Link");
+            }
+
             if (inPre || code) {
                 Javadoc.Highlighter.add("java");
 
@@ -666,14 +673,22 @@ public class DocumentInfo {
         public DocumentXMLBuilder visitLiteral(LiteralTree node, DocumentXMLBuilder p) {
             String name = node.getTagName();
             String body = escape(node.getBody().getBody());
-            if (inPre) {
+            boolean code = body.endsWith("@");
+            if (code) body = body.substring(0, body.length() - 1).trim();
+
+            if (inPre || code) {
+                if (inPre) {
+                    System.out.println("Literalll");
+                }
                 body = SourceCode.stripHeaderWhitespace(body);
             } else {
                 body = I.express(body, templateTags);
             }
 
             if (name.equals("code")) {
+                if (code) text.append("<pre>");
                 text.append("<code>").append(body).append("</code>");
+                if (code) text.append("</pre>");
             } else {
                 text.append(body);
             }
@@ -755,7 +770,7 @@ public class DocumentInfo {
             Javadoc.Highlighter.add(lang);
 
             text.append("<pre class='lang-").append(lang).append("'><code>");
-            text.append(escape(node.getBody().getBody().trim()));
+            text.append(escape(I.express(node.getBody().getBody().trim(), templateTags)));
             text.append("</code></pre>");
 
             return p;
@@ -775,6 +790,10 @@ public class DocumentInfo {
         @Override
         public DocumentXMLBuilder visitText(TextTree node, DocumentXMLBuilder p) {
             if (inPre) {
+                if (inPre) {
+                    System.out.println("in Text");
+                    System.out.println(node.getBody());
+                }
                 text.append(node.getBody());
             } else {
                 text.append(I.express(node.getBody(), templateTags));
