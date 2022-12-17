@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
@@ -463,7 +464,7 @@ public class DocumentInfo {
          */
         @Override
         public DocumentInfo visitUnknownBlockTag(UnknownBlockTagTree node, DocumentInfo p) {
-            templateTags.put(node.getTagName(), xml(node.getContent()));
+            templateTags.put(node.getTagName(), I.signal(node.getContent()).map(DocTree::toString).scan(Collectors.joining()).to().exact());
             return p;
         }
     }
@@ -624,7 +625,7 @@ public class DocumentInfo {
             String uri = resolver.resolveDocumentLocation(id[0]);
             String label = I.signal(node.getLabel()).as(TextTree.class).map(TextTree::getBody).to().or("");
             boolean code = label.contains("@");
-            boolean plain = label.contains("body");
+            boolean plain = node.getTagName().equals("linkplain");
 
             if (inPre) {
                 System.out.println("Link");
