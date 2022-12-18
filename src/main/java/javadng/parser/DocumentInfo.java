@@ -712,7 +712,8 @@ public class DocumentInfo {
          */
         @Override
         public DocumentXMLBuilder visitUnknownBlockTag(UnknownBlockTagTree node, DocumentXMLBuilder p) {
-            return super.visitUnknownBlockTag(node, p);
+            text.append(resolve(node.toString()));
+            return p;
         }
 
         /**
@@ -720,7 +721,8 @@ public class DocumentInfo {
          */
         @Override
         public DocumentXMLBuilder visitUnknownInlineTag(UnknownInlineTagTree node, DocumentXMLBuilder p) {
-            return super.visitUnknownInlineTag(node, p);
+            text.append(resolve(node.toString()));
+            return p;
         }
 
         /**
@@ -743,7 +745,7 @@ public class DocumentInfo {
             Javadoc.Highlighter.add(language);
 
             text.append("<pre class='lang-").append(language).append("'><code>");
-            text.append(resolve(code));
+            text.append(resolve(code.trim()));
             text.append("</code></pre>");
         }
 
@@ -754,7 +756,7 @@ public class DocumentInfo {
          * @return
          */
         private String resolve(String text) {
-            return escape(I.express(text.trim(), "{@var", "}", new Object[] {templateTags}));
+            return escape(I.express(text, "{@var", "}", new Object[] {templateTags}));
         }
 
         /**

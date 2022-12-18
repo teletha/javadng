@@ -129,7 +129,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void literalTag() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='B'><p>0 &amp;#60; i</p></span>");
+        assert sameXML(info.comment, "<span class='B'><code>0 &amp;#60; i</code></span>");
     }
 
     /**
@@ -286,20 +286,20 @@ public class DocumentInfoTest extends JavadocTestSupport {
 
     /**
      * @text This is fatal error.
-     * @throws IOError {text}
+     * @throws IOError {@var text}
      */
     @Test
     public void templateTag() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.throwsTags.get(0).ⅱ, "<span><span><p>This is fatal error.</p></span></span>");
+        assert sameXML(info.throwsTags.get(0).ⅱ, "<span><p>This is fatal error.</p></span>");
     }
 
     /**
-     * @throws IOError {text}
+     * @throws IOError {@var text}
      */
     @Test
     public void templateTagFromEnclosingElement() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.throwsTags.get(0).ⅱ, "<span><span><p>This is fatal error on Root.</p></span></span>");
+        assert sameXML(info.throwsTags.get(0).ⅱ, "<span><p>This is fatal error on Root.</p></span>");
     }
 }
