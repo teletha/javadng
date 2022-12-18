@@ -476,8 +476,6 @@ public class DocumentInfo {
 
         private StringBuilder text = new StringBuilder();
 
-        private boolean inPre;
-
         /**
          * Parse documetation.
          * 
@@ -518,10 +516,7 @@ public class DocumentInfo {
          */
         @Override
         public DocumentXMLBuilder visitAttribute(AttributeTree node, DocumentXMLBuilder p) {
-            if (inPre && node.getName().contentEquals("class")) {
-                if (inPre) {
-                    System.out.println("arrribute");
-                }
+            if (node.getName().contentEquals("class")) {
                 for (String lang : node.getValue().toString().split(" ")) {
                     if (lang.startsWith("lang-")) {
                         Javadoc.Highlighter.add(lang.substring(5));
@@ -565,12 +560,7 @@ public class DocumentInfo {
          */
         @Override
         public DocumentXMLBuilder visitEndElement(EndElementTree node, DocumentXMLBuilder p) {
-            String name = node.getName().toString();
-            if (name.equals("pre")) {
-                inPre = false;
-            }
-
-            text.append("</").append(name).append('>');
+            text.append("</").append(node.getName()).append('>');
             return p;
         }
 
@@ -627,23 +617,8 @@ public class DocumentInfo {
             boolean code = label.contains("@");
             boolean plain = node.getTagName().equals("linkplain");
 
-            if (inPre) {
-                System.out.println("Link");
-            }
-
-            if (inPre || code) {
-                Javadoc.Highlighter.add("java");
-
-                if (code) {
-                    text.append("<pre class='lang-java'>");
-                } else if (endsWith("<pre>")) {
-                    text.deleteCharAt(text.length() - 1).append(" class='lang-java'>");
-                }
-
-                text.append("<code>");
-                text.append(escape(SourceCode.read(id[0], id[1], plain)));
-                text.append("</code>");
-                if (code) text.append("</pre>");
+            if (code) {
+                writeSourceCode(SourceCode.read(id[0], id[1], plain), "java");
             } else {
                 if (uri == null) {
                     text.append(ref);
@@ -657,43 +632,128 @@ public class DocumentInfo {
             return p;
         }
 
-        private boolean endsWith(String value) {
-            int length = text.length();
-            for (int i = 0; i < value.length(); i++) {
-                if (text.charAt(length - value.length() + i) != value.charAt(i)) {
-                    return false;
-                }
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public DocumentXMLBuilder visitLiteral(LiteralTree node, DocumentXMLBuilder p) {
+            String body = node.getBody().getBody();
+            boolean isSourceCode = body.endsWith("@");
+            if (isSourceCode) body = body.substring(0, body.length() - 1).trim();
+
+            if (isSourceCode) {
+                writeSourceCode(body, "");
+            } else {
+                text.append("<code>").append(resolve(body)).append("</code>");
             }
-            return true;
+
+            return p;
         }
 
         /**
          * {@inheritDoc}
          */
         @Override
-        public DocumentXMLBuilder visitLiteral(LiteralTree node, DocumentXMLBuilder p) {
-            String name = node.getTagName();
-            String body = escape(node.getBody().getBody());
-            boolean code = body.endsWith("@");
-            if (code) body = body.substring(0, body.length() - 1).trim();
-
-            if (inPre || code) {
-                if (inPre) {
-                    System.out.println("Literalll");
-                }
-                body = SourceCode.stripHeaderWhitespace(body);
-            } else {
-                body = I.express(body, templateTags);
-            }
-
-            if (name.equals("code")) {
-                if (code) text.append("<pre>");
-                text.append("<code>").append(body).append("</code>");
-                if (code) text.append("</pre>");
-            } else {
-                text.append(body);
-            }
+        public DocumentXMLBuilder visitReference(ReferenceTree node, DocumentXMLBuilder p) {
+            text.append(node.getSignature());
             return p;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public DocumentXMLBuilder visitStartElement(StartElementTree node, DocumentXMLBuilder p) {
+            text.append("<").append(node.getName());
+            node.getAttributes().forEach(attr -> attr.accept(this, this));
+            text.append(node.isSelfClosing() ? "/>" : ">");
+            return p;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public DocumentXMLBuilder visitSnippet(SnippetTree node, DocumentXMLBuilder p) {
+            String lang = "java";
+            for (DocTree tree : node.getAttributes()) {
+                if (tree instanceof AttributeTree attr) {
+                    String name = attr.getName().toString();
+                    if (name.equalsIgnoreCase("language") || name.equalsIgnoreCase("lang")) {
+                        lang = attr.getValue().get(0).toString().toLowerCase();
+                    }
+                }
+            }
+
+            writeSourceCode(node.getBody().getBody(), lang);
+            return p;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public DocumentXMLBuilder visitSummary(SummaryTree node, DocumentXMLBuilder p) {
+            return super.visitSummary(node, p);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public DocumentXMLBuilder visitText(TextTree node, DocumentXMLBuilder p) {
+            text.append(resolve(node.getBody()));
+            return p;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public DocumentXMLBuilder visitUnknownBlockTag(UnknownBlockTagTree node, DocumentXMLBuilder p) {
+            return super.visitUnknownBlockTag(node, p);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public DocumentXMLBuilder visitUnknownInlineTag(UnknownInlineTagTree node, DocumentXMLBuilder p) {
+            return super.visitUnknownInlineTag(node, p);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public DocumentXMLBuilder visitValue(ValueTree node, DocumentXMLBuilder p) {
+            return super.visitValue(node, p);
+        }
+
+        /**
+         * Write code snippet.
+         * 
+         * @param code
+         * @param language
+         */
+        private void writeSourceCode(String code, String language) {
+            language = language.trim().toLowerCase();
+
+            Javadoc.Highlighter.add(language);
+
+            text.append("<pre class='lang-").append(language).append("'><code>");
+            text.append(resolve(code));
+            text.append("</code></pre>");
+        }
+
+        /**
+         * Resolve expression language.
+         * 
+         * @param text
+         * @return
+         */
+        private String resolve(String text) {
+            return escape(I.express(text.trim(), "{@var", "}", new Object[] {templateTags}));
         }
 
         /**
@@ -726,104 +786,6 @@ public class DocumentInfo {
                 }
             }
             return buffer.toString();
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public DocumentXMLBuilder visitReference(ReferenceTree node, DocumentXMLBuilder p) {
-            text.append(node.getSignature());
-            return p;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public DocumentXMLBuilder visitStartElement(StartElementTree node, DocumentXMLBuilder p) {
-            String name = node.getName().toString();
-            if (name.equals("pre")) {
-                inPre = true;
-            }
-
-            text.append("<").append(name);
-            node.getAttributes().forEach(attr -> attr.accept(this, this));
-            text.append(node.isSelfClosing() ? "/>" : ">");
-            return p;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public DocumentXMLBuilder visitSnippet(SnippetTree node, DocumentXMLBuilder p) {
-            String lang = "java";
-            for (DocTree tree : node.getAttributes()) {
-                if (tree instanceof AttributeTree attr) {
-                    String name = attr.getName().toString();
-                    if (name.equalsIgnoreCase("language") || name.equalsIgnoreCase("lang")) {
-                        lang = attr.getValue().get(0).toString().toLowerCase();
-                    }
-                }
-            }
-
-            Javadoc.Highlighter.add(lang);
-
-            text.append("<pre class='lang-").append(lang).append("'><code>");
-            text.append(escape(I.express(node.getBody().getBody().trim(), templateTags)));
-            text.append("</code></pre>");
-
-            return p;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public DocumentXMLBuilder visitSummary(SummaryTree node, DocumentXMLBuilder p) {
-            return super.visitSummary(node, p);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public DocumentXMLBuilder visitText(TextTree node, DocumentXMLBuilder p) {
-            if (inPre) {
-                if (inPre) {
-                    System.out.println("in Text");
-                    System.out.println(node.getBody());
-                }
-                text.append(node.getBody());
-            } else {
-                text.append(I.express(node.getBody(), templateTags));
-            }
-            return p;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public DocumentXMLBuilder visitUnknownBlockTag(UnknownBlockTagTree node, DocumentXMLBuilder p) {
-            return super.visitUnknownBlockTag(node, p);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public DocumentXMLBuilder visitUnknownInlineTag(UnknownInlineTagTree node, DocumentXMLBuilder p) {
-            return super.visitUnknownInlineTag(node, p);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public DocumentXMLBuilder visitValue(ValueTree node, DocumentXMLBuilder p) {
-            return super.visitValue(node, p);
         }
     }
 
