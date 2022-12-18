@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.12.0](https://github.com/teletha/javadng/compare/v1.11.4...v1.12.0) (2022-12-18)
+
+
+### Features
+
+* Remove @SuppressWarnings and @Test from code. ([b076716](https://github.com/teletha/javadng/commit/b076716bd47320522ed09d6fec492c08fccb845c))
+* Support entity resolving in javadoc. ([59c266a](https://github.com/teletha/javadng/commit/59c266a4403a677f3dda41fb5b339199438d5aaa))
+* Support importing source code from nested class. ([a7129c3](https://github.com/teletha/javadng/commit/a7129c3352743d8da59054b9cd3f8bc99a6bfdd7))
+* Support importing source code with body only. ([53b82a1](https://github.com/teletha/javadng/commit/53b82a1f114022e3f6b9b754b3b9d849f0112305))
+* Support simple source code importer. ([2c81a3e](https://github.com/teletha/javadng/commit/2c81a3e8bbad6f7c89154018b45348d1b53f26e8))
+
+
+### Bug Fixes
+
+* Do not apply transition effects when accessing from external page. ([8125256](https://github.com/teletha/javadng/commit/81252564607de4b885b6895198866a6bdcbf9ea1))
+* Optimize importing field's source code. ([123c048](https://github.com/teletha/javadng/commit/123c048656437d25c1855b56eaa54d7bfe68d043))
+* refactoring source code writer. ([321e856](https://github.com/teletha/javadng/commit/321e8566ec74e7ad429ab8a9dff596615fdff45f))
+* support compilation on java 11 ([6675e24](https://github.com/teletha/javadng/commit/6675e24a02c7327d34c16eab80af947179721baa))
+* update build version ([9ed7275](https://github.com/teletha/javadng/commit/9ed72756b78e61e7ba30f4dbb846c8b50a626e2a))
+* Whitespace is erased when referring to source code. ([42896bf](https://github.com/teletha/javadng/commit/42896bf288010fd5f22da7d94866f7f3b96aa38f))
+
 ## [1.11.4](https://github.com/teletha/javadng/compare/v1.11.3...v1.11.4) (2022-12-06)
 
 
