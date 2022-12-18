@@ -677,7 +677,8 @@ public class DocumentInfo {
         public DocumentXMLBuilder visitSnippet(SnippetTree node, DocumentXMLBuilder p) {
             String lang = "java";
             for (DocTree tree : node.getAttributes()) {
-                if (tree instanceof AttributeTree attr) {
+                if (tree instanceof AttributeTree) {
+                    AttributeTree attr = (AttributeTree) tree;
                     String name = attr.getName().toString();
                     if (name.equalsIgnoreCase("language") || name.equalsIgnoreCase("lang")) {
                         lang = attr.getValue().get(0).toString().toLowerCase();
