@@ -237,6 +237,13 @@ const root = {
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "SourceCode",
+			"packageName": "javadng.parser",
+			"type": "Class"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "Styles",
 			"packageName": "javadng.design",
 			"type": "Class"
