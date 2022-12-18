@@ -9,9 +9,6 @@
  */
 package javadng.page;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import javadng.HTML;
 import javadng.design.JavadngStyleDSL;
 import javadng.parser.ClassInfo;
@@ -57,10 +54,10 @@ public abstract class Page<T> extends HTML {
                 // =============================
                 // Top Navigation
                 // =============================
-                String date = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDateTime.now());
+                String published = model.repository().getLatestPublishedDate();
 
                 $("header", S.HeaderArea, () -> {
-                    $("h1", S.HeaderTitle, attr("date", date), attr("ver", model.version()), code(model.product()));
+                    $("h1", S.HeaderTitle, attr("date", published), attr("ver", model.version()), code(model.product()));
                     $("nav", S.HeaderNav, () -> {
                         for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
                             $("a", attr("href", "doc/" + info.children().get(0).id() + ".html"), svg("text"), text("Document"));

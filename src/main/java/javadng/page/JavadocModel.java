@@ -818,7 +818,7 @@ public abstract class JavadocModel {
 
                 // build change log
                 I.http(repository().locateChangeLog(), String.class).waitForTerminate().to(md -> {
-                    site.buildHTML("doc/changelog.html", new ActivityPage(1, this, repository().buildChangeLog(md)));
+                    site.buildHTML("doc/changelog.html", new ActivityPage(1, this, repository().getChangeLog(md)));
                 });
 
                 // create at last for live reload

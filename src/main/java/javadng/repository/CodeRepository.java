@@ -56,7 +56,14 @@ public abstract class CodeRepository {
      * @param text
      * @return
      */
-    public abstract DocumentProvider buildChangeLog(String text);
+    public abstract DocumentProvider getChangeLog(String text);
+
+    /**
+     * Build the published date for latest version.
+     * 
+     * @return
+     */
+    public abstract String getLatestPublishedDate();
 
     /**
      * Build {@link CodeRepository} by URI.

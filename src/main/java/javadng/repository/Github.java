@@ -23,7 +23,6 @@ import org.commonmark.renderer.html.HtmlRenderer;
 
 import javadng.page.DocumentProvider;
 import kiss.I;
-import kiss.JSON;
 import kiss.XML;
 
 /**
@@ -40,11 +39,15 @@ class Github extends CodeRepository {
     Github(URI uri) {
         String path = uri.getPath();
         int index = path.indexOf('/', 1);
-        this.owner = path.substring(0, index);
+        this.owner = path.substring(1, index);
         this.name = path.substring(index + 1);
 
-        JSON json = I.json("https://api.github.com/repos" + path);
-        this.branch = json.get(String.class, "default_branch");
+        String name = I.xml("https://github.com/teletha/sinobu/branches").find(".branch-name").first().text();
+        System.out.println(name);
+
+        // JSON json = I.json("https://api.github.com/repos" + path);
+        // this.branch = json.get(String.class, "default_branch");
+        this.branch = "master";
     }
 
     /**
@@ -94,7 +97,7 @@ class Github extends CodeRepository {
      * {@inheritDoc}
      */
     @Override
-    public DocumentProvider buildChangeLog(String text) {
+    public DocumentProvider getChangeLog(String text) {
         // Parse markdown and convert to structured HTML
         Node root = Parser.builder().build().parse(text);
         String html = HtmlRenderer.builder().escapeHtml(true).build().render(root);
@@ -125,9 +128,21 @@ class Github extends CodeRepository {
         matcher.appendTail(b);
         b.append("</section></section></section>");
 
-        ChangeLogProvider p = new ChangeLogProvider(I.xml(b.toString()), 1);
-        System.out.println(p);
-        return p;
+        return new ChangeLogProvider(I.xml(b.toString()), 1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getLatestPublishedDate() {
+        return I.http("https://github.com/" + owner + "/" + name + "/releases/latest", XML.class)
+                .waitForTerminate()
+                .effectOnError(e -> e.printStackTrace())
+                .effect(x -> System.out.println(x))
+                .map(html -> html.find("h2").text())
+                .to()
+                .exact();
     }
 
     /**
