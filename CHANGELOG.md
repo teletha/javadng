@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.1](https://github.com/teletha/javadng/compare/v1.12.0...v1.12.1) (2022-12-19)
+
+
+### Bug Fixes
+
+* avoid NPE ([525da14](https://github.com/teletha/javadng/commit/525da1403f9c61e1edade0b49eb3abbc897d83f0))
+
 ## [1.12.0](https://github.com/teletha/javadng/compare/v1.11.4...v1.12.0) (2022-12-18)
 
 
