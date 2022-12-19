@@ -23,6 +23,7 @@ import org.commonmark.renderer.html.HtmlRenderer;
 
 import javadng.page.DocumentProvider;
 import kiss.I;
+import kiss.JSON;
 import kiss.XML;
 
 /**
@@ -42,12 +43,8 @@ class Github extends CodeRepository {
         this.owner = path.substring(1, index);
         this.name = path.substring(index + 1);
 
-        String name = I.xml("https://github.com/teletha/sinobu/branches").find(".branch-name").first().text();
-        System.out.println(name);
-
-        // JSON json = I.json("https://api.github.com/repos" + path);
-        // this.branch = json.get(String.class, "default_branch");
-        this.branch = "master";
+        JSON json = I.json("https://api.github.com/repos" + path);
+        this.branch = json.get(String.class, "default_branch");
     }
 
     /**
@@ -136,13 +133,15 @@ class Github extends CodeRepository {
      */
     @Override
     public String getLatestPublishedDate() {
-        return I.http("https://github.com/" + owner + "/" + name + "/releases/latest", XML.class)
+        String date = I.http("https://github.com/" + owner + "/" + name + "/releases/latest", XML.class)
                 .waitForTerminate()
-                .effectOnError(e -> e.printStackTrace())
-                .effect(x -> System.out.println(x))
-                .map(html -> html.find("h2").text())
+                .map(html -> html.find("h2").first().text())
                 .to()
                 .exact();
+
+        int start = date.indexOf('(');
+        int end = date.lastIndexOf(')');
+        return date.substring(start + 1, end);
     }
 
     /**
