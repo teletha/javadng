@@ -13,9 +13,9 @@ import java.util.function.Consumer;
 
 import javadng.design.Styles;
 import kiss.I;
-import kiss.Tree;
 import kiss.Variable;
 import kiss.XML;
+import lycoris.Tree;
 import stylist.Style;
 import stylist.StyleDSL;
 import stylist.StyleDeclarable;
