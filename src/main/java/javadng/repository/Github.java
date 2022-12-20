@@ -10,6 +10,8 @@
 package javadng.repository;
 
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -137,7 +139,7 @@ class Github extends CodeRepository {
                 .waitForTerminate()
                 .map(html -> html.find("h2").first().text())
                 .to()
-                .exact();
+                .or(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
         int start = date.indexOf('(');
         int end = date.lastIndexOf(')');
