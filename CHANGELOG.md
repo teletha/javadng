@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.3](https://github.com/teletha/javadng/compare/v1.12.2...v1.12.3) (2022-12-20)
+
+
+### Bug Fixes
+
+* bug ([94243e1](https://github.com/teletha/javadng/commit/94243e14175c25dedfff247990ba879b7feec742))
+
 ## [1.12.2](https://github.com/teletha/javadng/compare/v1.12.1...v1.12.2) (2022-12-20)
 
 
