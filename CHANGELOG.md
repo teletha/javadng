@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.12.2](https://github.com/teletha/javadng/compare/v1.12.1...v1.12.2) (2022-12-20)
+
+
+### Bug Fixes
+
+* Avoid exception for non-released project. ([5545b1c](https://github.com/teletha/javadng/commit/5545b1ca89e16d41f0dbafa44bbac0f40bd703fb))
+* update sinobu and lycoris ([219d5a8](https://github.com/teletha/javadng/commit/219d5a80148a82aeb8505c1b5d1dbf376353e39b))
+
 ## [1.12.1](https://github.com/teletha/javadng/compare/v1.12.0...v1.12.1) (2022-12-19)
 
 
