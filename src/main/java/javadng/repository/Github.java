@@ -143,7 +143,7 @@ class Github extends CodeRepository {
 
         int start = date.indexOf('(');
         int end = date.lastIndexOf(')');
-        return date.substring(start + 1, end);
+        return start == -1 ? date : date.substring(start + 1, end);
     }
 
     /**
