@@ -9,8 +9,8 @@
  */
 package javadng.design;
 
+import stylist.Browsers;
 import stylist.Style;
-import stylist.util.Browsers;
 import stylist.value.Color;
 import stylist.value.Numeric;
 
