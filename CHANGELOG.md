@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.4](https://github.com/teletha/javadng/compare/v1.12.3...v1.12.4) (2022-12-24)
+
+
+### Bug Fixes
+
+* update sinobu and lycoris ([714d6ac](https://github.com/teletha/javadng/commit/714d6ace2db1c966ad1449ddd78d1f76827b1ba3))
+
 ## [1.12.3](https://github.com/teletha/javadng/compare/v1.12.2...v1.12.3) (2022-12-20)
 
 
