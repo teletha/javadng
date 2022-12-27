@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.0](https://github.com/teletha/javadng/compare/v1.12.4...v1.13.0) (2022-12-27)
+
+
+### Features
+
+* Release-As 1.13.0 ([95581cb](https://github.com/teletha/javadng/commit/95581cb72b51909c9e8ae18f1671ee33a33e4ebf))
+
 ## [1.12.4](https://github.com/teletha/javadng/compare/v1.12.3...v1.12.4) (2022-12-24)
 
 
