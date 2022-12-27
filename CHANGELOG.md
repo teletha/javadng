@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.1](https://github.com/teletha/javadng/compare/v1.13.0...v1.13.1) (2022-12-27)
+
+
+### Bug Fixes
+
+* update stylist ([bf4bb7d](https://github.com/teletha/javadng/commit/bf4bb7dee8e5dec6603f11e39033b14ac8ead302))
+
 ## [1.13.0](https://github.com/teletha/javadng/compare/v1.12.4...v1.13.0) (2022-12-27)
 
 
