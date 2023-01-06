@@ -34,6 +34,13 @@ const root = {
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "CodeHighlighter",
+			"packageName": "javadng.web",
+			"type": "Class"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "CodeRepository",
 			"packageName": "javadng.repository",
 			"type": "AbstractClass"
