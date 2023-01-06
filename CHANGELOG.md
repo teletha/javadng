@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.0](https://github.com/teletha/javadng/compare/v1.13.2...v1.14.0) (2023-01-06)
+
+
+### Features
+
+* Add CodeHighlighter. ([7ad9dcc](https://github.com/teletha/javadng/commit/7ad9dcc8b568d2de80029c1391f86edc463c91b9))
+
 ## [1.13.2](https://github.com/teletha/javadng/compare/v1.13.1...v1.13.2) (2023-01-06)
 
 
