@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.2](https://github.com/teletha/javadng/compare/v1.13.1...v1.13.2) (2023-01-06)
+
+
+### Bug Fixes
+
+* update sinobu ([d77d1f0](https://github.com/teletha/javadng/commit/d77d1f00209cdf112b5a3fc60fea5d90fcd126ef))
+
 ## [1.13.1](https://github.com/teletha/javadng/compare/v1.13.0...v1.13.1) (2022-12-27)
 
 
