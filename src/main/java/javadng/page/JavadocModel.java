@@ -70,6 +70,7 @@ import javadng.parser.TemplateStore;
 import javadng.parser.TypeResolver;
 import javadng.parser.Util;
 import javadng.repository.CodeRepository;
+import javadng.web.CodeHighlighter;
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
 import jdk.javadoc.doclet.Reporter;
@@ -86,9 +87,6 @@ public abstract class JavadocModel {
 
     /** The default JDK API's location. */
     public static final String JDK = "https://docs.oracle.com/en/java/javase/19/docs/api/";
-
-    /** The language set to highlight code. */
-    public static final Set<String> Highlighter = new HashSet();
 
     /** The name pattern of document. */
     private static final Pattern DocName = Pattern.compile("(.+)Doc$");
@@ -799,11 +797,7 @@ public abstract class JavadocModel {
                 // build JS
                 site.build("main.js", SiteBuilder.class.getResourceAsStream("main.js"));
                 site.build("mimic.js", SiteBuilder.class.getResourceAsStream("mimic.js"));
-                site.build("highlight.js", SiteBuilder.class.getResourceAsStream("highlight.js"), I.signal(Highlighter)
-                        .flatMap(x -> I.http("https://unpkg.com/@highlightjs/cdn-assets/es/languages/" + x + ".min.js", String.class)
-                                .waitForTerminate()
-                                .map(text -> text.replaceAll("export default hljsGrammar", "J.registerLanguage('" + x + "', hljsGrammar)")))
-                        .toList());
+                site.build("highlight.js", SiteBuilder.class.getResourceAsStream("highlight.js"), CodeHighlighter.build());
 
                 // build SVG
                 site.build("main.svg", SiteBuilder.class.getResourceAsStream("main.svg"));
