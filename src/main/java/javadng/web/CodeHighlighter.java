@@ -38,7 +38,7 @@ public class CodeHighlighter {
      */
     public static List<String> build() {
         return I.signal(languages)
-                .flatMap(x -> I.http("https://unpkg.com/@highlightjs/cdn-assets/es/languages/" + x + ".min.js", String.class)
+                .flatMap(x -> I.http("https://unpkg.com/@highlightjs/cdn-assets@11.7.0/es/languages/" + x + ".min.js", String.class)
                         .waitForTerminate()
                         .map(text -> text.replaceAll("export default hljsGrammar", "J.registerLanguage('" + x + "', hljsGrammar)")))
                 .toList();
