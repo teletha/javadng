@@ -39,6 +39,8 @@ class Github extends CodeRepository {
 
     private final String branch;
 
+    private String published;
+
     Github(URI uri) {
         String path = uri.getPath();
         int index = path.indexOf('/', 1);
@@ -134,16 +136,19 @@ class Github extends CodeRepository {
      * {@inheritDoc}
      */
     @Override
-    public String getLatestPublishedDate() {
-        String date = I.http("https://github.com/" + owner + "/" + name + "/releases/latest", XML.class)
-                .waitForTerminate()
-                .map(html -> html.find("h2").first().text())
-                .to()
-                .or(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
+    public synchronized String getLatestPublishedDate() {
+        if (published == null) {
+            String date = I.http("https://github.com/" + owner + "/" + name + "/releases/latest", XML.class)
+                    .waitForTerminate()
+                    .map(html -> html.find("h2").first().text())
+                    .to()
+                    .or(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
-        int start = date.indexOf('(');
-        int end = date.lastIndexOf(')');
-        return start == -1 ? date : date.substring(start + 1, end);
+            int start = date.indexOf('(');
+            int end = date.lastIndexOf(')');
+            published = start == -1 ? date : date.substring(start + 1, end);
+        }
+        return published;
     }
 
     /**
