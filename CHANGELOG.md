@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.14.1](https://github.com/teletha/javadng/compare/v1.14.0...v1.14.1) (2023-02-23)
+
+
+### Bug Fixes
+
+* highlight.js resource indicates invalid location ([026cd09](https://github.com/teletha/javadng/commit/026cd097ed69a60c1458bc0b0406187151435c8e))
+* ignore http 404 error ([119e667](https://github.com/teletha/javadng/commit/119e667603f851be3aaefc571d9060f28ffe474b))
+* too many access to published data ([ca4b5e3](https://github.com/teletha/javadng/commit/ca4b5e3afddbf7e2723c71111f664207c5ebfcf2))
+
 ## [1.14.0](https://github.com/teletha/javadng/compare/v1.13.2...v1.14.0) (2023-01-06)
 
 
