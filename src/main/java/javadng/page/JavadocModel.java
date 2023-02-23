@@ -10,9 +10,8 @@
 package javadng.page;
 
 import static javax.tools.Diagnostic.Kind.*;
-import static javax.tools.Diagnostic.Kind.OTHER;
-import static javax.tools.DocumentationTool.Location.*;
-import static javax.tools.JavaFileObject.Kind.*;
+import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
+import static javax.tools.JavaFileObject.Kind.SOURCE;
 import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
@@ -811,7 +810,7 @@ public abstract class JavadocModel {
                 }
 
                 // build change log
-                I.http(repository().locateChangeLog(), String.class).waitForTerminate().to(md -> {
+                I.http(repository().locateChangeLog(), String.class).waitForTerminate().skipError().to(md -> {
                     site.buildHTML("doc/changelog.html", new ActivityPage(1, this, repository().getChangeLog(md)));
                 });
 
