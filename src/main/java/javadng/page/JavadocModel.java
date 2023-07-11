@@ -9,10 +9,12 @@
  */
 package javadng.page;
 
-import static javax.tools.Diagnostic.Kind.*;
+import static javax.tools.Diagnostic.Kind.ERROR;
+import static javax.tools.Diagnostic.Kind.OTHER;
 import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
 import static javax.tools.JavaFileObject.Kind.SOURCE;
-import static javax.tools.StandardLocation.*;
+import static javax.tools.StandardLocation.CLASS_PATH;
+import static javax.tools.StandardLocation.SOURCE_PATH;
 
 import java.awt.Desktop;
 import java.io.ByteArrayInputStream;
