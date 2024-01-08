@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.14.2](https://github.com/teletha/javadng/compare/v1.14.1...v1.14.2) (2024-01-08)
+
+
+### Bug Fixes
+
+* update ci process ([4c3277a](https://github.com/teletha/javadng/commit/4c3277a70a7324c0ffff9679dea64c27ca73d31e))
+* update license ([1ea54b4](https://github.com/teletha/javadng/commit/1ea54b4c529eb47eb17dc1de29f76463984d0ced))
+
 ## [1.14.1](https://github.com/teletha/javadng/compare/v1.14.0...v1.14.1) (2023-02-23)
 
 
