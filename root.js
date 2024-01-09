@@ -7,7 +7,8 @@ const root = {
 		"javadng.page",
 		"javadng.parser",
 		"javadng.repository",
-		"javadng.web"
+		"javadng.web",
+		"javadng.writer"
 	],
 	"types": [
 		{
@@ -275,6 +276,13 @@ const root = {
 			"name": "Util",
 			"packageName": "javadng.parser",
 			"type": "Class"
+		},
+		{
+			"modifiers": {
+				"#": "java.util.Collections$UnmodifiableSet",},
+			"name": "Writable",
+			"packageName": "javadng.writer",
+			"type": "AbstractClass"
 		}
 	]
 }
