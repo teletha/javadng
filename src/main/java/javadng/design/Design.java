@@ -39,7 +39,7 @@ public class Design extends AbstractDesignScheme {
         mono = fontFromGoogle("Inter");
         icon = fontFromGoogle("Material Icons");
 
-        font = Numeric.of(13, px);
+        font = Numeric.of(14, px);
         line = Numeric.of(1.7);
         radius = Numeric.of(4, px);
     }

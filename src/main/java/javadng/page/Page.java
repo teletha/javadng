@@ -42,12 +42,14 @@ public abstract class Page<T> extends HTML {
      */
     @Override
     protected void declare() {
-        $("html", () -> {
+        $("html", attr("lang", "en"), () -> {
             $("head", () -> {
                 $("meta", attr("charset", "UTF-8"));
                 $("meta", attr("name", "viewport"), attr("content", "width=device-width, initial-scale=1"));
                 $("meta", attr("name", "description"), attr("content", "Explains how to use " + model.product() + " and its API. " + model
                         .description()));
+                $("link", attr("rel", "preconnect"), attr("href", "https://fonts.googleapis.com"));
+                $("link", attr("rel", "preconnect"), attr("href", "https://cdn.jsdelivr.net"));
                 $("title", text(model.product() + " API"));
                 $("base", attr("href", base));
                 module("mimic.js");
@@ -176,7 +178,7 @@ public abstract class Page<T> extends HTML {
             display.minWidth(HeaderMinWidth);
 
             $.child(() -> {
-                font.size(11, px).color(JavadngStyleDSL.Theme.front);
+                font.size(12, px).color(JavadngStyleDSL.Theme.front);
                 display.width(90, px).inlineFlex().alignItems.center().direction.column();
                 padding.horizontal(1.8, rem).vertical(0.5, rem);
                 margin.top(-4, px);

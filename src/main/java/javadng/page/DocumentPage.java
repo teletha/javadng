@@ -69,7 +69,7 @@ public class DocumentPage extends Page<DocumentProvider> {
         $("header", Styles.JavadocComment, additionalStyle, () -> {
             $(xml(heading.size() != 0 ? heading : I.xml("h" + provider.nestLevel()).text(provider.title())));
             $("div", S.meta, () -> {
-                $("a", attr("class", "perp"), S.icon, () -> {
+                $("span", attr("class", "perp"), S.icon, () -> {
                     $(svg("copy"));
                 });
 
@@ -97,7 +97,7 @@ public class DocumentPage extends Page<DocumentProvider> {
 
     interface S extends JavadngStyleDSL {
 
-        Numeric IconSize = Numeric.of(14, px);
+        Numeric IconSize = Numeric.of(16, px);
 
         Style SectionLevel1 = () -> {
             position.relative();
@@ -129,6 +129,7 @@ public class DocumentPage extends Page<DocumentProvider> {
             display.inlineBlock().width(IconSize).height(IconSize);
             font.lineHeight(1);
             margin.left(IconSize);
+            cursor.pointer();
         };
 
         Style foot = () -> {
