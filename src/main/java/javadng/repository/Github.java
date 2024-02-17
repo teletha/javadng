@@ -140,7 +140,7 @@ class Github extends CodeRepository {
         if (published == null) {
             String date = I.http("https://github.com/" + owner + "/" + name + "/releases/latest", XML.class)
                     .waitForTerminate()
-                    .map(html -> html.find("h2").first().text())
+                    .map(html -> html.find(".markdown-body h2").first().text())
                     .to()
                     .or(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
 
