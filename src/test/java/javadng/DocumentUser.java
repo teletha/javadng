@@ -40,6 +40,7 @@ public class DocumentUser {
                 .product("Sinobu")
                 .project("Sinobu")
                 .version("1.0")
+                .description("Sinobu is not obsolete framework but utility, which can manipulate objects as a extremely-condensed facade.")
                 .sample("../sinobu/src/test/java")
                 .classpath(path.toArray(String[]::new))
                 .repository(CodeRepository.of("https://github.com/teletha/sinobu"))

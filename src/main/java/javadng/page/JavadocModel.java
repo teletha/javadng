@@ -9,12 +9,11 @@
  */
 package javadng.page;
 
-import static javax.tools.Diagnostic.Kind.ERROR;
+import static javax.tools.Diagnostic.Kind.*;
 import static javax.tools.Diagnostic.Kind.OTHER;
-import static javax.tools.DocumentationTool.Location.DOCUMENTATION_OUTPUT;
-import static javax.tools.JavaFileObject.Kind.SOURCE;
-import static javax.tools.StandardLocation.CLASS_PATH;
-import static javax.tools.StandardLocation.SOURCE_PATH;
+import static javax.tools.DocumentationTool.Location.*;
+import static javax.tools.JavaFileObject.Kind.*;
+import static javax.tools.StandardLocation.*;
 
 import java.awt.Desktop;
 import java.io.ByteArrayInputStream;
@@ -224,6 +223,16 @@ public abstract class JavadocModel {
      */
     @Icy.Property
     public abstract String version();
+
+    /**
+     * The product version.
+     * 
+     * @return
+     */
+    @Icy.Property
+    public String description() {
+        return "";
+    }
 
     /**
      * Specify the directory of samples.

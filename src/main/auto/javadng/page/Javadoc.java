@@ -118,6 +118,9 @@ public class Javadoc extends JavadocModel {
     private static final MethodHandle classpathUpdater = updater("classpath");
 
     /** The final property updater. */
+    private static final MethodHandle descriptionUpdater = updater("description");
+
+    /** The final property updater. */
     private static final MethodHandle sampleUpdater = updater("sample");
 
     /** The final property updater. */
@@ -148,6 +151,9 @@ public class Javadoc extends JavadocModel {
     public final List<Location> classpath;
 
     /** The exposed property. */
+    public final String description;
+
+    /** The exposed property. */
     public final List<Directory> sample;
 
     /** The exposed property. */
@@ -169,6 +175,7 @@ public class Javadoc extends JavadocModel {
         this.project = null;
         this.version = null;
         this.classpath = super.classpath();
+        this.description = super.description();
         this.sample = super.sample();
         this.encoding = super.encoding();
         this.listener = super.listener();
@@ -395,6 +402,43 @@ public class Javadoc extends JavadocModel {
     }
 
     /**
+     * The product version.
+     *  
+     *  @return
+     */
+    @Override
+    public final String description() {
+        return this.description;
+    }
+
+    /**
+     * Provide classic getter API.
+     *
+     * @return A value of description property.
+     */
+    @SuppressWarnings("unused")
+    private final String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Provide classic setter API.
+     *
+     * @paran value A new value of description property to assign.
+     */
+    private final void setDescription(String value) {
+        if (value == null) {
+            value = super.description();
+        }
+        try {
+            descriptionUpdater.invoke(this, value);
+        } catch (UnsupportedOperationException e) {
+        } catch (Throwable e) {
+            throw quiet(e);
+        }
+    }
+
+    /**
      * Specify the directory of samples.
      *  
      *  @return
@@ -556,6 +600,7 @@ public class Javadoc extends JavadocModel {
         builder.append("project=").append(project).append(", ");
         builder.append("version=").append(version).append(", ");
         builder.append("classpath=").append(classpath).append(", ");
+        builder.append("description=").append(description).append(", ");
         builder.append("sample=").append(sample).append(", ");
         builder.append("encoding=").append(encoding).append(", ");
         builder.append("listener=").append(listener).append(", ");
@@ -570,7 +615,7 @@ public class Javadoc extends JavadocModel {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(sources, output, product, project, version, classpath, sample, encoding, listener, repository);
+        return Objects.hash(sources, output, product, project, version, classpath, description, sample, encoding, listener, repository);
     }
 
     /**
@@ -591,6 +636,7 @@ public class Javadoc extends JavadocModel {
         if (!Objects.equals(project, other.project)) return false;
         if (!Objects.equals(version, other.version)) return false;
         if (!Objects.equals(classpath, other.classpath)) return false;
+        if (!Objects.equals(description, other.description)) return false;
         if (!Objects.equals(sample, other.sample)) return false;
         if (!Objects.equals(encoding, other.encoding)) return false;
         if (!Objects.equals(listener, other.listener)) return false;
@@ -847,6 +893,17 @@ public class Javadoc extends JavadocModel {
         }
 
         /**
+         * Assign description property.
+         * 
+         * @param value A new value to assign.
+         * @return The next assignable model.
+         */
+        default Next description(String value) {
+            ((Javadoc) this).setDescription(value);
+            return (Next) this;
+        }
+
+        /**
          * Assign sample property.
          * 
          * @param value A new value to assign.
@@ -948,6 +1005,7 @@ public class Javadoc extends JavadocModel {
         static final String Project = "project";
         static final String Version = "version";
         static final String Classpath = "classpath";
+        static final String Description = "description";
         static final String Sample = "sample";
         static final String Encoding = "encoding";
         static final String Listener = "listener";

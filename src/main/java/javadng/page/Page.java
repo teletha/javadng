@@ -45,6 +45,9 @@ public abstract class Page<T> extends HTML {
         $("html", () -> {
             $("head", () -> {
                 $("meta", attr("charset", "UTF-8"));
+                $("meta", attr("name", "viewport"), attr("content", "width=device-width, initial-scale=1"));
+                $("meta", attr("name", "description"), attr("content", "Explains how to use " + model.product() + " and its API. " + model
+                        .description()));
                 $("title", text(model.product() + " API"));
                 $("base", attr("href", base));
                 module("mimic.js");
