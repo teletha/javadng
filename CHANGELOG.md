@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.15.0](https://github.com/teletha/javadng/compare/v1.14.1...v1.15.0) (2024-02-17)
+
+
+### Features
+
+* add some meta tags for seo ([17d7cd9](https://github.com/teletha/javadng/commit/17d7cd99e452b79fe015a1888f5fc0298f6fda30))
+
+
+### Bug Fixes
+
+* fail to retrieve the latest release date on github ([0d7340d](https://github.com/teletha/javadng/commit/0d7340df5ca23c328c8b9ed75cd1471624d85672))
+* make more accessible ([cca767c](https://github.com/teletha/javadng/commit/cca767c8af38c35de3d34bf41151aecc1c3498b6))
+* update ci process ([4c3277a](https://github.com/teletha/javadng/commit/4c3277a70a7324c0ffff9679dea64c27ca73d31e))
+* update license ([1ea54b4](https://github.com/teletha/javadng/commit/1ea54b4c529eb47eb17dc1de29f76463984d0ced))
+
 ## [1.14.1](https://github.com/teletha/javadng/compare/v1.14.0...v1.14.1) (2023-02-23)
 
 

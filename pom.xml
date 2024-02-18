@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.teletha</groupId>
 	<artifactId>javadng</artifactId>
-	<version>1.14.1</version>
+	<version>1.15.0</version>
 	<packaging>jar</packaging>
 	<name>javadng</name>
 	<description/>
@@ -101,14 +101,14 @@
 	</issueManagement>
 	<developers>
 		<developer>
-			<name/>
-			<email/>
-			<url>https://github.com/apps/github-actions</url>
-		</developer>
-		<developer>
 			<name>teletha</name>
 			<email/>
 			<url>https://github.com/teletha</url>
+		</developer>
+		<developer>
+			<name/>
+			<email/>
+			<url>https://github.com/apps/github-actions</url>
 		</developer>
 	</developers>
 	<build>
