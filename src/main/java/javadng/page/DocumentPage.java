@@ -104,13 +104,14 @@ public class DocumentPage extends Page<DocumentProvider> {
         Style SectionLevel1 = () -> {
             position.relative();
 
-            $.before(() -> {
-                font.family(JavadngStyleDSL.Theme.icon).size(54, px).color(JavadngStyleDSL.Theme.surface);
-                position.absolute().top(-17, px).left(-58, px);
-                display.zIndex(-1);
-                content.text("\\eb39");
-                transform.rotate(30, deg);
-            });
+            // $.before(() -> {
+            // font.family(JavadngStyleDSL.Theme.icon).size(54,
+            // px).color(JavadngStyleDSL.Theme.surface);
+            // position.absolute().top(-17, px).left(-58, px);
+            // display.zIndex(-1);
+            // content.text("\\eb39");
+            // transform.rotate(30, deg);
+            // });
 
             // $.after(() -> {
             // font.family(theme.icon).size(26, px).color(theme.front.opacify(-0.8));
