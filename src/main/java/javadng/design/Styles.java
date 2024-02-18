@@ -221,7 +221,7 @@ public class Styles implements JavadngStyleDSL {
         $.select("h2", () -> {
             font.size(17, px).color(JavadngStyleDSL.Theme.front);
             padding.size(0.7, rem).left(0, rem);
-            margin.top(0.7, rem);
+            margin.top(0.7, rem).bottom(0.4, rem);
             border.vertical.doubles()
                     .width(3, px)
                     .color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.surface, 40).opacify(-0.3));
@@ -232,14 +232,8 @@ public class Styles implements JavadngStyleDSL {
         });
 
         $.select("h3", () -> {
-            font.size(15, px).color(JavadngStyleDSL.Theme.front);
-            margin.top(0.7, rem);
-            text.decoration.underline().decorationStyle.doubles().underlineOffset.length(5, px).decorationColor
-                    .color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.surface, 40).opacify(-0.3));
-
-            $.firstLetter(() -> {
-                font.color(JavadngStyleDSL.Theme.secondary);
-            });
+            font.size(16, px).color(JavadngStyleDSL.Theme.front);
+            margin.top(0.7, rem).bottom(-0.7, rem);
         });
 
         $.select("p", () -> {
@@ -253,6 +247,7 @@ public class Styles implements JavadngStyleDSL {
             Color borderColor = JavadngStyleDSL.Theme.front.opacify(-0.7);
 
             Numeric pad = Numeric.of(0.8, rem);
+
             Numeric verticalPad = Numeric.of(0.6, rem);
 
             $.select(">dt", () -> {
@@ -305,7 +300,7 @@ public class Styles implements JavadngStyleDSL {
     };
 
     private static void block() {
-        margin.top(2.2, rem);
+        margin.top(1.8, rem);
 
         $.firstChild(() -> {
             margin.top(1, rem);

@@ -37,19 +37,19 @@ public class DocumentPage extends Page<DocumentProvider> {
         try {
             if (contents.hasDocument()) {
                 $("section", Styles.Section, Styles.JavadocComment, () -> {
-                    write(contents, S.SectionLevel1);
+                    write(contents, S.SectionLevel1, true);
                 });
             }
 
             for (DocumentProvider child : contents.children(Modifier.PUBLIC)) {
                 if (child.hasDocument()) {
                     $("section", attr("id", child.id()), Styles.Section, Styles.JavadocComment, () -> {
-                        write(child, S.SectionLevel1);
+                        write(child, S.SectionLevel1, true);
 
                         for (DocumentProvider foot : child.children(Modifier.PUBLIC)) {
                             if (foot.hasDocument()) {
                                 $("section", attr("id", foot.id()), Styles.JavadocComment, S.foot, () -> {
-                                    write(foot, S.SectionLevel2);
+                                    write(foot, S.SectionLevel2, true);
                                 });
                             }
                         }
@@ -62,28 +62,30 @@ public class DocumentPage extends Page<DocumentProvider> {
         }
     }
 
-    private void write(DocumentProvider provider, Style additionalStyle) {
+    private void write(DocumentProvider provider, Style additionalStyle, boolean useIcons) {
         XML doc = provider.document();
         XML heading = doc.find("h,h1,h2,h3,h4,h5,h6,h7").first().remove();
 
         $("header", Styles.JavadocComment, additionalStyle, () -> {
             $(xml(heading.size() != 0 ? heading : I.xml("h" + provider.nestLevel()).text(provider.title())));
-            $("div", S.meta, () -> {
-                $("span", attr("class", "perp"), S.icon, () -> {
-                    $(svg("copy"));
-                });
-
-                $("a", attr("class", "tweet"), S.icon, () -> {
-                    $(svg("twitter"));
-                });
-
-                String editor = model.repository().locateEditor(provider.filePath(), provider.documentLine());
-                if (editor != null) {
-                    $("a", attr("href", editor), attr("class", "edit"), S.icon, () -> {
-                        $(svg("edit"));
+            if (useIcons) {
+                $("div", S.meta, () -> {
+                    $("span", attr("class", "perp"), S.icon, () -> {
+                        $(svg("copy"));
                     });
-                }
-            });
+
+                    $("a", attr("class", "tweet"), S.icon, () -> {
+                        $(svg("twitter"));
+                    });
+
+                    String editor = model.repository().locateEditor(provider.filePath(), provider.documentLine());
+                    if (editor != null) {
+                        $("a", attr("href", editor), attr("class", "edit"), S.icon, () -> {
+                            $(svg("edit"));
+                        });
+                    }
+                });
+            }
         });
         $(xml(doc));
     }
