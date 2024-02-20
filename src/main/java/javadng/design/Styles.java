@@ -77,7 +77,7 @@ public class Styles implements JavadngStyleDSL {
 
     public static Style HLJS = Style.named(".hljs", () -> {
         block();
-        font.family(JavadngStyleDSL.Theme.mono);
+        font.family(JavadngStyleDSL.Theme.mono).size(0.91, em);
         border.radius(JavadngStyleDSL.Theme.radius)
                 .width(1, px)
                 .solid()
@@ -219,7 +219,7 @@ public class Styles implements JavadngStyleDSL {
 
     public static Style JavadocComment = () -> {
         $.select("h2", () -> {
-            font.size(17, px).color(JavadngStyleDSL.Theme.front);
+            font.size(1.45, rem).color(JavadngStyleDSL.Theme.front);
             padding.size(0.7, rem).left(0, rem);
             margin.top(0.7, rem).bottom(0.4, rem);
             border.vertical.doubles()
@@ -232,7 +232,7 @@ public class Styles implements JavadngStyleDSL {
         });
 
         $.select("h3", () -> {
-            font.size(16, px).color(JavadngStyleDSL.Theme.front);
+            font.size(1.3, rem).color(JavadngStyleDSL.Theme.front);
             margin.top(0.7, rem).bottom(-0.7, rem);
         });
 

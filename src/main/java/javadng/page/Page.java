@@ -258,10 +258,10 @@ public abstract class Page<T> extends HTML {
                 font.size(1.1, em).color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.back, -15)).letterSpacing(-0.5, px);
 
                 $.select(".doc", () -> {
-                    margin.bottom(1, em);
+                    margin.bottom(1, rem);
 
                     $.select("li", () -> {
-                        padding.vertical(0.3, em);
+                        padding.vertical(0.5, rem);
                     });
                 });
 
@@ -276,7 +276,7 @@ public abstract class Page<T> extends HTML {
 
                     $.select("a", () -> {
                         $.select(".foot", () -> {
-                            padding.left(1, em);
+                            padding.left(0.8, rem);
                         });
 
                         $.select("svg", () -> {
