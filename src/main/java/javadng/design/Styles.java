@@ -77,7 +77,7 @@ public class Styles implements JavadngStyleDSL {
 
     public static Style HLJS = Style.named(".hljs", () -> {
         block();
-        font.family(JavadngStyleDSL.Theme.mono).size(11.5, px);
+        font.family(JavadngStyleDSL.Theme.mono);
         border.radius(JavadngStyleDSL.Theme.radius)
                 .width(1, px)
                 .solid()
