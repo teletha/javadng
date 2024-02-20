@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.0.0](https://github.com/teletha/javadng/compare/v1.15.0...v2.0.0) (2024-02-20)
+
+
+### Features
+
+* support markdown in javadoc ([36d6d0c](https://github.com/teletha/javadng/commit/36d6d0cf301742ae8841eba1e356d166bf090dc3))
+
+
+### Bug Fixes
+
+* change document style ([9ae5f75](https://github.com/teletha/javadng/commit/9ae5f756a49e3fa2e971bdd25f88c95aca7f9e4e))
+
+
+### Miscellaneous Chores
+
+* release 2.0.0 ([bd6283c](https://github.com/teletha/javadng/commit/bd6283c011f54c8b5d3259186086a45236846a4b))
+
 ## [1.15.0](https://github.com/teletha/javadng/compare/v1.14.1...v1.15.0) (2024-02-17)
 
 
