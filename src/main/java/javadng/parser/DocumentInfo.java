@@ -32,6 +32,9 @@ import javax.lang.model.type.UnionType;
 import javax.lang.model.type.WildcardType;
 import javax.lang.model.util.SimpleTypeVisitor9;
 
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
+
 import com.sun.source.doctree.AttributeTree;
 import com.sun.source.doctree.AuthorTree;
 import com.sun.source.doctree.CommentTree;
@@ -108,6 +111,10 @@ public class DocumentInfo {
     protected final TypeResolver resolver;
 
     protected int[] documentLines = {-1, -1};
+
+    private final Parser markParser = Parser.builder().build();
+
+    private final HtmlRenderer htmlRenderer = HtmlRenderer.builder().build();
 
     protected DocumentInfo(Element e, TypeResolver resolver, DocumentInfo parent) {
         this.e = e;
@@ -499,12 +506,17 @@ public class DocumentInfo {
                 if (text.length() == 0) {
                     return emptyXML();
                 } else {
-                    if (text.charAt(0) != '<') text.insert(0, "<p>").append("</p>");
+                    String built = text.toString();
+
+                    if (built.charAt(0) != '<') {
+                        built = htmlRenderer.render(markParser.parse(built));
+                    }
+
                     // Since Javadoc text is rarely correct HTML, switch by inserting dock type
                     // declarations to use the tag soup parser instead of the XML parser.
-                    text.insert(0, "<!DOCTYPE span><span>").append("</span>");
+                    built = "<!DOCTYPE span><span>" + built + "</span>";
 
-                    return I.xml(text.toString());
+                    return I.xml(built);
                 }
             } catch (Exception e) {
                 throw new Error(e.getMessage() + " [" + text.toString() + "]", e);

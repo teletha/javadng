@@ -55,6 +55,39 @@ public class DocumentInfoTest extends JavadocTestSupport {
         assert sameXML(info.comment, "<span class='B'><a href=\"test.css\" type=\"stylesheet\"/></span>");
     }
 
+    /***
+     * This text is written by markdown.
+     */
+    @Test
+    public void markdown() {
+        ExecutableInfo info = currentMethod();
+        assert sameXML(info.comment, "<span class='B'><p>This text is written by markdown.</p></span>");
+    }
+
+    /**
+     * ## Title
+     * 
+     * This text is written by markdown.
+     */
+    @Test
+    public void markdownTitle() {
+        ExecutableInfo info = currentMethod();
+        assert sameXML(info.comment, "<span class='B'><h2>Title</h2><p>This text is written by markdown.</p></span>");
+    }
+
+    /**
+     * This text is written by markdown.
+     * 
+     * - item1
+     * - item2
+     * - item3
+     */
+    @Test
+    public void markdownList() {
+        ExecutableInfo info = currentMethod();
+        assert sameXML(info.comment, "<span class='B'><p>This text is written by markdown.</p><ul><li>item1</li><li>item2</li><li>item3</li></ul></span>");
+    }
+
     @Test
     public void paramTag() {
         ExecutableInfo info = method("param");

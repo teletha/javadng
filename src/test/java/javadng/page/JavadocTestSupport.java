@@ -132,7 +132,9 @@ public class JavadocTestSupport {
         assert expected != null;
         assert Objects.equals(actual.getLocalName(), expected.getLocalName()) : error(actualXML, expectedXML);
         assert actual.getNodeType() == expected.getNodeType() : error(actualXML, expectedXML);
-        assert actual.getTextContent().trim().equals(expected.getTextContent().trim()) : error(actualXML, expectedXML);
+        if (actual.getNodeType() == Node.TEXT_NODE) {
+            assert actual.getTextContent().trim().equals(expected.getTextContent().trim()) : error(actualXML, expectedXML);
+        }
 
         // attributes
         NamedNodeMap actualAttrs = actual.getAttributes();
