@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/teletha/javadng/compare/v2.0.0...v2.0.1) (2024-02-20)
+
+
+### Bug Fixes
+
+* update section observer in js ([fae78d9](https://github.com/teletha/javadng/commit/fae78d946844918f5b13f9297dda18d6175ea369))
+
 ## [2.0.0](https://github.com/teletha/javadng/compare/v1.15.0...v2.0.0) (2024-02-20)
 
 
