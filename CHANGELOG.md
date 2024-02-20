@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.2](https://github.com/teletha/javadng/compare/v2.0.1...v2.0.2) (2024-02-20)
+
+
+### Bug Fixes
+
+* apply default theme ([d4c572e](https://github.com/teletha/javadng/commit/d4c572e7927fc8a30329dfb222c4bcea8ba791c9))
+* increase font size in code ([bf706b7](https://github.com/teletha/javadng/commit/bf706b70b84e28039d6e198722576b03d3e7a0f1))
+
 ## [2.0.1](https://github.com/teletha/javadng/compare/v2.0.0...v2.0.1) (2024-02-20)
 
 
