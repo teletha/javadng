@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://docs.oracle.com/en/java/javase/19/"><img src="https://img.shields.io/badge/Java-Release%2019-green"/></a>
+    <a href="https://docs.oracle.com/en/java/javase/21/"><img src="https://img.shields.io/badge/Java-Release%2021-green"/></a>
     <span>&nbsp;</span>
     <a href="https://jitpack.io/#teletha/javadng"><img src="https://img.shields.io/jitpack/v/github/teletha/javadng?label=Repository&color=green"></a>
     <span>&nbsp;</span>
@@ -7,25 +7,14 @@
 </p>
 
 
-## Summary
-
-<p align="right"><a href="#top">back to top</a></p>
 
 
-## Usage
 
-<p align="right"><a href="#top">back to top</a></p>
 
 
 ## Prerequisites
-Javadng runs on all major operating systems and requires only [Java version 19](https://docs.oracle.com/en/java/javase/19/) or later to run.
-To check, please run `java -version` from the command line interface. You should see something like this:
-```
-> java -version
-openjdk version "16" 2021-03-16
-OpenJDK Runtime Environment (build 16+36-2231)
-OpenJDK 64-Bit Server VM (build 16+36-2231, mixed mode, sharing)
-```
+Javadng runs on all major operating systems and requires only [Java version 21](https://docs.oracle.com/en/java/javase/21/) or later to run.
+To check, please run `java -version` on your terminal.
 <p align="right"><a href="#top">back to top</a></p>
 
 ## Install
@@ -108,11 +97,11 @@ If you think something might be a bug, but you're not sure, ask on StackOverflow
 
 ## Dependency
 Javadng depends on the following products on runtime.
-* [commonmark-0.21.0](https://mvnrepository.com/artifact/org.commonmark/commonmark/0.21.0)
-* [javaparser-core-3.25.8](https://mvnrepository.com/artifact/com.github.javaparser/javaparser-core/3.25.8)
+* [commonmark-0.23.0](https://mvnrepository.com/artifact/org.commonmark/commonmark/0.23.0)
+* [javaparser-core-3.26.2](https://mvnrepository.com/artifact/com.github.javaparser/javaparser-core/3.26.2)
 * [lycoris-1.0.0](https://mvnrepository.com/artifact/com.github.teletha/lycoris/1.0.0)
-* [psychopath-1.12.1](https://mvnrepository.com/artifact/com.github.teletha/psychopath/1.12.1)
-* [sinobu-3.9.1](https://mvnrepository.com/artifact/com.github.teletha/sinobu/3.9.1)
+* [psychopath-2.0.0](https://mvnrepository.com/artifact/com.github.teletha/psychopath/2.0.0)
+* [sinobu-4.0.0](https://mvnrepository.com/artifact/com.github.teletha/sinobu/4.0.0)
 * [stylist-1.10.0](https://mvnrepository.com/artifact/com.github.teletha/stylist/1.10.0)
 <p align="right"><a href="#top">back to top</a></p>
 
