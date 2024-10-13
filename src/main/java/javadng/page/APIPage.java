@@ -259,6 +259,7 @@ public class APIPage extends Page<ClassInfo> {
         Style MemberName = () -> {
             font.family(JavadngStyleDSL.Theme.base).size(1, rem).weight.normal();
             display.block();
+            margin.left(-1.1, rem);
         };
 
         Style Name = () -> {
@@ -277,7 +278,7 @@ public class APIPage extends Page<ClassInfo> {
 
         Style SignatureTable = () -> {
             padding.left(signatureLabelWidth);
-            margin.top(0.5, rem).bottom(1.5, rem);
+            margin.top(0.2, rem).bottom(2, rem);
             font.size(0.85, em);
 
             $.select("td", () -> {

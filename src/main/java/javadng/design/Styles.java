@@ -60,7 +60,7 @@ public class Styles implements JavadngStyleDSL {
     });
 
     public static Style AnimatedSVG = SVG.with(() -> {
-        stroke.width(2.5, px).color(JavadngStyleDSL.Theme.front.opacify(-0.6));
+        stroke.width(2.5, px).color(JavadngStyleDSL.Theme.front.opacify(-0.85));
 
         $.transit().duration(0.5, s).when().hover(() -> {
             stroke.color(JavadngStyleDSL.Theme.accent);
@@ -77,7 +77,7 @@ public class Styles implements JavadngStyleDSL {
 
     public static Style HLJS = Style.named(".hljs", () -> {
         block();
-        font.family(JavadngStyleDSL.Theme.mono).size(0.91, em);
+        font.family(JavadngStyleDSL.Theme.mono).size(0.86, rem);
         border.radius(JavadngStyleDSL.Theme.radius)
                 .width(1, px)
                 .solid()
@@ -219,7 +219,7 @@ public class Styles implements JavadngStyleDSL {
 
     public static Style JavadocComment = () -> {
         $.select("h2", () -> {
-            font.size(1.45, rem).color(JavadngStyleDSL.Theme.front);
+            font.size(1.5, rem).color(JavadngStyleDSL.Theme.front);
             padding.size(0.7, rem).left(0, rem);
             margin.top(0.7, rem).bottom(0.4, rem);
             border.vertical.doubles()
@@ -232,7 +232,7 @@ public class Styles implements JavadngStyleDSL {
         });
 
         $.select("h3", () -> {
-            font.size(1.3, rem).color(JavadngStyleDSL.Theme.front);
+            font.size(1.2, rem).color(JavadngStyleDSL.Theme.front);
             margin.top(0.7, rem).bottom(-0.7, rem);
         });
 
@@ -241,49 +241,29 @@ public class Styles implements JavadngStyleDSL {
         });
 
         $.select("dl", () -> {
-            margin.top(1, rem);
-            display.flex().wrap.enable();
-
-            Color borderColor = JavadngStyleDSL.Theme.front.opacify(-0.7);
-
-            Numeric pad = Numeric.of(0.8, rem);
-
-            Numeric verticalPad = Numeric.of(0.6, rem);
+            margin.top(2, rem);
 
             $.select(">dt", () -> {
-                display.maxWidth(15, percent);
-                flexItem.basis(15, percent);
-                position.relative();
-                padding.right(pad).vertical(verticalPad);
-                border.right.solid().width(1, px).color(borderColor);
-                text.wordBreak.breakWord();
-
-                $.not($.lastType(), () -> {
-                    $.before(() -> {
-                        content.text("");
-                        display.block().width(3, px).height(3, px);
-                        position.absolute().right(-2, px).bottom(-2, px);
-                        border.radius(50, percent).solid().width(1, px).transparent();
-                        background.color(borderColor);
-                    });
-                });
+                font.size(1.2, rem).color(JavadngStyleDSL.Theme.front);
+                margin.top(2, rem).bottom(-1.4, rem);
             });
 
             $.select(">dd", () -> {
-                flexItem.basis(75, percent);
-                padding.left(pad).vertical(verticalPad);
+                block();
             });
         });
 
         $.select("ul", () -> {
+            font.lineHeight(1.9);
             margin.top(1, rem);
-            margin.left(1.8, rem);
+            margin.left(2.3, rem);
             listStyle.outside();
         });
 
         $.select("ol", () -> {
+            font.lineHeight(1.9);
             margin.top(1, rem);
-            margin.left(1.8, rem);
+            margin.left(2.3, rem);
             listStyle.outside();
         });
 
@@ -533,7 +513,7 @@ public class Styles implements JavadngStyleDSL {
         $.before(() -> {
             font.color(JavadngStyleDSL.Theme.primary).size(0.6, rem).family(JavadngStyleDSL.Theme.mono);
             content.text(mark);
-            position.absolute().top(-0.2, rem).left(0.7, rem);
+            position.absolute().top(-0.2, rem).left(0.55, rem);
         });
     }
 
@@ -547,7 +527,7 @@ public class Styles implements JavadngStyleDSL {
         $.after(() -> {
             font.color(JavadngStyleDSL.Theme.accent).size(0.6, rem).family(JavadngStyleDSL.Theme.mono);
             content.text(mark);
-            position.absolute().top(-0.2, rem).left(0.3, rem);
+            position.absolute().top(-0.2, rem).left(0.15, rem);
         });
     }
 
@@ -561,7 +541,7 @@ public class Styles implements JavadngStyleDSL {
         $.after(() -> {
             font.color(JavadngStyleDSL.Theme.primary).size(0.7, rem).family(JavadngStyleDSL.Theme.icon);
             content.text(mark);
-            position.absolute().top(0.5, rem).left(0.4, rem);
+            position.absolute().top(0.5, rem).left(0.2, rem);
         });
     }
 

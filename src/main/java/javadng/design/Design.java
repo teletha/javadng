@@ -40,7 +40,7 @@ public class Design extends AbstractDesignScheme {
         icon = fontFromGoogle("Material Icons");
 
         font = Numeric.of(14, px);
-        line = Numeric.of(1.7);
+        line = Numeric.of(1.5);
         radius = Numeric.of(4, px);
     }
 

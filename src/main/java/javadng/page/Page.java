@@ -163,12 +163,12 @@ public abstract class Page<T> extends HTML {
             $.after(() -> {
                 content.attr("date").text("\\000AVersion\\00A0").attr("ver");
                 font.size(0.8, rem)
-                        .lineHeight(1.1)
+                        .lineHeight(1.3)
                         .color(JavadngStyleDSL.Theme.front)
                         .family(JavadngStyleDSL.Theme.base)
                         .letterSpacing(-0.5, px);
                 display.inlineBlock();
-                padding.left(1.1, rem).bottom(1.3, rem);
+                padding.left(1.1, rem).bottom(1, rem);
                 text.whiteSpace.pre();
                 flexItem.alignSelf.end();
             });
@@ -238,6 +238,7 @@ public abstract class Page<T> extends HTML {
         };
 
         Style Navigation = () -> {
+            font.size(0.97, rem);
             display.maxWidth(JavadngStyleDSL.MaxNaviWidth);
             flexItem.basis(NavigationWidth).shrink(0).alignSelf.start();
             position.sticky().top(JavadngStyleDSL.HeaderHeight.plus(15, px));
@@ -332,7 +333,7 @@ public abstract class Page<T> extends HTML {
                     .subtract(gap.multiply(2)));
             flexItem.grow(1);
             margin.horizontal(gap);
-            font.size(14.2, px).letterSpacing(-0.025, rem);
+            font.size(14.8, px).letterSpacing(-0.025, rem);
             position.relative();
 
             $.after(() -> {
@@ -350,6 +351,7 @@ public abstract class Page<T> extends HTML {
 
         Style SubNavigation = () -> {
             display.width(JavadngStyleDSL.MaxSubNaviWidth);
+            font.size(0.85, rem);
 
             $.media(JavadngStyleDSL.Small, () -> {
                 display.none();

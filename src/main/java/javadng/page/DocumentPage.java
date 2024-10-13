@@ -121,7 +121,7 @@ public class DocumentPage extends Page<DocumentProvider> {
         };
 
         Style foot = () -> {
-            margin.top(3, rem).bottom(1, rem);
+            margin.top(3.6, rem).bottom(1, rem);
 
             $.prev(SectionLevel1, () -> {
                 margin.top(1, rem);
