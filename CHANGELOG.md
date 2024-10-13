@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.0.3](https://github.com/teletha/javadng/compare/v2.0.2...v2.0.3) (2024-10-13)
+
+
+### Bug Fixes
+
+* more readable style ([a954f99](https://github.com/teletha/javadng/commit/a954f99b0178b004a0da9dc2f668f663f2d8cfd8))
+* update ci ([0148ee1](https://github.com/teletha/javadng/commit/0148ee11cea482b8ee7cd8c618474f0dd92c06ef))
+* update style ([baefdbb](https://github.com/teletha/javadng/commit/baefdbbd31d292bf5ab704f4599b279bb6c82590))
+
 ## [2.0.2](https://github.com/teletha/javadng/compare/v2.0.1...v2.0.2) (2024-02-20)
 
 
