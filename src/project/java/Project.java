@@ -8,13 +8,10 @@
  *          https://opensource.org/licenses/MIT
  */
 
-import javax.lang.model.SourceVersion;
-
 public class Project extends bee.api.Project {
 
     {
         product("com.github.teletha", "javadng", ref("version.txt"));
-        require(SourceVersion.RELEASE_23, SourceVersion.RELEASE_21);
 
         require("com.github.teletha", "sinobu");
         require("com.github.teletha", "stylist");
