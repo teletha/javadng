@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.0](https://github.com/teletha/javadng/compare/v2.0.3...v2.1.0) (2024-10-23)
+
+
+### Features
+
+* add table and code style ([a1a85e0](https://github.com/teletha/javadng/commit/a1a85e0e786711e06da849a458930f1cd5a6b6e9))
+* support markdown comment ([a1a85e0](https://github.com/teletha/javadng/commit/a1a85e0e786711e06da849a458930f1cd5a6b6e9))
+
 ## [2.0.3](https://github.com/teletha/javadng/compare/v2.0.2...v2.0.3) (2024-10-13)
 
 
