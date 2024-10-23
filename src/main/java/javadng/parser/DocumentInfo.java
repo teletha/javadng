@@ -41,6 +41,7 @@ import com.sun.source.doctree.CommentTree;
 import com.sun.source.doctree.DocCommentTree;
 import com.sun.source.doctree.DocRootTree;
 import com.sun.source.doctree.DocTree;
+import com.sun.source.doctree.DocTree.Kind;
 import com.sun.source.doctree.DocTypeTree;
 import com.sun.source.doctree.EndElementTree;
 import com.sun.source.doctree.EntityTree;
@@ -51,6 +52,7 @@ import com.sun.source.doctree.InheritDocTree;
 import com.sun.source.doctree.LinkTree;
 import com.sun.source.doctree.LiteralTree;
 import com.sun.source.doctree.ParamTree;
+import com.sun.source.doctree.RawTextTree;
 import com.sun.source.doctree.ReferenceTree;
 import com.sun.source.doctree.ReturnTree;
 import com.sun.source.doctree.SeeTree;
@@ -659,6 +661,18 @@ public class DocumentInfo {
                 text.append("<code>").append(resolve(body)).append("</code>");
             }
 
+            return p;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public DocumentXMLBuilder visitRawText(RawTextTree node, DocumentXMLBuilder p) {
+            if (node.getKind() == Kind.MARKDOWN) {
+                String render = htmlRenderer.render(markParser.parse(node.getContent()));
+                text.append(render);
+            }
             return p;
         }
 
