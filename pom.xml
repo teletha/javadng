@@ -10,14 +10,21 @@
 		<dependency>
 			<groupId>com.github.teletha</groupId>
 			<artifactId>antibug</artifactId>
-			<version>1.9.0</version>
+			<version>1.12.0</version>
 			<scope>test</scope>
 			<exclusions/>
 		</dependency>
 		<dependency>
 			<groupId>org.commonmark</groupId>
 			<artifactId>commonmark</artifactId>
-			<version>0.23.0</version>
+			<version>0.24.0</version>
+			<scope>compile</scope>
+			<exclusions/>
+		</dependency>
+		<dependency>
+			<groupId>org.commonmark</groupId>
+			<artifactId>commonmark-ext-gfm-tables</artifactId>
+			<version>0.24.0</version>
 			<scope>compile</scope>
 			<exclusions/>
 		</dependency>
@@ -52,7 +59,7 @@
 		<dependency>
 			<groupId>com.github.teletha</groupId>
 			<artifactId>sinobu</artifactId>
-			<version>4.0.0</version>
+			<version>4.2.0</version>
 			<scope>compile</scope>
 			<exclusions/>
 		</dependency>
@@ -112,7 +119,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<encoding>UTF-8</encoding>
-					<release>21</release>
+					<release>23</release>
 					<compilerArgs/>
 				</configuration>
 			</plugin>
