@@ -24,7 +24,7 @@ public class Design extends AbstractDesignScheme {
     @Theme(main = true)
     void light() {
         primary = $.hsl(200, 70, 30);
-        secondary = $.hsl(48, 95, 60);
+        secondary = $.hsl(97, 65, 40);
         accent = $.hsl(0, 55, 60);
 
         front = $.hsl(0, 0, 30);
@@ -47,6 +47,7 @@ public class Design extends AbstractDesignScheme {
     @Theme
     void dark() {
         primary = $.hsl(0, 40, 80);
+        secondary = $.hsl(48, 95, 60);
         accent = $.hsl(0, 65, 65);
 
         front = $.hsl(0, 0, 90);

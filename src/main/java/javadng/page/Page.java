@@ -137,7 +137,7 @@ public abstract class Page<T> extends HTML {
             background.color(JavadngStyleDSL.Theme.back).image(JavadngStyleDSL.Theme.backImage).repeat();
             font.size(JavadngStyleDSL.Theme.font)
                     .family(JavadngStyleDSL.Theme.base)
-                    .color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.back, 15))
+                    .color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.back, 5))
                     .lineHeight(JavadngStyleDSL.Theme.line);
             margin.horizontal(35, px).bottom(14, px);
         };

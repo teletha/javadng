@@ -32,6 +32,7 @@ import javax.lang.model.type.UnionType;
 import javax.lang.model.type.WildcardType;
 import javax.lang.model.util.SimpleTypeVisitor9;
 
+import org.commonmark.ext.gfm.tables.TablesExtension;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 
@@ -114,9 +115,9 @@ public class DocumentInfo {
 
     protected int[] documentLines = {-1, -1};
 
-    private final Parser markParser = Parser.builder().build();
+    private final Parser markParser = Parser.builder().extensions(List.of(TablesExtension.create())).build();
 
-    private final HtmlRenderer htmlRenderer = HtmlRenderer.builder().build();
+    private final HtmlRenderer htmlRenderer = HtmlRenderer.builder().extensions(List.of(TablesExtension.create())).build();
 
     protected DocumentInfo(Element e, TypeResolver resolver, DocumentInfo parent) {
         this.e = e;
@@ -671,6 +672,7 @@ public class DocumentInfo {
         public DocumentXMLBuilder visitRawText(RawTextTree node, DocumentXMLBuilder p) {
             if (node.getKind() == Kind.MARKDOWN) {
                 String render = htmlRenderer.render(markParser.parse(node.getContent()));
+                System.out.println(render);
                 text.append(render);
             }
             return p;

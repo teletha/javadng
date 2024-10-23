@@ -270,6 +270,50 @@ public class Styles implements JavadngStyleDSL {
         $.select("blockquote", () -> {
             margin.top(1, rem);
         });
+
+        $.select("table", () -> {
+            display.width(100, percent);
+            border.radius(Theme.radius).solid().width(1, px).color(Theme.front.opacify(-0.5)).spacing(0, px);
+            margin.vertical(2, rem);
+        });
+
+        $.select("th", () -> {
+            font.weight.bold();
+            padding.size(0.5, rem);
+            border.bottom.solid().width(1, px).color(Theme.front.opacify(-0.5));
+
+            $.not($.firstChild(), () -> {
+                border.left.solid().width(1, px).color(Theme.front.opacify(-0.5));
+            });
+        });
+
+        $.select("td", () -> {
+            padding.size(0.5, rem);
+        });
+
+        $.select("tr", () -> {
+            $.select("td + td", () -> {
+                border.left.solid().width(1, px).color(Theme.front.opacify(-0.5));
+            });
+            $.next("tr td", () -> {
+                border.top.solid().width(1, px).color(Theme.front.opacify(-0.5));
+            });
+        });
+
+        $.select(":where(p, table) code", () -> {
+            font.color(Theme.secondary).family(Theme.mono);
+
+            $.before(() -> {
+                content.text("[");
+                font.color(Theme.front.opacify(-0.8));
+                padding.horizontal(0.3, rem);
+            });
+            $.after(() -> {
+                content.text("]");
+                font.color(Theme.front.opacify(-0.8));
+                padding.horizontal(0.3, rem);
+            });
+        });
     };
 
     public static Style Section = () -> {
