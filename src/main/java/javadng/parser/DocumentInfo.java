@@ -671,9 +671,7 @@ public class DocumentInfo {
         @Override
         public DocumentXMLBuilder visitRawText(RawTextTree node, DocumentXMLBuilder p) {
             if (node.getKind() == Kind.MARKDOWN) {
-                String render = htmlRenderer.render(markParser.parse(node.getContent()));
-                System.out.println(render);
-                text.append(render);
+                text.append(htmlRenderer.render(markParser.parse(node.getContent())));
             }
             return p;
         }
