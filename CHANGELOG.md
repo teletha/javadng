@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.2.0](https://github.com/teletha/javadng/compare/v2.1.0...v2.2.0) (2024-10-24)
+
+
+### Features
+
+* required java version is 21 ([bba8c66](https://github.com/teletha/javadng/commit/bba8c6611f13da6635ea5722d54d81654ef1a302))
+
+
+### Bug Fixes
+
+* skip building when no test or no docs ([e5fb2fa](https://github.com/teletha/javadng/commit/e5fb2fa5f9040120ae0dacdcb4317f6ea183ebec))
+
 ## [2.1.0](https://github.com/teletha/javadng/compare/v2.0.3...v2.1.0) (2024-10-23)
 
 
