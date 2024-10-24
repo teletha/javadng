@@ -355,13 +355,15 @@ public abstract class JavadocModel {
                             .take(o -> accept(o.getName()) && (o.getName().endsWith("Test.java") || o.getName().endsWith("Doc.java")))
                             .toList();
 
-                    DocumentationTask task = tool.getTask(listener, m, listener(), Internal.class, List.of("-package"), files);
+                    if (!files.isEmpty()) {
+                        DocumentationTask task = tool.getTask(listener, m, listener(), Internal.class, List.of("-package"), files);
 
-                    if (task.call()) {
-                        listener().report(new Message(OTHER, "sample", "Succeed in scanning sample sources."));
-                    } else {
-                        listener().report(new Message(ERROR, "sample", "Fail in scanning sample sources."));
-                        return (Javadoc) this;
+                        if (task.call()) {
+                            listener().report(new Message(OTHER, "sample", "Succeed in scanning sample sources."));
+                        } else {
+                            listener().report(new Message(ERROR, "sample", "Fail in scanning sample sources."));
+                            return (Javadoc) this;
+                        }
                     }
                 } catch (Throwable e) {
                     throw I.quiet(e);
