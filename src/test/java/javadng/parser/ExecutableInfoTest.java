@@ -14,7 +14,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import javadng.page.JavadocTestSupport;
-import javadng.parser.ExecutableInfo;
 
 public class ExecutableInfoTest extends JavadocTestSupport {
 

@@ -17,7 +17,6 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import javadng.page.JavadocTestSupport;
-import javadng.parser.ExecutableInfo;
 
 public class StructuredTypeTest extends JavadocTestSupport {
 

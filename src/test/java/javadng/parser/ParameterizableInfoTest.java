@@ -14,7 +14,6 @@ import java.io.Serializable;
 import org.junit.jupiter.api.Test;
 
 import javadng.page.JavadocTestSupport;
-import javadng.parser.ParameterizableInfo;
 
 public class ParameterizableInfoTest extends JavadocTestSupport {
 

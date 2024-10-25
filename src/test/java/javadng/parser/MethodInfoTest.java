@@ -15,7 +15,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import javadng.page.JavadocTestSupport;
-import javadng.parser.MethodInfo;
 
 public class MethodInfoTest extends JavadocTestSupport {
 
