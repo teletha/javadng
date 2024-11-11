@@ -97,13 +97,12 @@ If you think something might be a bug, but you're not sure, ask on StackOverflow
 
 ## Dependency
 Javadng depends on the following products on runtime.
-* [asm-9.7.1](https://mvnrepository.com/artifact/org.ow2.asm/asm/9.7.1)
 * [commonmark-0.24.0](https://mvnrepository.com/artifact/org.commonmark/commonmark/0.24.0)
 * [commonmark-ext-gfm-tables-0.24.0](https://mvnrepository.com/artifact/org.commonmark/commonmark-ext-gfm-tables/0.24.0)
 * [javaparser-core-3.26.2](https://mvnrepository.com/artifact/com.github.javaparser/javaparser-core/3.26.2)
 * [lycoris-1.0.0](https://mvnrepository.com/artifact/com.github.teletha/lycoris/1.0.0)
 * [psychopath-2.0.2](https://mvnrepository.com/artifact/com.github.teletha/psychopath/2.0.2)
-* [sinobu-4.4.0](https://mvnrepository.com/artifact/com.github.teletha/sinobu/4.4.0)
+* [sinobu-4.3.0](https://mvnrepository.com/artifact/com.github.teletha/sinobu/4.3.0)
 * [stylist-1.10.0](https://mvnrepository.com/artifact/com.github.teletha/stylist/1.10.0)
 <p align="right"><a href="#top">back to top</a></p>
 
