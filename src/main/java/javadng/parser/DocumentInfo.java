@@ -42,7 +42,6 @@ import com.sun.source.doctree.CommentTree;
 import com.sun.source.doctree.DocCommentTree;
 import com.sun.source.doctree.DocRootTree;
 import com.sun.source.doctree.DocTree;
-import com.sun.source.doctree.DocTree.Kind;
 import com.sun.source.doctree.DocTypeTree;
 import com.sun.source.doctree.EndElementTree;
 import com.sun.source.doctree.EntityTree;
@@ -53,7 +52,6 @@ import com.sun.source.doctree.InheritDocTree;
 import com.sun.source.doctree.LinkTree;
 import com.sun.source.doctree.LiteralTree;
 import com.sun.source.doctree.ParamTree;
-import com.sun.source.doctree.RawTextTree;
 import com.sun.source.doctree.ReferenceTree;
 import com.sun.source.doctree.ReturnTree;
 import com.sun.source.doctree.SeeTree;
@@ -669,9 +667,13 @@ public class DocumentInfo {
          * {@inheritDoc}
          */
         @Override
-        public DocumentXMLBuilder visitRawText(RawTextTree node, DocumentXMLBuilder p) {
-            if (node.getKind() == Kind.MARKDOWN) {
-                text.append(htmlRenderer.render(markParser.parse(node.getContent())));
+        protected DocumentXMLBuilder defaultAction(DocTree node, DocumentXMLBuilder p) {
+            // Since Markdown is supported from Java23, processing is performed with defaultAction
+            // to support execution environments lower than Java23.
+            // In addition, since the RawTextTree type and Kind.MARKDOWN field cannot be used, other
+            // methods are used to determine and acquire data.
+            if (node.getKind().name().equals("MARKDOWN")) {
+                text.append(htmlRenderer.render(markParser.parse(node.toString())));
             }
             return p;
         }
