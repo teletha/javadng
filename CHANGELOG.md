@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.2.1](https://github.com/teletha/javadng/compare/v2.2.0...v2.2.1) (2024-11-11)
+
+
+### Bug Fixes
+
+* remove dependency on Java23 ([b83a910](https://github.com/teletha/javadng/commit/b83a910c3264edc2773a5dd76348688d627f970a))
+* require Java 21 ([4450d03](https://github.com/teletha/javadng/commit/4450d0379bf8511d2a8f597928782c6031e29b56))
+
 ## [2.2.0](https://github.com/teletha/javadng/compare/v2.1.0...v2.2.0) (2024-10-24)
 
 
