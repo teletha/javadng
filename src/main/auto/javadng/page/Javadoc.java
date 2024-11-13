@@ -27,9 +27,6 @@ import psychopath.Location;
  */
 public class Javadoc extends JavadocModel {
 
-     /** Determines if the execution environment is a Native Image of GraalVM. */
-    private static final boolean NATIVE = "runtime".equals(System.getProperty("org.graalvm.nativeimage.imagecode"));
-
     /**
      * Deceive complier that the specified checked exception is unchecked exception.
      *
@@ -92,24 +89,10 @@ public class Javadoc extends JavadocModel {
      * @param name A target property name.
      * @return A special property updater.
      */
-    private static final Field updater(String name)  {
+    private static final MethodHandle updater(String name)  {
         try {
             Field field = Javadoc.class.getDeclaredField(name);
             field.setAccessible(true);
-            return field;
-        } catch (Throwable e) {
-            throw quiet(e);
-        }
-    }
-
-    /**
-     * Create fast property updater.
-     *
-     * @param field A target field.
-     * @return A fast property updater.
-     */
-    private static final MethodHandle handler(Field field)  {
-        try {
             return MethodHandles.lookup().unreflectSetter(field);
         } catch (Throwable e) {
             throw quiet(e);
@@ -117,70 +100,37 @@ public class Javadoc extends JavadocModel {
     }
 
     /** The final property updater. */
-    private static final Field sourcesField = updater("sources");
-
-    /** The fast final property updater. */
-    private static final MethodHandle sourcesUpdater = handler(sourcesField);
+    private static final MethodHandle sourcesUpdater = updater("sources");
 
     /** The final property updater. */
-    private static final Field outputField = updater("output");
-
-    /** The fast final property updater. */
-    private static final MethodHandle outputUpdater = handler(outputField);
+    private static final MethodHandle outputUpdater = updater("output");
 
     /** The final property updater. */
-    private static final Field productField = updater("product");
-
-    /** The fast final property updater. */
-    private static final MethodHandle productUpdater = handler(productField);
+    private static final MethodHandle productUpdater = updater("product");
 
     /** The final property updater. */
-    private static final Field projectField = updater("project");
-
-    /** The fast final property updater. */
-    private static final MethodHandle projectUpdater = handler(projectField);
+    private static final MethodHandle projectUpdater = updater("project");
 
     /** The final property updater. */
-    private static final Field versionField = updater("version");
-
-    /** The fast final property updater. */
-    private static final MethodHandle versionUpdater = handler(versionField);
+    private static final MethodHandle versionUpdater = updater("version");
 
     /** The final property updater. */
-    private static final Field classpathField = updater("classpath");
-
-    /** The fast final property updater. */
-    private static final MethodHandle classpathUpdater = handler(classpathField);
+    private static final MethodHandle classpathUpdater = updater("classpath");
 
     /** The final property updater. */
-    private static final Field descriptionField = updater("description");
-
-    /** The fast final property updater. */
-    private static final MethodHandle descriptionUpdater = handler(descriptionField);
+    private static final MethodHandle descriptionUpdater = updater("description");
 
     /** The final property updater. */
-    private static final Field sampleField = updater("sample");
-
-    /** The fast final property updater. */
-    private static final MethodHandle sampleUpdater = handler(sampleField);
+    private static final MethodHandle sampleUpdater = updater("sample");
 
     /** The final property updater. */
-    private static final Field encodingField = updater("encoding");
-
-    /** The fast final property updater. */
-    private static final MethodHandle encodingUpdater = handler(encodingField);
+    private static final MethodHandle encodingUpdater = updater("encoding");
 
     /** The final property updater. */
-    private static final Field listenerField = updater("listener");
-
-    /** The fast final property updater. */
-    private static final MethodHandle listenerUpdater = handler(listenerField);
+    private static final MethodHandle listenerUpdater = updater("listener");
 
     /** The final property updater. */
-    private static final Field repositoryField = updater("repository");
-
-    /** The fast final property updater. */
-    private static final MethodHandle repositoryUpdater = handler(repositoryField);
+    private static final MethodHandle repositoryUpdater = updater("repository");
 
     /** The exposed property. */
     public final List<Directory> sources;
