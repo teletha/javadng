@@ -89,10 +89,24 @@ public class Javadoc extends JavadocModel {
      * @param name A target property name.
      * @return A special property updater.
      */
-    private static final MethodHandle updater(String name)  {
+    private static final Field updater(String name)  {
         try {
             Field field = Javadoc.class.getDeclaredField(name);
             field.setAccessible(true);
+            return field;
+        } catch (Throwable e) {
+            throw quiet(e);
+        }
+    }
+
+    /**
+     * Create fast property updater.
+     *
+     * @param field A target field.
+     * @return A fast property updater.
+     */
+    private static final MethodHandle handler(Field field)  {
+        try {
             return MethodHandles.lookup().unreflectSetter(field);
         } catch (Throwable e) {
             throw quiet(e);
@@ -100,37 +114,70 @@ public class Javadoc extends JavadocModel {
     }
 
     /** The final property updater. */
-    private static final MethodHandle sourcesUpdater = updater("sources");
+    private static final Field sourcesField = updater("sources");
+
+    /** The fast final property updater. */
+    private static final MethodHandle sourcesUpdater = handler(sourcesField);
 
     /** The final property updater. */
-    private static final MethodHandle outputUpdater = updater("output");
+    private static final Field outputField = updater("output");
+
+    /** The fast final property updater. */
+    private static final MethodHandle outputUpdater = handler(outputField);
 
     /** The final property updater. */
-    private static final MethodHandle productUpdater = updater("product");
+    private static final Field productField = updater("product");
+
+    /** The fast final property updater. */
+    private static final MethodHandle productUpdater = handler(productField);
 
     /** The final property updater. */
-    private static final MethodHandle projectUpdater = updater("project");
+    private static final Field projectField = updater("project");
+
+    /** The fast final property updater. */
+    private static final MethodHandle projectUpdater = handler(projectField);
 
     /** The final property updater. */
-    private static final MethodHandle versionUpdater = updater("version");
+    private static final Field versionField = updater("version");
+
+    /** The fast final property updater. */
+    private static final MethodHandle versionUpdater = handler(versionField);
 
     /** The final property updater. */
-    private static final MethodHandle classpathUpdater = updater("classpath");
+    private static final Field classpathField = updater("classpath");
+
+    /** The fast final property updater. */
+    private static final MethodHandle classpathUpdater = handler(classpathField);
 
     /** The final property updater. */
-    private static final MethodHandle descriptionUpdater = updater("description");
+    private static final Field descriptionField = updater("description");
+
+    /** The fast final property updater. */
+    private static final MethodHandle descriptionUpdater = handler(descriptionField);
 
     /** The final property updater. */
-    private static final MethodHandle sampleUpdater = updater("sample");
+    private static final Field sampleField = updater("sample");
+
+    /** The fast final property updater. */
+    private static final MethodHandle sampleUpdater = handler(sampleField);
 
     /** The final property updater. */
-    private static final MethodHandle encodingUpdater = updater("encoding");
+    private static final Field encodingField = updater("encoding");
+
+    /** The fast final property updater. */
+    private static final MethodHandle encodingUpdater = handler(encodingField);
 
     /** The final property updater. */
-    private static final MethodHandle listenerUpdater = updater("listener");
+    private static final Field listenerField = updater("listener");
+
+    /** The fast final property updater. */
+    private static final MethodHandle listenerUpdater = handler(listenerField);
 
     /** The final property updater. */
-    private static final MethodHandle repositoryUpdater = updater("repository");
+    private static final Field repositoryField = updater("repository");
+
+    /** The fast final property updater. */
+    private static final MethodHandle repositoryUpdater = handler(repositoryField);
 
     /** The exposed property. */
     public final List<Directory> sources;
