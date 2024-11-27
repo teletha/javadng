@@ -49,7 +49,7 @@ public class DocumentPage extends Page<DocumentProvider> {
                         for (DocumentProvider foot : child.children(Modifier.PUBLIC)) {
                             if (foot.hasDocument()) {
                                 $("section", attr("id", foot.id()), Styles.JavadocComment, S.foot, () -> {
-                                    write(foot, S.SectionLevel2, true);
+                                    write(foot, S.SectionLevel2, false);
                                 });
                             }
                         }

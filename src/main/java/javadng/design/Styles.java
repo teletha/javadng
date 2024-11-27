@@ -77,7 +77,7 @@ public class Styles implements JavadngStyleDSL {
 
     public static Style HLJS = Style.named(".hljs", () -> {
         block();
-        font.family(JavadngStyleDSL.Theme.mono).size(0.86, rem);
+        font.family(JavadngStyleDSL.Theme.mono).size(0.9, em).lineHeight(1.6);
         border.radius(JavadngStyleDSL.Theme.radius)
                 .width(1, px)
                 .solid()
@@ -219,12 +219,10 @@ public class Styles implements JavadngStyleDSL {
 
     public static Style JavadocComment = () -> {
         $.select("h2", () -> {
-            font.size(1.5, rem).color(JavadngStyleDSL.Theme.front);
+            font.size(1.75, rem).color(JavadngStyleDSL.Theme.front);
             padding.size(0.7, rem).left(0, rem);
             margin.top(0.7, rem).bottom(0.4, rem);
-            border.vertical.doubles()
-                    .width(3, px)
-                    .color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.surface, 40).opacify(-0.3));
+            border.bottom.solid().width(1, px).color(JavadngStyleDSL.Theme.front.opacify(-0.92));
 
             $.firstLetter(() -> {
                 font.color(JavadngStyleDSL.Theme.accent);
@@ -232,8 +230,14 @@ public class Styles implements JavadngStyleDSL {
         });
 
         $.select("h3", () -> {
-            font.size(1.2, rem).color(JavadngStyleDSL.Theme.front);
-            margin.top(0.7, rem).bottom(-0.7, rem);
+            font.size(1.4, rem).color(JavadngStyleDSL.Theme.front);
+            padding.bottom(0.5, rem);
+            margin.top(5.5, rem).bottom(0.5, rem);
+            border.bottom.solid().width(1, px).color(JavadngStyleDSL.Theme.front.opacify(-0.92));
+
+            $.firstLetter(() -> {
+                font.color(JavadngStyleDSL.Theme.secondary);
+            });
         });
 
         $.select("p", () -> {

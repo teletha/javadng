@@ -134,11 +134,8 @@ public abstract class Page<T> extends HTML {
         Numeric NavigationWidth = Numeric.of(17, vw);
 
         Style Body = () -> {
-            background.color(JavadngStyleDSL.Theme.back).image(JavadngStyleDSL.Theme.backImage).repeat();
-            font.size(JavadngStyleDSL.Theme.font)
-                    .family(JavadngStyleDSL.Theme.base)
-                    .color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.back, 5))
-                    .lineHeight(JavadngStyleDSL.Theme.line);
+            background.color(Theme.back).image(Theme.backImage).repeat();
+            font.size(Theme.font).family(Theme.base).color(Theme.front.lighten(Theme.back, 5)).lineHeight(Theme.line);
             margin.horizontal(35, px).bottom(14, px);
         };
 
@@ -152,21 +149,17 @@ public abstract class Page<T> extends HTML {
                     .flex().alignItems.center().wrap.enable();
             margin.auto().bottom(JavadngStyleDSL.HeaderBottomMargin);
             padding.top(22, px);
-            border.bottom.color(JavadngStyleDSL.Theme.primary).width(1, px).solid();
+            border.bottom.color(Theme.primary).width(1, px).solid();
         };
 
         Style HeaderTitle = () -> {
-            font.size(2.5, rem).family(JavadngStyleDSL.Theme.title).weight.normal().color(JavadngStyleDSL.Theme.primary);
+            font.size(2.5, rem).family(Theme.title).weight.normal().color(Theme.primary);
             margin.right(3.5, rem);
             display.flex().wrap.disable();
 
             $.after(() -> {
                 content.attr("date").text("\\000AVersion\\00A0").attr("ver");
-                font.size(0.8, rem)
-                        .lineHeight(1.3)
-                        .color(JavadngStyleDSL.Theme.front)
-                        .family(JavadngStyleDSL.Theme.base)
-                        .letterSpacing(-0.5, px);
+                font.size(0.8, rem).lineHeight(1.3).color(Theme.front).family(Theme.base).letterSpacing(-0.5, px);
                 display.inlineBlock();
                 padding.left(1.1, rem).bottom(1, rem);
                 text.whiteSpace.pre();
@@ -178,7 +171,7 @@ public abstract class Page<T> extends HTML {
             display.minWidth(HeaderMinWidth);
 
             $.child(() -> {
-                font.size(12, px).color(JavadngStyleDSL.Theme.front);
+                font.size(12, px).color(Theme.front);
                 display.width(90, px).inlineFlex().alignItems.center().direction.column();
                 padding.horizontal(1.8, rem).vertical(0.5, rem);
                 margin.top(-4, px);
@@ -189,16 +182,16 @@ public abstract class Page<T> extends HTML {
                     Numeric size = Numeric.of(26, px);
 
                     display.width(size).height(size);
-                    stroke.color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.back, -15)).width(1.2, px);
+                    stroke.color(Theme.front.lighten(Theme.back, -15)).width(1.2, px);
                     transition.duration(0.2, s).whenever();
                 });
 
                 $.hover(() -> {
                     text.decoration.none();
-                    font.color(JavadngStyleDSL.Theme.link);
+                    font.color(Theme.link);
 
                     $.select("svg", () -> {
-                        stroke.color(JavadngStyleDSL.Theme.link).width(2, px);
+                        stroke.color(Theme.link).width(2, px);
                         transform.translateY(-4, px);
                     });
                 });
@@ -256,7 +249,7 @@ public abstract class Page<T> extends HTML {
             });
 
             $.select("#DocNavi", () -> {
-                font.size(1.1, em).color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.back, -15)).letterSpacing(-0.5, px);
+                font.size(1.1, em).color(Theme.front.lighten(Theme.back, -15)).letterSpacing(-0.5, px).lineHeight(1.6);
 
                 $.select(".doc", () -> {
                     margin.bottom(1, rem);
@@ -269,7 +262,7 @@ public abstract class Page<T> extends HTML {
                 $.select(".sub", () -> {
                     display.height(0, px);
                     listStyle.none();
-                    font.size(0.9, em).color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.back, 10));
+                    font.size(0.9, em).color(Theme.front.lighten(Theme.back, 10));
                     border.left.solid().width(1, px).color(Color.hsl(0, 0, 65));
                     overflow.y.hidden();
 
@@ -290,16 +283,16 @@ public abstract class Page<T> extends HTML {
                         });
 
                         $.with(".now", () -> {
-                            font.color(JavadngStyleDSL.Theme.accent);
+                            font.color(Theme.accent);
                             $.select("svg", () -> {
-                                stroke.color(JavadngStyleDSL.Theme.accent);
+                                stroke.color(Theme.accent);
                                 transform.translateX(10, px);
                             });
                         });
 
                         $.hover(() -> {
                             $.select("svg", () -> {
-                                stroke.color(JavadngStyleDSL.Theme.accent);
+                                stroke.color(Theme.accent);
                                 transform.translateX(10, px);
                             });
                         });
@@ -333,14 +326,14 @@ public abstract class Page<T> extends HTML {
                     .subtract(gap.multiply(2)));
             flexItem.grow(1);
             margin.horizontal(gap);
-            font.size(14.8, px).letterSpacing(-0.025, rem);
+            font.letterSpacing(-0.025, rem);
             position.relative();
 
             $.after(() -> {
                 content.text("");
                 position.absolute().top(JavadngStyleDSL.BlockVerticalGap).left(0, px);
                 display.width(100, percent).height(100, percent).zIndex(5).opacity(0).block();
-                background.color(JavadngStyleDSL.Theme.surface);
+                background.color(Theme.surface);
                 pointerEvents.none();
 
                 $.transit().ease().duration(0.15, s).when().with(".fadeout", () -> {

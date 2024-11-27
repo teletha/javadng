@@ -39,8 +39,8 @@ public class Design extends AbstractDesignScheme {
         mono = fontFromGoogle("Inter");
         icon = fontFromGoogle("Material Icons");
 
-        font = Numeric.of(14, px);
-        line = Numeric.of(1.5);
+        font = Numeric.of(16, px);
+        line = Numeric.of(1.7);
         radius = Numeric.of(4, px);
     }
 
@@ -50,7 +50,7 @@ public class Design extends AbstractDesignScheme {
         secondary = $.hsl(48, 95, 60);
         accent = $.hsl(0, 65, 65);
 
-        front = $.hsl(0, 0, 90);
+        front = $.hsl(240, 13, 87);
         link = $.hsl(0, 65, 65);
 
         back = $.hsl(0, 0, 20);
