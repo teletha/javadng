@@ -24,11 +24,11 @@ public interface JavadngStyleDSL extends StyleDSL {
 
     MediaQuery Small = MediaQuery.screen().maxWidth(900, px);
 
-    Numeric MaxWidth = Numeric.of(1300, px);
+    Numeric MaxWidth = Numeric.of(1360, px);
 
-    Numeric MaxNaviWidth = Numeric.of(220, px);
+    Numeric MaxNaviWidth = Numeric.of(280, px);
 
-    Numeric MaxSubNaviWidth = Numeric.of(220, px);
+    Numeric MaxSubNaviWidth = Numeric.of(280, px);
 
     Numeric SmallGap = Numeric.of(1, px);
 

@@ -220,9 +220,8 @@ public class Styles implements JavadngStyleDSL {
     public static Style JavadocComment = () -> {
         $.select("h2", () -> {
             font.size(1.75, rem).color(JavadngStyleDSL.Theme.front);
-            padding.size(0.7, rem).left(0, rem);
-            margin.top(0.7, rem).bottom(0.4, rem);
-            border.bottom.solid().width(1, px).color(JavadngStyleDSL.Theme.front.opacify(-0.92));
+            padding.size(0.5, rem).left(0, rem);
+            margin.bottom(-0.6, rem);
 
             $.firstLetter(() -> {
                 font.color(JavadngStyleDSL.Theme.accent);
@@ -231,9 +230,7 @@ public class Styles implements JavadngStyleDSL {
 
         $.select("h3", () -> {
             font.size(1.4, rem).color(JavadngStyleDSL.Theme.front);
-            padding.bottom(0.5, rem);
-            margin.top(5.5, rem).bottom(0.5, rem);
-            border.bottom.solid().width(1, px).color(JavadngStyleDSL.Theme.front.opacify(-0.92));
+            margin.bottom(-0.6, rem);
 
             $.firstLetter(() -> {
                 font.color(JavadngStyleDSL.Theme.secondary);
