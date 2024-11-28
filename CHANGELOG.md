@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.3.0](https://github.com/teletha/javadng/compare/v2.2.1...v2.3.0) (2024-11-28)
+
+
+### Features
+
+* improve FCP and LCP ([f7c4360](https://github.com/teletha/javadng/commit/f7c4360396374631d36a45fd7161da87153eca25))
+
+
+### Bug Fixes
+
+* readable document style ([0009c2c](https://github.com/teletha/javadng/commit/0009c2c7c4c9b632c350c90a1c00743e56533cae))
+* update icymanipulator ([3e32e70](https://github.com/teletha/javadng/commit/3e32e7014692b5921643e03b9413f9df8ebec27d))
+
 ## [2.2.1](https://github.com/teletha/javadng/compare/v2.2.0...v2.2.1) (2024-11-11)
 
 
