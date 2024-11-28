@@ -7,8 +7,7 @@ const root = {
 		"javadng.page",
 		"javadng.parser",
 		"javadng.repository",
-		"javadng.web",
-		"javadng.writer"
+		"javadng.web"
 	],
 	"types": [
 		{
@@ -70,13 +69,6 @@ const root = {
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "Document",
-			"packageName": "javadng.writer",
-			"type": "AbstractClass"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "DocumentInfo",
 			"packageName": "javadng.parser",
 			"type": "Class"
@@ -107,13 +99,6 @@ const root = {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "FieldInfo",
 			"packageName": "javadng.parser",
-			"type": "Class"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "Fragment",
-			"packageName": "javadng.writer",
 			"type": "Class"
 		},
 		{
@@ -290,13 +275,6 @@ const root = {
 			"name": "Util",
 			"packageName": "javadng.parser",
 			"type": "Class"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "Writable",
-			"packageName": "javadng.writer",
-			"type": "AbstractClass"
 		}
 	]
 }
