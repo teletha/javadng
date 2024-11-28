@@ -14,8 +14,10 @@ import javadng.design.JavadngStyleDSL;
 import javadng.parser.ClassInfo;
 import kiss.I;
 import stylist.Style;
+import stylist.Stylist;
 import stylist.property.Background.BackgroundImage;
 import stylist.value.Color;
+import stylist.value.Font;
 import stylist.value.Numeric;
 
 public abstract class Page<T> extends HTML {
@@ -42,14 +44,22 @@ public abstract class Page<T> extends HTML {
      */
     @Override
     protected void declare() {
+        Stylist.compact();
         $("html", attr("lang", "en"), () -> {
             $("head", () -> {
                 $("meta", attr("charset", "UTF-8"));
                 $("meta", attr("name", "viewport"), attr("content", "width=device-width, initial-scale=1"));
                 $("meta", attr("name", "description"), attr("content", "Explains how to use " + model.product() + " and its API. " + model
                         .description()));
-                $("link", attr("rel", "preconnect"), attr("href", "https://fonts.googleapis.com"));
                 $("link", attr("rel", "preconnect"), attr("href", "https://cdn.jsdelivr.net"));
+                $("link", attr("rel", "preconnect"), attr("href", "https://fonts.googleapis.com"));
+                $("link", attr("rel", "preconnect"), attr("href", "https://fonts.gstatic.com"), attr("crossorigin"));
+                for (Font font : Font.fromGoogle()) {
+                    $("link", attr("rel", "preload"), attr("as", "style"), attr("fetchpriority", "high"), attr("href", font.uri));
+                    $("link", attr("rel", "stylesheet"), attr("href", font.uri), attr("media", "print"), attr("onload", "this.media='all'"));
+                }
+                $("link", attr("rel", "preload"), attr("as", "style"), attr("fetchpriority", "high"), attr("href", Stylist.NormalizeCSS));
+                $("link", attr("rel", "stylesheet"), attr("href", Stylist.NormalizeCSS));
                 $("title", text(model.product() + " API"));
                 $("base", attr("href", base));
                 module("mimic.js");

@@ -801,7 +801,6 @@ public abstract class JavadocModel {
                 // build CSS
                 I.load(SiteBuilder.class);
                 Stylist.pretty()
-                        .importNormalizeStyle()
                         .scheme(Design.class)
                         .styles(I.findAs(StyleDeclarable.class))
                         .formatTo(output().file("main.css").asJavaPath());
