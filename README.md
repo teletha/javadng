@@ -103,7 +103,7 @@ Javadng depends on the following products on runtime.
 * [lycoris-1.0.1](https://mvnrepository.com/artifact/com.github.teletha/lycoris/1.0.1)
 * [psychopath-2.0.2](https://mvnrepository.com/artifact/com.github.teletha/psychopath/2.0.2)
 * [sinobu-4.5.2](https://mvnrepository.com/artifact/com.github.teletha/sinobu/4.5.2)
-* [stylist-1.11.0](https://mvnrepository.com/artifact/com.github.teletha/stylist/1.11.0)
+* [stylist-1.12.0](https://mvnrepository.com/artifact/com.github.teletha/stylist/1.12.0)
 <p align="right"><a href="#top">back to top</a></p>
 
 
