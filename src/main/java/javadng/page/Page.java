@@ -43,26 +43,22 @@ public abstract class Page<T> extends HTML {
      * {@inheritDoc}
      */
     @Override
-    protected void declare() {
-        Stylist.compact();
+    public void declare() {
         $("html", attr("lang", "en"), () -> {
             $("head", () -> {
-                $("meta", attr("charset", "UTF-8"));
-                $("meta", attr("name", "viewport"), attr("content", "width=device-width, initial-scale=1"));
-                $("meta", attr("name", "description"), attr("content", "Explains how to use " + model.product() + " and its API. " + model
-                        .description()));
-                $("link", attr("rel", "preconnect"), attr("href", "https://cdn.jsdelivr.net"));
-                $("link", attr("rel", "preconnect"), attr("href", "https://fonts.googleapis.com"));
-                $("link", attr("rel", "preconnect"), attr("href", "https://fonts.gstatic.com"), attr("crossorigin"));
+                $("meta", charset("UTF-8"));
+                $("meta", name("viewport"), content("width=device-width, initial-scale=1"));
+                $("meta", name("description"), content("Explains how to use " + model.product() + " and its API. " + model.description()));
+                $("link", rel("preconnect"), href("https://cdn.jsdelivr.net"));
+                $("link", rel("preconnect"), href("https://fonts.googleapis.com"));
+                $("link", rel("preconnect"), href("https://fonts.gstatic.com"), attr("crossorigin"));
                 for (Font font : Font.fromGoogle()) {
-                    $("link", attr("rel", "preload"), attr("as", "style"), attr("fetchpriority", "high"), attr("href", font.uri));
-                    $("link", attr("rel", "stylesheet"), attr("href", font.uri), attr("media", "print"), attr("onload", "this.media='all'"));
+                    stylesheetAsync(font.uri);
                 }
-                $("link", attr("rel", "preload"), attr("as", "style"), attr("fetchpriority", "high"), attr("href", Stylist.NormalizeCSS));
-                $("link", attr("rel", "stylesheet"), attr("href", Stylist.NormalizeCSS));
                 $("title", text(model.product() + " API"));
-                $("base", attr("href", base));
+                $("base", href(base));
                 module("mimic.js");
+                stylesheet(Stylist.NormalizeCSS);
                 stylesheet("main.css");
             });
             $("body", S.Body, () -> {
@@ -75,20 +71,19 @@ public abstract class Page<T> extends HTML {
                     $("h1", S.HeaderTitle, attr("date", published), attr("ver", model.version()), code(model.product()));
                     $("nav", S.HeaderNav, () -> {
                         for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
-                            $("a", attr("href", "doc/" + info.children().get(0).id() + ".html"), svg("text"), text("Document"));
+                            $("a", href("doc/" + info.children().get(0).id() + ".html"), svg("text"), text("Document"));
                         }
-                        $("a", attr("href", "api/"), svg("package"), code("API"));
-                        $("a", attr("href", model.repository()
-                                .locateCommunity()), attr("target", "_blank"), svg("user"), text("Community"));
-                        $("a", attr("href", "doc/changelog.html"), svg("activity"), text("Activity"));
-                        $("a", attr("href", model.repository().locate()), attr("target", "_blank"), svg("github"), text("Repository"));
+                        $("a", href("api/"), svg("package"), code("API"));
+                        $("a", href(model.repository().locateCommunity()), attr("target", "_blank"), svg("user"), text("Community"));
+                        $("a", href("doc/changelog.html"), svg("activity"), text("Activity"));
+                        $("a", href(model.repository().locate()), attr("target", "_blank"), svg("github"), text("Repository"));
                     });
-                    $("div", attr("id", "ViewMode"), S.ViewMode, () -> {
-                        $("a", attr("id", "light"), attr("title", "Change to a brighter color scheme"), () -> {
+                    $("div", id("ViewMode"), S.ViewMode, () -> {
+                        $("a", id("light"), title("Change to a brighter color scheme"), () -> {
                             $(svg("sun"));
                         });
 
-                        $("a", attr("id", "dark"), attr("title", "Change to a darker color scheme"), () -> {
+                        $("a", id("dark"), title("Change to a darker color scheme"), () -> {
                             $(svg("moon"));
                         });
                     });
@@ -105,7 +100,7 @@ public abstract class Page<T> extends HTML {
                     // =============================
                     // Main Contents
                     // =============================
-                    $("article", attr("id", "Article"), S.Contents, () -> {
+                    $("article", id("Article"), S.Contents, () -> {
                         if (contents != null) {
                             declareContents();
                         }
@@ -114,7 +109,7 @@ public abstract class Page<T> extends HTML {
                     // =============================
                     // Right Side Navigation
                     // =============================
-                    $("aside", attr("id", "SubNavi"), S.SubNavigation, () -> {
+                    $("aside", id("SubNavi"), S.SubNavigation, () -> {
                         $("div", S.SubNavigationStickyBlock, () -> {
                             if (contents != null) {
                                 declareSubNavigation();

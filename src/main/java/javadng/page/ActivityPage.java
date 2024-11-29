@@ -27,7 +27,7 @@ public class ActivityPage extends DocumentPage {
     protected void declareSubNavigation() {
         $("ul", foŕ(contents.children(), section -> {
             $("li", () -> {
-                $("a", attr("href", "doc/changelog.html#" + section.id()), text(section.title()));
+                $("a", href("doc/changelog.html#" + section.id()), text(section.title()));
             });
         }));
     }

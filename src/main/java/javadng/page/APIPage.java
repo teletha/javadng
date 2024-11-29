@@ -43,7 +43,7 @@ public class APIPage extends Page<ClassInfo> {
     protected void declareContents() {
         $("section", Styles.Section, () -> {
             $("code", S.PackcageName, text(contents.packageName));
-            $("h2", attr("class", contents.type), S.TypeName, () -> {
+            $("h2", clazz(contents.type), S.TypeName, () -> {
                 $("code", S.Name, text(contents.name));
                 $(contents.createTypeVariableNames());
             });
@@ -110,7 +110,7 @@ public class APIPage extends Page<ClassInfo> {
      * @param member
      */
     private void writeMember(FieldInfo member) {
-        $("section", attr("id", member.id()), Styles.Section, () -> {
+        $("section", id(member.id()), Styles.Section, () -> {
             $("h2", S.MemberName, () -> {
                 XML type = member.createType();
 
@@ -124,7 +124,7 @@ public class APIPage extends Page<ClassInfo> {
             List<SampleInfo> list = model.samples.get(contents.id() + "#" + member.id());
             if (list != null) {
                 for (SampleInfo sample : list) {
-                    $("pre", attr("class", "lang-java"), () -> {
+                    $("pre", clazz("lang-java"), () -> {
                         $("code", text(sample.code));
                     });
                 }
@@ -138,7 +138,7 @@ public class APIPage extends Page<ClassInfo> {
      * @param member
      */
     private void writeMember(ExecutableInfo member) {
-        $("section", attr("id", member.id()), Styles.Section, () -> {
+        $("section", id(member.id()), Styles.Section, () -> {
             $("h2", S.MemberName, () -> {
                 XML type = member.createReturnType();
 
@@ -189,7 +189,7 @@ public class APIPage extends Page<ClassInfo> {
             List<SampleInfo> list = model.samples.get(contents.id() + "#" + member.id());
             if (list != null) {
                 for (SampleInfo sample : list) {
-                    $("pre", attr("class", "lang-java"), () -> {
+                    $("pre", clazz("lang-java"), () -> {
                         $("code", text(sample.code));
                     });
                 }

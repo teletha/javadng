@@ -43,12 +43,12 @@ public class DocumentPage extends Page<DocumentProvider> {
 
             for (DocumentProvider child : contents.children(Modifier.PUBLIC)) {
                 if (child.hasDocument()) {
-                    $("section", attr("id", child.id()), Styles.Section, Styles.JavadocComment, () -> {
+                    $("section", id(child.id()), Styles.Section, Styles.JavadocComment, () -> {
                         write(child, S.SectionLevel1, true);
 
                         for (DocumentProvider foot : child.children(Modifier.PUBLIC)) {
                             if (foot.hasDocument()) {
-                                $("section", attr("id", foot.id()), Styles.JavadocComment, S.foot, () -> {
+                                $("section", id(foot.id()), Styles.JavadocComment, S.foot, () -> {
                                     write(foot, S.SectionLevel2, false);
                                 });
                             }
@@ -70,17 +70,17 @@ public class DocumentPage extends Page<DocumentProvider> {
             $(xml(heading.size() != 0 ? heading : I.xml("h" + provider.nestLevel()).text(provider.title())));
             if (useIcons) {
                 $("div", S.meta, () -> {
-                    $("span", attr("class", "perp"), S.icon, () -> {
+                    $("span", clazz("perp"), S.icon, () -> {
                         $(svg("copy"));
                     });
 
-                    $("a", attr("class", "tweet"), S.icon, () -> {
+                    $("a", clazz("tweet"), S.icon, () -> {
                         $(svg("twitter"));
                     });
 
                     String editor = model.repository().locateEditor(provider.filePath(), provider.documentLine());
                     if (editor != null) {
-                        $("a", attr("href", editor), attr("class", "edit"), S.icon, () -> {
+                        $("a", href(editor), clazz("edit"), S.icon, () -> {
                             $(svg("edit"));
                         });
                     }
