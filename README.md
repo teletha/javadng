@@ -100,7 +100,7 @@ Javadng depends on the following products on runtime.
 * [commonmark-0.24.0](https://mvnrepository.com/artifact/org.commonmark/commonmark/0.24.0)
 * [commonmark-ext-gfm-tables-0.24.0](https://mvnrepository.com/artifact/org.commonmark/commonmark-ext-gfm-tables/0.24.0)
 * [javaparser-core-3.26.2](https://mvnrepository.com/artifact/com.github.javaparser/javaparser-core/3.26.2)
-* [lycoris-1.0.1](https://mvnrepository.com/artifact/com.github.teletha/lycoris/1.0.1)
+* [lycoris-1.1.0](https://mvnrepository.com/artifact/com.github.teletha/lycoris/1.1.0)
 * [psychopath-2.0.2](https://mvnrepository.com/artifact/com.github.teletha/psychopath/2.0.2)
 * [sinobu-4.5.2](https://mvnrepository.com/artifact/com.github.teletha/sinobu/4.5.2)
 * [stylist-1.12.0](https://mvnrepository.com/artifact/com.github.teletha/stylist/1.12.0)
