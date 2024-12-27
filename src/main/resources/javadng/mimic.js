@@ -91,8 +91,8 @@ const
 			if (typeof arg[0] == "function") {
 				let component = this.closest(".mimic").nodes[0]
 				if (component) {
-					let info = component.mimic || (component.mimic = {})
-					let renders = info.renders || (info.renders = [])
+					let info = component.mimic ??= {}
+					let renders = info.renders ??= []
 					renders.push(arg[0])
 				}
 				arg[0] = arg[0]()
