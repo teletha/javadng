@@ -211,7 +211,7 @@ function activatable(element, type) {
 	if (element.closest) {
 		let component = element.closest(".mimic")
 		if (component) {
-			let info = component.mimic || (component.mimic = {})
+			let info = component.mimic ??= {}
 			let count = ++info[type] || (info[type] = 1)
 			if (count === 1) component.addEventListener(type, e => {
 				console.log("need redraw ", component, e, info)
