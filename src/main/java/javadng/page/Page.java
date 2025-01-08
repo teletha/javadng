@@ -138,12 +138,6 @@ public abstract class Page<T> extends HTML {
 
         Numeric NavigationWidth = Numeric.of(17, vw);
 
-        Style Body = () -> {
-            background.color(Theme.back).image(Theme.backImage).repeat();
-            font.size(Theme.font).family(Theme.base).color(Theme.front.lighten(Theme.back, 5)).lineHeight(Theme.line);
-            margin.horizontal(35, px).bottom(14, px);
-        };
-
         Style HeaderArea = () -> {
             background.color(Color.Inherit).image(BackgroundImage.inherit()).repeat();
             position.sticky().top(0, rem);
@@ -217,7 +211,7 @@ public abstract class Page<T> extends HTML {
                 display.width(20, px).height(20, px);
             });
 
-            $.media(JavadngStyleDSL.Small, () -> {
+            $.when(JavadngStyleDSL.Small, () -> {
                 display.none();
             });
         };
@@ -230,7 +224,7 @@ public abstract class Page<T> extends HTML {
             display.maxWidth(JavadngStyleDSL.MaxWidth).flex().direction.row();
             margin.auto();
 
-            $.media(JavadngStyleDSL.Small, () -> {
+            $.when(JavadngStyleDSL.Small, () -> {
                 display.flex().wrap.enable();
             });
         };
@@ -243,7 +237,7 @@ public abstract class Page<T> extends HTML {
             padding.top(JavadngStyleDSL.BlockVerticalGap);
             margin.bottom(1.6, rem);
 
-            $.media(JavadngStyleDSL.Small, () -> {
+            $.when(JavadngStyleDSL.Small, () -> {
                 flexItem.order(2);
             });
 
@@ -351,7 +345,7 @@ public abstract class Page<T> extends HTML {
             display.width(JavadngStyleDSL.MaxSubNaviWidth);
             font.size(0.85, rem);
 
-            $.media(JavadngStyleDSL.Small, () -> {
+            $.when(JavadngStyleDSL.Small, () -> {
                 display.none();
             });
         };
@@ -371,6 +365,16 @@ public abstract class Page<T> extends HTML {
             $.child().child(() -> {
                 padding.vertical(0.25, em);
             });
+        };
+
+        Style Body = () -> {
+            background.color(Theme.back).image(Theme.backImage).repeat();
+            font.size(Theme.font).family(Theme.base).color(Theme.front.lighten(Theme.back, 5)).lineHeight(Theme.line);
+            margin.horizontal(35, px).bottom(14, px);
+            display.grid().templateColumns.size(0.6, 1.6, 0.6, fr).templateRows.size(0.4, 1.6, fr)
+                    .gap(0, px)
+                    .templateAreas(HeaderArea, HeaderArea, HeaderArea)
+                    .templateAreas(Navigation, MainArea, SubNavigation);
         };
     }
 }

@@ -9,13 +9,43 @@
  */
 package apocrypha;
 
+import java.util.List;
+import java.util.Locale;
+
 import icy.manipulator.Icy;
 import icy.manipulator.Icy.Property;
+import kiss.Managed;
+import kiss.Singleton;
 
 @Icy
-public interface ApocryphaModel {
+@Managed(Singleton.class)
+public abstract class ApocryphaModel {
 
+    /**
+     * Configure the site name.
+     * 
+     * @return Your site name.
+     */
     @Property
-    String name();
+    public abstract String name();
 
+    /**
+     * Configure the supported {@link Locale}, the first item is used as default locale.
+     * 
+     * @return The list of supported locales.
+     */
+    @Property
+    public List<Locale> locale() {
+        return List.of(Locale.getDefault());
+    }
+
+    /**
+     * Get the base locale.
+     * 
+     * @return
+     */
+    public Locale baseLocale() {
+        List<Locale> locales = locale();
+        return locales.isEmpty() ? Locale.getDefault() : locales.get(0);
+    }
 }

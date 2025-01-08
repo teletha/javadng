@@ -10,7 +10,7 @@
 package javadng.design;
 
 import kiss.I;
-import stylist.MediaQuery;
+import stylist.Query;
 import stylist.StyleDSL;
 import stylist.value.Numeric;
 
@@ -22,7 +22,7 @@ public interface JavadngStyleDSL extends StyleDSL {
     /** The singleton. */
     Design Theme = I.make(Design.class);
 
-    MediaQuery Small = MediaQuery.screen().maxWidth(900, px);
+    Query Small = Query.screen().width(0, 900, px);
 
     Numeric MaxWidth = Numeric.of(1360, px);
 
