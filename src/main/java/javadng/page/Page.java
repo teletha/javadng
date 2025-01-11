@@ -89,38 +89,36 @@ public abstract class Page<T> extends HTML {
                     });
                 });
 
-                $("main", S.MainArea, () -> {
-                    // =============================
-                    // Left Side Navigation
-                    // =============================
-                    $("nav", S.Navigation, () -> {
-                        $("div");
-                    });
-
-                    // =============================
-                    // Main Contents
-                    // =============================
-                    $("article", id("Article"), S.Contents, () -> {
-                        if (contents != null) {
-                            declareContents();
-                        }
-                    });
-
-                    // =============================
-                    // Right Side Navigation
-                    // =============================
-                    $("aside", id("SubNavi"), S.SubNavigation, () -> {
-                        $("div", S.SubNavigationStickyBlock, () -> {
-                            if (contents != null) {
-                                declareSubNavigation();
-                            }
-                        });
-                    });
+                // =============================
+                // Left Side Navigation
+                // =============================
+                $("nav", S.Navigation, () -> {
+                    $("div");
                 });
 
-                script("root.js", model.data);
-                module("main.js");
+                // =============================
+                // Main Contents
+                // =============================
+                $("article", id("Article"), S.Contents, () -> {
+                    if (contents != null) {
+                        declareContents();
+                    }
+                });
+
+                // =============================
+                // Right Side Navigation
+                // =============================
+                $("aside", id("SubNavi"), S.SubNavigation, () -> {
+                    $("div", S.SubNavigationStickyBlock, () -> {
+                        if (contents != null) {
+                            declareSubNavigation();
+                        }
+                    });
+                });
             });
+
+            script("root.js", model.data);
+            module("main.js");
         });
 
     }
@@ -137,97 +135,6 @@ public abstract class Page<T> extends HTML {
         Numeric HeaderMinWidth = Numeric.of(300, px);
 
         Numeric NavigationWidth = Numeric.of(17, vw);
-
-        Style HeaderArea = () -> {
-            background.color(Color.Inherit).image(BackgroundImage.inherit()).repeat();
-            position.sticky().top(0, rem);
-            display.minWidth(HeaderMinWidth)
-                    .maxWidth(JavadngStyleDSL.MaxWidth)
-                    .minHeight(JavadngStyleDSL.HeaderHeight)
-                    .zIndex(10)
-                    .flex().alignItems.center().wrap.enable();
-            margin.auto().bottom(JavadngStyleDSL.HeaderBottomMargin);
-            padding.top(22, px);
-            border.bottom.color(Theme.primary).width(1, px).solid();
-        };
-
-        Style HeaderTitle = () -> {
-            font.size(2.5, rem).family(Theme.title).weight.normal().color(Theme.primary);
-            margin.right(3.5, rem);
-            display.flex().wrap.disable();
-
-            $.after(() -> {
-                content.attr("date").text("\\000AVersion\\00A0").attr("ver");
-                font.size(0.8, rem).lineHeight(1.3).color(Theme.front).family(Theme.base).letterSpacing(-0.5, px);
-                display.inlineBlock();
-                padding.left(1.1, rem).bottom(1, rem);
-                text.whiteSpace.pre();
-                flexItem.alignSelf.end();
-            });
-        };
-
-        Style HeaderNav = () -> {
-            display.minWidth(HeaderMinWidth);
-
-            $.child(() -> {
-                font.size(12, px).color(Theme.front);
-                display.width(90, px).inlineFlex().alignItems.center().direction.column();
-                padding.horizontal(1.8, rem).vertical(0.5, rem);
-                margin.top(-4, px);
-                text.decoration.none().whiteSpace.nowrap();
-                transition.duration(0.2, s).whenever();
-
-                $.select("svg", () -> {
-                    Numeric size = Numeric.of(26, px);
-
-                    display.width(size).height(size);
-                    stroke.color(Theme.front.lighten(Theme.back, -15)).width(1.2, px);
-                    transition.duration(0.2, s).whenever();
-                });
-
-                $.hover(() -> {
-                    text.decoration.none();
-                    font.color(Theme.link);
-
-                    $.select("svg", () -> {
-                        stroke.color(Theme.link).width(2, px);
-                        transform.translateY(-4, px);
-                    });
-                });
-            });
-        };
-
-        Style ViewMode = () -> {
-            display.flex().justifyContent.end();
-            flexItem.alignSelf.end().grow(2);
-            margin.bottom(10, px).right(2, rem);
-
-            $.select("a", () -> {
-                display.width(20, px).height(20, px);
-                margin.left(1, em);
-            });
-
-            $.select("svg", () -> {
-                display.width(20, px).height(20, px);
-            });
-
-            $.when(JavadngStyleDSL.Small, () -> {
-                display.none();
-            });
-        };
-
-        Style Root = Style.named("html.light #light svg, html.dark #dark svg", () -> {
-            fill.color(Color.hsl(55, 100, 75));
-        });
-
-        Style MainArea = () -> {
-            display.maxWidth(JavadngStyleDSL.MaxWidth).flex().direction.row();
-            margin.auto();
-
-            $.when(JavadngStyleDSL.Small, () -> {
-                display.flex().wrap.enable();
-            });
-        };
 
         Style Navigation = () -> {
             font.size(0.97, rem);
@@ -318,6 +225,78 @@ public abstract class Page<T> extends HTML {
             });
         };
 
+        Style ViewMode = () -> {
+
+            $.select("a", () -> {
+                display.width(20, px).height(20, px);
+                margin.right(1, em);
+            });
+
+            $.select("svg", () -> {
+                display.width(20, px).height(20, px);
+            });
+
+            $.when(JavadngStyleDSL.Small, () -> {
+                display.none();
+            });
+        };
+
+        Style HeaderTitle = () -> {
+            font.size(2.5, rem).family(Theme.title).weight.normal().color(Theme.primary);
+
+            $.after(() -> {
+                content.attr("date").text("\\000AVersion\\00A0").attr("ver");
+                font.size(0.8, rem).lineHeight(1.3).color(Theme.front).family(Theme.base).letterSpacing(-0.5, px);
+                display.inlineBlock();
+                padding.left(1.1, rem).bottom(1, rem);
+                text.whiteSpace.pre();
+                flexItem.alignSelf.end();
+            });
+        };
+
+        Style HeaderNav = () -> {
+            margin.auto();
+
+            $.child(() -> {
+                font.size(12, px).color(Theme.front);
+                display.width(90, px).inlineFlex().alignItems.center().direction.column();
+                padding.horizontal(1.8, rem).vertical(0.5, rem);
+                margin.top(-4, px);
+                text.decoration.none().whiteSpace.nowrap();
+                transition.duration(0.2, s).whenever();
+
+                $.select("svg", () -> {
+                    Numeric size = Numeric.of(26, px);
+
+                    display.width(size).height(size);
+                    stroke.color(Theme.front.lighten(Theme.back, -15)).width(1.2, px);
+                    transition.duration(0.2, s).whenever();
+                });
+
+                $.hover(() -> {
+                    text.decoration.none();
+                    font.color(Theme.link);
+
+                    $.select("svg", () -> {
+                        stroke.color(Theme.link).width(2, px);
+                        transform.translateY(-4, px);
+                    });
+                });
+            });
+        };
+
+        Style HeaderArea = () -> {
+            background.color(Color.Inherit).image(BackgroundImage.inherit()).repeat();
+            position.sticky().top(0, rem);
+            display.zIndex(10).grid().templateColumns.size(0.25, 0.5, 0.25, fr).templateAreas(HeaderTitle, HeaderNav, ViewMode);
+            padding.top(22, px);
+            border.bottom.color(Theme.primary).width(1, px).solid();
+        };
+
+        Style Root = Style.named("html.light #light svg, html.dark #dark svg", () -> {
+            fill.color(Color.hsl(55, 100, 75));
+        });
+
         Style Contents = () -> {
             Numeric gap = Numeric.of(2, rem);
             display.maxWidth(JavadngStyleDSL.MaxWidth.subtract(JavadngStyleDSL.MaxNaviWidth)
@@ -371,10 +350,10 @@ public abstract class Page<T> extends HTML {
             background.color(Theme.back).image(Theme.backImage).repeat();
             font.size(Theme.font).family(Theme.base).color(Theme.front.lighten(Theme.back, 5)).lineHeight(Theme.line);
             margin.horizontal(35, px).bottom(14, px);
-            display.grid().templateColumns.size(0.6, 1.6, 0.6, fr).templateRows.size(0.4, 1.6, fr)
+            display.grid().templateColumns.size(0.8, 1.6, 0.4, fr).templateRows.size(80, px, 1, fr)
                     .gap(0, px)
                     .templateAreas(HeaderArea, HeaderArea, HeaderArea)
-                    .templateAreas(Navigation, MainArea, SubNavigation);
+                    .templateAreas(Navigation, Contents, SubNavigation);
         };
     }
 }

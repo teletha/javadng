@@ -322,7 +322,7 @@ class APITree extends $ {
 	}
 }
 
-$("main>nav")
+$("body>nav")
 	.append(new APITree(root))
 	.make("div").id("DocNavi").attr("hidden", true)
 	.make("div", root.docs, (doc, div) => {
