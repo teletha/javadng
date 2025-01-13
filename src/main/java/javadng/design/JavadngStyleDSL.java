@@ -26,7 +26,7 @@ public interface JavadngStyleDSL extends StyleDSL {
 
     Numeric MaxWidth = Numeric.of(1360, px);
 
-    Numeric MaxNaviWidth = Numeric.of(280, px);
+    Numeric NaviWidth = Numeric.minmax(200, px, 300, px);
 
     Numeric MaxSubNaviWidth = Numeric.of(280, px);
 

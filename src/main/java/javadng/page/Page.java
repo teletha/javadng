@@ -9,10 +9,13 @@
  */
 package javadng.page;
 
+import static stylist.value.Numeric.*;
+
 import javadng.HTML;
 import javadng.design.JavadngStyleDSL;
 import javadng.parser.ClassInfo;
 import kiss.I;
+import stylist.Query;
 import stylist.Style;
 import stylist.Stylist;
 import stylist.property.Background.BackgroundImage;
@@ -61,15 +64,15 @@ public abstract class Page<T> extends HTML {
                 stylesheet(Stylist.NormalizeCSS);
                 stylesheet("main.css");
             });
-            $("body", S.Body, () -> {
+            $("body", style.body, () -> {
                 // =============================
                 // Top Navigation
                 // =============================
                 String published = model.repository().getLatestPublishedDate();
 
-                $("header", S.HeaderArea, () -> {
-                    $("h1", S.HeaderTitle, attr("date", published), attr("ver", model.version()), code(model.product()));
-                    $("nav", S.HeaderNav, () -> {
+                $("header", style.header, () -> {
+                    $("h1", style.HeaderTitle, attr("date", published), attr("ver", model.version()), code(model.product()));
+                    $("nav", style.HeaderNav, () -> {
                         for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
                             $("a", href("doc/" + info.children().get(0).id() + ".html"), svg("text"), text("Document"));
                         }
@@ -78,7 +81,7 @@ public abstract class Page<T> extends HTML {
                         $("a", href("doc/changelog.html"), svg("activity"), text("Activity"));
                         $("a", href(model.repository().locate()), attr("target", "_blank"), svg("github"), text("Repository"));
                     });
-                    $("div", id("ViewMode"), S.ViewMode, () -> {
+                    $("div", id("ViewMode"), style.ViewMode, () -> {
                         $("a", id("light"), title("Change to a brighter color scheme"), () -> {
                             $(svg("sun"));
                         });
@@ -92,14 +95,14 @@ public abstract class Page<T> extends HTML {
                 // =============================
                 // Left Side Navigation
                 // =============================
-                $("nav", S.Navigation, () -> {
+                $("nav", style.nav, () -> {
                     $("div");
                 });
 
                 // =============================
                 // Main Contents
                 // =============================
-                $("article", id("Article"), S.Contents, () -> {
+                $("article", id("Article"), style.article, () -> {
                     if (contents != null) {
                         declareContents();
                     }
@@ -108,12 +111,15 @@ public abstract class Page<T> extends HTML {
                 // =============================
                 // Right Side Navigation
                 // =============================
-                $("aside", id("SubNavi"), S.SubNavigation, () -> {
-                    $("div", S.SubNavigationStickyBlock, () -> {
+                $("aside", id("SubNavi"), style.aside, () -> {
+                    $("div", style.SubNavigationStickyBlock, () -> {
                         if (contents != null) {
                             declareSubNavigation();
                         }
                     });
+                });
+
+                $("footer", style.footer, () -> {
                 });
             });
 
@@ -130,22 +136,25 @@ public abstract class Page<T> extends HTML {
     /**
      * Style definition.
      */
-    private interface S extends JavadngStyleDSL {
+    private interface style extends JavadngStyleDSL {
+
+        Query BASE = Query.all().width(0, 800, px);
+
+        Query MIDDLE = Query.all().width(800, 1200, px);
+
+        Query LARGE = Query.all().width(1200, px);
 
         Numeric HeaderMinWidth = Numeric.of(300, px);
 
         Numeric NavigationWidth = Numeric.of(17, vw);
 
-        Style Navigation = () -> {
+        Style nav = () -> {
             font.size(0.97, rem);
-            display.maxWidth(JavadngStyleDSL.MaxNaviWidth);
-            flexItem.basis(NavigationWidth).shrink(0).alignSelf.start();
-            position.sticky().top(JavadngStyleDSL.HeaderHeight.plus(15, px));
-            padding.top(JavadngStyleDSL.BlockVerticalGap);
+            position.sticky().top(JavadngStyleDSL.HeaderHeight.plus(20, px));
             margin.bottom(1.6, rem);
 
-            $.when(JavadngStyleDSL.Small, () -> {
-                flexItem.order(2);
+            $.when(BASE, () -> {
+                display.none();
             });
 
             $.select("#APINavi", () -> {
@@ -285,7 +294,7 @@ public abstract class Page<T> extends HTML {
             });
         };
 
-        Style HeaderArea = () -> {
+        Style header = () -> {
             background.color(Color.Inherit).image(BackgroundImage.inherit()).repeat();
             position.sticky().top(0, rem);
             display.zIndex(10).grid().templateColumns.size(0.25, 0.5, 0.25, fr).templateAreas(HeaderTitle, HeaderNav, ViewMode);
@@ -297,13 +306,7 @@ public abstract class Page<T> extends HTML {
             fill.color(Color.hsl(55, 100, 75));
         });
 
-        Style Contents = () -> {
-            Numeric gap = Numeric.of(2, rem);
-            display.maxWidth(JavadngStyleDSL.MaxWidth.subtract(JavadngStyleDSL.MaxNaviWidth)
-                    .subtract(JavadngStyleDSL.MaxSubNaviWidth)
-                    .subtract(gap.multiply(2)));
-            flexItem.grow(1);
-            margin.horizontal(gap);
+        Style article = () -> {
             font.letterSpacing(-0.025, rem);
             position.relative();
 
@@ -320,11 +323,11 @@ public abstract class Page<T> extends HTML {
             });
         };
 
-        Style SubNavigation = () -> {
+        Style aside = () -> {
             display.width(JavadngStyleDSL.MaxSubNaviWidth);
             font.size(0.85, rem);
 
-            $.when(JavadngStyleDSL.Small, () -> {
+            $.when(BASE, MIDDLE, () -> {
                 display.none();
             });
         };
@@ -346,14 +349,32 @@ public abstract class Page<T> extends HTML {
             });
         };
 
-        Style Body = () -> {
+        Style footer = () -> {
+        };
+
+        Style body = () -> {
             background.color(Theme.back).image(Theme.backImage).repeat();
             font.size(Theme.font).family(Theme.base).color(Theme.front.lighten(Theme.back, 5)).lineHeight(Theme.line);
             margin.horizontal(35, px).bottom(14, px);
-            display.grid().templateColumns.size(0.8, 1.6, 0.4, fr).templateRows.size(80, px, 1, fr)
-                    .gap(0, px)
-                    .templateAreas(HeaderArea, HeaderArea, HeaderArea)
-                    .templateAreas(Navigation, Contents, SubNavigation);
+
+            $.when(BASE, () -> {
+                display.grid().gap(20, px).templateAreas(header).templateAreas(nav).templateAreas(article).templateAreas(aside);
+            });
+
+            $.when(MIDDLE, () -> {
+                display.grid().templateColumns.size(auto(1, fr), auto(85, ch)).templateRows.size(80, px, 1, fr).alignItems.start()
+                        .gap(0.5, rem, 2, rem)
+                        .templateAreas(header, header)
+                        .templateAreas(nav, article);
+            });
+
+            $.when(LARGE, () -> {
+                display.grid().templateColumns.size(auto(1, fr), auto(85, ch), auto(1, fr)).templateRows.size(80, px, 1, fr).alignItems
+                        .start()
+                        .gap(0.5, rem, 2, rem)
+                        .templateAreas(header, header, header)
+                        .templateAreas(nav, article, aside);
+            });
         };
     }
 }
