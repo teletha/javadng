@@ -591,8 +591,8 @@ public class Styles implements JavadngStyleDSL {
     }
 
     public static final Style Select = Style.named("o-select", () -> {
-        Numeric gap = Numeric.of(18, px);
-        Numeric iconSize = Numeric.of(18, px);
+        Numeric gap = Numeric.num(18, px);
+        Numeric iconSize = Numeric.num(18, px);
 
         display.block().height(32, px);
         font.lineHeight(30, px).color(JavadngStyleDSL.Theme.front);
@@ -609,7 +609,7 @@ public class Styles implements JavadngStyleDSL {
         });
 
         $.select("now", () -> {
-            display.block().width(Numeric.of(100, percent).subtract(iconSize.multiply(2.5)));
+            display.block().width(Numeric.num(100, percent).subtract(iconSize.multiply(2.5)));
             padding.horizontal(gap);
             font.color(JavadngStyleDSL.Theme.front.lighten(JavadngStyleDSL.Theme.surface, 25));
             overflow.hidden();
@@ -625,7 +625,7 @@ public class Styles implements JavadngStyleDSL {
             stroke.width(2, px);
             transform.rotate(90, deg);
             transition.duration(0.2, s).easeInOut().whenever();
-            position.absolute().top(Numeric.of(50, percent).subtract(iconSize.divide(2)));
+            position.absolute().top(Numeric.num(50, percent).subtract(iconSize.divide(2)));
 
             $.with(".chevron", () -> {
                 position.right(iconSize.divide(2));
@@ -652,7 +652,7 @@ public class Styles implements JavadngStyleDSL {
         });
 
         $.select("ol", () -> {
-            display.block().opacity(0).zIndex(10).width(Numeric.of(100, percent).plus(1.5, px));
+            display.block().opacity(0).zIndex(10).width(Numeric.num(100, percent).plus(1.5, px));
             background.color(JavadngStyleDSL.Theme.surface);
             border.radius(JavadngStyleDSL.Theme.radius).width(1, px).solid().color(JavadngStyleDSL.Theme.front.opacify(-0.6));
             margin.top(6, px);

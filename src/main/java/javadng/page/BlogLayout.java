@@ -41,10 +41,12 @@ public class BlogLayout extends Component {
         };
 
         Style container = () -> {
-            display.grid().templateColumns.size(0.6, 1.6, 0.6, fr).templateRows.size(0.4, 1.6, fr)
+            display.grid()
+                    .column(x -> x.size(0.6, 1.6, 0.6, fr))
+                    .row(x -> x.size(0.4, 1.6, fr))
                     .gap(0, px)
-                    .templateAreas(header, header, header)
-                    .templateAreas(navi, article, aside);
+                    .area(header, header, header)
+                    .area(navi, article, aside);
         };
     }
 }

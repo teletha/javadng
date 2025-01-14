@@ -24,24 +24,22 @@ public interface JavadngStyleDSL extends StyleDSL {
 
     Query Small = Query.screen().width(0, 900, px);
 
-    Numeric MaxWidth = Numeric.of(1360, px);
+    Numeric MaxWidth = Numeric.num(1360, px);
 
-    Numeric NaviWidth = Numeric.minmax(200, px, 300, px);
+    Numeric MaxSubNaviWidth = Numeric.num(280, px);
 
-    Numeric MaxSubNaviWidth = Numeric.of(280, px);
+    Numeric SmallGap = Numeric.num(1, px);
 
-    Numeric SmallGap = Numeric.of(1, px);
+    Numeric BlockVerticalGap = Numeric.num(0.5, rem);
 
-    Numeric BlockVerticalGap = Numeric.of(0.5, rem);
+    Numeric BlockBorderWidth = Numeric.num(3, px);
 
-    Numeric BlockBorderWidth = Numeric.of(3, px);
+    Numeric BlockHorizontalGap = Numeric.num(10, px);
 
-    Numeric BlockHorizontalGap = Numeric.of(10, px);
+    Numeric HeaderHeight = Numeric.num(80, px);
 
-    Numeric HeaderHeight = Numeric.of(80, px);
+    Numeric HeaderBottomMargin = Numeric.num(12, px);
 
-    Numeric HeaderBottomMargin = Numeric.of(12, px);
-
-    Numeric RightNavigationWidth = Numeric.of(20, vw);
+    Numeric RightNavigationWidth = Numeric.num(20, vw);
 
 }

@@ -243,7 +243,7 @@ public class APIPage extends Page<ClassInfo> {
 
         Color RETURN = JavadngStyleDSL.Theme.secondary.lighten(JavadngStyleDSL.Theme.back, -25);
 
-        Numeric signatureLabelWidth = Numeric.of(3, rem);
+        Numeric signatureLabelWidth = Numeric.num(3, rem);
 
         Style PackcageName = () -> {
             font.size(9, px).color("#999");
@@ -346,7 +346,7 @@ public class APIPage extends Page<ClassInfo> {
         };
 
         Style traits = () -> {
-            Numeric pad = Numeric.of(6, rem);
+            Numeric pad = Numeric.num(6, rem);
 
             listStyle.none();
             display.flex().wrap.enable();

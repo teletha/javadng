@@ -99,7 +99,7 @@ public class DocumentPage extends Page<DocumentProvider> {
 
     interface S extends JavadngStyleDSL {
 
-        Numeric IconSize = Numeric.of(16, px);
+        Numeric IconSize = Numeric.num(16, px);
 
         Style SectionLevel1 = () -> {
             position.relative();
@@ -110,7 +110,7 @@ public class DocumentPage extends Page<DocumentProvider> {
         };
 
         Style meta = () -> {
-            position.absolute().top(Numeric.of(50, percent).subtract(IconSize.divide(2)).subtract(3, px)).right(IconSize.divide(2));
+            position.absolute().top(Numeric.num(50, percent).subtract(IconSize.divide(2)).subtract(3, px)).right(IconSize.divide(2));
         };
 
         Style icon = () -> {

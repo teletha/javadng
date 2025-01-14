@@ -19,6 +19,7 @@ import stylist.Query;
 import stylist.Style;
 import stylist.Stylist;
 import stylist.property.Background.BackgroundImage;
+import stylist.property.helper.Items;
 import stylist.value.Color;
 import stylist.value.Font;
 import stylist.value.Numeric;
@@ -144,9 +145,9 @@ public abstract class Page<T> extends HTML {
 
         Query LARGE = Query.all().width(1200, px);
 
-        Numeric HeaderMinWidth = Numeric.of(300, px);
+        Numeric HeaderMinWidth = Numeric.num(300, px);
 
-        Numeric NavigationWidth = Numeric.of(17, vw);
+        Numeric NavigationWidth = Numeric.num(17, vw);
 
         Style nav = () -> {
             font.size(0.97, rem);
@@ -275,7 +276,7 @@ public abstract class Page<T> extends HTML {
                 transition.duration(0.2, s).whenever();
 
                 $.select("svg", () -> {
-                    Numeric size = Numeric.of(26, px);
+                    Numeric size = Numeric.num(26, px);
 
                     display.width(size).height(size);
                     stroke.color(Theme.front.lighten(Theme.back, -15)).width(1.2, px);
@@ -297,7 +298,7 @@ public abstract class Page<T> extends HTML {
         Style header = () -> {
             background.color(Color.Inherit).image(BackgroundImage.inherit()).repeat();
             position.sticky().top(0, rem);
-            display.zIndex(10).grid().templateColumns.size(0.25, 0.5, 0.25, fr).templateAreas(HeaderTitle, HeaderNav, ViewMode);
+            display.zIndex(10).grid().column(num(0.25, fr), num(0.5, fr), num(0.25, fr)).area(HeaderTitle, HeaderNav, ViewMode);
             padding.top(22, px);
             border.bottom.color(Theme.primary).width(1, px).solid();
         };
@@ -334,9 +335,7 @@ public abstract class Page<T> extends HTML {
 
         Style SubNavigationStickyBlock = () -> {
             position.sticky().top(JavadngStyleDSL.HeaderHeight.plus(15, px));
-            display.block()
-                    .height(Numeric.of(90, vh).subtract(JavadngStyleDSL.HeaderHeight))
-                    .maxWidth(JavadngStyleDSL.RightNavigationWidth);
+            display.block().height($.num(90, vh).subtract(JavadngStyleDSL.HeaderHeight)).maxWidth(JavadngStyleDSL.RightNavigationWidth);
             overflow.auto().scrollbar.thin();
             text.whiteSpace.nowrap();
 
@@ -358,22 +357,27 @@ public abstract class Page<T> extends HTML {
             margin.horizontal(35, px).bottom(14, px);
 
             $.when(BASE, () -> {
-                display.grid().gap(20, px).templateAreas(header).templateAreas(nav).templateAreas(article).templateAreas(aside);
+                display.grid().gap(20, px).area(header).area(nav).area(article).area(aside);
             });
 
             $.when(MIDDLE, () -> {
-                display.grid().templateColumns.size(auto(1, fr), auto(85, ch)).templateRows.size(80, px, 1, fr).alignItems.start()
+                display.grid()
+                        .align(Items.Start)
                         .gap(0.5, rem, 2, rem)
-                        .templateAreas(header, header)
-                        .templateAreas(nav, article);
+                        .column(x -> x.autoMax(1, fr).autoMax(85, ch))
+                        .row($.num(80, px), $.num(1, fr))
+                        .area(header, header)
+                        .area(nav, article);
             });
 
             $.when(LARGE, () -> {
-                display.grid().templateColumns.size(auto(1, fr), auto(85, ch), auto(1, fr)).templateRows.size(80, px, 1, fr).alignItems
-                        .start()
+                display.grid()
+                        .align(Items.Start)
                         .gap(0.5, rem, 2, rem)
-                        .templateAreas(header, header, header)
-                        .templateAreas(nav, article, aside);
+                        .column(x -> x.autoMax(1, fr).autoMax(85, ch).autoMax(1, fr))
+                        .row($.num(80, px), $.num(1, fr))
+                        .area(header, header, header)
+                        .area(nav, article, aside);
             });
         };
     }
