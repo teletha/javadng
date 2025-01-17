@@ -24,7 +24,7 @@ history.scrollRestoration = "manual"
 // View Mode
 // =====================================================
 $("html").add(user.theme)
-$("#light,#dark").on("click", e => save($("html").reset(user.theme = e.currentTarget.id)))
+$("#theme").on("click", e => save($("html").reset(user.theme = user.theme == "light" ? "dark" : "light")))
 
 // =====================================================
 // Dynamic Navigation Indicator

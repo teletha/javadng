@@ -60,7 +60,7 @@ public class Styles implements JavadngStyleDSL {
     });
 
     public static Style AnimatedSVG = SVG.with(() -> {
-        stroke.width(2.5, px).color(JavadngStyleDSL.Theme.front.opacify(-0.85));
+        stroke.width(2.5, px).color(JavadngStyleDSL.Theme.front);
 
         $.transit().duration(0.5, s).when().hover(() -> {
             stroke.color(JavadngStyleDSL.Theme.accent);

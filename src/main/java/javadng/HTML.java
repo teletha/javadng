@@ -21,7 +21,7 @@ public abstract class HTML extends lycoris.HTML {
 
     protected final Consumer<XML> svg(String type) {
         return parent -> {
-            $("svg", attr("viewBox", "0 0 24 24"), Styles.AnimatedSVG, () -> {
+            $("svg", attr("viewBox", "0 0 24 24"), attr("class", type), Styles.AnimatedSVG, () -> {
                 $("use", attr("href", "main.svg#" + type));
             });
         };

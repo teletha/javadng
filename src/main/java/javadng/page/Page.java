@@ -9,8 +9,6 @@
  */
 package javadng.page;
 
-import static stylist.value.Numeric.*;
-
 import javadng.HTML;
 import javadng.design.JavadngStyleDSL;
 import javadng.parser.ClassInfo;
@@ -71,9 +69,9 @@ public abstract class Page<T> extends HTML {
                 // =============================
                 String published = model.repository().getLatestPublishedDate();
 
-                $("header", style.header, () -> {
-                    $("h1", style.HeaderTitle, attr("date", published), attr("ver", model.version()), code(model.product()));
-                    $("nav", style.HeaderNav, () -> {
+                $("header", style.header, attr("date", published), attr("ver", model.version()), () -> {
+                    $("h1", style.title, code(model.product()));
+                    $("nav", style.links, () -> {
                         for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
                             $("a", href("doc/" + info.children().get(0).id() + ".html"), svg("text"), text("Document"));
                         }
@@ -82,12 +80,9 @@ public abstract class Page<T> extends HTML {
                         $("a", href("doc/changelog.html"), svg("activity"), text("Activity"));
                         $("a", href(model.repository().locate()), attr("target", "_blank"), svg("github"), text("Repository"));
                     });
-                    $("div", id("ViewMode"), style.ViewMode, () -> {
-                        $("a", id("light"), title("Change to a brighter color scheme"), () -> {
+                    $("div", style.controls, () -> {
+                        $("a", id("theme"), title("Change color scheme"), () -> {
                             $(svg("sun"));
-                        });
-
-                        $("a", id("dark"), title("Change to a darker color scheme"), () -> {
                             $(svg("moon"));
                         });
                     });
@@ -145,14 +140,13 @@ public abstract class Page<T> extends HTML {
 
         Query LARGE = Query.all().width(1200, px);
 
-        Numeric HeaderMinWidth = Numeric.num(300, px);
-
-        Numeric NavigationWidth = Numeric.num(17, vw);
+        Numeric TitleInlinePad = Numeric.num(30, px);
 
         Style nav = () -> {
             font.size(0.97, rem);
             position.sticky().top(JavadngStyleDSL.HeaderHeight.plus(20, px));
-            margin.bottom(1.6, rem);
+            margin.bottom(1.6, rem).auto();
+            padding.inline(TitleInlinePad);
 
             $.when(BASE, () -> {
                 display.none();
@@ -235,9 +229,9 @@ public abstract class Page<T> extends HTML {
             });
         };
 
-        Style ViewMode = () -> {
+        Style controls = () -> {
 
-            $.select("a", () -> {
+            $.select("#theme", () -> {
                 display.width(20, px).height(20, px);
                 margin.right(1, em);
             });
@@ -251,25 +245,21 @@ public abstract class Page<T> extends HTML {
             });
         };
 
-        Style HeaderTitle = () -> {
-            font.size(2.5, rem).family(Theme.title).weight.normal().color(Theme.primary);
+        Style theme = Style.named(".light .moon, .dark .sun", () -> {
+            display.none();
+        });
 
-            $.after(() -> {
-                content.attr("date").text("\\000AVersion\\00A0").attr("ver");
-                font.size(0.8, rem).lineHeight(1.3).color(Theme.front).family(Theme.base).letterSpacing(-0.5, px);
-                display.inlineBlock();
-                padding.left(1.1, rem).bottom(1, rem);
-                text.whiteSpace.pre();
-                flexItem.alignSelf.end();
-            });
+        Style title = () -> {
+            font.size(2.5, rem).family(Theme.title).weight.normal().color(Theme.primary);
+            padding.inline(TitleInlinePad);
         };
 
-        Style HeaderNav = () -> {
+        Style links = () -> {
             margin.auto();
 
             $.child(() -> {
                 font.size(12, px).color(Theme.front);
-                display.width(90, px).inlineFlex().alignItems.center().direction.column();
+                display.width(100, px).inlineFlex().alignItems.center().direction.column();
                 padding.horizontal(1.8, rem).vertical(0.5, rem);
                 margin.top(-4, px);
                 text.decoration.none().whiteSpace.nowrap();
@@ -298,14 +288,22 @@ public abstract class Page<T> extends HTML {
         Style header = () -> {
             background.color(Color.Inherit).image(BackgroundImage.inherit()).repeat();
             position.sticky().top(0, rem);
-            display.zIndex(10).grid().column(num(0.25, fr), num(0.5, fr), num(0.25, fr)).area(HeaderTitle, HeaderNav, ViewMode);
             padding.top(22, px);
             border.bottom.color(Theme.primary).width(1, px).solid();
-        };
+            display.zIndex(10)
+                    .grid()
+                    .align(Items.Center)
+                    .justify(Items.Center)
+                    .column(x -> x.autoMax(1, fr).autoMax(100, ch).autoMax(1, fr))
+                    .area(title, links, controls);
 
-        Style Root = Style.named("html.light #light svg, html.dark #dark svg", () -> {
-            fill.color(Color.hsl(55, 100, 75));
-        });
+            $.after(() -> {
+                position.absolute().top(5, px).right(1, rem);
+                content.text("Updated\\00A0").attr("date").text("　　Version\\00A0").attr("ver");
+                font.size(0.8, rem).color(Theme.front).family(Theme.base).letterSpacing(-0.5, px);
+                text.whiteSpace.pre();
+            });
+        };
 
         Style article = () -> {
             font.letterSpacing(-0.025, rem);
@@ -326,7 +324,7 @@ public abstract class Page<T> extends HTML {
 
         Style aside = () -> {
             display.width(JavadngStyleDSL.MaxSubNaviWidth);
-            font.size(0.85, rem);
+            font.size(0.100, rem);
 
             $.when(BASE, MIDDLE, () -> {
                 display.none();
@@ -335,7 +333,7 @@ public abstract class Page<T> extends HTML {
 
         Style SubNavigationStickyBlock = () -> {
             position.sticky().top(JavadngStyleDSL.HeaderHeight.plus(15, px));
-            display.block().height($.num(90, vh).subtract(JavadngStyleDSL.HeaderHeight)).maxWidth(JavadngStyleDSL.RightNavigationWidth);
+            display.block().height($.num(100, vh).subtract(JavadngStyleDSL.HeaderHeight)).maxWidth(JavadngStyleDSL.RightNavigationWidth);
             overflow.auto().scrollbar.thin();
             text.whiteSpace.nowrap();
 
@@ -364,7 +362,7 @@ public abstract class Page<T> extends HTML {
                 display.grid()
                         .align(Items.Start)
                         .gap(0.5, rem, 2, rem)
-                        .column(x -> x.autoMax(1, fr).autoMax(85, ch))
+                        .column(x -> x.autoMax(1, fr).autoMax(100, ch))
                         .row($.num(80, px), $.num(1, fr))
                         .area(header, header)
                         .area(nav, article);
@@ -374,7 +372,7 @@ public abstract class Page<T> extends HTML {
                 display.grid()
                         .align(Items.Start)
                         .gap(0.5, rem, 2, rem)
-                        .column(x -> x.autoMax(1, fr).autoMax(85, ch).autoMax(1, fr))
+                        .column(x -> x.autoMax(1, fr).autoMax(100, ch).autoMax(1, fr))
                         .row($.num(80, px), $.num(1, fr))
                         .area(header, header, header)
                         .area(nav, article, aside);
