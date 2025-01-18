@@ -294,7 +294,7 @@ public abstract class Page<T> extends HTML {
                     .grid()
                     .align(Items.Center)
                     .justify(Items.Center)
-                    .column(x -> x.minmax(23, vw, 1, fr).autoMax(100, ch).autoMax(1, fr))
+                    .column(x -> x.autoMax(1, fr).autoMax(100, ch).autoMax(1, fr))
                     .area(title, links, controls);
 
             $.after(() -> {
@@ -361,7 +361,7 @@ public abstract class Page<T> extends HTML {
             $.when(MIDDLE, () -> {
                 display.grid()
                         .align(Items.Start)
-                        .column(x -> x.minmax(23, vw, 1, fr).autoMax(100, ch))
+                        .column(x -> x.autoMax(1, fr).autoMax(100, ch))
                         .row($.num(80, px), $.num(1, fr))
                         .area(header, header)
                         .area(nav, article);
@@ -370,7 +370,7 @@ public abstract class Page<T> extends HTML {
             $.when(LARGE, () -> {
                 display.grid()
                         .align(Items.Start)
-                        .column(x -> x.minmax(23, vw, 1, fr).autoMax(100, ch).autoMax(1, fr))
+                        .column(x -> x.autoMax(1, fr).autoMax(100, ch).autoMax(1, fr))
                         .row($.num(80, px), $.num(1, fr))
                         .area(header, header, header)
                         .area(nav, article, aside);
