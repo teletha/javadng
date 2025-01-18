@@ -71,7 +71,7 @@ public abstract class Page<T> extends HTML {
 
                 $("header", style.header, attr("date", published), attr("ver", model.version()), () -> {
                     $("h1", style.title, code(model.product()));
-                    $("nav", style.links, () -> {
+                    $("nav", style.links, attr("onclick", "this.classList.toggle('on')"), () -> {
                         for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
                             $("a", href("doc/" + info.children().get(0).id() + ".html"), svg("text"), text("Document"));
                         }
@@ -145,7 +145,7 @@ public abstract class Page<T> extends HTML {
         Style nav = () -> {
             font.size(0.97, rem);
             position.sticky().top(JavadngStyleDSL.HeaderHeight.plus(20, px));
-            margin.bottom(1.6, rem).auto();
+            margin.bottom(1.6, rem);
             padding.inline(TitleInlinePad);
 
             $.when(BASE, () -> {
@@ -294,7 +294,7 @@ public abstract class Page<T> extends HTML {
                     .grid()
                     .align(Items.Center)
                     .justify(Items.Center)
-                    .column(x -> x.autoMax(1, fr).autoMax(100, ch).autoMax(1, fr))
+                    .column(x -> x.minmax(23, vw, 1, fr).autoMax(100, ch).autoMax(1, fr))
                     .area(title, links, controls);
 
             $.after(() -> {
@@ -355,14 +355,13 @@ public abstract class Page<T> extends HTML {
             margin.horizontal(35, px).bottom(14, px);
 
             $.when(BASE, () -> {
-                display.grid().gap(20, px).area(header).area(nav).area(article).area(aside);
+                display.grid().area(header).area(nav).area(article).area(aside);
             });
 
             $.when(MIDDLE, () -> {
                 display.grid()
                         .align(Items.Start)
-                        .gap(0.5, rem, 2, rem)
-                        .column(x -> x.autoMax(1, fr).autoMax(100, ch))
+                        .column(x -> x.minmax(23, vw, 1, fr).autoMax(100, ch))
                         .row($.num(80, px), $.num(1, fr))
                         .area(header, header)
                         .area(nav, article);
@@ -371,8 +370,7 @@ public abstract class Page<T> extends HTML {
             $.when(LARGE, () -> {
                 display.grid()
                         .align(Items.Start)
-                        .gap(0.5, rem, 2, rem)
-                        .column(x -> x.autoMax(1, fr).autoMax(100, ch).autoMax(1, fr))
+                        .column(x -> x.minmax(23, vw, 1, fr).autoMax(100, ch).autoMax(1, fr))
                         .row($.num(80, px), $.num(1, fr))
                         .area(header, header, header)
                         .area(nav, article, aside);
