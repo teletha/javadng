@@ -176,7 +176,7 @@ Mimic.prototype = {
 
 	html: value((e, text) => text ? e.innerHTML = text : e.innerHTML),
 	text: value((e, text) => text ? e.textContent = text : e.textContent),
-	attr: value((e, name, value) => value ? e.setAttribute(name, value) : e.getAttribute(name)),
+	attr: value((e, name, value) => value === undefined ? e.getAttribute(name) : value == null ? e.removeAttribute(name) : e.setAttribute(name, value)),
 	data: value((e, name, value) => value ? e.dataset[name] = value : e.dataset[name]),
 	css: self((e, style) => isString(style) ? e.style.cssText = style : Object.keys(style).forEach(name => e.style[name] = style[name])),
 	model: value((e, value) => value !== undefined ? e.model = value : e.model),

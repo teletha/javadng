@@ -71,14 +71,14 @@ public abstract class Page<T> extends HTML {
 
                 $("header", style.header, attr("date", published), attr("ver", model.version()), () -> {
                     $("h1", style.title, code(model.product()));
-                    $("nav", style.links, attr("onclick", "this.classList.toggle('on')"), () -> {
+                    $("nav", style.links, () -> {
                         for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
-                            $("a", href("doc/" + info.children().get(0).id() + ".html"), svg("text"), text("Document"));
+                            $("a", href("doc/" + info.children().get(0).id() + ".html"), svg("text"), id("Document"));
                         }
-                        $("a", href("api/"), svg("package"), code("API"));
-                        $("a", href(model.repository().locateCommunity()), attr("target", "_blank"), svg("user"), text("Community"));
-                        $("a", href("doc/changelog.html"), svg("activity"), text("Activity"));
-                        $("a", href(model.repository().locate()), attr("target", "_blank"), svg("github"), text("Repository"));
+                        $("a", href("api/"), svg("package"), id("API"));
+                        $("a", href(model.repository().locateCommunity()), attr("target", "_blank"), svg("user"), id("Community"));
+                        $("a", href("doc/changelog.html"), svg("activity"), id("Activity"));
+                        $("a", href(model.repository().locate()), attr("target", "_blank"), svg("github"), id("Repository"));
                     });
                     $("div", style.controls, () -> {
                         $("a", id("theme"), title("Change color scheme"), () -> {
@@ -91,7 +91,7 @@ public abstract class Page<T> extends HTML {
                 // =============================
                 // Left Side Navigation
                 // =============================
-                $("nav", style.nav, () -> {
+                $("nav", id("Navi"), style.nav, () -> {
                     $("div");
                 });
 
@@ -140,16 +140,19 @@ public abstract class Page<T> extends HTML {
 
         Query LARGE = Query.all().width(1200, px);
 
-        Numeric TitleInlinePad = Numeric.num(30, px);
-
         Style nav = () -> {
             font.size(0.97, rem);
             position.sticky().top(JavadngStyleDSL.HeaderHeight.plus(20, px));
             margin.bottom(1.6, rem);
-            padding.inline(TitleInlinePad);
 
             $.when(BASE, () -> {
-                display.none();
+                display.none().zIndex(20).maxInline(60, dvw);
+                padding.vertical(1, rem).horizontal(2, rem);
+                background.color(Theme.back.opacify(0.9)).image(Theme.backImage);
+
+                $.with(".on", () -> {
+                    display.block();
+                });
             });
 
             $.select("#APINavi", () -> {
@@ -251,24 +254,34 @@ public abstract class Page<T> extends HTML {
 
         Style title = () -> {
             font.size(2.5, rem).family(Theme.title).weight.normal().color(Theme.primary);
-            padding.inline(TitleInlinePad);
+
+            $.when(BASE, () -> {
+                padding.inlineStart(2, rem);
+            });
         };
 
         Style links = () -> {
-            margin.auto();
+            Numeric iconMargin = Numeric.num(4, px);
+            Numeric iconSize = Numeric.num(24, px);
+
+            display.width(60, percent).grid().flowColumn().gap(iconMargin).column(x -> x.repeatAutoFit(iconSize, 1, fr));
 
             $.child(() -> {
                 font.size(12, px).color(Theme.front);
-                display.width(100, px).inlineFlex().alignItems.center().direction.column();
-                padding.horizontal(1.8, rem).vertical(0.5, rem);
-                margin.top(-4, px);
+                display.inlineFlex().alignItems.center().direction.column();
                 text.decoration.none().whiteSpace.nowrap();
                 transition.duration(0.2, s).whenever();
 
-                $.select("svg", () -> {
-                    Numeric size = Numeric.num(26, px);
+                $.after(() -> {
+                    content.attr("id");
 
-                    display.width(size).height(size);
+                    $.when(BASE, () -> {
+                        font.size.smaller();
+                    });
+                });
+
+                $.select("svg", () -> {
+                    display.size(iconSize);
                     stroke.color(Theme.front.lighten(Theme.back, -15)).width(1.2, px);
                     transition.duration(0.2, s).whenever();
                 });
@@ -290,11 +303,12 @@ public abstract class Page<T> extends HTML {
             position.sticky().top(0, rem);
             padding.top(22, px);
             border.bottom.color(Theme.primary).width(1, px).solid();
-            display.zIndex(10)
+            display.width(100, percent)
+                    .zIndex(10)
                     .grid()
                     .align(Items.Center)
                     .justify(Items.Center)
-                    .column(x -> x.autoMax(1, fr).autoMax(100, ch).autoMax(1, fr))
+                    .column(x -> x.autoMax(1, fr).autoMax(91, ch).autoMax(1, fr))
                     .area(title, links, controls);
 
             $.after(() -> {
@@ -312,7 +326,7 @@ public abstract class Page<T> extends HTML {
             $.after(() -> {
                 content.text("");
                 position.absolute().top(JavadngStyleDSL.BlockVerticalGap).left(0, px);
-                display.width(100, percent).height(100, percent).zIndex(5).opacity(0).block();
+                display.width(91, percent).height(91, percent).zIndex(5).opacity(0).block();
                 background.color(Theme.surface);
                 pointerEvents.none();
 
@@ -324,7 +338,7 @@ public abstract class Page<T> extends HTML {
 
         Style aside = () -> {
             display.width(JavadngStyleDSL.MaxSubNaviWidth);
-            font.size(0.100, rem);
+            font.size(0.91, rem);
 
             $.when(BASE, MIDDLE, () -> {
                 display.none();
@@ -333,7 +347,7 @@ public abstract class Page<T> extends HTML {
 
         Style SubNavigationStickyBlock = () -> {
             position.sticky().top(JavadngStyleDSL.HeaderHeight.plus(15, px));
-            display.block().height($.num(100, vh).subtract(JavadngStyleDSL.HeaderHeight)).maxWidth(JavadngStyleDSL.RightNavigationWidth);
+            display.block().height($.num(91, vh).subtract(JavadngStyleDSL.HeaderHeight)).maxWidth(JavadngStyleDSL.RightNavigationWidth);
             overflow.auto().scrollbar.thin();
             text.whiteSpace.nowrap();
 
@@ -356,12 +370,15 @@ public abstract class Page<T> extends HTML {
 
             $.when(BASE, () -> {
                 display.grid().area(header).area(nav).area(article).area(aside);
+                margin.size(0, px);
             });
 
             $.when(MIDDLE, () -> {
                 display.grid()
+                        .gap(2, ch)
                         .align(Items.Start)
-                        .column(x -> x.autoMax(1, fr).autoMax(100, ch))
+                        .justify(Items.Center)
+                        .column(x -> x.minmax(30, ch, 1, fr).autoMax(91, ch))
                         .row($.num(80, px), $.num(1, fr))
                         .area(header, header)
                         .area(nav, article);
@@ -369,8 +386,10 @@ public abstract class Page<T> extends HTML {
 
             $.when(LARGE, () -> {
                 display.grid()
+                        .gap(2, ch)
                         .align(Items.Start)
-                        .column(x -> x.autoMax(1, fr).autoMax(100, ch).autoMax(1, fr))
+                        .justify(Items.Center)
+                        .column(x -> x.minmax(30, ch, 1, fr).autoMax(91, ch).autoMax(1, fr))
                         .row($.num(80, px), $.num(1, fr))
                         .area(header, header, header)
                         .area(nav, article, aside);

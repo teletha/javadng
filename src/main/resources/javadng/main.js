@@ -16,7 +16,8 @@ import hljs from "./highlight.js"
 const
 	prefix = import.meta.url.substring(location.protocol.length + location.host.length + 2, import.meta.url.length - 7),
 	user = JSON.parse(localStorage.getItem("user")) || {"theme": "light"},
-	save = () => localStorage.setItem("user", JSON.stringify(user))
+	save = () => localStorage.setItem("user", JSON.stringify(user)),
+	query = window.matchMedia('(width<800px)')
 hljs.configure({ignoreUnescapedHTML: true})
 history.scrollRestoration = "manual"
 	
@@ -24,7 +25,16 @@ history.scrollRestoration = "manual"
 // View Mode
 // =====================================================
 $("html").add(user.theme)
-$("#theme").on("click", e => save($("html").reset(user.theme = user.theme == "light" ? "dark" : "light")))
+$("#theme").click(e => save($("html").reset(user.theme = user.theme == "light" ? "dark" : "light")))
+
+// =====================================================
+// Media Query
+// =====================================================
+$("#Document").click(e => {
+	if (query.matches) {
+		$("#Navi").toggle("on")
+	}	
+})
 
 // =====================================================
 // Dynamic Navigation Indicator
