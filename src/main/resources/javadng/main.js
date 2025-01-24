@@ -30,7 +30,7 @@ $("#theme").click(e => save($("html").reset(user.theme = user.theme == "light" ?
 // =====================================================
 // Media Query
 // =====================================================
-$("#Document").click(e => {
+$(".navigable").click(e => {
 	if (query.matches) {
 		$("#Navi").toggle("on")
 	}	

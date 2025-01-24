@@ -94,6 +94,7 @@ public abstract class Page<T> extends HTML {
                 $("nav", id("Navi"), style.nav, () -> {
                     $("div");
                 });
+                $("div", id("NaviSwitch"));
 
                 // =============================
                 // Main Contents
@@ -146,12 +147,16 @@ public abstract class Page<T> extends HTML {
             margin.bottom(1.6, rem);
 
             $.when(BASE, () -> {
-                display.none().zIndex(20).maxInline(60, dvw);
+                display.zIndex(20).maxInline(60, dvw).block(100, dvh).opacity(0);
                 padding.vertical(1, rem).horizontal(2, rem);
                 background.color(Theme.back.opacify(0.9)).image(Theme.backImage);
+                position.fixed().top(JavadngStyleDSL.HeaderHeight.plus(20, px));
+                margin.left(-100, percent);
+                border.left.radius(10, px);
 
-                $.with(".on", () -> {
-                    display.block();
+                $.transit().ease().duration(0.3, s).delay(0.15, s).when().with(".on", () -> {
+                    margin.left(0, percent);
+                    display.opacity(1);
                 });
             });
 
