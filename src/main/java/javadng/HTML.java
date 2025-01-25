@@ -13,6 +13,7 @@ import java.util.function.Consumer;
 
 import javadng.design.Styles;
 import kiss.XML;
+import stylist.Style;
 
 /**
  * Domain Specific Language for HTML.
@@ -25,6 +26,10 @@ public abstract class HTML extends lycoris.HTML {
                 $("use", attr("href", "main.svg#" + type));
             });
         };
+    }
+
+    protected final Consumer<XML> togglable(Style style) {
+        return attr("onClick", "this.classList.toggle('" + style.className()[0] + "')");
     }
 
     /**

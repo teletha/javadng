@@ -63,15 +63,15 @@ public abstract class Page<T> extends HTML {
                 stylesheet(Stylist.NormalizeCSS);
                 stylesheet("main.css");
             });
-            $("body", style.body, () -> {
+            $("body", css.body, () -> {
                 // =============================
                 // Top Navigation
                 // =============================
                 String published = model.repository().getLatestPublishedDate();
 
-                $("header", style.header, attr("date", published), attr("ver", model.version()), () -> {
-                    $("h1", style.title, code(model.product()));
-                    $("nav", style.links, () -> {
+                $("header", css.header, attr("date", published), attr("ver", model.version()), () -> {
+                    $("h1", css.title, code(model.product()));
+                    $("nav", css.links, () -> {
                         for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
                             $("a", href("doc/" + info.children().get(0).id() + ".html"), svg("text"), id("Document"));
                         }
@@ -80,7 +80,7 @@ public abstract class Page<T> extends HTML {
                         $("a", href("doc/changelog.html"), svg("activity"), id("Activity"));
                         $("a", href(model.repository().locate()), attr("target", "_blank"), svg("github"), id("Repository"));
                     });
-                    $("div", style.controls, () -> {
+                    $("div", css.controls, () -> {
                         $("a", id("theme"), title("Change color scheme"), () -> {
                             $(svg("sun"));
                             $(svg("moon"));
@@ -91,15 +91,14 @@ public abstract class Page<T> extends HTML {
                 // =============================
                 // Left Side Navigation
                 // =============================
-                $("nav", id("Navi"), style.nav, () -> {
-                    $("div");
+                $("nav", css.nav, () -> {
+                    $("div", css.navBar, togglable(css.navActive));
                 });
-                $("div", id("NaviSwitch"));
 
                 // =============================
                 // Main Contents
                 // =============================
-                $("article", id("Article"), style.article, () -> {
+                $("article", id("Article"), css.article, () -> {
                     if (contents != null) {
                         declareContents();
                     }
@@ -108,15 +107,15 @@ public abstract class Page<T> extends HTML {
                 // =============================
                 // Right Side Navigation
                 // =============================
-                $("aside", id("SubNavi"), style.aside, () -> {
-                    $("div", style.SubNavigationStickyBlock, () -> {
+                $("aside", id("SubNavi"), css.aside, () -> {
+                    $("div", css.SubNavigationStickyBlock, () -> {
                         if (contents != null) {
                             declareSubNavigation();
                         }
                     });
                 });
 
-                $("footer", style.footer, () -> {
+                $("footer", css.footer, () -> {
                 });
             });
 
@@ -133,7 +132,7 @@ public abstract class Page<T> extends HTML {
     /**
      * Style definition.
      */
-    private interface style extends JavadngStyleDSL {
+    private interface css extends JavadngStyleDSL {
 
         Query BASE = Query.all().width(0, 800, px);
 
@@ -141,22 +140,48 @@ public abstract class Page<T> extends HTML {
 
         Query LARGE = Query.all().width(1200, px);
 
+        Style navActive = () -> {
+        };
+
+        Style navBar = () -> {
+            display.none();
+
+            $.when(BASE, () -> {
+                display.block().size(20, px);
+                position.absolute().right(-22, px);
+                font.family(Theme.icon).size(20, px);
+
+                $.before(() -> {
+                    content.text("\\e5d2");
+                    cursor.pointer();
+                });
+
+                $.transit().ease().duration(0.3, s).delay(0.15, s).when().with(navActive, () -> {
+                    position.right(7, px);
+
+                    $.before(() -> {
+                        content.text("\\e5cd");
+                    });
+                });
+            });
+        };
+
         Style nav = () -> {
             font.size(0.97, rem);
             position.sticky().top(JavadngStyleDSL.HeaderHeight.plus(20, px));
             margin.bottom(1.6, rem);
 
             $.when(BASE, () -> {
-                display.zIndex(20).maxInline(60, dvw).block(100, dvh).opacity(0);
+                display.zIndex(20).maxInline(60, dvw).block(100, dvh);
                 padding.vertical(1, rem).horizontal(2, rem);
                 background.color(Theme.back.opacify(0.9)).image(Theme.backImage);
                 position.fixed().top(JavadngStyleDSL.HeaderHeight.plus(20, px));
-                margin.left(-100, percent);
                 border.left.radius(10, px);
+                transform.translateX(-100, percent);
 
-                $.transit().ease().duration(0.3, s).delay(0.15, s).when().with(".on", () -> {
-                    margin.left(0, percent);
-                    display.opacity(1);
+                $.transit().ease().duration(0.3, s).delay(0.15, s).when().has(navActive, () -> {
+                    transform.translateX(0, percent);
+                    overflow.y.scroll();
                 });
             });
 
