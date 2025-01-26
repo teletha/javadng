@@ -416,6 +416,10 @@ public class APIPage extends Page<ClassInfo> {
             });
         });
 
+        Style ParameterName = Style.named(".parameterName", () -> {
+            padding.left(0.3, em);
+        });
+
         Style Title = () -> {
             margin.top(0.9, rem);
             font.weight.bold().size(1, rem);

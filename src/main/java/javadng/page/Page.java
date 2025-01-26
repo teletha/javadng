@@ -11,8 +11,6 @@ package javadng.page;
 
 import javadng.HTML;
 import javadng.design.JavadngStyleDSL;
-import javadng.parser.ClassInfo;
-import kiss.I;
 import stylist.Query;
 import stylist.Style;
 import stylist.Stylist;
@@ -72,9 +70,7 @@ public abstract class Page<T> extends HTML {
                 $("header", css.header, attr("date", published), attr("ver", model.version()), () -> {
                     $("h1", css.title, code(model.product()));
                     $("nav", css.links, () -> {
-                        for (ClassInfo info : I.signal(model.docs).map(ClassInfo::outermost).toSet()) {
-                            $("a", href("doc/" + info.children().get(0).id() + ".html"), svg("text"), id("Document"));
-                        }
+                        $("a", href("doc/" + model.rootDoc().id() + ".html"), svg("text"), id("Document"));
                         $("a", href("api/"), svg("package"), id("API"));
                         $("a", href(model.repository().locateCommunity()), attr("target", "_blank"), svg("user"), id("Community"));
                         $("a", href("doc/changelog.html"), svg("activity"), id("Activity"));

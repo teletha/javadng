@@ -98,7 +98,7 @@ public abstract class JavadocModel {
     private boolean processingMainSource = true;
 
     /** The document repository. */
-    final List<ClassInfo> docs = new ArrayList();
+    private final List<ClassInfo> docs = new ArrayList();
 
     /** MethodID-SampleCode mapping. */
     final Map<String, List<SampleInfo>> samples = new HashMap();
@@ -415,6 +415,10 @@ public abstract class JavadocModel {
         Internal.model = this;
 
         return Internal.class;
+    }
+
+    public final ClassInfo rootDoc() {
+        return I.signal(docs).map(ClassInfo::outermost).skipNull().first().to().v;
     }
 
     /**
