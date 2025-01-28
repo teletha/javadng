@@ -168,10 +168,10 @@ public abstract class Page<T> extends HTML {
             margin.bottom(1.6, rem);
 
             $.when(BASE, () -> {
-                display.zIndex(20).maxInline(60, dvw).block(100, dvh);
+                display.zIndex(20).maxInline(70, dvw).block(100, dvh);
                 padding.vertical(1, rem).horizontal(2, rem);
                 background.color(Theme.back.opacify(0.9)).image(Theme.backImage);
-                position.fixed().top(JavadngStyleDSL.HeaderHeight.plus(20, px));
+                position.fixed().top(JavadngStyleDSL.HeaderHeight.plus(3, px));
                 border.left.radius(10, px);
                 transform.translateX(-100, percent);
 

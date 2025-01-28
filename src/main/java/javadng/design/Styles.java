@@ -694,13 +694,9 @@ public class Styles implements JavadngStyleDSL {
     });
 
     public static final Style Tree = Style.named(".tree", () -> {
-        overflow.hidden().scrollbar.thin();
-        display.height(60, vh);
+        overflow.scrollbar.thin().auto();
+        display.height(70, dvh);
         background.color(Color.Inherit);
-
-        $.hover(() -> {
-            overflow.y.auto();
-        });
 
         $.select("dl", () -> {
             padding.bottom(0.5, em);
