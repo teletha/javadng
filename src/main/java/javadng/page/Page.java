@@ -85,11 +85,14 @@ public abstract class Page<T> extends HTML {
                 });
 
                 // =============================
+                // Navigation Switch
+                // =============================
+                $("div", css.navSwitch, togglable(css.navActive));
+
+                // =============================
                 // Left Side Navigation
                 // =============================
-                $("nav", css.nav, () -> {
-                    $("div", css.navBar, togglable(css.navActive));
-                });
+                $("nav", css.nav);
 
                 // =============================
                 // Main Contents
@@ -139,46 +142,15 @@ public abstract class Page<T> extends HTML {
         Style navActive = () -> {
         };
 
-        Style navBar = () -> {
-            display.none();
-
-            $.when(BASE, () -> {
-                display.block().size(20, px);
-                position.absolute().right(-22, px);
-                font.family(Theme.icon).size(20, px);
-
-                $.before(() -> {
-                    content.text("\\e5d2");
-                    cursor.pointer();
-                });
-
-                $.transit().ease().duration(0.3, s).delay(0.15, s).when().with(navActive, () -> {
-                    position.right(7, px);
-
-                    $.before(() -> {
-                        content.text("\\e5cd");
-                    });
-                });
-            });
-        };
-
         Style nav = () -> {
             font.size(0.97, rem);
             position.sticky().top(JavadngStyleDSL.HeaderHeight.plus(20, px));
             margin.bottom(1.6, rem);
 
             $.when(BASE, () -> {
-                display.zIndex(20).maxInline(70, dvw).block(100, dvh);
+                display.none().inline(100, dvw).block(100, dvh);
                 padding.vertical(1, rem).horizontal(2, rem);
                 background.color(Theme.back.opacify(0.9)).image(Theme.backImage);
-                position.fixed().top(JavadngStyleDSL.HeaderHeight.plus(3, px));
-                border.left.radius(10, px);
-                transform.translateX(-100, percent);
-
-                $.transit().ease().duration(0.3, s).delay(0.15, s).when().has(navActive, () -> {
-                    transform.translateX(0, percent);
-                    overflow.y.scroll();
-                });
             });
 
             $.select("#APINavi", () -> {
@@ -368,6 +340,35 @@ public abstract class Page<T> extends HTML {
 
             $.when(BASE, MIDDLE, () -> {
                 display.none();
+            });
+        };
+
+        Style navSwitch = () -> {
+            display.none();
+
+            $.when(BASE, () -> {
+                display.block().size(20, px).zIndex(30);
+                position.fixed().right(10, px).top(JavadngStyleDSL.HeaderHeight.plus(10, px));
+                font.family(Theme.icon).size(20, px);
+
+                $.before(() -> {
+                    content.text("\\e5d2");
+                    cursor.pointer();
+                });
+
+                $.transit().ease().duration(0.3, s).delay(0.15, s).when().with(navActive, () -> {
+                    $.before(() -> {
+                        content.text("\\e5cd");
+                    });
+
+                    $.nexts(nav, () -> {
+                        display.block();
+                    });
+
+                    $.nexts(article, () -> {
+                        display.none();
+                    });
+                });
             });
         };
 

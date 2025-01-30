@@ -694,7 +694,7 @@ public class Styles implements JavadngStyleDSL {
     });
 
     public static final Style Tree = Style.named(".tree", () -> {
-        overflow.scrollbar.thin().auto();
+        overflow.scrollbar.thin().hidden();
         display.height(70, dvh);
         background.color(Color.Inherit);
 

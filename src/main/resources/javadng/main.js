@@ -107,9 +107,7 @@ function FlashMan({ paged, cacheSize = 20, preload = "mouseover", preview = "sec
 	}
 
 	// Detect all URL changes
-	window.addEventListener("popstate", v => {
-		changed(true)
-	})
+	window.addEventListener("popstate", v => changed(true))
 	document.addEventListener("DOMContentLoaded", v => { update(); cache.set(location.pathname, document.documentElement.outerHTML) })
 	document.addEventListener("click", v => {
 		let e = v.target.closest("a");
