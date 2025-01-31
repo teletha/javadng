@@ -315,6 +315,7 @@ public abstract class Page<T> extends HTML {
         };
 
         Style article = () -> {
+            display.width(99.9, percent);
             font.letterSpacing(-0.025, rem);
             position.relative();
 
