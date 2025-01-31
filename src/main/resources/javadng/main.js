@@ -132,8 +132,8 @@ function FlashMan({ paged, cacheSize = 20, preload = "mouseover", preview = "sec
 
 FlashMan({
 	paged: () => {
-		$("#APINavi").each(e => e.hidden = !location.pathname.startsWith(prefix + "api/"));
-		$("#DocNavi").each(e => e.hidden = !location.pathname.startsWith(prefix + "doc/"));
+		$("#APINavi").each(e => e.dataset.hide = !location.pathname.startsWith(prefix + "api/"));
+		$("#DocNavi").each(e => e.dataset.hide = !location.pathname.startsWith(prefix + "doc/"));
 		$("#DocNavi>div").each(e => {
 			const sub = e.lastElementChild;
 
@@ -288,7 +288,7 @@ class APITree extends $ {
 		this.typeFilter = new Select({ placeholder: "Select Type", multiple: true, model: ['Interface', 'Functional', 'AbstractClass', 'Class', 'Enum', 'Annotation', 'Exception'] })
 		this.nameFilter = $("<input>").id("NameFilter").placeholder("Search by Name")
 
-		this.id("APINavi").attr("hidden", true).change(e => this.update()).input(e => this.update())
+		this.id("APINavi").change(e => this.update()).input(e => this.update())
 			.append(this.moduleFilter)
 			.append(this.packageFilter)
 			.append(this.typeFilter)
@@ -322,7 +322,7 @@ class APITree extends $ {
 
 $("body>nav")
 	.append(new APITree(root))
-	.make("div").id("DocNavi").attr("hidden", true)
+	.make("div").id("DocNavi")
 	.make("div", root.docs, (doc, div) => {
 		div.add("doc").id(doc.path)
 			.make("a").href(doc.path).text(doc.title).parent()

@@ -85,11 +85,6 @@ public abstract class Page<T> extends HTML {
                 });
 
                 // =============================
-                // Navigation Switch
-                // =============================
-                $("div", css.navSwitch, togglable(css.navActive));
-
-                // =============================
                 // Left Side Navigation
                 // =============================
                 $("nav", css.nav);
@@ -139,93 +134,95 @@ public abstract class Page<T> extends HTML {
 
         Query LARGE = Query.all().width(1200, px);
 
-        Style navActive = () -> {
-        };
-
         Style nav = () -> {
             font.size(0.97, rem);
             position.sticky().top(JavadngStyleDSL.HeaderHeight.plus(20, px));
             margin.bottom(1.6, rem);
 
             $.when(BASE, () -> {
-                display.none().inline(100, dvw).block(100, dvh);
+                margin.top(1, rem);
                 padding.vertical(1, rem).horizontal(2, rem);
                 background.color(Theme.back.opacify(0.9)).image(Theme.backImage);
             });
 
-            $.select("#APINavi", () -> {
-                $.select(">*", () -> {
-                    margin.bottom(JavadngStyleDSL.BlockVerticalGap);
+            $.child(() -> {
+                display.grid().flowRow().gap(JavadngStyleDSL.BlockVerticalGap);
+                font.size(1.1, em).color(Theme.front.lighten(Theme.back, -15)).letterSpacing(-0.5, px).lineHeight(1.6);
+
+                $.attr("data-hide", "true", () -> {
+                    display.none();
                 });
             });
 
-            $.select("#DocNavi", () -> {
-                font.size(1.1, em).color(Theme.front.lighten(Theme.back, -15)).letterSpacing(-0.5, px).lineHeight(1.6);
-
-                $.select(".doc", () -> {
-                    margin.bottom(1, rem);
-
-                    $.select("li", () -> {
-                        padding.vertical(0.35, rem);
-                    });
+            $.select(".doc", () -> {
+                $.select("li", () -> {
+                    padding.vertical(0.15, rem);
                 });
 
-                $.select(".sub", () -> {
-                    display.height(0, px);
-                    listStyle.none();
-                    font.size(0.9, em).color(Theme.front.lighten(Theme.back, 10));
-                    border.left.solid().width(1, px).color(Color.hsl(0, 0, 65));
-                    overflow.y.hidden();
+                $.when(Small, () -> {
+                    margin.bottom(0.2, rem);
+                });
+            });
 
-                    transition.duration(0.3, s).whenever();
+            $.select(".sub", () -> {
+                display.height(0, px);
+                listStyle.none();
+                font.size(0.9, em).color(Theme.front.lighten(Theme.back, 10));
+                border.left.solid().width(1, px).color(Color.hsl(0, 0, 65));
+                overflow.y.hidden();
 
-                    $.select("a", () -> {
-                        $.select(".foot", () -> {
-                            padding.left(0.8, rem);
-                        });
+                transition.duration(0.3, s).whenever();
 
-                        $.select("svg", () -> {
-                            display.width(16, px).height(16, px);
-                            margin.left(-16, px);
-                            stroke.width(2, px).transparent();
-
-                            transition.duration(0.25, s).whenever();
-                            transform.translateX(0, px);
-                        });
-
-                        $.with(".now", () -> {
-                            font.color(Theme.accent);
-                            $.select("svg", () -> {
-                                stroke.color(Theme.accent);
-                                transform.translateX(10, px);
-                            });
-                        });
-
-                        $.hover(() -> {
-                            $.select("svg", () -> {
-                                stroke.color(Theme.accent);
-                                transform.translateX(10, px);
-                            });
-                        });
-
-                        $.active(() -> {
-                            $.select("svg", () -> {
-                                transform.translateX(4, px);
-                            });
-                        });
-                    });
+                $.when(Small, () -> {
+                    display.none();
                 });
 
                 $.select("a", () -> {
-                    display.block();
-                    text.decoration.none().whiteSpace.pre();
-                    padding.vertical(0.13, rem);
+                    $.select(".foot", () -> {
+                        padding.left(2, ch);
+                    });
 
                     $.select("svg", () -> {
-                        display.width(20, px).height(20, px);
-                        text.verticalAlign.middle();
-                        margin.top(-2, px).right(1, em);
+                        display.width(16, px).height(16, px);
+                        margin.left(-16, px);
+                        stroke.width(2, px).transparent();
+
+                        transition.duration(0.25, s).whenever();
+                        transform.translateX(0, px);
                     });
+
+                    $.with(".now", () -> {
+                        font.color(Theme.accent);
+                        $.select("svg", () -> {
+                            stroke.color(Theme.accent);
+                            transform.translateX(10, px);
+                        });
+                    });
+
+                    $.hover(() -> {
+                        $.select("svg", () -> {
+                            stroke.color(Theme.accent);
+                            transform.translateX(10, px);
+                        });
+                    });
+
+                    $.active(() -> {
+                        $.select("svg", () -> {
+                            transform.translateX(4, px);
+                        });
+                    });
+                });
+            });
+
+            $.select("a", () -> {
+                display.block();
+                text.decoration.none().whiteSpace.pre();
+                padding.bottom(0.1, rem);
+
+                $.select("svg", () -> {
+                    display.width(20, px).height(20, px);
+                    text.verticalAlign.middle();
+                    margin.top(-2, px).right(1, em);
                 });
             });
         };
@@ -343,35 +340,6 @@ public abstract class Page<T> extends HTML {
             });
         };
 
-        Style navSwitch = () -> {
-            display.none();
-
-            $.when(BASE, () -> {
-                display.block().size(20, px).zIndex(30);
-                position.fixed().right(10, px).top(JavadngStyleDSL.HeaderHeight.plus(10, px));
-                font.family(Theme.icon).size(20, px);
-
-                $.before(() -> {
-                    content.text("\\e5d2");
-                    cursor.pointer();
-                });
-
-                $.transit().ease().duration(0.3, s).delay(0.15, s).when().with(navActive, () -> {
-                    $.before(() -> {
-                        content.text("\\e5cd");
-                    });
-
-                    $.nexts(nav, () -> {
-                        display.block();
-                    });
-
-                    $.nexts(article, () -> {
-                        display.none();
-                    });
-                });
-            });
-        };
-
         Style SubNavigationStickyBlock = () -> {
             position.sticky().top(JavadngStyleDSL.HeaderHeight.plus(15, px));
             display.block().height($.num(91, vh).subtract(JavadngStyleDSL.HeaderHeight)).maxWidth(JavadngStyleDSL.RightNavigationWidth);
@@ -396,7 +364,7 @@ public abstract class Page<T> extends HTML {
             margin.horizontal(35, px).bottom(14, px);
 
             $.when(BASE, () -> {
-                display.grid().area(header).area(nav).area(article).area(aside);
+                display.grid().area(header).area(article).area(nav);
                 margin.size(0, px);
             });
 
