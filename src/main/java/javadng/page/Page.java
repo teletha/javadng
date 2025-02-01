@@ -130,7 +130,7 @@ public abstract class Page<T> extends HTML {
 
         Numeric HeaderHeight = Numeric.num(80, px);
 
-        Numeric BodyHeight = Numeric.num(100, dvh).subtract(HeaderHeight);
+        Numeric BodyHeight = Numeric.num(100, dvh).subtract(HeaderHeight).subtract(2, ch);
 
         Query BASE = Query.all().width(0, 800, px);
 
@@ -139,10 +139,12 @@ public abstract class Page<T> extends HTML {
         Query LARGE = Query.all().width(1200, px);
 
         Style nav = () -> {
-            font.size(0.97, rem);
+            display.height(BodyHeight).width(100, percent);
+            overflow.y.auto();
             position.sticky().top(HeaderHeight);
-            margin.bottom(1.6, rem);
-            display.height(BodyHeight);
+            font.size(0.97, rem);
+
+            margin.bottom(1.6, rem).auto();
 
             $.when(BASE, () -> {
                 margin.top(1, rem);
