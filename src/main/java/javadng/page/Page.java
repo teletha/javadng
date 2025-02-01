@@ -128,6 +128,10 @@ public abstract class Page<T> extends HTML {
      */
     private interface css extends JavadngStyleDSL {
 
+        Numeric HeaderHeight = Numeric.num(80, px);
+
+        Numeric BodyHeight = Numeric.num(100, dvh).subtract(HeaderHeight);
+
         Query BASE = Query.all().width(0, 800, px);
 
         Query MIDDLE = Query.all().width(800, 1200, px);
@@ -136,8 +140,9 @@ public abstract class Page<T> extends HTML {
 
         Style nav = () -> {
             font.size(0.97, rem);
-            position.sticky().top(JavadngStyleDSL.HeaderHeight.plus(20, px));
+            position.sticky().top(HeaderHeight);
             margin.bottom(1.6, rem);
+            display.height(BodyHeight);
 
             $.when(BASE, () -> {
                 margin.top(1, rem);
@@ -146,7 +151,7 @@ public abstract class Page<T> extends HTML {
             });
 
             $.child(() -> {
-                display.grid().flowRow().gap(JavadngStyleDSL.BlockVerticalGap);
+                display.grid().rowGap(0.5, rem).flowRow();
                 font.size(1.1, em).color(Theme.front.lighten(Theme.back, -15)).letterSpacing(-0.5, px).lineHeight(1.6);
 
                 $.attr("data-hide", "true", () -> {
@@ -156,7 +161,7 @@ public abstract class Page<T> extends HTML {
 
             $.select(".doc", () -> {
                 $.select("li", () -> {
-                    padding.vertical(0.15, rem);
+                    padding.vertical(0.1, rem);
                 });
 
                 $.when(Small, () -> {
@@ -342,8 +347,8 @@ public abstract class Page<T> extends HTML {
         };
 
         Style SubNavigationStickyBlock = () -> {
-            position.sticky().top(JavadngStyleDSL.HeaderHeight.plus(15, px));
-            display.block().height($.num(91, vh).subtract(JavadngStyleDSL.HeaderHeight)).maxWidth(JavadngStyleDSL.RightNavigationWidth);
+            position.sticky().top(HeaderHeight.plus(15, px));
+            display.block().height($.num(91, vh).subtract(HeaderHeight)).maxWidth(JavadngStyleDSL.RightNavigationWidth);
             overflow.auto().scrollbar.thin();
             text.whiteSpace.nowrap();
 

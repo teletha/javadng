@@ -36,8 +36,6 @@ public interface JavadngStyleDSL extends StyleDSL {
 
     Numeric BlockHorizontalGap = Numeric.num(10, px);
 
-    Numeric HeaderHeight = Numeric.num(80, px);
-
     Numeric HeaderBottomMargin = Numeric.num(12, px);
 
     Numeric RightNavigationWidth = Numeric.num(20, vw);

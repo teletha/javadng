@@ -21,8 +21,6 @@ public class Styles implements JavadngStyleDSL {
     // =====================================================
     public static Style HTML = Style.named("html", () -> {
         font.size(14, px);
-        scroll.smooth().padding.top(JavadngStyleDSL.HeaderHeight);
-        overflow.y.scroll();
 
         $.select(".disabled", () -> {
             pointerEvents.none();
@@ -693,7 +691,7 @@ public class Styles implements JavadngStyleDSL {
     });
 
     public static final Style Tree = Style.named(".tree", () -> {
-        overflow.scrollbar.thin().hidden();
+        overflow.scrollbar.thin().auto();
         display.height(70, dvh);
         background.color(Color.Inherit);
 
