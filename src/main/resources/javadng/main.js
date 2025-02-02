@@ -30,15 +30,15 @@ $("#theme").click(e => save($("html").reset(user.theme = user.theme == "light" ?
 // Dynamic Navigation Indicator
 // =====================================================
 const navi = new IntersectionObserver(e => {
-	e = e.filter(i => i.isIntersecting);
-	if (0 < e.length) {
-		const i = e.reduce((a, b) => a.intersectionRation > b.intersectionRatio ? a : b);
-		if (i) {
-			$("#DocNavi .now").remove("now");
-			$(`#DocNavi a[href$='#${i.target.id}']`).add("now");
+	e.forEach(i => {
+		var x = $(`#DocNavi a[href$='#${i.target.id}']`);
+		if (i.isIntersecting) {
+			x.add("now")
+		} else {
+			x.remove("now")
 		}
-	}
-}, { root: null, rootMargin: "-40% 0px -60% 0px", threshold: 0 })
+	})
+}, {rootMargin: "-15% 0px -20% 0px", threshold: 0.1})
 
 // =====================================================
 // Lightning Fast Viewer
@@ -138,10 +138,8 @@ FlashMan({
 			const sub = e.lastElementChild;
 
 			if (location.pathname.endsWith(e.id)) {
-				e.classList.add("active");
 				sub.style.height = sub.scrollHeight + "px";
 			} else {
-				e.classList.remove("active");
 				sub.style.height = 0;
 			}
 		});
@@ -326,13 +324,11 @@ $("body>nav")
 	.make("div", root.docs, (doc, div) => {
 		div.add("doc").id(doc.path)
 			.make("a").href(doc.path).text(doc.title).parent()
-			.make("ol").add("sub")
-			.make("li", doc.subs, (sub, li) => {
-				li.make("a").href(sub.path).svg(prefix + "main.svg#chevrons").parent()
-					.make("span").text(sub.title)
-				li.make("a", sub.subs, (foot, a) => {
-					a.href(foot.path).svg(prefix + "main.svg#chevrons").parent()
-						.make("span").add("foot").text(foot.title)
+			.make("div").add("sub")
+			.make("a", doc.subs, (sub, li) => {
+				li.href(sub.path).text(sub.title).parent()
+				.make("a", sub.subs, (foot, a) => {
+					a.href(foot.path).add("foot").text(foot.title)
 				})
 			})
 	})

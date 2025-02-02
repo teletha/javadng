@@ -43,8 +43,10 @@ public class DocumentPage extends Page<DocumentProvider> {
 
             for (DocumentProvider child : contents.children(Modifier.PUBLIC)) {
                 if (child.hasDocument()) {
-                    $("section", id(child.id()), Styles.Section, Styles.JavadocComment, () -> {
-                        write(child, S.SectionLevel1, true);
+                    $("div", Styles.Section, () -> {
+                        $("section", id(child.id()), Styles.JavadocComment, () -> {
+                            write(child, S.SectionLevel1, true);
+                        });
 
                         for (DocumentProvider foot : child.children(Modifier.PUBLIC)) {
                             if (foot.hasDocument()) {

@@ -177,10 +177,9 @@ public abstract class Page<T> extends HTML {
             $.select(".sub", () -> {
                 display.height(0, px);
                 listStyle.none();
-                font.size(0.9, em).color(Theme.front.lighten(Theme.back, 10));
+                font.size(0.9, em).color(Theme.front.lighten(Theme.back, 7));
                 border.left.solid().width(1, px).color(Color.hsl(0, 0, 65));
                 overflow.y.hidden();
-
                 transition.duration(0.3, s).whenever();
 
                 $.when(Small, () -> {
@@ -188,37 +187,33 @@ public abstract class Page<T> extends HTML {
                 });
 
                 $.select("a", () -> {
-                    $.select(".foot", () -> {
-                        padding.left(2, ch);
-                    });
-
-                    $.select("svg", () -> {
-                        display.width(16, px).height(16, px);
-                        margin.left(-16, px);
-                        stroke.width(2, px).transparent();
-
-                        transition.duration(0.25, s).whenever();
-                        transform.translateX(0, px);
-                    });
+                    padding.left(1.4, rem);
+                    $.with(".foot", () -> padding.left(2.8, rem));
 
                     $.with(".now", () -> {
-                        font.color(Theme.accent);
-                        $.select("svg", () -> {
-                            stroke.color(Theme.accent);
-                            transform.translateX(10, px);
-                        });
+                        background.color(Theme.surface.opacify(-0.2));
                     });
 
-                    $.hover(() -> {
-                        $.select("svg", () -> {
-                            stroke.color(Theme.accent);
-                            transform.translateX(10, px);
-                        });
+                    Numeric corner = Numeric.num(0.6, rem);
+
+                    $.firstMatch(".now", () -> {
+                        border.top.radius(corner);
+                        border.left.radius(corner);
                     });
 
-                    $.active(() -> {
-                        $.select("svg", () -> {
-                            transform.translateX(4, px);
+                    $.lastMatch(".now", () -> {
+                        border.bottom.radius(corner);
+                        border.right.radius(corner);
+                    });
+
+                    position.relative();
+                    $.before(() -> {
+                        position.absolute().left(-12, px);
+                        font.family(Theme.icon);
+                        content.text("\\eac9");
+
+                        transition.duration(0.3, s).when().with(".now", () -> {
+                            position.left(2, px);
                         });
                     });
                 });
@@ -228,12 +223,6 @@ public abstract class Page<T> extends HTML {
                 display.block();
                 text.decoration.none().whiteSpace.pre();
                 padding.bottom(0.1, rem);
-
-                $.select("svg", () -> {
-                    display.width(20, px).height(20, px);
-                    text.verticalAlign.middle();
-                    margin.top(-2, px).right(1, em);
-                });
             });
         };
 
