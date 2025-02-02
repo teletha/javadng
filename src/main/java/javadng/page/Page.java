@@ -15,6 +15,7 @@ import stylist.Query;
 import stylist.Style;
 import stylist.Stylist;
 import stylist.property.Background.BackgroundImage;
+import stylist.property.helper.Content;
 import stylist.property.helper.Items;
 import stylist.value.Color;
 import stylist.value.Font;
@@ -123,14 +124,15 @@ public abstract class Page<T> extends HTML {
 
     protected abstract void declareSubNavigation();
 
-    /**
-     * Style definition.
-     */
     private interface css extends JavadngStyleDSL {
 
-        Numeric HeaderHeight = Numeric.num(80, px);
+        Numeric HEADER_HEIGHT = Numeric.num(80, px);
 
-        Numeric BodyHeight = Numeric.num(100, dvh).subtract(HeaderHeight).subtract(2, ch);
+        Numeric GAP = Numeric.num(2, ch);
+
+        Numeric BODY_TOP = HEADER_HEIGHT.plus(GAP);
+
+        Numeric BODY_HEIGHT = Numeric.num(100, dvh).subtract(BODY_TOP);
 
         Query BASE = Query.all().width(0, 800, px);
 
@@ -139,12 +141,8 @@ public abstract class Page<T> extends HTML {
         Query LARGE = Query.all().width(1200, px);
 
         Style nav = () -> {
-            display.height(BodyHeight).width(100, percent);
-            overflow.y.auto();
-            position.sticky().top(HeaderHeight);
-            font.size(0.97, rem);
-
-            margin.bottom(1.6, rem).auto();
+            display.width(100, percent);
+            position.sticky().top(BODY_TOP);
 
             $.when(BASE, () -> {
                 margin.top(1, rem);
@@ -153,11 +151,16 @@ public abstract class Page<T> extends HTML {
             });
 
             $.child(() -> {
-                display.grid().rowGap(0.5, rem).flowRow();
-                font.size(1.1, em).color(Theme.front.lighten(Theme.back, -15)).letterSpacing(-0.5, px).lineHeight(1.6);
+                display.grid().align(Content.Start).rowGap(0.5, rem).flowRow();
+                font.color(Theme.front.lighten(Theme.back, -15)).letterSpacing(-0.5, px).lineHeight(1.6);
 
                 $.attr("data-hide", "true", () -> {
                     display.none();
+                });
+
+                $.lastChild(() -> {
+                    display.height(BODY_HEIGHT);
+                    overflow.y.auto();
                 });
             });
 
@@ -349,8 +352,8 @@ public abstract class Page<T> extends HTML {
         };
 
         Style SubNavigationStickyBlock = () -> {
-            position.sticky().top(HeaderHeight.plus(15, px));
-            display.block().height($.num(91, vh).subtract(HeaderHeight)).maxWidth(JavadngStyleDSL.RightNavigationWidth);
+            position.sticky().top(HEADER_HEIGHT.plus(15, px));
+            display.block().height($.num(91, vh).subtract(HEADER_HEIGHT)).maxWidth(JavadngStyleDSL.RightNavigationWidth);
             overflow.auto().scrollbar.thin();
             text.whiteSpace.nowrap();
 
@@ -369,7 +372,7 @@ public abstract class Page<T> extends HTML {
         Style body = () -> {
             background.color(Theme.back).image(Theme.backImage).repeat();
             font.size(Theme.font).family(Theme.base).color(Theme.front.lighten(Theme.back, 5)).lineHeight(Theme.line);
-            margin.horizontal(35, px).bottom(14, px);
+            margin.horizontal(Numeric.max(20, px, 5, dvw));
 
             $.when(BASE, () -> {
                 display.grid().area(header).area(article).area(nav);
@@ -378,7 +381,7 @@ public abstract class Page<T> extends HTML {
 
             $.when(MIDDLE, () -> {
                 display.grid()
-                        .gap(2, ch)
+                        .gap(GAP)
                         .align(Items.Start)
                         .justify(Items.Center)
                         .column(x -> x.minmax(30, ch, 1, fr).autoMax(91, ch))
@@ -389,7 +392,7 @@ public abstract class Page<T> extends HTML {
 
             $.when(LARGE, () -> {
                 display.grid()
-                        .gap(2, ch)
+                        .gap(GAP)
                         .align(Items.Start)
                         .justify(Items.Center)
                         .column(x -> x.minmax(30, ch, 1, fr).autoMax(91, ch).autoMax(1, fr))
