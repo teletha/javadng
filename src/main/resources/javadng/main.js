@@ -30,6 +30,7 @@ $("#theme").click(e => save($("html").reset(user.theme = user.theme == "light" ?
 // Dynamic Navigation Indicator
 // =====================================================
 const navi = new IntersectionObserver(e => {
+	console.log(e)
 	e.forEach(i => {
 		var x = $(`#DocNavi a[href$='#${i.target.id}']`);
 		if (i.isIntersecting) {
@@ -147,7 +148,7 @@ FlashMan({
 		$("#Article section").each(e => navi.observe(e));
 	},
 
-	preview: "#Article>section",
+	preview: "#Article>div>section",
 	/* Enahnce code highlight */
 	"pre": e => {
 		hljs.highlightElement(e)

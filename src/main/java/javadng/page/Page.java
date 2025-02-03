@@ -176,10 +176,10 @@ public abstract class Page<T> extends HTML {
 
             $.select(".sub", () -> {
                 display.height(0, px);
-                listStyle.none();
                 font.size(0.9, em).color(Theme.front.lighten(Theme.back, 7));
                 border.left.solid().width(1, px).color(Color.hsl(0, 0, 65));
                 overflow.y.hidden();
+                margin.left(10, px);
                 transition.duration(0.3, s).whenever();
 
                 $.when(Small, () -> {
@@ -187,11 +187,16 @@ public abstract class Page<T> extends HTML {
                 });
 
                 $.select("a", () -> {
-                    padding.left(1.4, rem);
-                    $.with(".foot", () -> padding.left(2.8, rem));
+                    padding.left(0.6, rem).bottom(0.2, rem).top(0.8, rem);
+                    $.with(".foot", () -> {
+                        padding.left(1.6, rem).vertical(0.1, rem);
+                    });
+                    $.firstChild(() -> {
+                        padding.top(0.2, rem);
+                    });
 
                     $.with(".now", () -> {
-                        background.color(Theme.surface.opacify(-0.2));
+                        background.color(Theme.surface);
                     });
 
                     Numeric corner = Numeric.num(0.6, rem);
@@ -204,17 +209,6 @@ public abstract class Page<T> extends HTML {
                     $.lastMatch(".now", () -> {
                         border.bottom.radius(corner);
                         border.right.radius(corner);
-                    });
-
-                    position.relative();
-                    $.before(() -> {
-                        position.absolute().left(-12, px);
-                        font.family(Theme.icon);
-                        content.text("\\eac9");
-
-                        transition.duration(0.3, s).when().with(".now", () -> {
-                            position.left(2, px);
-                        });
                     });
                 });
             });
