@@ -187,12 +187,9 @@ public abstract class Page<T> extends HTML {
                 });
 
                 $.select("a", () -> {
-                    padding.left(0.6, rem).bottom(0.2, rem).top(0.8, rem);
+                    padding.left(0.8, rem).vertical(0.3, rem);
                     $.with(".foot", () -> {
-                        padding.left(1.6, rem).vertical(0.1, rem);
-                    });
-                    $.firstChild(() -> {
-                        padding.top(0.2, rem);
+                        padding.left(1.6, rem);
                     });
 
                     $.with(".now", () -> {
