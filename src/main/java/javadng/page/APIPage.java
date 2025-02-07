@@ -242,9 +242,9 @@ public class APIPage extends Page<ClassInfo> {
     private interface css extends JavadngDSL {
 
         Style outline = () -> {
+            JavadngDSL.scrollable();
             position.sticky().top(15, px);
             display.block().height($.num(91, vh).subtract(15, px)).maxWidth(JavadngDSL.RightNavigationWidth);
-            overflow.auto().scrollbar.thin();
             text.whiteSpace.nowrap();
 
             $.hover(() -> {

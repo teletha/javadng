@@ -12,6 +12,7 @@ package javadng.design;
 import kiss.I;
 import stylist.Query;
 import stylist.StyleDSL;
+import stylist.value.Color;
 import stylist.value.Numeric;
 
 /**
@@ -31,5 +32,13 @@ public interface JavadngDSL extends StyleDSL {
     Numeric BlockVerticalGap = Numeric.num(0.5, rem);
 
     Numeric RightNavigationWidth = Numeric.num(20, vw);
+
+    /**
+     * Make the element scrollable.
+     */
+    static void scrollable() {
+        overflow.y.auto();
+        scroll.thin().color(Theme.front.opacify(-0.7), Color.Transparent);
+    }
 
 }

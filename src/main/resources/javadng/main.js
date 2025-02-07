@@ -38,7 +38,7 @@ const navi = new IntersectionObserver(e => {
 			x.remove("now")
 		}
 	})
-}, {rootMargin: "-15% 0px -20% 0px", threshold: 0.2})
+}, {rootMargin: "-15% 0px -20% 0px", threshold: 0.1})
 
 // =====================================================
 // Lightning Fast Viewer

@@ -158,7 +158,9 @@ public abstract class Page<T> extends HTML {
 
                 $.lastChild(() -> {
                     display.height(BODY_HEIGHT);
+                    scroll.thin().color(Theme.front.opacify(-0.7), Color.Transparent);
                     overflow.y.auto();
+                    JavadngDSL.scrollable();
                 });
             });
 
