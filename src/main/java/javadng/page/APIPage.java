@@ -12,7 +12,7 @@ package javadng.page;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import javadng.design.JavadngStyleDSL;
+import javadng.design.JavadngDSL;
 import javadng.design.Styles;
 import javadng.parser.ClassInfo;
 import javadng.parser.ExecutableInfo;
@@ -42,17 +42,17 @@ public class APIPage extends Page<ClassInfo> {
     @Override
     protected void declareContents() {
         $("section", Styles.Section, () -> {
-            $("code", S.PackcageName, text(contents.packageName));
-            $("h2", clazz(contents.type), S.TypeName, () -> {
-                $("code", S.Name, text(contents.name));
+            $("code", css.PackcageName, text(contents.packageName));
+            $("h2", clazz(contents.type), css.TypeName, () -> {
+                $("code", css.Name, text(contents.name));
                 $(contents.createTypeVariableNames());
             });
 
-            $("div", S.traitList, () -> {
+            $("div", css.traitList, () -> {
                 // type parameters
                 int size = contents.numberOfTypeVariables();
                 if (size != 0) {
-                    $("ul", S.typeParameter, foŕ(size, i -> {
+                    $("ul", css.typeParameter, foŕ(size, i -> {
                         $("li", contents.createTypeVariable(i), contents.createTypeVariableComment(i));
                     }));
                 }
@@ -60,7 +60,7 @@ public class APIPage extends Page<ClassInfo> {
                 // super types
                 List<XML> supers = contents.createSuperTypes();
                 if (!supers.isEmpty()) {
-                    $("ul", S.extend, () -> {
+                    $("ul", css.extend, () -> {
                         for (XML sup : supers) {
                             $("li", sup);
                         }
@@ -70,7 +70,7 @@ public class APIPage extends Page<ClassInfo> {
                 // implemented types
                 List<XML> interfaces = contents.createInterfaceTypes();
                 if (!interfaces.isEmpty()) {
-                    $("ul", S.implement, () -> {
+                    $("ul", css.implement, () -> {
                         for (XML xml : interfaces) {
                             $("li", xml);
                         }
@@ -80,7 +80,7 @@ public class APIPage extends Page<ClassInfo> {
                 // sub types
                 List<XML> subs = contents.createSubTypes();
                 if (!subs.isEmpty()) {
-                    $("ul", S.sub, () -> {
+                    $("ul", css.sub, () -> {
                         for (XML xml : subs) {
                             $("li", xml);
                         }
@@ -111,12 +111,12 @@ public class APIPage extends Page<ClassInfo> {
      */
     private void writeMember(FieldInfo member) {
         $("section", id(member.id()), Styles.Section, () -> {
-            $("h2", S.MemberName, () -> {
+            $("h2", css.MemberName, () -> {
                 XML type = member.createType();
 
                 $(member.createModifier());
-                $("code", S.Name, text(member.name));
-                if (type != null) $("i", S.Return, type);
+                $("code", css.Name, text(member.name));
+                if (type != null) $("i", css.Return, type);
             });
 
             $(member.document());
@@ -139,13 +139,13 @@ public class APIPage extends Page<ClassInfo> {
      */
     private void writeMember(ExecutableInfo member) {
         $("section", id(member.id()), Styles.Section, () -> {
-            $("h2", S.MemberName, () -> {
+            $("h2", css.MemberName, () -> {
                 XML type = member.createReturnType();
 
                 $(member.createModifier());
-                $("code", S.Name, text(member.name));
+                $("code", css.Name, text(member.name));
                 $(member.createParameter());
-                if (type != null) $("i", S.Return, type);
+                if (type != null) $("i", css.Return, type);
             });
 
             int types = member.numberOfTypeVariables();
@@ -154,30 +154,30 @@ public class APIPage extends Page<ClassInfo> {
             int exceptions = member.numberOfExceptions();
 
             if (0 < types + params + returns + exceptions) {
-                $("table", S.SignatureTable, () -> {
+                $("table", css.SignatureTable, () -> {
                     IntStream.range(0, types).forEach(i -> {
-                        $("tr", S.SignatureTypeVariable, () -> {
+                        $("tr", css.SignatureTypeVariable, () -> {
                             $("td", member.createTypeVariable(i));
                             $("td", member.createTypeVariableComment(i));
                         });
                     });
 
                     IntStream.range(0, params).forEach(i -> {
-                        $("tr", S.SignatureParameter, () -> {
+                        $("tr", css.SignatureParameter, () -> {
                             $("td", member.createParameter(i), text(" "), member.createParameterName(i));
                             $("td", member.createParameterComment(i));
                         });
                     });
 
                     if (0 < returns) {
-                        $("tr", S.SignatureReturn, () -> {
+                        $("tr", css.SignatureReturn, () -> {
                             $("td", member.createReturnType());
                             $("td", member.createReturnComment());
                         });
                     }
 
                     IntStream.range(0, exceptions).forEach(i -> {
-                        $("tr", S.SignatureException, () -> {
+                        $("tr", css.SignatureException, () -> {
                             $("td", member.createException(i));
                             $("td", member.createExceptionComment(i));
                         });
@@ -202,16 +202,18 @@ public class APIPage extends Page<ClassInfo> {
      */
     @Override
     protected void declareSubNavigation() {
-        members("Constructors", contents.constructors());
-        members("Static Fields", contents.staticFields());
-        members("Fields", contents.nonStaticFields());
-        members("Static Methods", contents.staticMethods());
-        members("Methods", contents.nonStaticMethods());
+        $("div", css.outline, () -> {
+            members("Constructors", contents.constructors());
+            members("Static Fields", contents.staticFields());
+            members("Fields", contents.nonStaticFields());
+            members("Static Methods", contents.staticMethods());
+            members("Methods", contents.nonStaticMethods());
+        });
     }
 
     private void members(String title, List<? extends MemberInfo> members) {
         if (members.size() != 0) {
-            $("h5", S.Title, text(title));
+            $("h5", css.Title, text(title));
             $("ul", foŕ(members, m -> {
                 $("li", () -> {
                     $(m.createModifier());
@@ -223,11 +225,11 @@ public class APIPage extends Page<ClassInfo> {
                     }
 
                     if (m instanceof MethodInfo) {
-                        $("i", S.NaviReturn, ((MethodInfo) m).createReturnType());
+                        $("i", css.NaviReturn, ((MethodInfo) m).createReturnType());
                     }
 
                     if (m instanceof FieldInfo) {
-                        $("i", S.NaviReturn, ((FieldInfo) m).createType());
+                        $("i", css.NaviReturn, ((FieldInfo) m).createType());
                     }
                 });
             }));
@@ -237,11 +239,26 @@ public class APIPage extends Page<ClassInfo> {
     /**
      * Style definition.
      */
-    private interface S extends JavadngStyleDSL {
+    private interface css extends JavadngDSL {
+
+        Style outline = () -> {
+            position.sticky().top(15, px);
+            display.block().height($.num(91, vh).subtract(15, px)).maxWidth(JavadngDSL.RightNavigationWidth);
+            overflow.auto().scrollbar.thin();
+            text.whiteSpace.nowrap();
+
+            $.hover(() -> {
+                overflow.y.auto();
+            });
+
+            $.child().child(() -> {
+                padding.vertical(0.25, em);
+            });
+        };
 
         Color keyword = Color.hsl(0, 29, 49);
 
-        Color RETURN = JavadngStyleDSL.Theme.secondary.lighten(JavadngStyleDSL.Theme.back, -25);
+        Color RETURN = JavadngDSL.Theme.secondary.lighten(JavadngDSL.Theme.back, -25);
 
         Numeric signatureLabelWidth = Numeric.num(3, rem);
 
@@ -252,12 +269,12 @@ public class APIPage extends Page<ClassInfo> {
         };
 
         Style TypeName = () -> {
-            font.family(JavadngStyleDSL.Theme.base).size(1.2, rem).weight.normal();
+            font.family(JavadngDSL.Theme.base).size(1.2, rem).weight.normal();
             margin.bottom(0.3, rem);
         };
 
         Style MemberName = () -> {
-            font.family(JavadngStyleDSL.Theme.base).size(1, rem).weight.normal();
+            font.family(JavadngDSL.Theme.base).size(1, rem).weight.normal();
             display.block();
             margin.left(-1.1, rem);
         };
@@ -390,7 +407,7 @@ public class APIPage extends Page<ClassInfo> {
             });
 
             $.select("li").not($.lastChild()).after(() -> {
-                font.color(JavadngStyleDSL.Theme.front.lighten(30)).size.smaller();
+                font.color(JavadngDSL.Theme.front.lighten(30)).size.smaller();
                 content.text("\\025b6");
                 margin.horizontal(0.8, rem);
             });

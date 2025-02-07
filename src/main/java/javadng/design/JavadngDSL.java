@@ -17,10 +17,10 @@ import stylist.value.Numeric;
 /**
  * Base style for Javadng.
  */
-public interface JavadngStyleDSL extends StyleDSL {
+public interface JavadngDSL extends StyleDSL {
 
     /** The singleton. */
-    Design Theme = I.make(Design.class);
+    JavadngDesignScheme Theme = I.make(JavadngDesignScheme.class);
 
     Query Small = Query.screen().width(0, 900, px);
 
@@ -28,15 +28,7 @@ public interface JavadngStyleDSL extends StyleDSL {
 
     Numeric MaxSubNaviWidth = Numeric.num(280, px);
 
-    Numeric SmallGap = Numeric.num(1, px);
-
     Numeric BlockVerticalGap = Numeric.num(0.5, rem);
-
-    Numeric BlockBorderWidth = Numeric.num(3, px);
-
-    Numeric BlockHorizontalGap = Numeric.num(10, px);
-
-    Numeric HeaderBottomMargin = Numeric.num(12, px);
 
     Numeric RightNavigationWidth = Numeric.num(20, vw);
 

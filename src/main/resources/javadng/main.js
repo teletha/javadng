@@ -30,7 +30,6 @@ $("#theme").click(e => save($("html").reset(user.theme = user.theme == "light" ?
 // Dynamic Navigation Indicator
 // =====================================================
 const navi = new IntersectionObserver(e => {
-	console.log(e)
 	e.forEach(i => {
 		var x = $(`#DocNavi a[href$='#${i.target.id}']`);
 		if (i.isIntersecting) {
@@ -39,7 +38,7 @@ const navi = new IntersectionObserver(e => {
 			x.remove("now")
 		}
 	})
-}, {rootMargin: "-15% 0px -20% 0px", threshold: 0.1})
+}, {rootMargin: "-15% 0px -20% 0px", threshold: 0.2})
 
 // =====================================================
 // Lightning Fast Viewer

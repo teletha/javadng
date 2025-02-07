@@ -17,7 +17,7 @@ import stylist.image.Image;
 import stylist.value.Color;
 import stylist.value.Numeric;
 
-public class Design extends AbstractDesignScheme {
+public class JavadngDesignScheme extends AbstractDesignScheme {
 
     public String backImage;
 

@@ -10,7 +10,7 @@
 package javadng.page;
 
 import javadng.HTML;
-import javadng.design.JavadngStyleDSL;
+import javadng.design.JavadngDSL;
 import stylist.Query;
 import stylist.Style;
 import stylist.Stylist;
@@ -102,12 +102,10 @@ public abstract class Page<T> extends HTML {
                 // =============================
                 // Right Side Navigation
                 // =============================
-                $("aside", id("SubNavi"), css.aside, () -> {
-                    $("div", css.SubNavigationStickyBlock, () -> {
-                        if (contents != null) {
-                            declareSubNavigation();
-                        }
-                    });
+                $("aside", css.aside, () -> {
+                    if (contents != null) {
+                        declareSubNavigation();
+                    }
                 });
 
                 $("footer", css.footer, () -> {
@@ -124,7 +122,7 @@ public abstract class Page<T> extends HTML {
 
     protected abstract void declareSubNavigation();
 
-    private interface css extends JavadngStyleDSL {
+    private interface css extends JavadngDSL {
 
         Numeric HEADER_HEIGHT = Numeric.num(80, px);
 
@@ -177,9 +175,7 @@ public abstract class Page<T> extends HTML {
             $.select(".sub", () -> {
                 display.height(0, px);
                 font.size(0.9, em).color(Theme.front.lighten(Theme.back, 7));
-                border.left.solid().width(1, px).color(Color.hsl(0, 0, 65));
                 overflow.y.hidden();
-                margin.left(10, px);
                 transition.duration(0.3, s).whenever();
 
                 $.when(Small, () -> {
@@ -188,24 +184,22 @@ public abstract class Page<T> extends HTML {
 
                 $.select("a", () -> {
                     padding.left(0.8, rem).vertical(0.3, rem);
+                    border.left.solid().width(2, px).color(Color.hsl(0, 0, 65));
                     $.with(".foot", () -> {
                         padding.left(1.6, rem);
                     });
 
                     $.with(".now", () -> {
-                        background.color(Theme.surface);
+                        border.left.color(Theme.accent);
+                        background.color(Theme.accent.opacify(-0.9));
                     });
 
-                    Numeric corner = Numeric.num(0.6, rem);
-
                     $.firstMatch(".now", () -> {
-                        border.top.radius(corner);
-                        border.left.radius(corner);
+                        border.top.radius(Theme.radius);
                     });
 
                     $.lastMatch(".now", () -> {
-                        border.bottom.radius(corner);
-                        border.right.radius(corner);
+                        border.right.radius(Theme.radius);
                     });
                 });
             });
@@ -228,7 +222,7 @@ public abstract class Page<T> extends HTML {
                 display.width(20, px).height(20, px);
             });
 
-            $.when(JavadngStyleDSL.Small, () -> {
+            $.when(JavadngDSL.Small, () -> {
                 display.none();
             });
         };
@@ -311,7 +305,7 @@ public abstract class Page<T> extends HTML {
 
             $.after(() -> {
                 content.text("");
-                position.absolute().top(JavadngStyleDSL.BlockVerticalGap).left(0, px);
+                position.absolute().top(JavadngDSL.BlockVerticalGap).left(0, px);
                 display.width(91, percent).height(91, percent).zIndex(5).opacity(0).block();
                 background.color(Theme.surface);
                 pointerEvents.none();
@@ -323,26 +317,8 @@ public abstract class Page<T> extends HTML {
         };
 
         Style aside = () -> {
-            display.width(JavadngStyleDSL.MaxSubNaviWidth);
-            font.size(0.91, rem);
-
             $.when(BASE, MIDDLE, () -> {
                 display.none();
-            });
-        };
-
-        Style SubNavigationStickyBlock = () -> {
-            position.sticky().top(HEADER_HEIGHT.plus(15, px));
-            display.block().height($.num(91, vh).subtract(HEADER_HEIGHT)).maxWidth(JavadngStyleDSL.RightNavigationWidth);
-            overflow.auto().scrollbar.thin();
-            text.whiteSpace.nowrap();
-
-            $.hover(() -> {
-                overflow.y.auto();
-            });
-
-            $.child().child(() -> {
-                padding.vertical(0.25, em);
             });
         };
 

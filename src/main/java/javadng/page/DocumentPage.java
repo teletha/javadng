@@ -11,7 +11,7 @@ package javadng.page;
 
 import javax.lang.model.element.Modifier;
 
-import javadng.design.JavadngStyleDSL;
+import javadng.design.JavadngDSL;
 import javadng.design.Styles;
 import kiss.I;
 import kiss.XML;
@@ -99,7 +99,7 @@ public class DocumentPage extends Page<DocumentProvider> {
     protected void declareSubNavigation() {
     }
 
-    interface S extends JavadngStyleDSL {
+    interface S extends JavadngDSL {
 
         Numeric IconSize = Numeric.num(16, px);
 

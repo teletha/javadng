@@ -59,7 +59,7 @@ import com.sun.net.httpserver.HttpServer;
 
 import icy.manipulator.Icy;
 import javadng.SiteBuilder;
-import javadng.design.Design;
+import javadng.design.JavadngDesignScheme;
 import javadng.parser.ClassInfo;
 import javadng.parser.Data;
 import javadng.parser.Data.Doc;
@@ -805,7 +805,7 @@ public abstract class JavadocModel {
                 // build CSS
                 I.load(SiteBuilder.class);
                 Stylist.pretty()
-                        .scheme(Design.class)
+                        .scheme(JavadngDesignScheme.class)
                         .styles(I.findAs(StyleDeclarable.class))
                         .formatTo(output().file("main.css").asJavaPath());
 
