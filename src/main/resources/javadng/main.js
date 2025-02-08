@@ -31,9 +31,12 @@ $("#theme").click(e => save($("html").reset(user.theme = user.theme == "light" ?
 // =====================================================
 const navi = new IntersectionObserver(e => {
 	e.forEach(i => {
-		var x = $(`#DocNavi a[href$='#${i.target.id}']`);
+		var x = $(`:is(nav,aside) a[href$='#${i.target.id}']`);
 		if (i.isIntersecting) {
-			x.add("now")
+			x.add("now").each(link => link.scrollIntoView({
+				behavior: 'smooth',
+				block: 'nearest'
+			}))
 		} else {
 			x.remove("now")
 		}

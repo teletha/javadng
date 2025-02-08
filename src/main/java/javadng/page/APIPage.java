@@ -435,7 +435,11 @@ public class APIPage extends Page<ClassInfo> {
         };
 
         Style member = () -> {
-            margin.bottom(0.2, em);
+            padding.vertical(0.1, em);
+
+            $.has("a.now", () -> {
+                font.color(Theme.accent).weight.bold();
+            });
         };
 
         Style returnValue = () -> {
