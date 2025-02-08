@@ -308,7 +308,7 @@ public abstract class Page<T> extends HTML {
             $.after(() -> {
                 content.text("");
                 position.absolute().top(JavadngDSL.BlockVerticalGap).left(0, px);
-                display.width(91, percent).height(91, percent).zIndex(5).opacity(0).block();
+                display.width(100, percent).height(100, percent).zIndex(5).opacity(0).block();
                 background.color(Theme.surface);
                 pointerEvents.none();
 
@@ -319,6 +319,9 @@ public abstract class Page<T> extends HTML {
         };
 
         Style aside = () -> {
+            display.width(100, percent);
+            position.sticky().top(BODY_TOP);
+
             $.when(BASE, MIDDLE, () -> {
                 display.none();
             });

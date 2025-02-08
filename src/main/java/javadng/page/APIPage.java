@@ -213,9 +213,9 @@ public class APIPage extends Page<ClassInfo> {
 
     private void members(String title, List<? extends MemberInfo> members) {
         if (members.size() != 0) {
-            $("h5", css.Title, text(title));
+            $("h5", css.title, text(title));
             $("ul", foŕ(members, m -> {
-                $("li", () -> {
+                $("li", css.member, () -> {
                     $(m.createModifier());
                     $(m.createName());
 
@@ -225,11 +225,11 @@ public class APIPage extends Page<ClassInfo> {
                     }
 
                     if (m instanceof MethodInfo) {
-                        $("i", css.NaviReturn, ((MethodInfo) m).createReturnType());
+                        $("i", css.returnValue, ((MethodInfo) m).createReturnType());
                     }
 
                     if (m instanceof FieldInfo) {
-                        $("i", css.NaviReturn, ((FieldInfo) m).createType());
+                        $("i", css.returnValue, ((FieldInfo) m).createType());
                     }
                 });
             }));
@@ -243,17 +243,9 @@ public class APIPage extends Page<ClassInfo> {
 
         Style outline = () -> {
             JavadngDSL.scrollable();
-            position.sticky().top(15, px);
             display.block().height($.num(91, vh).subtract(15, px)).maxWidth(JavadngDSL.RightNavigationWidth);
             text.whiteSpace.nowrap();
-
-            $.hover(() -> {
-                overflow.y.auto();
-            });
-
-            $.child().child(() -> {
-                padding.vertical(0.25, em);
-            });
+            font.size(0.8, em);
         };
 
         Color keyword = Color.hsl(0, 29, 49);
@@ -433,16 +425,20 @@ public class APIPage extends Page<ClassInfo> {
             });
         });
 
-        Style ParameterName = Style.named(".parameterName", () -> {
+        Style parameterName = Style.named(".parameterName", () -> {
             padding.left(0.3, em);
         });
 
-        Style Title = () -> {
+        Style title = () -> {
             margin.top(0.9, rem);
             font.weight.bold().size(1, rem);
         };
 
-        Style NaviReturn = () -> {
+        Style member = () -> {
+            margin.bottom(0.2, em);
+        };
+
+        Style returnValue = () -> {
             font.color(RETURN);
 
             $.before(() -> {

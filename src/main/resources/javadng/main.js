@@ -147,7 +147,7 @@ FlashMan({
 		$("#Article section").each(e => navi.observe(e));
 	},
 
-	preview: "#Article>div>section",
+	preview: "#Article section",
 	/* Enahnce code highlight */
 	"pre": e => {
 		hljs.highlightElement(e)
