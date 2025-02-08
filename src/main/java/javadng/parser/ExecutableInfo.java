@@ -133,7 +133,7 @@ public class ExecutableInfo extends ParameterizableInfo {
         for (int i = 0, size = names.size(); i < size; i++) {
             xml.append(createParameter(i));
             xml.append(" ");
-            xml.append(I.xml("code").addClass("parameterName").text(names.get(i)));
+            xml.append(createParameterName(i));
 
             if (i + 1 != size) {
                 xml.append(", ");
@@ -159,7 +159,7 @@ public class ExecutableInfo extends ParameterizableInfo {
      * @return
      */
     public final XML createParameterName(int index) {
-        return I.xml("<code/>").text(names.get(index));
+        return I.xml("code").addClass("parameterName").text(names.get(index));
     }
 
     /**

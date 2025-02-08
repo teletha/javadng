@@ -250,7 +250,9 @@ public class APIPage extends Page<ClassInfo> {
 
         Color keyword = Color.hsl(0, 29, 49);
 
-        Color RETURN = JavadngDSL.Theme.secondary.lighten(JavadngDSL.Theme.back, -25);
+        Color RETURN = Theme.secondary.lighten(Theme.back, -25);
+
+        Color TYPEVARIABLE = Theme.secondary.lighten(Theme.back, 25);
 
         Numeric signatureLabelWidth = Numeric.num(3, rem);
 
@@ -321,6 +323,7 @@ public class APIPage extends Page<ClassInfo> {
 
             $.before(() -> {
                 content.text("Type");
+                font.color(TYPEVARIABLE);
             });
         };
 
