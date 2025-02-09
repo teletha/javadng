@@ -33,10 +33,7 @@ const navi = new IntersectionObserver(e => {
 	e.forEach(i => {
 		var x = $(`:is(nav,aside) a[href$='#${i.target.id}']`);
 		if (i.isIntersecting) {
-			x.add("now").each(link => link.scrollIntoView({
-				behavior: 'smooth',
-				block: 'nearest'
-			}))
+			x.add("now").each(n => n.scrollIntoView({block: "nearest"}))
 		} else {
 			x.remove("now")
 		}
@@ -165,11 +162,11 @@ FlashMan({
 		e.title = "Post this article to Twitter";
 		e.href = "https://twitter.com/intent/tweet?url=" + encodeURIComponent(location.origin + location.pathname + "#" + e.closest("section").id) + "&text=" + encodeURIComponent(e.closest("header").firstElementChild.textContent);
 		e.target = "_blank";
-		e.rel = "noopener noreferrer";
+		e.rel = "noreferrer";
 	}, ".edit": e => {
 		e.title = "Edit this article";
 		e.target = "_blank";
-		e.rel = "noopener noreferrer";
+		e.rel = "noreferrer";
 	}
 });
 

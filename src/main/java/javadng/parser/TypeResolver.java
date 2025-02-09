@@ -17,7 +17,6 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -125,6 +124,36 @@ public class TypeResolver {
     private static final Pattern ARRAY = Pattern.compile("([^\\[\\]\\.]+)([\\[\\]\\.]+)$");
 
     /**
+     * Return the URL of the document for the specified type.
+     * 
+     * @param type A target type to locate document.
+     * @return
+     */
+    public final boolean isExternal(String type) {
+        return resolve(type).isExternal();
+    }
+
+    /**
+     * Return the URL of the document for the specified type.
+     * 
+     * @param type A target type to locate document.
+     * @return
+     */
+    public final boolean isExternal(DeclaredType type) {
+        return isExternal((TypeElement) type.asElement());
+    }
+
+    /**
+     * Return the URL of the document for the specified type.
+     * 
+     * @param type A target type to locate document.
+     * @return
+     */
+    public final boolean isExternal(TypeElement type) {
+        return resolve(type).isExternal();
+    }
+
+    /**
      * Compute FQCN from the specified simple name.
      * 
      * @param className
@@ -155,7 +184,7 @@ public class TypeResolver {
      * @return
      */
     public final String resolveDocumentLocation(String type) {
-        return resolveDocumentLocation(resolve(type));
+        return resolve(type).location();
     }
 
     /**
@@ -175,40 +204,7 @@ public class TypeResolver {
      * @return
      */
     public final String resolveDocumentLocation(TypeElement type) {
-        return resolveDocumentLocation(resolve(type));
-    }
-
-    /**
-     * Returns the URL of the document with the specified type name.
-     * 
-     * @param moduleName Module name. Null or empty string is ignored.
-     * @param packageName Package name. Null or empty string is ignored.
-     * @param enclosingName Enclosing type name. Null or empty string is ignored.
-     * @param typeName Target type's simple name.
-     * @return Resoleved URL.
-     */
-    private final String resolveDocumentLocation(ResolvedType type) {
-        String externalURL = externals.get(type.packageName);
-
-        if (externalURL != null) {
-            StringBuilder builder = new StringBuilder(externalURL);
-            if (type.moduleName.length() != 0) builder.append(type.moduleName).append('/');
-            if (type.packageName.length() != 0) builder.append(type.packageName.replace('.', '/')).append('/');
-            if (type.enclosingName.length() != 0) builder.append(type.enclosingName).append('.');
-            builder.append(type.typeName).append(".html");
-
-            return builder.toString();
-        }
-
-        if (internals.contains(type.packageName)) {
-            StringBuilder builder = new StringBuilder("api/");
-            if (type.packageName.length() != 0) builder.append(type.packageName).append('.');
-            if (type.enclosingName.length() != 0) builder.append(type.enclosingName).append('.');
-            builder.append(type.typeName).append(".html");
-
-            return builder.toString();
-        }
-        return null;
+        return resolve(type).location();
     }
 
     /**
@@ -271,7 +267,7 @@ public class TypeResolver {
     /**
      * Completed resolved type.
      */
-    private static class ResolvedType {
+    private class ResolvedType {
 
         private String typeName = "";
 
@@ -282,13 +278,45 @@ public class TypeResolver {
         private String moduleName = "";
 
         /**
-         * If this type can identify the source, it will be converted to {@link TypeElement}.
-         * Otherwise, empty is returned.
+         * Returns the URL of the document with the specified type name.
+         * 
+         * @param moduleName Module name. Null or empty string is ignored.
+         * @param packageName Package name. Null or empty string is ignored.
+         * @param enclosingName Enclosing type name. Null or empty string is ignored.
+         * @param typeName Target type's simple name.
+         * @return Resoleved URL.
+         */
+        private String location() {
+            String externalURL = externals.get(packageName);
+
+            if (externalURL != null) {
+                StringBuilder builder = new StringBuilder(externalURL);
+                if (moduleName.length() != 0) builder.append(moduleName).append('/');
+                if (packageName.length() != 0) builder.append(packageName.replace('.', '/')).append('/');
+                if (enclosingName.length() != 0) builder.append(enclosingName).append('.');
+                builder.append(typeName).append(".html");
+
+                return builder.toString();
+            }
+
+            if (internals.contains(packageName)) {
+                StringBuilder builder = new StringBuilder("api/");
+                if (packageName.length() != 0) builder.append(packageName).append('.');
+                if (enclosingName.length() != 0) builder.append(enclosingName).append('.');
+                builder.append(typeName).append(".html");
+
+                return builder.toString();
+            }
+            return null;
+        }
+
+        /**
+         * Check whether this type is external or not.
          * 
          * @return
          */
-        private Optional<TypeElement> asElement() {
-            return Optional.ofNullable(Util.ElementUtils.getTypeElement(packageName + "." + enclosingName + "." + typeName));
+        private boolean isExternal() {
+            return externals.containsKey(packageName);
         }
 
         /**

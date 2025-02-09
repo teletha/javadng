@@ -626,6 +626,7 @@ public class DocumentInfo {
             String ref = node.getReference().toString();
             String[] id = identify(node.getReference().toString());
             String uri = resolver.resolveDocumentLocation(id[0]);
+            boolean external = resolver.isExternal(id[0]);
             String label = I.signal(node.getLabel()).as(TextTree.class).map(TextTree::getBody).to().or("");
             boolean code = label.contains("@");
             boolean plain = node.getTagName().equals("linkplain");
@@ -638,7 +639,7 @@ public class DocumentInfo {
                 } else {
                     text.append("<code><a href='").append(uri);
                     if (id[1] != null) text.append("#").append(id[1]);
-                    text.append("'>").append(ref).append("</a></code>");
+                    text.append("' title='").append(id[0]).append(external ? " 🚀" : "").append("'>").append(ref).append("</a></code>");
                 }
             }
 
@@ -888,12 +889,17 @@ public class DocumentInfo {
             // link to type
             TypeElement type = (TypeElement) declared.asElement();
             String name = type.getSimpleName().toString();
+            String fqcn = type.getQualifiedName().toString();
             String uri = resolver.resolveDocumentLocation(type);
+            boolean external = resolver.isExternal(type);
 
             if (uri != null) {
-                xml.append(I.xml("a").attr("href", uri).text(name));
+                if (external) {
+                    fqcn += " 🚀";
+                }
+                xml.append(I.xml("a").attr("href", uri).attr("title", fqcn).text(name));
             } else {
-                xml.text(type.getQualifiedName().toString());
+                xml.text(fqcn);
             }
 
             // type parameter

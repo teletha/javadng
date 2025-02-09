@@ -35,13 +35,12 @@ public class Styles implements JavadngDSL {
 
     public static Style HTMLAnchor = Style.named("a", () -> {
         font.color(Color.Inherit);
-        text.decorationStyle.dotted().decorationColor.color("#ccc");
+        text.decorationStyle.solid().decorationColor.color(Color.Current.opacify(-0.8)).decorationThickness(1, px).underlineOffset
+                .length(3, px);
         cursor.pointer();
 
         $.hover(() -> {
-            font.color(Theme.link);
-            text.decoration.underline();
-            text.decorationColor.color(Theme.front.opacify(-0.5));
+            text.decorationColor.color(Color.Current.mix(Color.Transparent, 70));
         });
     });
 
@@ -49,7 +48,7 @@ public class Styles implements JavadngDSL {
 
     public static Style HTMLSelectbox = Browsers.selectbox(Theme.back, Theme.front);
 
-    public static Style HTMLToolTip = Browsers.tooltip("title", true, Color.rgb(227, 227, 227), Color.rgb(63, 63, 63));
+    public static Style HTMLToolTip = Browsers.tooltip("title", true, Theme.front, Theme.back);
 
     public static Style SVG = Style.named(".svg", () -> {
         display.width(16, px);
@@ -334,6 +333,7 @@ public class Styles implements JavadngDSL {
     public static final Style HTMLClassParameters = Style.named(".parameters", () -> {
         $.before(() -> {
             content.text("<");
+            text.selectable();
         });
         $.after(() -> {
             content.text(">");
@@ -355,6 +355,7 @@ public class Styles implements JavadngDSL {
     public static final Style HTMLClassArray = Style.named("code[array=fix]", () -> {
         $.after(() -> {
             content.text("[]");
+            text.selectable();
         });
     });
 
@@ -404,14 +405,12 @@ public class Styles implements JavadngDSL {
         display.flex();
 
         $.before(() -> {
-            display.inlineBlock().width(15, px).height(15, px);
-            flexItem.alignSelf.center();
-            text.align.center();
+            display.width(15, px).height(15, px).inlineFlex().alignItems.center().justifyContent.center();
+            place.align.center().justify.center();
             border.color(color).solid().width(1, px);
-            margin.right(6, px);
+            margin.right(7, px);
             content.text(mark);
-            font.size(10, px).lineHeight(13, px);
-            transform.translateY(-1, px);
+            font.size(0.9, rem);
 
             if (circle) {
                 border.radius(50, percent);
