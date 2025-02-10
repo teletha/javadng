@@ -78,7 +78,7 @@ public abstract class Page<T> extends HTML {
                         $("a", href(model.repository().locate()), attr("target", "_blank"), svg("github"), id("Repository"));
                     });
                     $("div", css.controls, () -> {
-                        $("a", id("theme"), title("Change color scheme"), () -> {
+                        $("a", id("theme"), attr("aria-label", "Change color scheme"), () -> {
                             $(svg("sun"));
                             $(svg("moon"));
                         });

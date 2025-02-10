@@ -35,12 +35,12 @@ public class Styles implements JavadngDSL {
 
     public static Style HTMLAnchor = Style.named("a", () -> {
         font.color(Color.Inherit);
-        text.decorationStyle.solid().decorationColor.color(Color.Current.opacify(-0.8)).decorationThickness(1, px).underlineOffset
-                .length(3, px);
+        text.decorationStyle.solid().decorationColor.color(Theme.front.opacify(-0.6)).decorationThickness(1, px).underlineOffset
+                .length(2, px);
         cursor.pointer();
 
         $.hover(() -> {
-            text.decorationColor.color(Color.Current.mix(Color.Transparent, 70));
+            text.decorationColor.color(Theme.front);
         });
     });
 
@@ -49,6 +49,8 @@ public class Styles implements JavadngDSL {
     public static Style HTMLSelectbox = Browsers.selectbox(Theme.back, Theme.front);
 
     public static Style HTMLToolTip = Browsers.tooltip("title", true, Theme.front, Theme.back);
+
+    public static Style HTMLToolTipAriaLabel = Browsers.tooltip("aria-label", true, Theme.front, Theme.back);
 
     public static Style SVG = Style.named(".svg", () -> {
         display.width(16, px);

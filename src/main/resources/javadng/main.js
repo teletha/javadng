@@ -152,19 +152,19 @@ FlashMan({
 	"pre": e => {
 		hljs.highlightElement(e)
 		e.lang = e.classList[0].substring(5).toUpperCase()
-		$(e).appendTo($("<code>").insertBefore(e)).make("a").title("Copy this code").click(v => navigator.clipboard.writeText(e.textContent)).svg(prefix + "main.svg#copy")
+		$(e).appendTo($("<code>").insertBefore(e)).make("a").attr("aria-label", "Copy this code").click(v => navigator.clipboard.writeText(e.textContent)).svg(prefix + "main.svg#copy")
 	},
 	/* Enahnce meta icons */
 	".perp": e => {
-		e.title = "Copy the permanent link";
+		e.ariaLabel = "Copy the permanent link";
 		e.onclick = () => navigator.clipboard.writeText(location.origin + location.pathname + "#" + e.closest("section").id);
 	}, ".tweet": e => {
-		e.title = "Post this article to Twitter";
+		e.ariaLabel = "Post this article to Twitter";
 		e.href = "https://twitter.com/intent/tweet?url=" + encodeURIComponent(location.origin + location.pathname + "#" + e.closest("section").id) + "&text=" + encodeURIComponent(e.closest("header").firstElementChild.textContent);
 		e.target = "_blank";
 		e.rel = "noreferrer";
 	}, ".edit": e => {
-		e.title = "Edit this article";
+		e.ariaLabel = "Edit this article";
 		e.target = "_blank";
 		e.rel = "noreferrer";
 	}
