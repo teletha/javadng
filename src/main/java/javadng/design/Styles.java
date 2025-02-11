@@ -48,9 +48,7 @@ public class Styles implements JavadngDSL {
 
     public static Style HTMLSelectbox = Browsers.selectbox(Theme.back, Theme.front);
 
-    public static Style HTMLToolTip = Browsers.tooltip("title", true, Theme.front, Theme.back);
-
-    public static Style HTMLToolTipAriaLabel = Browsers.tooltip("aria-label", true, Theme.front, Theme.back);
+    public static Style HTMLToolTip = Browsers.tooltip("aria-label", true, Theme.front, Theme.back);
 
     public static Style SVG = Style.named(".svg", () -> {
         display.width(16, px);
@@ -393,6 +391,10 @@ public class Styles implements JavadngDSL {
 
     public static final Style HTMLClassTypeEnum = Style.named(".Enum", () -> {
         buildMark("E", Color.hsl(0, 29, 49), true, false);
+    });
+
+    public static final Style HTMLClassTypeRecord = Style.named(".Record", () -> {
+        buildMark("R", ClassColor, true, true);
     });
 
     public static final Style HTMLClassTypeAnnotation = Style.named(".Annotation", () -> {

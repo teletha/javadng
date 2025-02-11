@@ -639,7 +639,12 @@ public class DocumentInfo {
                 } else {
                     text.append("<code><a href='").append(uri);
                     if (id[1] != null) text.append("#").append(id[1]);
-                    text.append("' title='").append(id[0]).append(external ? " 🚀" : "").append("'>").append(ref).append("</a></code>");
+                    text.append("' aria-label='")
+                            .append(id[0])
+                            .append(external ? " 🚀" : "")
+                            .append("'>")
+                            .append(ref)
+                            .append("</a></code>");
                 }
             }
 
@@ -897,7 +902,7 @@ public class DocumentInfo {
                 if (external) {
                     fqcn += " 🚀";
                 }
-                xml.append(I.xml("a").attr("href", uri).attr("title", fqcn).text(name));
+                xml.append(I.xml("a").attr("href", uri).attr("aria-label", fqcn).text(name));
             } else {
                 xml.text(fqcn);
             }

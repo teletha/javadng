@@ -122,6 +122,8 @@ public class ClassInfo extends ParameterizableInfo implements DocumentProvider, 
             return "Annotation";
         case ENUM:
             return "Enum";
+        case RECORD:
+            return "Record";
         default: // CLASS
             if (root.getModifiers().contains(Modifier.ABSTRACT)) {
                 return "AbstractClass";
