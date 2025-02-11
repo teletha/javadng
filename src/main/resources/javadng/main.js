@@ -283,7 +283,7 @@ class APITree extends $ {
 
 		this.moduleFilter = new Select({ placeholder: "Select Module", model: root.modules })
 		this.packageFilter = new Select({ placeholder: "Select Package", model: root.packages })
-		this.typeFilter = new Select({ placeholder: "Select Type", multiple: true, model: ['Interface', 'Functional', 'AbstractClass', 'Class', 'Enum', 'Annotation', 'Exception'] })
+		this.typeFilter = new Select({ placeholder: "Select Type", multiple: true, model: ['Interface', 'Functional', 'AbstractClass', 'Class', 'Enum', 'Record', 'Annotation', 'Exception'] })
 		this.nameFilter = $("<input>").id("NameFilter").placeholder("Search by Name")
 
 		this.id("APINavi").change(e => this.update()).input(e => this.update())
