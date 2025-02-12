@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.4.0](https://github.com/teletha/javadng/compare/v2.3.0...v2.4.0) (2025-02-12)
+
+
+### Features
+
+* remake ui ([cb45eff](https://github.com/teletha/javadng/commit/cb45eff79a15f91afd3eb3a47358ddb45d3fa473))
+* support record type ([c77dbf3](https://github.com/teletha/javadng/commit/c77dbf3287c77b3b633c3ae865425444127e64f7))
+* update lycoris ([07ded46](https://github.com/teletha/javadng/commit/07ded46a6127bb4eb2d22edafec78d3973963a9c))
+
+
+### Bug Fixes
+
+* failed tests ([5d4d835](https://github.com/teletha/javadng/commit/5d4d8351e1906c98d305f16f8ed18c778cb37e00))
+* reduce js size ([c2642be](https://github.com/teletha/javadng/commit/c2642be416d9c8ce932d00a22bbaf0f411bf7cce))
+
 ## [2.3.0](https://github.com/teletha/javadng/compare/v2.2.1...v2.3.0) (2024-11-28)
 
 
