@@ -71,7 +71,7 @@ public abstract class Page<T> extends HTML {
                 $("header", css.header, attr("date", published), attr("ver", model.version()), () -> {
                     $("h1", css.title, code(model.product()));
                     $("nav", css.links, () -> {
-                        $("a", href("doc/" + model.rootDoc().id() + ".html"), svg("text"), id("Document"));
+                        $("a", href("doc/" + model.rootDoc().children().get(0).id() + ".html"), svg("text"), id("Document"));
                         $("a", href("api/"), svg("package"), id("API"));
                         $("a", href(model.repository().locateCommunity()), attr("target", "_blank"), svg("user"), id("Community"));
                         $("a", href("doc/changelog.html"), svg("activity"), id("Activity"));
