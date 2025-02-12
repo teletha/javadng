@@ -99,16 +99,16 @@ If you think something might be a bug, but you're not sure, ask on StackOverflow
 Javadng depends on the following products on runtime.
 * [commonmark-0.24.0](https://mvnrepository.com/artifact/org.commonmark/commonmark/0.24.0)
 * [commonmark-ext-gfm-tables-0.24.0](https://mvnrepository.com/artifact/org.commonmark/commonmark-ext-gfm-tables/0.24.0)
-* [javaparser-core-3.26.2](https://mvnrepository.com/artifact/com.github.javaparser/javaparser-core/3.26.2)
+* [javaparser-core-3.26.3](https://mvnrepository.com/artifact/com.github.javaparser/javaparser-core/3.26.3)
 * [lycoris-1.1.0](https://mvnrepository.com/artifact/com.github.teletha/lycoris/1.1.0)
 * [psychopath-2.0.2](https://mvnrepository.com/artifact/com.github.teletha/psychopath/2.0.2)
 * [sinobu-4.5.2](https://mvnrepository.com/artifact/com.github.teletha/sinobu/4.5.2)
-* [stylist-1.12.0](https://mvnrepository.com/artifact/com.github.teletha/stylist/1.12.0)
+* [stylist-1.14.0](https://mvnrepository.com/artifact/com.github.teletha/stylist/1.14.0)
 <p align="right"><a href="#top">back to top</a></p>
 
 
 ## License
-Copyright (C) 2024 The JAVADNG Development Team
+Copyright (C) 2025 The JAVADNG Development Team
 
 MIT License
 
