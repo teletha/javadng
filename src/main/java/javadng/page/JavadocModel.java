@@ -417,8 +417,8 @@ public abstract class JavadocModel {
         return Internal.class;
     }
 
-    public final ClassInfo rootDoc() {
-        return I.signal(docs).map(ClassInfo::outermost).skipNull().first().to().v;
+    public final Set<ClassInfo> docs() {
+        return I.signal(docs).map(ClassInfo::outermost).skipNull().toSet();
     }
 
     /**
