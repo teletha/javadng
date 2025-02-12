@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.1](https://github.com/teletha/javadng/compare/v2.4.0...v2.4.1) (2025-02-12)
+
+
+### Bug Fixes
+
+* root docs ([fef0633](https://github.com/teletha/javadng/commit/fef063314104a87ec831e6350be4f39efa772113))
+
 ## [2.4.0](https://github.com/teletha/javadng/compare/v2.3.0...v2.4.0) (2025-02-12)
 
 
