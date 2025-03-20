@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta content="width=device-width, initial-scale=1" name="viewport"/>
+		<meta content="Explains how to use Javadng and its API. " name="description"/>
+		<link href="https://cdn.jsdelivr.net" rel="preconnect"/>
+		<link href="https://fonts.googleapis.com" rel="preconnect"/>
+		<link crossorigin="null" href="https://fonts.gstatic.com" rel="preconnect"/>
+		<link as="style" fetchpriority="high" href="https://fonts.googleapis.com/css2?display=swap&#38;family=Inter" rel="preload"/>
+		<link href="https://fonts.googleapis.com/css2?display=swap&#38;family=Inter" media="print" onload="this.media=&#39;all&#39;" rel="stylesheet"/>
+		<link as="style" fetchpriority="high" href="https://fonts.googleapis.com/css2?display=swap&#38;family=Material+Icons" rel="preload"/>
+		<link href="https://fonts.googleapis.com/css2?display=swap&#38;family=Material+Icons" media="print" onload="this.media=&#39;all&#39;" rel="stylesheet"/>
+		<link as="style" fetchpriority="high" href="https://fonts.googleapis.com/css2?display=swap&#38;family=Vollkorn" rel="preload"/>
+		<link href="https://fonts.googleapis.com/css2?display=swap&#38;family=Vollkorn" media="print" onload="this.media=&#39;all&#39;" rel="stylesheet"/>
+		<title>Javadng API</title>
+		<base href="../"/>
+		<script src="mimic.js" type="module"></script>
+		<link href="https://cdn.jsdelivr.net/npm/ress@4.0.0/dist/ress.min.css" rel="stylesheet"/>
+		<link href="main.css" rel="stylesheet"/>
+	</head>
+	<body class="q">
+		<header class="g" date="2025-02-12" ver="2.4.1">
+			<h1 class="f"><code>Javadng</code></h1>
+			<nav class="h"><a href="api/" id="API"><svg class="package A svg" viewBox="0 0 24 24">
+						<use href="main.svg#package"/>
+					</svg>
+				</a><a href="https://github.com/teletha/javadng/discussions" id="Community" target="_blank"><svg class="user A svg" viewBox="0 0 24 24">
+						<use href="main.svg#user"/>
+					</svg>
+				</a><a href="doc/changelog.html" id="Activity"><svg class="activity A svg" viewBox="0 0 24 24">
+						<use href="main.svg#activity"/>
+					</svg>
+				</a><a href="https://github.com/teletha/javadng" id="Repository" target="_blank"><svg class="github A svg" viewBox="0 0 24 24">
+						<use href="main.svg#github"/>
+					</svg>
+				</a></nav>
+			<div class="i"><a aria-label="Change color scheme" id="theme"><svg class="sun A svg" viewBox="0 0 24 24">
+						<use href="main.svg#sun"/>
+					</svg><svg class="moon A svg" viewBox="0 0 24 24">
+						<use href="main.svg#moon"/>
+					</svg>
+				</a></div>
+		</header>
+		<nav class="V"></nav>
+		<article class="e" id="Article">
+			<div class="Q">
+				<section class="B" id="2.4.1(2025-02-12)">
+					<header class="B T">
+						<h2>2.4.1 (2025-02-12)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>root docs (<a href="https://github.com/teletha/javadng/commit/fef063314104a87ec831e6350be4f39efa772113">fef0633</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v2.4.1.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="2.4.0(2025-02-12)">
+					<header class="B T">
+						<h2>2.4.0 (2025-02-12)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>remake ui (<a href="https://github.com/teletha/javadng/commit/cb45eff79a15f91afd3eb3a47358ddb45d3fa473">cb45eff</a>)</li>
+						<li>support record type (<a href="https://github.com/teletha/javadng/commit/c77dbf3287c77b3b633c3ae865425444127e64f7">c77dbf3</a>)</li>
+						<li>update lycoris (<a href="https://github.com/teletha/javadng/commit/07ded46a6127bb4eb2d22edafec78d3973963a9c">07ded46</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>failed tests (<a href="https://github.com/teletha/javadng/commit/5d4d8351e1906c98d305f16f8ed18c778cb37e00">5d4d835</a>)</li>
+						<li>reduce js size (<a href="https://github.com/teletha/javadng/commit/c2642be416d9c8ce932d00a22bbaf0f411bf7cce">c2642be</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v2.4.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="2.3.0(2024-11-28)">
+					<header class="B T">
+						<h2>2.3.0 (2024-11-28)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>improve FCP and LCP (<a href="https://github.com/teletha/javadng/commit/f7c4360396374631d36a45fd7161da87153eca25">f7c4360</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>readable document style (<a href="https://github.com/teletha/javadng/commit/0009c2c7c4c9b632c350c90a1c00743e56533cae">0009c2c</a>)</li>
+						<li>update icymanipulator (<a href="https://github.com/teletha/javadng/commit/3e32e7014692b5921643e03b9413f9df8ebec27d">3e32e70</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v2.3.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="2.2.1(2024-11-11)">
+					<header class="B T">
+						<h2>2.2.1 (2024-11-11)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>remove dependency on Java23 (<a href="https://github.com/teletha/javadng/commit/b83a910c3264edc2773a5dd76348688d627f970a">b83a910</a>)</li>
+						<li>require Java 21 (<a href="https://github.com/teletha/javadng/commit/4450d0379bf8511d2a8f597928782c6031e29b56">4450d03</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v2.2.1.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="2.2.0(2024-10-24)">
+					<header class="B T">
+						<h2>2.2.0 (2024-10-24)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>required java version is 21 (<a href="https://github.com/teletha/javadng/commit/bba8c6611f13da6635ea5722d54d81654ef1a302">bba8c66</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>skip building when no test or no docs (<a href="https://github.com/teletha/javadng/commit/e5fb2fa5f9040120ae0dacdcb4317f6ea183ebec">e5fb2fa</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v2.2.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="2.1.0(2024-10-23)">
+					<header class="B T">
+						<h2>2.1.0 (2024-10-23)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>add table and code style (<a href="https://github.com/teletha/javadng/commit/a1a85e0e786711e06da849a458930f1cd5a6b6e9">a1a85e0</a>)</li>
+						<li>support markdown comment (<a href="https://github.com/teletha/javadng/commit/a1a85e0e786711e06da849a458930f1cd5a6b6e9">a1a85e0</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v2.1.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="2.0.3(2024-10-13)">
+					<header class="B T">
+						<h2>2.0.3 (2024-10-13)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>more readable style (<a href="https://github.com/teletha/javadng/commit/a954f99b0178b004a0da9dc2f668f663f2d8cfd8">a954f99</a>)</li>
+						<li>update ci (<a href="https://github.com/teletha/javadng/commit/0148ee11cea482b8ee7cd8c618474f0dd92c06ef">0148ee1</a>)</li>
+						<li>update style (<a href="https://github.com/teletha/javadng/commit/baefdbbd31d292bf5ab704f4599b279bb6c82590">baefdbb</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v2.0.3.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="2.0.2(2024-02-20)">
+					<header class="B T">
+						<h2>2.0.2 (2024-02-20)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>apply default theme (<a href="https://github.com/teletha/javadng/commit/d4c572e7927fc8a30329dfb222c4bcea8ba791c9">d4c572e</a>)</li>
+						<li>increase font size in code (<a href="https://github.com/teletha/javadng/commit/bf706b70b84e28039d6e198722576b03d3e7a0f1">bf706b7</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v2.0.2.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="2.0.1(2024-02-20)">
+					<header class="B T">
+						<h2>2.0.1 (2024-02-20)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>update section observer in js (<a href="https://github.com/teletha/javadng/commit/fae78d946844918f5b13f9297dda18d6175ea369">fae78d9</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v2.0.1.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="2.0.0(2024-02-20)">
+					<header class="B T">
+						<h2>2.0.0 (2024-02-20)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>support markdown in javadoc (<a href="https://github.com/teletha/javadng/commit/36d6d0cf301742ae8841eba1e356d166bf090dc3">36d6d0c</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>change document style (<a href="https://github.com/teletha/javadng/commit/9ae5f756a49e3fa2e971bdd25f88c95aca7f9e4e">9ae5f75</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="MiscellaneousChores">
+					<header class="B d">
+						<h3>Miscellaneous Chores</h3>
+					</header>
+					<ul>
+						<li>release 2.0.0 (<a href="https://github.com/teletha/javadng/commit/bd6283c011f54c8b5d3259186086a45236846a4b">bd6283c</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v2.0.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.15.0(2024-02-17)">
+					<header class="B T">
+						<h2>1.15.0 (2024-02-17)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>add some meta tags for seo (<a href="https://github.com/teletha/javadng/commit/17d7cd99e452b79fe015a1888f5fc0298f6fda30">17d7cd9</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>fail to retrieve the latest release date on github (<a href="https://github.com/teletha/javadng/commit/0d7340df5ca23c328c8b9ed75cd1471624d85672">0d7340d</a>)</li>
+						<li>make more accessible (<a href="https://github.com/teletha/javadng/commit/cca767c8af38c35de3d34bf41151aecc1c3498b6">cca767c</a>)</li>
+						<li>update ci process (<a href="https://github.com/teletha/javadng/commit/4c3277a70a7324c0ffff9679dea64c27ca73d31e">4c3277a</a>)</li>
+						<li>update license (<a href="https://github.com/teletha/javadng/commit/1ea54b4c529eb47eb17dc1de29f76463984d0ced">1ea54b4</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.15.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.14.1(2023-02-23)">
+					<header class="B T">
+						<h2>1.14.1 (2023-02-23)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>highlight.js resource indicates invalid location (<a href="https://github.com/teletha/javadng/commit/026cd097ed69a60c1458bc0b0406187151435c8e">026cd09</a>)</li>
+						<li>ignore http 404 error (<a href="https://github.com/teletha/javadng/commit/119e667603f851be3aaefc571d9060f28ffe474b">119e667</a>)</li>
+						<li>too many access to published data (<a href="https://github.com/teletha/javadng/commit/ca4b5e3afddbf7e2723c71111f664207c5ebfcf2">ca4b5e3</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.14.1.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.14.0(2023-01-06)">
+					<header class="B T">
+						<h2>1.14.0 (2023-01-06)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>Add CodeHighlighter. (<a href="https://github.com/teletha/javadng/commit/7ad9dcc8b568d2de80029c1391f86edc463c91b9">7ad9dcc</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.14.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.13.2(2023-01-06)">
+					<header class="B T">
+						<h2>1.13.2 (2023-01-06)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>update sinobu (<a href="https://github.com/teletha/javadng/commit/d77d1f00209cdf112b5a3fc60fea5d90fcd126ef">d77d1f0</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.13.2.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.13.1(2022-12-27)">
+					<header class="B T">
+						<h2>1.13.1 (2022-12-27)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>update stylist (<a href="https://github.com/teletha/javadng/commit/bf4bb7dee8e5dec6603f11e39033b14ac8ead302">bf4bb7d</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.13.1.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.13.0(2022-12-27)">
+					<header class="B T">
+						<h2>1.13.0 (2022-12-27)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>Release-As 1.13.0 (<a href="https://github.com/teletha/javadng/commit/95581cb72b51909c9e8ae18f1671ee33a33e4ebf">95581cb</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.13.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.12.4(2022-12-24)">
+					<header class="B T">
+						<h2>1.12.4 (2022-12-24)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>update sinobu and lycoris (<a href="https://github.com/teletha/javadng/commit/714d6ace2db1c966ad1449ddd78d1f76827b1ba3">714d6ac</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.12.4.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.12.3(2022-12-20)">
+					<header class="B T">
+						<h2>1.12.3 (2022-12-20)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>bug (<a href="https://github.com/teletha/javadng/commit/94243e14175c25dedfff247990ba879b7feec742">94243e1</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.12.3.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.12.2(2022-12-20)">
+					<header class="B T">
+						<h2>1.12.2 (2022-12-20)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>Avoid exception for non-released project. (<a href="https://github.com/teletha/javadng/commit/5545b1ca89e16d41f0dbafa44bbac0f40bd703fb">5545b1c</a>)</li>
+						<li>update sinobu and lycoris (<a href="https://github.com/teletha/javadng/commit/219d5a80148a82aeb8505c1b5d1dbf376353e39b">219d5a8</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.12.2.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.12.1(2022-12-19)">
+					<header class="B T">
+						<h2>1.12.1 (2022-12-19)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>avoid NPE (<a href="https://github.com/teletha/javadng/commit/525da1403f9c61e1edade0b49eb3abbc897d83f0">525da14</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.12.1.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.12.0(2022-12-18)">
+					<header class="B T">
+						<h2>1.12.0 (2022-12-18)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>Remove @SuppressWarnings and @Test from code. (<a href="https://github.com/teletha/javadng/commit/b076716bd47320522ed09d6fec492c08fccb845c">b076716</a>)</li>
+						<li>Support entity resolving in javadoc. (<a href="https://github.com/teletha/javadng/commit/59c266a4403a677f3dda41fb5b339199438d5aaa">59c266a</a>)</li>
+						<li>Support importing source code from nested class. (<a href="https://github.com/teletha/javadng/commit/a7129c3352743d8da59054b9cd3f8bc99a6bfdd7">a7129c3</a>)</li>
+						<li>Support importing source code with body only. (<a href="https://github.com/teletha/javadng/commit/53b82a1f114022e3f6b9b754b3b9d849f0112305">53b82a1</a>)</li>
+						<li>Support simple source code importer. (<a href="https://github.com/teletha/javadng/commit/2c81a3e8bbad6f7c89154018b45348d1b53f26e8">2c81a3e</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>Do not apply transition effects when accessing from external page. (<a href="https://github.com/teletha/javadng/commit/81252564607de4b885b6895198866a6bdcbf9ea1">8125256</a>)</li>
+						<li>Optimize importing field&#39;s source code. (<a href="https://github.com/teletha/javadng/commit/123c048656437d25c1855b56eaa54d7bfe68d043">123c048</a>)</li>
+						<li>refactoring source code writer. (<a href="https://github.com/teletha/javadng/commit/321e8566ec74e7ad429ab8a9dff596615fdff45f">321e856</a>)</li>
+						<li>support compilation on java 11 (<a href="https://github.com/teletha/javadng/commit/6675e24a02c7327d34c16eab80af947179721baa">6675e24</a>)</li>
+						<li>update build version (<a href="https://github.com/teletha/javadng/commit/9ed72756b78e61e7ba30f4dbb846c8b50a626e2a">9ed7275</a>)</li>
+						<li>Whitespace is erased when referring to source code. (<a href="https://github.com/teletha/javadng/commit/42896bf288010fd5f22da7d94866f7f3b96aa38f">42896bf</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.12.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.11.4(2022-12-06)">
+					<header class="B T">
+						<h2>1.11.4 (2022-12-06)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>update highlight.js to 11.7.0 (<a href="https://github.com/teletha/javadng/commit/0d2b39fcdf2bc1af8517f6f6a6cf4b31c57f81df">0d2b39f</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.11.4.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.11.3(2022-12-06)">
+					<header class="B T">
+						<h2>1.11.3 (2022-12-06)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>Brush up change log page. (<a href="https://github.com/teletha/javadng/commit/a9d386d6cb6ff1d9a806b6893e9a5a3284447a4b">a9d386d</a>)</li>
+						<li>update style (<a href="https://github.com/teletha/javadng/commit/8a32c7648640141c44be725021f3c2e4f45cf018">8a32c76</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.11.3.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.11.2(2022-11-29)">
+					<header class="B T">
+						<h2>1.11.2 (2022-11-29)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>Update JDK javadoc version. (<a href="https://github.com/teletha/javadng/commit/82a86a642d23a6bf0dbe14277945fd94a7d2f5d9">82a86a6</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.11.2.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.11.1(2022-11-29)">
+					<header class="B T">
+						<h2>1.11.1 (2022-11-29)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>Fails to parse text literal with expression tag. (<a href="https://github.com/teletha/javadng/commit/d7842674554f5fa9592bd284f34891e80fd39163">d784267</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.11.1.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.11.0(2022-11-29)">
+					<header class="B T">
+						<h2>1.11.0 (2022-11-29)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>Restore scroll position when browser&#39;s back. (<a href="https://github.com/teletha/javadng/commit/730fa5d1b2d4331f4a16e6a2f73bf6611580b254">730fa5d</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>Cannot import source code by class. (<a href="https://github.com/teletha/javadng/commit/d411b8150191af92fa8e9d8a34fe29df5873db08">d411b81</a>)</li>
+						<li>Cannot parse full source code by class file. (<a href="https://github.com/teletha/javadng/commit/3975896f6697bec95c9563de069829651c22f3f1">3975896</a>)</li>
+						<li>Cannot parse interface source code. (<a href="https://github.com/teletha/javadng/commit/8077cc78fd96f42b99e0af830d058d58a84ec2dc">8077cc7</a>)</li>
+						<li>Cannot parse source code from internal independent file. (<a href="https://github.com/teletha/javadng/commit/080656f4c34191b311b8b5a70a5accc2568ca267">080656f</a>)</li>
+						<li>change style (<a href="https://github.com/teletha/javadng/commit/48da86365d50b1b319da487d1386dd1f887b0b34">48da863</a>)</li>
+						<li>Support java 16. (<a href="https://github.com/teletha/javadng/commit/9d48c237ee05e094eea33adcf22f8af966c76382">9d48c23</a>)</li>
+						<li>Unknown class reference stops the javadoc processing. (<a href="https://github.com/teletha/javadng/commit/01018ba4a4cb5e0b5be981657c0cab06d860e42d">01018ba</a>)</li>
+						<li>update style (<a href="https://github.com/teletha/javadng/commit/d6aa6e95f6c82f241e26992bba112073418f7d16">d6aa6e9</a>)</li>
+						<li>update style (<a href="https://github.com/teletha/javadng/commit/7b20fbcdae20717b0171372b2077d6fcd2471efd">7b20fbc</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.11.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.10.0(2022-11-04)">
+					<header class="B T">
+						<h2>1.10.0 (2022-11-04)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>Support responsive style. (<a href="https://www.github.com/teletha/javadng/commit/16bea958c1723af2e3f1139ef4d591e84c13bce8">16bea95</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>change code style (<a href="https://www.github.com/teletha/javadng/commit/4b871af9326364f08245c2a23de17067088c251a">4b871af</a>)</li>
+						<li>change style (<a href="https://www.github.com/teletha/javadng/commit/6dab11f7e8597a343cbc4b872f12f15b07d54544">6dab11f</a>)</li>
+						<li>Decrease font size for code. (<a href="https://www.github.com/teletha/javadng/commit/a6638376ba3ba28c16b15386a7dc078728213084">a663837</a>)</li>
+						<li>highlight style is broken (<a href="https://www.github.com/teletha/javadng/commit/9f3a2fca2ae8fbcb82808512ebf217ee634dbd35">9f3a2fc</a>)</li>
+						<li>Navi text doesn&#39;t wrap itself. (<a href="https://www.github.com/teletha/javadng/commit/14aa15c44ee571c93d5cd2ffa7416a0bfdecb013">14aa15c</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.10.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.9.0(2022-01-29)">
+					<header class="B T">
+						<h2>1.9.0 (2022-01-29)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>Themed highlight style. (<a href="https://www.github.com/teletha/javadng/commit/52ce1f60291a56e7124927714c2ddd1d5d161f9d">52ce1f6</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.9.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.8.0(2022-01-23)">
+					<header class="B T">
+						<h2>1.8.0 (2022-01-23)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>Update highlight.js to 11.4.0 (<a href="https://www.github.com/teletha/javadng/commit/09e5c7676cfe79e0bd7ec9843fcf914869e42f22">09e5c76</a>)</li>
+						<li>Update various styles. (<a href="https://www.github.com/teletha/javadng/commit/96360a8a36da5dd38f888911277dc2c0ad15f256">96360a8</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.8.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.7.5(2022-01-22)">
+					<header class="B T">
+						<h2>1.7.5 (2022-01-22)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>update bee (<a href="https://www.github.com/teletha/javadng/commit/a04d08a4d8469674ff75104ef7e56d7dc15d0cd3">a04d08a</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.7.5.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.7.4(2022-01-18)">
+					<header class="B T">
+						<h2>1.7.4 (2022-01-18)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>Support java release 11. (<a href="https://www.github.com/teletha/javadng/commit/37e783cdbce2b5f1d2fc8a711062a38564ade8e4">37e783c</a>)</li>
+						<li>Update icy-manipulator. (<a href="https://www.github.com/teletha/javadng/commit/a5ae93ceb5604c9967bc404d7de30d3911778f45">a5ae93c</a>)</li>
+						<li>update psychopath (<a href="https://www.github.com/teletha/javadng/commit/ba09371540487383a3b19425ad9133552f19c312">ba09371</a>)</li>
+						<li>Update to Java 17. (<a href="https://www.github.com/teletha/javadng/commit/1c8e54d3ea38439c2c0d680889e08de537105380">1c8e54d</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.7.4.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.7.3(2021-11-09)">
+					<header class="B T">
+						<h2>1.7.3 (2021-11-09)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>Change css. (<a href="https://www.github.com/Teletha/javadng/commit/a8ccdbd68feeb75fe24fe619531d76252c4ce99d">a8ccdbd</a>)</li>
+						<li>CodeRepository recgnize the default branch automatically. (<a href="https://www.github.com/Teletha/javadng/commit/c3bd92e0ac3c6121a4580fd4ba3d8c867a3ff703">c3bd92e</a>)</li>
+						<li>Update highlight.js from 11.2.0 to 11.3.1 (<a href="https://www.github.com/Teletha/javadng/commit/2ff5db3f2b8d4ce1b562461ec63002e83c2163e5">2ff5db3</a>)</li>
+						<li>Use the latest grammer definition of highlight.js automatically. (<a href="https://www.github.com/Teletha/javadng/commit/7fb3e434ec30f0b23b17a6243d232cde302d300e">7fb3e43</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.7.3.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.7.2(2021-11-08)">
+					<header class="B T">
+						<h2>1.7.2 (2021-11-08)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>DiagnosticListener is compatible with tools API. (<a href="https://www.github.com/Teletha/javadng/commit/600824417d48ffbc797294c3a38a104c474c1925">6008244</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.7.2.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.7.1(2021-11-07)">
+					<header class="B T">
+						<h2>1.7.1 (2021-11-07)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>Use user specified classpath properly. (<a href="https://www.github.com/Teletha/javadng/commit/aab473fc4a0e3c5dbf802463e63bfd8745c8559c">aab473f</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.7.1.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.7.0(2021-11-07)">
+					<header class="B T">
+						<h2>1.7.0 (2021-11-07)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>Automatic support for the nested context. (<a href="https://www.github.com/Teletha/javadng/commit/1bbd7b86007ddcdc03fc35fd0113ef5bbd4e8553">1bbd7b8</a>)</li>
+						<li>Remove Repository, use CodeRepository instead. (<a href="https://www.github.com/Teletha/javadng/commit/c6fd8f71d317461bc90782d80c64b5246b08a9aa">c6fd8f7</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>Accepts multiple sample directories. (<a href="https://www.github.com/Teletha/javadng/commit/25097c5d677c685afc847d9f393eeb4ffabb7fd2">25097c5</a>)</li>
+						<li>Capitalize product name. (<a href="https://www.github.com/Teletha/javadng/commit/eba49415fe0902ac223bc675e78f4f36e1ec8be1">eba4941</a>)</li>
+						<li>test (<a href="https://www.github.com/Teletha/javadng/commit/11bfa58de1ca3b7e6f15bcfa498a92a15bf3a67c">11bfa58</a>)</li>
+						<li>tests (<a href="https://www.github.com/Teletha/javadng/commit/5276cf0a305b103de4829c5f92576b1c4445ecdb">5276cf0</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.7.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.6.0(2021-11-06)">
+					<header class="B T">
+						<h2>1.6.0 (2021-11-06)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>Javadoc supports the nested path. (<a href="https://www.github.com/Teletha/javadng/commit/61fcf1f236d5e85ab7362c85e22de4b35794a70c">61fcf1f</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.6.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.5.0(2021-11-06)">
+					<header class="B T">
+						<h2>1.5.0 (2021-11-06)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>Add encoding option to Javadoc. (<a href="https://www.github.com/Teletha/javadng/commit/af5a97bad57e55f61e8ec8eaffdab7597aeeef0b">af5a97b</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.5.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.4.1(2021-11-05)">
+					<header class="B T">
+						<h2>1.4.1 (2021-11-05)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>Report the building result. (<a href="https://www.github.com/Teletha/javadng/commit/0ded7666eb1ed963a719f4d34b78b173905f78cf">0ded766</a>)</li>
+						<li>update external jdk location from 16 to 17 (<a href="https://www.github.com/Teletha/javadng/commit/8a2f8c783fdd5042f73693399ed6a801fbe27d46">8a2f8c7</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.4.1.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.4.0(2021-11-02)">
+					<header class="B T">
+						<h2>1.4.0 (2021-11-02)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>Accepts repository infomation. (<a href="https://www.github.com/Teletha/javadng/commit/24d19c252e9f1f11a7044cfe6f6fccd9d84c1780">24d19c2</a>)</li>
+						<li>Add custom select element. (<a href="https://www.github.com/Teletha/javadng/commit/537457da3a75e78d0618960653ea1dae0478a646">537457d</a>)</li>
+						<li>Add navigation icon. (<a href="https://www.github.com/Teletha/javadng/commit/27dff4434e25358a808b119213d784ca5d5f87b6">27dff44</a>)</li>
+						<li>Add the ultra lightning fast viewer. (FlashMan) (<a href="https://www.github.com/Teletha/javadng/commit/4cff4b1a106ec9705b7b2511e383f19656a56c95">4cff4b1</a>)</li>
+						<li>Build the minimum bundled highlight.js dynamically. (<a href="https://www.github.com/Teletha/javadng/commit/e2d6029b274a4db6cdb807c8f66f6bd40d32b4a7">e2d6029</a>)</li>
+						<li>Detect section level automatically. (<a href="https://www.github.com/Teletha/javadng/commit/bc540a62ce9bcd5cbba4b37a344e4a1cf2db05cd">bc540a6</a>)</li>
+						<li>Display last modified date. (<a href="https://www.github.com/Teletha/javadng/commit/8dadf829d71f808f3ac813d4f1dd01d9ddee29e9">8dadf82</a>)</li>
+						<li>Display version numner. (<a href="https://www.github.com/Teletha/javadng/commit/8ea8f098c41c83046fc612985c92448d2b738719">8ea8f09</a>)</li>
+						<li>Drop fontawesome. (<a href="https://www.github.com/Teletha/javadng/commit/6fdd0270e46607331107c8523a5c2e7095cfba50">6fdd027</a>)</li>
+						<li>Drop vue-select. (<a href="https://www.github.com/Teletha/javadng/commit/2db7d02ee4d7bc5e7a9536fc928f59d24e98dfd5">2db7d02</a>)</li>
+						<li>Drop vue. (<a href="https://www.github.com/Teletha/javadng/commit/d759baeb1dbe6bf7e8d15dbcc65d5f230419aa08">d759bae</a>)</li>
+						<li>Provide jQuery like utility. (<a href="https://www.github.com/Teletha/javadng/commit/2beb88e7138d8606bc86e83546b3b4bd844db326">2beb88e</a>)</li>
+						<li>Support dark mode. (<a href="https://www.github.com/Teletha/javadng/commit/33c9be8f0f7dc6d8f248418c62434680d4ecd3d1">33c9be8</a>)</li>
+						<li>Update highlightjs. (<a href="https://www.github.com/Teletha/javadng/commit/ed5b6cb4196af7a8b3c2d168a78b5fcfb579b00f">ed5b6cb</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>Apply correct language name. (<a href="https://www.github.com/Teletha/javadng/commit/b749ad4c43f69dd63f128839e0f7b4050645bff1">b749ad4</a>)</li>
+						<li>Enhance dark mode. (<a href="https://www.github.com/Teletha/javadng/commit/b4242c1e6a0b0fc8902908557b23c86211b96067">b4242c1</a>)</li>
+						<li>Enhance Select UI. (<a href="https://www.github.com/Teletha/javadng/commit/0100408e1a57a096c06c9a6f6d7ebd0792c0e86c">0100408</a>)</li>
+						<li>Enhance style on dark mode. (<a href="https://www.github.com/Teletha/javadng/commit/f10cf69c272799df52ea6b9f6961621ad0705a05">f10cf69</a>)</li>
+						<li>Execute code highlighting lazily. (<a href="https://www.github.com/Teletha/javadng/commit/6ec02426a54748cd373d1fd12ed37f5cf65000e2">6ec0242</a>)</li>
+						<li>Make the type&#39;s icon color more readable. (<a href="https://www.github.com/Teletha/javadng/commit/10819da11f699c7390c34dbb84fe893cbee172e4">10819da</a>)</li>
+						<li>Remove unused file. (<a href="https://www.github.com/Teletha/javadng/commit/0180fd47e302dfd8c8958465feb8308f6e3adcac">0180fd4</a>)</li>
+						<li>Remove unused files. (<a href="https://www.github.com/Teletha/javadng/commit/b4a1cf46291c84b53ad6f50bd75753b07daf97fd">b4a1cf4</a>)</li>
+						<li>Tests. (<a href="https://www.github.com/Teletha/javadng/commit/a85a95fbb8e0bb71597bc2d37a6a419284c6c7b8">a85a95f</a>)</li>
+						<li>Update CI. (<a href="https://www.github.com/Teletha/javadng/commit/9e267a78e2d047c777cae4ae3e8fb1a90db41dc9">9e267a7</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.4.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.3.0(2021-05-18)">
+					<header class="B T">
+						<h2>1.3.0 (2021-05-18)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>Add button to copy code. (<a href="https://www.github.com/Teletha/stoneforge/commit/4f5f84c17bad59c34ce5a2a73d1d89f4a248947b">4f5f84c</a>)</li>
+						<li>Add dl style on documentation comment. (<a href="https://www.github.com/Teletha/stoneforge/commit/b037bf827aeba532eb02ecff3e12b774b467feb5">b037bf8</a>)</li>
+						<li>Add SNS and edit link. (<a href="https://www.github.com/Teletha/stoneforge/commit/c6dea9a3efcf76c70e9ff44a7bdb75ab44adef68">c6dea9a</a>)</li>
+						<li>Docment can refer the external test code. (<a href="https://www.github.com/Teletha/stoneforge/commit/36e51bb0253ed534ad724965eb9d1b16e7678612">36e51bb</a>)</li>
+						<li>Enhance document navigation. (<a href="https://www.github.com/Teletha/stoneforge/commit/77dd35f4c159441c8939d64152f83d995f52c615">77dd35f</a>)</li>
+						<li>Javadoc can refer the user variables. (<a href="https://www.github.com/Teletha/stoneforge/commit/020b26eb88848e1cc9942988a158065f6cb811f3">020b26e</a>)</li>
+						<li>Support SVG styling. (<a href="https://www.github.com/Teletha/stoneforge/commit/baa6761e1a0435bf798f25a271dae7d9e0377b07">baa6761</a>)</li>
+						<li>Test server supports SVG. (<a href="https://www.github.com/Teletha/stoneforge/commit/27de20233dfaf69eb28a14eeaac9d66a1056643d">27de202</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>Avoid style confliction on svg. (<a href="https://www.github.com/Teletha/stoneforge/commit/5a6bc856ad6ca8dc293354b181d344f63a2d8191">5a6bc85</a>)</li>
+						<li>Enhance heading sytle. (<a href="https://www.github.com/Teletha/stoneforge/commit/8af215c821669975898a2ed72ab4a39407cbabb8">8af215c</a>)</li>
+						<li>Enhance styles. (<a href="https://www.github.com/Teletha/stoneforge/commit/e3657ac98fb6482d8c50625fd45cdf9dc9fcf1dc">e3657ac</a>)</li>
+						<li>Parse pre with code element correctly. (<a href="https://www.github.com/Teletha/stoneforge/commit/40b3adb69d786dd789f799847be76f6c425be219">40b3adb</a>)</li>
+						<li>Reduce the redundant page transition. (<a href="https://www.github.com/Teletha/stoneforge/commit/01281a2defc4981d7f2df1b7207dcfef4798391f">01281a2</a>)</li>
+						<li>Remove sub navigation on document page. (<a href="https://www.github.com/Teletha/stoneforge/commit/2147dfbc8c0943337ca6a32a6ba027fbd71d44ab">2147dfb</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.3.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.2.0(2021-04-29)">
+					<header class="B T">
+						<h2>1.2.0 (2021-04-29)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>Drop vue-router. (<a href="https://www.github.com/Teletha/stoneforge/commit/bcd7631c19fd21b60f27591aebb83c31d9f18383">bcd7631</a>)</li>
+						<li>Support filed view. (<a href="https://www.github.com/Teletha/stoneforge/commit/8acdb331cf3e58ac12c169cd0b7f960615baf675">8acdb33</a>)</li>
+						<li>Use JetBrains Mono for monospace font. (<a href="https://www.github.com/Teletha/stoneforge/commit/ecbac5849be2a6d3358f4c14700b5e94625ff4da">ecbac58</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>Drop pretty-checkbox. (<a href="https://www.github.com/Teletha/stoneforge/commit/64b24e7c5462a411b2f8816840be50aeb481de82">64b24e7</a>)</li>
+						<li>Enhance checkbox style. (<a href="https://www.github.com/Teletha/stoneforge/commit/9c7c7649c10106c4ebbf771305d36bab59914bc4">9c7c764</a>)</li>
+						<li>Enhance style of samples. (<a href="https://www.github.com/Teletha/stoneforge/commit/39c543329e63cda17a4c57dbe3c88aca2f109687">39c5433</a>)</li>
+						<li>Enhance style. (<a href="https://www.github.com/Teletha/stoneforge/commit/c8c8dcc14673e14cca49f9c4580dafe83acae17c">c8c8dcc</a>)</li>
+						<li>Enhance styles. (<a href="https://www.github.com/Teletha/stoneforge/commit/9651f612acdd03d542dbdf3b29e6e26ce6eb0a12">9651f61</a>)</li>
+						<li>Generate all resources. (<a href="https://www.github.com/Teletha/stoneforge/commit/9d36dc0f527dff4668d75328b9d3200252d48492">9d36dc0</a>)</li>
+						<li>Internal link handling. (<a href="https://www.github.com/Teletha/stoneforge/commit/106e7f2964cf15be7f3c9dbd79bc7bb9226e14bd">106e7f2</a>)</li>
+						<li>Internal link&#39;s transition was broken. (<a href="https://www.github.com/Teletha/stoneforge/commit/e24d6ffe23538a19acc5ae937876472e58b66bf4">e24d6ff</a>)</li>
+						<li>Reduce the redundant network access. (<a href="https://www.github.com/Teletha/stoneforge/commit/f224cffea467e9ab9cdcb01f73663ce42251743a">f224cff</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.2.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.1.0(2021-04-20)">
+					<header class="B T">
+						<h2>1.1.0 (2021-04-20)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>Avoid unnecessary translations when auto-translating pages. (<a href="https://www.github.com/Teletha/stoneforge/commit/43c07d25fd76b3b3d3253d0de7304e91953414e6">43c07d2</a>)</li>
+						<li>Canonicalize class and method id. (<a href="https://www.github.com/Teletha/stoneforge/commit/921f8d6194a4235310a9e53662d262439265289c">921f8d6</a>)</li>
+						<li>Javadoc can specify task event listener. (<a href="https://www.github.com/Teletha/stoneforge/commit/2bc5ea69262e02d9b18aecca63cee1451b52295d">2bc5ea6</a>)</li>
+						<li>Live reloading on development mode. (<a href="https://www.github.com/Teletha/stoneforge/commit/b538a2d8c3e2293bf611c7d7da20d762dbacb60f">b538a2d</a>)</li>
+						<li>Print sample code pretty. (<a href="https://www.github.com/Teletha/stoneforge/commit/91d7a675dbbc137cdc0d152bfc71ed5d73343bd6">91d7a67</a>)</li>
+						<li>Provide user defined template tag. (<a href="https://www.github.com/Teletha/stoneforge/commit/b8491e2cbda877c69bee78ebfc16e26b7a1ce390">b8491e2</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>Array type on parameter displays valid signature. (<a href="https://www.github.com/Teletha/stoneforge/commit/15806f7c4a38e67ba805802ceda6f44c1b9a9756">15806f7</a>)</li>
+						<li>Canonicalize parameters in javadoc. (<a href="https://www.github.com/Teletha/stoneforge/commit/b34c47f3afc923e7c44c74bfca4ac75b4bd616ed">b34c47f</a>)</li>
+						<li>Enhance style. (<a href="https://www.github.com/Teletha/stoneforge/commit/d92feb3e8df5acd7453a67a91880d20ee9c65dbc">d92feb3</a>)</li>
+						<li>Execute live reloading correctly. (<a href="https://www.github.com/Teletha/stoneforge/commit/b27ce52fcd5dd1806de016f0a9017ac73c09852c">b27ce52</a>)</li>
+						<li>Hide package-private members. (<a href="https://www.github.com/Teletha/stoneforge/commit/26900c11fd8b71886387f6f42fff4a54ec873a89">26900c1</a>)</li>
+						<li>HttpServer returns Content-Type header. (<a href="https://www.github.com/Teletha/stoneforge/commit/b099820ea33fd3421ebbf73d518b66ab1a5a069b">b099820</a>)</li>
+						<li>Internal link can be resolved. (<a href="https://www.github.com/Teletha/stoneforge/commit/b8491e2cbda877c69bee78ebfc16e26b7a1ce390">b8491e2</a>)</li>
+						<li>It is now possible to resolve FQCN of unprocessed type in the same (<a href="https://www.github.com/Teletha/stoneforge/commit/73fd0694fd0ded4d88eb20138828b865d8d69b3a">73fd069</a>)</li>
+						<li>Make network access synchronously. (<a href="https://www.github.com/Teletha/stoneforge/commit/cada5d4b3ed9a1bd40216f0f073a1c46f8d115d7">cada5d4</a>)</li>
+						<li>Refer to the URL hash information when reloading. (<a href="https://www.github.com/Teletha/stoneforge/commit/ff9dab0874f22a692fc574840160404e1e5cf4dd">ff9dab0</a>)</li>
+						<li>Simplify the description of wildcard parameter. (<a href="https://www.github.com/Teletha/stoneforge/commit/b64b4e86b001f647e73ab31aaa8e583a8e426663">b64b4e8</a>)</li>
+						<li>styles (<a href="https://www.github.com/Teletha/stoneforge/commit/c30988ce6b28bfa0a342e0b406814e8d6b1aeac1">c30988c</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.1.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+			<div class="Q">
+				<section class="B" id="1.0.0(2021-03-30)">
+					<header class="B T">
+						<h2>1.0.0 (2021-03-30)</h2>
+						<div class="Z"><span class="perp p"><svg class="copy A svg" viewBox="0 0 24 24">
+									<use href="main.svg#copy"/>
+								</svg>
+							</span><a class="tweet p"><svg class="twitter A svg" viewBox="0 0 24 24">
+									<use href="main.svg#twitter"/>
+								</svg>
+							</a></div>
+					</header>
+				</section>
+				<section class="B S" id="Features">
+					<header class="B d">
+						<h3>Features</h3>
+					</header>
+					<ul>
+						<li>Enable CI. (<a href="https://www.github.com/Teletha/stoneforge/commit/d781efe5bd9e53ff529f92924df324e8bfc7a803">d781efe</a>)</li>
+						<li>Javadoc#show can preview the generated document easily. (<a href="https://www.github.com/Teletha/stoneforge/commit/b599255ea9f773b521fe7e4fbccd7622d2aa732a">b599255</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="BugFixes">
+					<header class="B d">
+						<h3>Bug Fixes</h3>
+					</header>
+					<ul>
+						<li>Builtin styles. (<a href="https://www.github.com/Teletha/stoneforge/commit/b599255ea9f773b521fe7e4fbccd7622d2aa732a">b599255</a>)</li>
+					</ul>
+				</section>
+				<section class="B S" id="Asserts">
+					<header class="B d">
+						<h3>Assets</h3>
+					</header>
+					<ul>
+						<li><a href="https://github.com/teletha/javadng/archive/refs/tags/v1.0.0.zip">Source code</a> (zip)</li>
+					</ul>
+				</section>
+			</div>
+		</article>
+		<aside class="P">
+			<ul>
+				<li><a href="doc/changelog.html#2.4.1(2025-02-12)">2.4.1 (2025-02-12)</a></li>
+				<li><a href="doc/changelog.html#2.4.0(2025-02-12)">2.4.0 (2025-02-12)</a></li>
+				<li><a href="doc/changelog.html#2.3.0(2024-11-28)">2.3.0 (2024-11-28)</a></li>
+				<li><a href="doc/changelog.html#2.2.1(2024-11-11)">2.2.1 (2024-11-11)</a></li>
+				<li><a href="doc/changelog.html#2.2.0(2024-10-24)">2.2.0 (2024-10-24)</a></li>
+				<li><a href="doc/changelog.html#2.1.0(2024-10-23)">2.1.0 (2024-10-23)</a></li>
+				<li><a href="doc/changelog.html#2.0.3(2024-10-13)">2.0.3 (2024-10-13)</a></li>
+				<li><a href="doc/changelog.html#2.0.2(2024-02-20)">2.0.2 (2024-02-20)</a></li>
+				<li><a href="doc/changelog.html#2.0.1(2024-02-20)">2.0.1 (2024-02-20)</a></li>
+				<li><a href="doc/changelog.html#2.0.0(2024-02-20)">2.0.0 (2024-02-20)</a></li>
+				<li><a href="doc/changelog.html#1.15.0(2024-02-17)">1.15.0 (2024-02-17)</a></li>
+				<li><a href="doc/changelog.html#1.14.1(2023-02-23)">1.14.1 (2023-02-23)</a></li>
+				<li><a href="doc/changelog.html#1.14.0(2023-01-06)">1.14.0 (2023-01-06)</a></li>
+				<li><a href="doc/changelog.html#1.13.2(2023-01-06)">1.13.2 (2023-01-06)</a></li>
+				<li><a href="doc/changelog.html#1.13.1(2022-12-27)">1.13.1 (2022-12-27)</a></li>
+				<li><a href="doc/changelog.html#1.13.0(2022-12-27)">1.13.0 (2022-12-27)</a></li>
+				<li><a href="doc/changelog.html#1.12.4(2022-12-24)">1.12.4 (2022-12-24)</a></li>
+				<li><a href="doc/changelog.html#1.12.3(2022-12-20)">1.12.3 (2022-12-20)</a></li>
+				<li><a href="doc/changelog.html#1.12.2(2022-12-20)">1.12.2 (2022-12-20)</a></li>
+				<li><a href="doc/changelog.html#1.12.1(2022-12-19)">1.12.1 (2022-12-19)</a></li>
+				<li><a href="doc/changelog.html#1.12.0(2022-12-18)">1.12.0 (2022-12-18)</a></li>
+				<li><a href="doc/changelog.html#1.11.4(2022-12-06)">1.11.4 (2022-12-06)</a></li>
+				<li><a href="doc/changelog.html#1.11.3(2022-12-06)">1.11.3 (2022-12-06)</a></li>
+				<li><a href="doc/changelog.html#1.11.2(2022-11-29)">1.11.2 (2022-11-29)</a></li>
+				<li><a href="doc/changelog.html#1.11.1(2022-11-29)">1.11.1 (2022-11-29)</a></li>
+				<li><a href="doc/changelog.html#1.11.0(2022-11-29)">1.11.0 (2022-11-29)</a></li>
+				<li><a href="doc/changelog.html#1.10.0(2022-11-04)">1.10.0 (2022-11-04)</a></li>
+				<li><a href="doc/changelog.html#1.9.0(2022-01-29)">1.9.0 (2022-01-29)</a></li>
+				<li><a href="doc/changelog.html#1.8.0(2022-01-23)">1.8.0 (2022-01-23)</a></li>
+				<li><a href="doc/changelog.html#1.7.5(2022-01-22)">1.7.5 (2022-01-22)</a></li>
+				<li><a href="doc/changelog.html#1.7.4(2022-01-18)">1.7.4 (2022-01-18)</a></li>
+				<li><a href="doc/changelog.html#1.7.3(2021-11-09)">1.7.3 (2021-11-09)</a></li>
+				<li><a href="doc/changelog.html#1.7.2(2021-11-08)">1.7.2 (2021-11-08)</a></li>
+				<li><a href="doc/changelog.html#1.7.1(2021-11-07)">1.7.1 (2021-11-07)</a></li>
+				<li><a href="doc/changelog.html#1.7.0(2021-11-07)">1.7.0 (2021-11-07)</a></li>
+				<li><a href="doc/changelog.html#1.6.0(2021-11-06)">1.6.0 (2021-11-06)</a></li>
+				<li><a href="doc/changelog.html#1.5.0(2021-11-06)">1.5.0 (2021-11-06)</a></li>
+				<li><a href="doc/changelog.html#1.4.1(2021-11-05)">1.4.1 (2021-11-05)</a></li>
+				<li><a href="doc/changelog.html#1.4.0(2021-11-02)">1.4.0 (2021-11-02)</a></li>
+				<li><a href="doc/changelog.html#1.3.0(2021-05-18)">1.3.0 (2021-05-18)</a></li>
+				<li><a href="doc/changelog.html#1.2.0(2021-04-29)">1.2.0 (2021-04-29)</a></li>
+				<li><a href="doc/changelog.html#1.1.0(2021-04-20)">1.1.0 (2021-04-20)</a></li>
+				<li><a href="doc/changelog.html#1.0.0(2021-03-30)">1.0.0 (2021-03-30)</a></li>
+			</ul>
+		</aside>
+		<footer class="b"/>
+	</body>
+	<script src="root.js"></script>
+	<script src="main.js" type="module"></script>
+</html>

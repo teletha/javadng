@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta content="width=device-width, initial-scale=1" name="viewport"/>
+		<meta content="Explains how to use Javadng and its API. " name="description"/>
+		<link href="https://cdn.jsdelivr.net" rel="preconnect"/>
+		<link href="https://fonts.googleapis.com" rel="preconnect"/>
+		<link crossorigin="null" href="https://fonts.gstatic.com" rel="preconnect"/>
+		<link as="style" fetchpriority="high" href="https://fonts.googleapis.com/css2?display=swap&#38;family=Inter" rel="preload"/>
+		<link href="https://fonts.googleapis.com/css2?display=swap&#38;family=Inter" media="print" onload="this.media=&#39;all&#39;" rel="stylesheet"/>
+		<link as="style" fetchpriority="high" href="https://fonts.googleapis.com/css2?display=swap&#38;family=Material+Icons" rel="preload"/>
+		<link href="https://fonts.googleapis.com/css2?display=swap&#38;family=Material+Icons" media="print" onload="this.media=&#39;all&#39;" rel="stylesheet"/>
+		<link as="style" fetchpriority="high" href="https://fonts.googleapis.com/css2?display=swap&#38;family=Vollkorn" rel="preload"/>
+		<link href="https://fonts.googleapis.com/css2?display=swap&#38;family=Vollkorn" media="print" onload="this.media=&#39;all&#39;" rel="stylesheet"/>
+		<title>Javadng API</title>
+		<base href="../"/>
+		<script src="mimic.js" type="module"></script>
+		<link href="https://cdn.jsdelivr.net/npm/ress@4.0.0/dist/ress.min.css" rel="stylesheet"/>
+		<link href="main.css" rel="stylesheet"/>
+	</head>
+	<body class="q">
+		<header class="g" date="2025-02-12" ver="2.4.1">
+			<h1 class="f"><code>Javadng</code></h1>
+			<nav class="h"><a href="api/" id="API"><svg class="package A svg" viewBox="0 0 24 24">
+						<use href="main.svg#package"/>
+					</svg>
+				</a><a href="https://github.com/teletha/javadng/discussions" id="Community" target="_blank"><svg class="user A svg" viewBox="0 0 24 24">
+						<use href="main.svg#user"/>
+					</svg>
+				</a><a href="doc/changelog.html" id="Activity"><svg class="activity A svg" viewBox="0 0 24 24">
+						<use href="main.svg#activity"/>
+					</svg>
+				</a><a href="https://github.com/teletha/javadng" id="Repository" target="_blank"><svg class="github A svg" viewBox="0 0 24 24">
+						<use href="main.svg#github"/>
+					</svg>
+				</a></nav>
+			<div class="i"><a aria-label="Change color scheme" id="theme"><svg class="sun A svg" viewBox="0 0 24 24">
+						<use href="main.svg#sun"/>
+					</svg><svg class="moon A svg" viewBox="0 0 24 24">
+						<use href="main.svg#moon"/>
+					</svg>
+				</a></div>
+		</header>
+		<nav class="V"></nav>
+		<article class="e" id="Article">
+			<section class="Q"><code class="U">javadng.design</code>
+				<h2 class="Interface O"><code class="M">JavadngDSL</code></h2>
+				<div class="K">
+					<ul class="C F">
+						<li><code>kiss.Extensible</code></li>
+						<li><code>stylist.StyleDSL</code></li>
+						<li><code>stylist.StyleDeclarable</code></li>
+						<li><code>stylist.value.Unit</code></li>
+					</ul>
+					<ul class="C G">
+						<li><code><a aria-label="javadng.design.Styles" href="api/javadng.design.Styles.html">Styles</a></code></li>
+					</ul>
+				</div><span class="B"><p>Base style for Javadng.</p></span></section>
+			<section class="Q" id="Theme">
+				<h2 class="W"><i class="FINAL"><i class="PUBLIC STATIC"></i></i><code class="M">Theme</code><i class="c"><code class="return"><a aria-label="javadng.design.JavadngDesignScheme" href="api/javadng.design.JavadngDesignScheme.html">JavadngDesignScheme</a></code></i></h2><span class="B"><p>The singleton.</p></span></section>
+			<section class="Q" id="Small">
+				<h2 class="W"><i class="FINAL"><i class="PUBLIC STATIC"></i></i><code class="M">Small</code><i class="c"><code class="return">stylist.Query</code></i></h2>
+			</section>
+			<section class="Q" id="MaxWidth">
+				<h2 class="W"><i class="FINAL"><i class="PUBLIC STATIC"></i></i><code class="M">MaxWidth</code><i class="c"><code class="return">stylist.value.Numeric</code></i></h2>
+			</section>
+			<section class="Q" id="MaxSubNaviWidth">
+				<h2 class="W"><i class="FINAL"><i class="PUBLIC STATIC"></i></i><code class="M">MaxSubNaviWidth</code><i class="c"><code class="return">stylist.value.Numeric</code></i></h2>
+			</section>
+			<section class="Q" id="BlockVerticalGap">
+				<h2 class="W"><i class="FINAL"><i class="PUBLIC STATIC"></i></i><code class="M">BlockVerticalGap</code><i class="c"><code class="return">stylist.value.Numeric</code></i></h2>
+			</section>
+			<section class="Q" id="RightNavigationWidth">
+				<h2 class="W"><i class="FINAL"><i class="PUBLIC STATIC"></i></i><code class="M">RightNavigationWidth</code><i class="c"><code class="return">stylist.value.Numeric</code></i></h2>
+			</section>
+			<section class="Q" id="scrollable()">
+				<h2 class="W"><i class="PUBLIC STATIC"></i><code class="M">scrollable</code><code class="l">()</code><i class="c"><code>void</code></i></h2><span class="B"><p>Make the element scrollable.</p></span></section>
+		</article>
+		<aside class="P">
+			<div class="a">
+				<h5 class="Y">Static Fields</h5>
+				<ul>
+					<li class="r"><i class="FINAL"><i class="PUBLIC STATIC"></i></i><code><a href="api/javadng.design.JavadngDSL.html#Theme">Theme</a></code><i class="s"><code class="return"><a aria-label="javadng.design.JavadngDesignScheme" href="api/javadng.design.JavadngDesignScheme.html">JavadngDesignScheme</a></code></i></li>
+					<li class="r"><i class="FINAL"><i class="PUBLIC STATIC"></i></i><code><a href="api/javadng.design.JavadngDSL.html#Small">Small</a></code><i class="s"><code class="return">stylist.Query</code></i></li>
+					<li class="r"><i class="FINAL"><i class="PUBLIC STATIC"></i></i><code><a href="api/javadng.design.JavadngDSL.html#MaxWidth">MaxWidth</a></code><i class="s"><code class="return">stylist.value.Numeric</code></i></li>
+					<li class="r"><i class="FINAL"><i class="PUBLIC STATIC"></i></i><code><a href="api/javadng.design.JavadngDSL.html#MaxSubNaviWidth">MaxSubNaviWidth</a></code><i class="s"><code class="return">stylist.value.Numeric</code></i></li>
+					<li class="r"><i class="FINAL"><i class="PUBLIC STATIC"></i></i><code><a href="api/javadng.design.JavadngDSL.html#BlockVerticalGap">BlockVerticalGap</a></code><i class="s"><code class="return">stylist.value.Numeric</code></i></li>
+					<li class="r"><i class="FINAL"><i class="PUBLIC STATIC"></i></i><code><a href="api/javadng.design.JavadngDSL.html#RightNavigationWidth">RightNavigationWidth</a></code><i class="s"><code class="return">stylist.value.Numeric</code></i></li>
+				</ul>
+				<h5 class="Y">Static Methods</h5>
+				<ul>
+					<li class="r"><i class="PUBLIC STATIC"></i><code><a href="api/javadng.design.JavadngDSL.html#scrollable()">scrollable</a></code><code class="l">()</code><i class="s"><code>void</code></i></li>
+				</ul>
+			</div>
+		</aside>
+		<footer class="b"/>
+	</body>
+	<script src="root.js"></script>
+	<script src="main.js" type="module"></script>
+</html>
