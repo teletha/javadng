@@ -58,7 +58,7 @@ Add it into the libraryDependencies section like so:
 libraryDependencies += "com.github.teletha" % "javadng" % "2.4.1"
 ```
 #### [Leiningen](https://leiningen.org/)
-Add JitPack repository at the end of repositories in your project.clj:
+Add JitPack repository at the end of repositories in your project().clj:
 ```clj
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
@@ -102,7 +102,7 @@ Javadng depends on the following products on runtime.
 * [javaparser-core-3.26.3](https://mvnrepository.com/artifact/com.github.javaparser/javaparser-core/3.26.3)
 * [lycoris-1.1.0](https://mvnrepository.com/artifact/com.github.teletha/lycoris/1.1.0)
 * [psychopath-2.1.0](https://mvnrepository.com/artifact/com.github.teletha/psychopath/2.1.0)
-* [sinobu-4.6.0](https://mvnrepository.com/artifact/com.github.teletha/sinobu/4.6.0)
+* [sinobu-4.6.1](https://mvnrepository.com/artifact/com.github.teletha/sinobu/4.6.1)
 * [stylist-1.14.0](https://mvnrepository.com/artifact/com.github.teletha/stylist/1.14.0)
 <p align="right"><a href="#top">back to top</a></p>
 
