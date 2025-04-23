@@ -510,7 +510,7 @@ public class DocumentInfo {
                     String built = text.toString();
 
                     if (built.charAt(0) != '<') {
-                        built = htmlRenderer.render(markParser.parse(built));
+                        built = htmlRenderer.render(markParser.parse(concatLineSeparation(built)));
                     }
 
                     // Since Javadoc text is rarely correct HTML, switch by inserting dock type
@@ -522,6 +522,42 @@ public class DocumentInfo {
             } catch (Exception e) {
                 throw new Error(e.getMessage() + " [" + text.toString() + "]", e);
             }
+        }
+
+        private String concatLineSeparation(String input) {
+            if (input == null || input.isEmpty()) return "";
+
+            List<String> result = new ArrayList();
+            String[] lines = input.split("\\R");
+            StringBuilder buffer = new StringBuilder();
+
+            boolean accumulating = false;
+
+            for (String line : lines) {
+                if (line.startsWith(" |") && !line.endsWith("|")) {
+                    if (!accumulating) {
+                        buffer.setLength(0);
+                        buffer.append(line);
+                        accumulating = true;
+                    } else {
+                        buffer.append(" ").append(line);
+                    }
+                } else if (accumulating) {
+                    buffer.append(" ").append(line);
+
+                    if (line.endsWith("|")) {
+                        result.add(buffer.toString());
+                        accumulating = false;
+                    }
+                } else {
+                    result.add(line);
+                }
+            }
+
+            if (accumulating) {
+                result.add(buffer.toString());
+            }
+            return String.join("\r\n", result);
         }
 
         /**
