@@ -22,7 +22,6 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.Text;
 
 import javadng.parser.MethodInfo;
 import kiss.I;
@@ -164,7 +163,7 @@ public class JavadocTestSupport {
 
         for (int i = 0; i < actualChildren.getLength(); i++) {
             Node item = actualChildren.item(i);
-            if (item.getNodeType() == Node.TEXT_NODE && ((Text) item).getTextContent().isBlank()) {
+            if (item.getNodeType() == Node.TEXT_NODE && item.getTextContent().isBlank()) {
                 actual.removeChild(item);
             }
         }

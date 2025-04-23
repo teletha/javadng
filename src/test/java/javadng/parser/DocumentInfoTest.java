@@ -162,7 +162,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void literalTag() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='B'><code>0 &amp;#60; i</code></span>");
+        assert sameXML(info.comment, "<span class='B'><code>0 &amp;lt; i</code></span>");
     }
 
     /**
