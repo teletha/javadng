@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.3](https://github.com/teletha/javadng/compare/2.4.2...2.4.3) (2025-04-23)
+
+
+### Bug Fixes
+
+* concat sperated lines ([5f5c828](https://github.com/teletha/javadng/commit/5f5c8288789e1487dcc683a50dae37f85dd813a1))
+
 ## [2.4.2](https://github.com/teletha/javadng/compare/v2.4.1...2.4.2) (2025-04-23)
 
 
