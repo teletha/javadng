@@ -790,39 +790,7 @@ public class DocumentInfo {
          * @return
          */
         private String resolve(String text) {
-            return escape(I.express(text, "{@var", "}", new Object[] {templateTags}));
-        }
-
-        /**
-         * Escape text for XML.
-         * 
-         * @param text
-         * @return
-         */
-        private String escape(String text) {
-            StringBuilder buffer = new StringBuilder();
-            for (int i = 0; i < text.length(); i++) {
-                char c = text.charAt(i);
-                switch (c) {
-                case '<':
-                case '>':
-                case '\"':
-                case '\'':
-                    buffer.append("&#" + ((int) c) + ";");
-                    break;
-                case '&':
-                    if (i + 1 == text.length() || text.charAt(i + 1) != '#') {
-                        buffer.append("&#" + ((int) c) + ";");
-                        break;
-                    }
-                default:
-                    if (c > 0x7e) {
-                        buffer.append("&#" + ((int) c) + ";");
-                    } else
-                        buffer.append(c);
-                }
-            }
-            return buffer.toString();
+            return XML.escape(I.express(text, "{@var", "}", new Object[] {templateTags}));
         }
     }
 
