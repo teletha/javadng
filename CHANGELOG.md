@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.2](https://github.com/teletha/javadng/compare/v2.4.1...2.4.2) (2025-04-23)
+
+
+### Bug Fixes
+
+* update sinobu ([1e6a0cf](https://github.com/teletha/javadng/commit/1e6a0cf47aa3a582bd8e2dccb27add6cd1cf2ece))
+
 ## [2.4.1](https://github.com/teletha/javadng/compare/v2.4.0...v2.4.1) (2025-02-12)
 
 
