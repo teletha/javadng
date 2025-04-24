@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.5.0](https://github.com/teletha/javadng/compare/2.4.4...2.5.0) (2025-04-24)
+
+
+### Features
+
+* support GFM alert ([da3a69f](https://github.com/teletha/javadng/commit/da3a69f4bd0e67377d75f389621d14dd0d1ad593))
+
+
+### Bug Fixes
+
+* update section style ([14d8985](https://github.com/teletha/javadng/commit/14d898565de437a670c7c7367bb6a826c01c3095))
+
 ## [2.4.4](https://github.com/teletha/javadng/compare/2.4.3...2.4.4) (2025-04-24)
 
 
