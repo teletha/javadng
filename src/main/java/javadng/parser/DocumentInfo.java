@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.StringJoiner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javax.lang.model.element.Element;
@@ -35,6 +37,7 @@ import javax.lang.model.util.SimpleTypeVisitor9;
 import org.commonmark.ext.gfm.tables.TablesExtension;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
+import org.w3c.dom.Node;
 
 import com.sun.source.doctree.AttributeTree;
 import com.sun.source.doctree.AuthorTree;
@@ -75,6 +78,8 @@ import kiss.XML;
 import kiss.Ⅱ;
 
 public class DocumentInfo {
+
+    private static final Pattern CLASS_ASSIGN = Pattern.compile("^\\[!([A-Z]+)\\]\\R+");
 
     /** The associated element. */
     protected final Element e;
@@ -125,7 +130,7 @@ public class DocumentInfo {
         try {
             DocCommentTree docs = Util.DocUtils.getDocCommentTree(e);
             if (docs != null) {
-                comment.set(xml(docs.getFullBody()));
+                comment.set(transform(xml(docs.getFullBody())));
                 comment.to(x -> x.addClass(Styles.JavadocComment.className()));
                 docs.getBlockTags().forEach(tag -> tag.accept(new TagScanner(), this));
 
@@ -134,6 +139,23 @@ public class DocumentInfo {
         } catch (Throwable error) {
             error.printStackTrace();
         }
+    }
+
+    private XML transform(XML xml) {
+        if (xml != null) {
+            for (XML e : xml.find("p, blockquote")) {
+                Node child = e.to().getFirstChild();
+                if (child != null && child.getNodeType() == Node.TEXT_NODE) {
+                    String text = child.getTextContent();
+                    Matcher matcher = CLASS_ASSIGN.matcher(text);
+                    if (matcher.find()) {
+                        e.addClass(matcher.group(1));
+                        child.setTextContent(matcher.replaceFirst(""));
+                    }
+                }
+            }
+        }
+        return xml;
     }
 
     /**
@@ -328,8 +350,7 @@ public class DocumentInfo {
      * @return
      */
     private XML xml(List<? extends DocTree> docs) {
-        XML x = new DocumentXMLBuilder().parse(docs).build();
-        return x;
+        return new DocumentXMLBuilder().parse(docs).build();
     }
 
     /**

@@ -240,6 +240,12 @@ public class Styles implements JavadngDSL {
 
         $.select("p", () -> {
             block();
+
+            alert("Note", "ℹ️", "#4493f8");
+            alert("Tip", "❇️", "#3fb950");
+            alert("Important", "☑️", "#ab7df8");
+            alert("Warning", "⚠️", "#d29922");
+            alert("Caution", "🚫", "#f85149");
         });
 
         $.select("dl", () -> {
@@ -330,6 +336,22 @@ public class Styles implements JavadngDSL {
 
         $.firstChild(() -> {
             margin.top(1, rem);
+        });
+    }
+
+    private static void alert(String type, String icon, String color) {
+        $.with("." + type.toUpperCase(), () -> {
+            margin.horizontal(1, em);
+            padding.vertical(0.5, em).horizontal(1.5, em);
+            border.left.width(0.25, em).solid().color(color);
+            background.color(Color.of(color).opacify(-0.9));
+
+            $.before(() -> {
+                content.text(icon + " " + type);
+                font.color(color);
+                display.block();
+                margin.bottom(0.5, em);
+            });
         });
     }
 
