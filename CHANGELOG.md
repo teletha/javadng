@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.4](https://github.com/teletha/javadng/compare/2.4.3...2.4.4) (2025-04-24)
+
+
+### Bug Fixes
+
+* use link label ([e686a14](https://github.com/teletha/javadng/commit/e686a14dada92a32d13dea5aa76873f4d924a1f2))
+
 ## [2.4.3](https://github.com/teletha/javadng/compare/2.4.2...2.4.3) (2025-04-23)
 
 
