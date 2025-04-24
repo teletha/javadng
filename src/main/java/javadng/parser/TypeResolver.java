@@ -75,12 +75,15 @@ public class TypeResolver {
     /** Imported types. */
     private final Map<String, String> importedTypes = new HashMap();
 
+    private TypeElement clazz;
+
     /**
      * @param externals
      */
     public TypeResolver(Map<String, String> externals, Set<String> internals, TypeElement clazz) {
         this.externals = externals == null ? Map.of() : externals;
         this.internals = internals == null ? Set.of() : internals;
+        this.clazz = clazz;
 
         collectImportedTypes(clazz);
         collectMemberTypes(clazz);
@@ -306,6 +309,10 @@ public class TypeResolver {
                 builder.append(typeName).append(".html");
 
                 return builder.toString();
+            }
+
+            if (!enclosingName.isEmpty()) {
+                return "doc/" + packageName + "." + enclosingName + ".html#" + packageName + "." + enclosingName + "." + typeName;
             }
             return null;
         }

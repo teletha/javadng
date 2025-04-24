@@ -661,26 +661,26 @@ public class DocumentInfo {
         public DocumentXMLBuilder visitLink(LinkTree node, DocumentXMLBuilder p) {
             String ref = node.getReference().toString();
             String[] id = identify(node.getReference().toString());
-            String uri = resolver.resolveDocumentLocation(id[0]);
             boolean external = resolver.isExternal(id[0]);
-            String label = I.signal(node.getLabel()).as(TextTree.class).map(TextTree::getBody).to().or("");
+            String label = I.signal(node.getLabel()).as(TextTree.class).map(TextTree::getBody).to().or(ref);
             boolean code = label.contains("@");
             boolean plain = node.getTagName().equals("linkplain");
 
             if (code) {
                 writeSourceCode(SourceCode.read(id[0], id[1], plain), "java");
             } else {
+                String uri = resolver.resolveDocumentLocation(id[0]);
+
                 if (uri == null) {
                     text.append(ref);
                 } else {
-                    text.append("<code><a href='").append(uri);
+                    boolean apiLing = label.equals(ref);
+
+                    if (apiLing) text.append("<code>");
+                    text.append("<a href='").append(uri);
                     if (id[1] != null) text.append("#").append(id[1]);
-                    text.append("' aria-label='")
-                            .append(id[0])
-                            .append(external ? " 🚀" : "")
-                            .append("'>")
-                            .append(ref)
-                            .append("</a></code>");
+                    text.append("' aria-label='").append(id[0]).append(external ? " 🚀" : "").append("'>").append(label).append("</a>");
+                    if (apiLing) text.append("</code>");
                 }
             }
 
