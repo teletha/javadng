@@ -311,7 +311,7 @@ public class TypeResolver {
                 return builder.toString();
             }
 
-            if (!enclosingName.isEmpty()) {
+            if (!enclosingName.isEmpty() && clazz.getQualifiedName().toString().startsWith(packageName)) {
                 return "doc/" + packageName + "." + enclosingName + ".html#" + packageName + "." + enclosingName + "." + typeName;
             }
             return null;
