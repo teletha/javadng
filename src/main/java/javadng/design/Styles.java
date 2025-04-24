@@ -226,9 +226,16 @@ public class Styles implements JavadngDSL {
             font.size(1.4, rem).color(Theme.front);
             margin.bottom(-0.6, rem);
 
-            $.firstLetter(() -> {
-                font.color(Theme.secondary);
+            $.before(() -> {
+                content.text("📄");
+                display.inline();
+                margin.right(0.3, rem);
             });
+        });
+
+        $.select("h4", () -> {
+            font.size(1.2, rem).color(Theme.front).weight.normal();
+            margin.bottom(-1.4, rem).top(1.8, rem);
         });
 
         $.select("p", () -> {

@@ -66,7 +66,7 @@ public class DocumentPage extends Page<DocumentProvider> {
 
     private void write(DocumentProvider provider, Style additionalStyle, boolean useIcons) {
         XML doc = provider.document();
-        XML heading = doc.find("h,h1,h2,h3,h4,h5,h6,h7").first().remove();
+        XML heading = doc.find("h,h1,h2,h3").first().remove();
 
         $("header", Styles.JavadocComment, additionalStyle, () -> {
             $(xml(heading.size() != 0 ? heading : I.xml("h" + provider.nestLevel()).text(provider.title())));
