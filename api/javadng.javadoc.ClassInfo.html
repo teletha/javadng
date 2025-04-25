@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta content="width=device-width, initial-scale=1" name="viewport"/>
+		<meta content="Explains how to use Javadng and its API. " name="description"/>
+		<link href="https://cdn.jsdelivr.net" rel="preconnect"/>
+		<link href="https://fonts.googleapis.com" rel="preconnect"/>
+		<link crossorigin="null" href="https://fonts.gstatic.com" rel="preconnect"/>
+		<link as="style" fetchpriority="high" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter" rel="preload"/>
+		<link href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter" media="print" onload="this.media=&apos;all&apos;" rel="stylesheet"/>
+		<link as="style" fetchpriority="high" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Material+Icons" rel="preload"/>
+		<link href="https://fonts.googleapis.com/css2?display=swap&amp;family=Material+Icons" media="print" onload="this.media=&apos;all&apos;" rel="stylesheet"/>
+		<link as="style" fetchpriority="high" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Vollkorn" rel="preload"/>
+		<link href="https://fonts.googleapis.com/css2?display=swap&amp;family=Vollkorn" media="print" onload="this.media=&apos;all&apos;" rel="stylesheet"/>
+		<title>Javadng API</title>
+		<base href="../"/>
+		<script src="mimic.js" type="module"></script>
+		<link href="https://cdn.jsdelivr.net/npm/ress@4.0.0/dist/ress.min.css" rel="stylesheet"/>
+		<link href="main.css" rel="stylesheet"/>
+	</head>
+	<body class="U">
+		<header class="V" date="2025-04-24" ver="2.5.0">
+			<h1 class="k"><code>Javadng</code></h1>
+			<nav class="L"><a href="api/" id="API"><svg class="package A svg" viewBox="0 0 24 24">
+						<use href="main.svg#package"/>
+					</svg>
+				</a><a href="https://github.com/teletha/javadng/discussions" id="Community" target="_blank"><svg class="user A svg" viewBox="0 0 24 24">
+						<use href="main.svg#user"/>
+					</svg>
+				</a><a href="doc/changelog.html" id="Activity"><svg class="activity A svg" viewBox="0 0 24 24">
+						<use href="main.svg#activity"/>
+					</svg>
+				</a><a href="https://github.com/teletha/javadng" id="Repository" target="_blank"><svg class="github A svg" viewBox="0 0 24 24">
+						<use href="main.svg#github"/>
+					</svg>
+				</a></nav>
+			<div class="f"><a aria-label="Change color scheme" id="theme"><svg class="sun A svg" viewBox="0 0 24 24">
+						<use href="main.svg#sun"/>
+					</svg><svg class="moon A svg" viewBox="0 0 24 24">
+						<use href="main.svg#moon"/>
+					</svg>
+				</a></div>
+		</header>
+		<nav class="X"></nav>
+		<article class="W" id="Article">
+			<section class="c"><code class="j">javadng.javadoc</code>
+				<h2 class="Class N"><code class="e">ClassInfo</code></h2>
+				<div class="l">
+					<ul class="C E">
+						<li><code><a aria-label="javadng.javadoc.ParameterizableInfo" href="api/javadng.javadoc.ParameterizableInfo.html">ParameterizableInfo</a></code></li>
+						<li><code><a aria-label="javadng.javadoc.MemberInfo" href="api/javadng.javadoc.MemberInfo.html">MemberInfo</a></code></li>
+						<li><code><a aria-label="javadng.javadoc.DocumentInfo" href="api/javadng.javadoc.DocumentInfo.html">DocumentInfo</a></code></li>
+					</ul>
+					<ul class="C F">
+						<li><code><a aria-label="java.lang.Comparable 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/Comparable.html">Comparable</a><code class="parameters"><code><a aria-label="javadng.javadoc.ClassInfo" href="api/javadng.javadoc.ClassInfo.html">ClassInfo</a></code></code></code></li>
+						<li><code><a aria-label="javadng.Document" href="api/javadng.Document.html">Document</a></code></li>
+					</ul>
+				</div>
+			</section>
+			<section class="c" id="packageName">
+				<h2 class="n"><i class="PUBLIC"></i><code class="e">packageName</code><i class="m"><code class="return"><a aria-label="java.lang.String 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/String.html">String</a></code></i></h2><span class="B"><p>The package name.</p></span></section>
+			<section class="c" id="name">
+				<h2 class="n"><i class="PUBLIC"></i><code class="e">name</code><i class="m"><code class="return"><a aria-label="java.lang.String 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/String.html">String</a></code></i></h2><span class="B"><p>The simple class name.</p></span></section>
+			<section class="c" id="type">
+				<h2 class="n"><i class="PUBLIC"></i><code class="e">type</code><i class="m"><code class="return"><a aria-label="java.lang.String 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/String.html">String</a></code></i></h2><span class="B"><p>The kind of type (interface, abstract class, class etc)</p></span></section>
+			<section class="c" id="ClassInfo(javax.lang.model.element.TypeElement,javadng.javadoc.TypeResolver)">
+				<h2 class="n"><i class="PUBLIC"></i><code class="e">ClassInfo</code><code class="a">(<code><a aria-label="javax.lang.model.element.TypeElement 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.compiler/javax/lang/model/element/TypeElement.html">TypeElement</a></code><code class="parameterName">root</code>, <code><a aria-label="javadng.javadoc.TypeResolver" href="api/javadng.javadoc.TypeResolver.html">TypeResolver</a></code><code class="parameterName">resolver</code>)</code></h2>
+				<table class="I">
+					<tr class="R">
+						<td><code><a aria-label="javax.lang.model.element.TypeElement 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.compiler/javax/lang/model/element/TypeElement.html">TypeElement</a></code><code class="parameterName">root</code></td>
+						<td></td>
+					</tr>
+					<tr class="R">
+						<td><code><a aria-label="javadng.javadoc.TypeResolver" href="api/javadng.javadoc.TypeResolver.html">TypeResolver</a></code><code class="parameterName">resolver</code></td>
+						<td></td>
+					</tr>
+				</table>
+			</section>
+			<section class="c" id="isTest()">
+				<h2 class="n"><i class="PUBLIC"></i><code class="e">isTest</code><code class="a">()</code><i class="m"><code>boolean</code></i></h2>
+				<table class="I">
+					<tr class="b">
+						<td><code>boolean</code></td>
+						<td></td>
+					</tr>
+				</table><span class="B"><p>Detect whether this class is test case class or not.</p></span></section>
+			<section class="c" id="createSuperTypes()">
+				<h2 class="n"><i class="FINAL"><i class="PUBLIC"></i></i><code class="e">createSuperTypes</code><code class="a">()</code><i class="m"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>kiss.XML</code></code></code></i></h2>
+				<table class="I">
+					<tr class="b">
+						<td><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>kiss.XML</code></code></code></td>
+						<td></td>
+					</tr>
+				</table><span class="B"><p>Build super type element.</p></span></section>
+			<section class="c" id="createInterfaceTypes()">
+				<h2 class="n"><i class="FINAL"><i class="PUBLIC"></i></i><code class="e">createInterfaceTypes</code><code class="a">()</code><i class="m"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>kiss.XML</code></code></code></i></h2>
+				<table class="I">
+					<tr class="b">
+						<td><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>kiss.XML</code></code></code></td>
+						<td></td>
+					</tr>
+				</table><span class="B"><p>Build interface type element.</p></span></section>
+			<section class="c" id="createSubTypes()">
+				<h2 class="n"><i class="FINAL"><i class="PUBLIC"></i></i><code class="e">createSubTypes</code><code class="a">()</code><i class="m"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>kiss.XML</code></code></code></i></h2>
+				<table class="I">
+					<tr class="b">
+						<td><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>kiss.XML</code></code></code></td>
+						<td></td>
+					</tr>
+				</table><span class="B"><p>Build sub type element.</p></span></section>
+			<section class="c" id="outer()">
+				<h2 class="n"><i class="PUBLIC"></i><code class="e">outer</code><code class="a">()</code><i class="m"><code>kiss.Variable<code class="parameters"><code><a aria-label="javadng.javadoc.ClassInfo" href="api/javadng.javadoc.ClassInfo.html">ClassInfo</a></code></code></code></i></h2>
+				<table class="I">
+					<tr class="b">
+						<td><code>kiss.Variable<code class="parameters"><code><a aria-label="javadng.javadoc.ClassInfo" href="api/javadng.javadoc.ClassInfo.html">ClassInfo</a></code></code></code></td>
+						<td></td>
+					</tr>
+				</table><span class="B"><p>Retrieve the outside type.</p></span></section>
+			<section class="c" id="outermost()">
+				<h2 class="n"><i class="PUBLIC"></i><code class="e">outermost</code><code class="a">()</code><i class="m"><code><a aria-label="javadng.javadoc.ClassInfo" href="api/javadng.javadoc.ClassInfo.html">ClassInfo</a></code></i></h2>
+				<table class="I">
+					<tr class="b">
+						<td><code><a aria-label="javadng.javadoc.ClassInfo" href="api/javadng.javadoc.ClassInfo.html">ClassInfo</a></code></td>
+						<td></td>
+					</tr>
+				</table><span class="B"><p>Retrieve the top-level type.</p></span></section>
+			<section class="c" id="level()">
+				<h2 class="n"><i class="OVERRIDE PUBLIC"></i><code class="e">level</code><code class="a">()</code><i class="m"><code>int</code></i></h2>
+				<table class="I">
+					<tr class="b">
+						<td><code>int</code></td>
+						<td></td>
+					</tr>
+				</table>
+			</section>
+			<section class="c" id="children()">
+				<h2 class="n"><i class="OVERRIDE PUBLIC"></i><code class="e">children</code><code class="a">()</code><i class="m"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>?</code><code class="extends"><code><a aria-label="javadng.Document" href="api/javadng.Document.html">Document</a></code></code></code></code></i></h2>
+				<table class="I">
+					<tr class="b">
+						<td><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>?</code><code class="extends"><code><a aria-label="javadng.Document" href="api/javadng.Document.html">Document</a></code></code></code></code></td>
+						<td></td>
+					</tr>
+				</table><span class="B"><p>List up all inner types with the specified modifiers.</p></span></section>
+			<section class="c" id="constructors(javax.lang.model.element.Modifier...)">
+				<h2 class="n"><i class="PUBLIC"></i><code class="e">constructors</code><code class="a">(<code array="var"><a aria-label="javax.lang.model.element.Modifier 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code><code class="parameterName">modifiers</code>)</code><i class="m"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.ExecutableInfo" href="api/javadng.javadoc.ExecutableInfo.html">ExecutableInfo</a></code></code></code></i></h2>
+				<table class="I">
+					<tr class="R">
+						<td><code array="var"><a aria-label="javax.lang.model.element.Modifier 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code><code class="parameterName">modifiers</code></td>
+						<td></td>
+					</tr>
+					<tr class="b">
+						<td><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.ExecutableInfo" href="api/javadng.javadoc.ExecutableInfo.html">ExecutableInfo</a></code></code></code></td>
+						<td></td>
+					</tr>
+				</table><span class="B"><p>List up all constructors.</p></span></section>
+			<section class="c" id="fields(javax.lang.model.element.Modifier...)">
+				<h2 class="n"><i class="PUBLIC"></i><code class="e">fields</code><code class="a">(<code array="var"><a aria-label="javax.lang.model.element.Modifier 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code><code class="parameterName">modifiers</code>)</code><i class="m"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.FieldInfo" href="api/javadng.javadoc.FieldInfo.html">FieldInfo</a></code></code></code></i></h2>
+				<table class="I">
+					<tr class="R">
+						<td><code array="var"><a aria-label="javax.lang.model.element.Modifier 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code><code class="parameterName">modifiers</code></td>
+						<td></td>
+					</tr>
+					<tr class="b">
+						<td><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.FieldInfo" href="api/javadng.javadoc.FieldInfo.html">FieldInfo</a></code></code></code></td>
+						<td></td>
+					</tr>
+				</table><span class="B"><p>List up all fields.</p></span></section>
+			<section class="c" id="methods(javax.lang.model.element.Modifier...)">
+				<h2 class="n"><i class="PUBLIC"></i><code class="e">methods</code><code class="a">(<code array="var"><a aria-label="javax.lang.model.element.Modifier 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code><code class="parameterName">modifiers</code>)</code><i class="m"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.MethodInfo" href="api/javadng.javadoc.MethodInfo.html">MethodInfo</a></code></code></code></i></h2>
+				<table class="I">
+					<tr class="R">
+						<td><code array="var"><a aria-label="javax.lang.model.element.Modifier 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code><code class="parameterName">modifiers</code></td>
+						<td></td>
+					</tr>
+					<tr class="b">
+						<td><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.MethodInfo" href="api/javadng.javadoc.MethodInfo.html">MethodInfo</a></code></code></code></td>
+						<td></td>
+					</tr>
+				</table><span class="B"><p>List up all methods.</p></span></section>
+			<section class="c" id="staticFields()">
+				<h2 class="n"><i class="PUBLIC"></i><code class="e">staticFields</code><code class="a">()</code><i class="m"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.FieldInfo" href="api/javadng.javadoc.FieldInfo.html">FieldInfo</a></code></code></code></i></h2>
+				<table class="I">
+					<tr class="b">
+						<td><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.FieldInfo" href="api/javadng.javadoc.FieldInfo.html">FieldInfo</a></code></code></code></td>
+						<td><span><p>A filtered fields.</p></span></td>
+					</tr>
+				</table><span class="B"><p>List up all static fields.</p></span></section>
+			<section class="c" id="nonStaticFields()">
+				<h2 class="n"><i class="PUBLIC"></i><code class="e">nonStaticFields</code><code class="a">()</code><i class="m"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.FieldInfo" href="api/javadng.javadoc.FieldInfo.html">FieldInfo</a></code></code></code></i></h2>
+				<table class="I">
+					<tr class="b">
+						<td><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.FieldInfo" href="api/javadng.javadoc.FieldInfo.html">FieldInfo</a></code></code></code></td>
+						<td><span><p>A filtered fields.</p></span></td>
+					</tr>
+				</table><span class="B"><p>List up all non-static fields.</p></span></section>
+			<section class="c" id="staticMethods()">
+				<h2 class="n"><i class="PUBLIC"></i><code class="e">staticMethods</code><code class="a">()</code><i class="m"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.MethodInfo" href="api/javadng.javadoc.MethodInfo.html">MethodInfo</a></code></code></code></i></h2>
+				<table class="I">
+					<tr class="b">
+						<td><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.MethodInfo" href="api/javadng.javadoc.MethodInfo.html">MethodInfo</a></code></code></code></td>
+						<td><span><p>A filtered methods.</p></span></td>
+					</tr>
+				</table><span class="B"><p>List up all static methods.</p></span></section>
+			<section class="c" id="nonStaticMethods()">
+				<h2 class="n"><i class="PUBLIC"></i><code class="e">nonStaticMethods</code><code class="a">()</code><i class="m"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.MethodInfo" href="api/javadng.javadoc.MethodInfo.html">MethodInfo</a></code></code></code></i></h2>
+				<table class="I">
+					<tr class="b">
+						<td><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.MethodInfo" href="api/javadng.javadoc.MethodInfo.html">MethodInfo</a></code></code></code></td>
+						<td><span><p>A filtered methods.</p></span></td>
+					</tr>
+				</table><span class="B"><p>List up all non-static methods.</p></span></section>
+			<section class="c" id="findByMethodSignature(java.lang.String,java.lang.Class...)">
+				<h2 class="n"><i class="PUBLIC"></i><code class="e">findByMethodSignature</code><code class="a">(<code><a aria-label="java.lang.String 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/String.html">String</a></code><code class="parameterName">methodName</code>, <code array="var"><a aria-label="java.lang.Class 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/Class.html">Class</a><code class="parameters"><code>?</code></code></code><code class="parameterName">paramTypes</code>)</code><i class="m"><code>kiss.Variable<code class="parameters"><code><a aria-label="javadng.javadoc.MethodInfo" href="api/javadng.javadoc.MethodInfo.html">MethodInfo</a></code></code></code></i></h2>
+				<table class="I">
+					<tr class="R">
+						<td><code><a aria-label="java.lang.String 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/String.html">String</a></code><code class="parameterName">methodName</code></td>
+						<td></td>
+					</tr>
+					<tr class="R">
+						<td><code array="var"><a aria-label="java.lang.Class 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/Class.html">Class</a><code class="parameters"><code>?</code></code></code><code class="parameterName">paramTypes</code></td>
+						<td></td>
+					</tr>
+					<tr class="b">
+						<td><code>kiss.Variable<code class="parameters"><code><a aria-label="javadng.javadoc.MethodInfo" href="api/javadng.javadoc.MethodInfo.html">MethodInfo</a></code></code></code></td>
+						<td></td>
+					</tr>
+				</table>
+			</section>
+			<section class="c" id="compareTo(javadng.javadoc.ClassInfo)">
+				<h2 class="n"><i class="OVERRIDE PUBLIC"></i><code class="e">compareTo</code><code class="a">(<code><a aria-label="javadng.javadoc.ClassInfo" href="api/javadng.javadoc.ClassInfo.html">ClassInfo</a></code><code class="parameterName">o</code>)</code><i class="m"><code>int</code></i></h2>
+				<table class="I">
+					<tr class="R">
+						<td><code><a aria-label="javadng.javadoc.ClassInfo" href="api/javadng.javadoc.ClassInfo.html">ClassInfo</a></code><code class="parameterName">o</code></td>
+						<td></td>
+					</tr>
+					<tr class="b">
+						<td><code>int</code></td>
+						<td></td>
+					</tr>
+				</table>
+			</section>
+			<section class="c" id="id()">
+				<h2 class="n"><i class="OVERRIDE PUBLIC"></i><code class="e">id</code><code class="a">()</code><i class="m"><code><a aria-label="java.lang.String 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
+				<table class="I">
+					<tr class="b">
+						<td><code><a aria-label="java.lang.String 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/String.html">String</a></code></td>
+						<td></td>
+					</tr>
+				</table>
+			</section>
+			<section class="c" id="file()">
+				<h2 class="n"><i class="FINAL"><i class="OVERRIDE PUBLIC"></i></i><code class="e">file</code><code class="a">()</code><i class="m"><code><a aria-label="java.lang.String 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/String.html">String</a></code></i></h2>
+				<table class="I">
+					<tr class="b">
+						<td><code><a aria-label="java.lang.String 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/String.html">String</a></code></td>
+						<td></td>
+					</tr>
+				</table><span class="B"><p>Compute the file path.</p></span></section>
+			<section class="c" id="addSub(javadng.javadoc.ClassInfo)">
+				<h2 class="n"><i class="PUBLIC"></i><code class="e">addSub</code><code class="a">(<code><a aria-label="javadng.javadoc.ClassInfo" href="api/javadng.javadoc.ClassInfo.html">ClassInfo</a></code><code class="parameterName">sub</code>)</code><i class="m"><code>void</code></i></h2>
+				<table class="I">
+					<tr class="R">
+						<td><code><a aria-label="javadng.javadoc.ClassInfo" href="api/javadng.javadoc.ClassInfo.html">ClassInfo</a></code><code class="parameterName">sub</code></td>
+						<td></td>
+					</tr>
+				</table>
+			</section>
+		</article>
+		<aside class="Y">
+			<div class="g">
+				<h5 class="H">Constructors</h5>
+				<ul>
+					<li class="Z"><i class="PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#ClassInfo(javax.lang.model.element.TypeElement,javadng.javadoc.TypeResolver)">ClassInfo</a></code><code class="a">(<code><a aria-label="javax.lang.model.element.TypeElement 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.compiler/javax/lang/model/element/TypeElement.html">TypeElement</a></code><code class="parameterName">root</code>, <code><a aria-label="javadng.javadoc.TypeResolver" href="api/javadng.javadoc.TypeResolver.html">TypeResolver</a></code><code class="parameterName">resolver</code>)</code></li>
+				</ul>
+				<h5 class="H">Fields</h5>
+				<ul>
+					<li class="Z"><i class="PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#packageName">packageName</a></code><i class="P"><code class="return"><a aria-label="java.lang.String 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+					<li class="Z"><i class="PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#name">name</a></code><i class="P"><code class="return"><a aria-label="java.lang.String 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+					<li class="Z"><i class="PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#type">type</a></code><i class="P"><code class="return"><a aria-label="java.lang.String 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+				</ul>
+				<h5 class="H">Methods</h5>
+				<ul>
+					<li class="Z"><i class="PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#isTest()">isTest</a></code><code class="a">()</code><i class="P"><code>boolean</code></i></li>
+					<li class="Z"><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.javadoc.ClassInfo.html#createSuperTypes()">createSuperTypes</a></code><code class="a">()</code><i class="P"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>kiss.XML</code></code></code></i></li>
+					<li class="Z"><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.javadoc.ClassInfo.html#createInterfaceTypes()">createInterfaceTypes</a></code><code class="a">()</code><i class="P"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>kiss.XML</code></code></code></i></li>
+					<li class="Z"><i class="FINAL"><i class="PUBLIC"></i></i><code><a href="api/javadng.javadoc.ClassInfo.html#createSubTypes()">createSubTypes</a></code><code class="a">()</code><i class="P"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>kiss.XML</code></code></code></i></li>
+					<li class="Z"><i class="PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#outer()">outer</a></code><code class="a">()</code><i class="P"><code>kiss.Variable<code class="parameters"><code><a aria-label="javadng.javadoc.ClassInfo" href="api/javadng.javadoc.ClassInfo.html">ClassInfo</a></code></code></code></i></li>
+					<li class="Z"><i class="PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#outermost()">outermost</a></code><code class="a">()</code><i class="P"><code><a aria-label="javadng.javadoc.ClassInfo" href="api/javadng.javadoc.ClassInfo.html">ClassInfo</a></code></i></li>
+					<li class="Z"><i class="OVERRIDE PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#level()">level</a></code><code class="a">()</code><i class="P"><code>int</code></i></li>
+					<li class="Z"><i class="OVERRIDE PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#children()">children</a></code><code class="a">()</code><i class="P"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code>?</code><code class="extends"><code><a aria-label="javadng.Document" href="api/javadng.Document.html">Document</a></code></code></code></code></i></li>
+					<li class="Z"><i class="PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#constructors(javax.lang.model.element.Modifier...)">constructors</a></code><code class="a">(<code array="var"><a aria-label="javax.lang.model.element.Modifier 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code><code class="parameterName">modifiers</code>)</code><i class="P"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.ExecutableInfo" href="api/javadng.javadoc.ExecutableInfo.html">ExecutableInfo</a></code></code></code></i></li>
+					<li class="Z"><i class="PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#fields(javax.lang.model.element.Modifier...)">fields</a></code><code class="a">(<code array="var"><a aria-label="javax.lang.model.element.Modifier 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code><code class="parameterName">modifiers</code>)</code><i class="P"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.FieldInfo" href="api/javadng.javadoc.FieldInfo.html">FieldInfo</a></code></code></code></i></li>
+					<li class="Z"><i class="PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#methods(javax.lang.model.element.Modifier...)">methods</a></code><code class="a">(<code array="var"><a aria-label="javax.lang.model.element.Modifier 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.compiler/javax/lang/model/element/Modifier.html">Modifier</a></code><code class="parameterName">modifiers</code>)</code><i class="P"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.MethodInfo" href="api/javadng.javadoc.MethodInfo.html">MethodInfo</a></code></code></code></i></li>
+					<li class="Z"><i class="PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#staticFields()">staticFields</a></code><code class="a">()</code><i class="P"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.FieldInfo" href="api/javadng.javadoc.FieldInfo.html">FieldInfo</a></code></code></code></i></li>
+					<li class="Z"><i class="PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#nonStaticFields()">nonStaticFields</a></code><code class="a">()</code><i class="P"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.FieldInfo" href="api/javadng.javadoc.FieldInfo.html">FieldInfo</a></code></code></code></i></li>
+					<li class="Z"><i class="PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#staticMethods()">staticMethods</a></code><code class="a">()</code><i class="P"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.MethodInfo" href="api/javadng.javadoc.MethodInfo.html">MethodInfo</a></code></code></code></i></li>
+					<li class="Z"><i class="PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#nonStaticMethods()">nonStaticMethods</a></code><code class="a">()</code><i class="P"><code><a aria-label="java.util.List 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/util/List.html">List</a><code class="parameters"><code><a aria-label="javadng.javadoc.MethodInfo" href="api/javadng.javadoc.MethodInfo.html">MethodInfo</a></code></code></code></i></li>
+					<li class="Z"><i class="PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#findByMethodSignature(java.lang.String,java.lang.Class...)">findByMethodSignature</a></code><code class="a">(<code><a aria-label="java.lang.String 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/String.html">String</a></code><code class="parameterName">methodName</code>, <code array="var"><a aria-label="java.lang.Class 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/Class.html">Class</a><code class="parameters"><code>?</code></code></code><code class="parameterName">paramTypes</code>)</code><i class="P"><code>kiss.Variable<code class="parameters"><code><a aria-label="javadng.javadoc.MethodInfo" href="api/javadng.javadoc.MethodInfo.html">MethodInfo</a></code></code></code></i></li>
+					<li class="Z"><i class="OVERRIDE PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#compareTo(javadng.javadoc.ClassInfo)">compareTo</a></code><code class="a">(<code><a aria-label="javadng.javadoc.ClassInfo" href="api/javadng.javadoc.ClassInfo.html">ClassInfo</a></code><code class="parameterName">o</code>)</code><i class="P"><code>int</code></i></li>
+					<li class="Z"><i class="OVERRIDE PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#id()">id</a></code><code class="a">()</code><i class="P"><code><a aria-label="java.lang.String 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+					<li class="Z"><i class="FINAL"><i class="OVERRIDE PUBLIC"></i></i><code><a href="api/javadng.javadoc.ClassInfo.html#file()">file</a></code><code class="a">()</code><i class="P"><code><a aria-label="java.lang.String 🚀" href="https://docs.oracle.com/en/java/javase/24/docs/api/java.base/java/lang/String.html">String</a></code></i></li>
+					<li class="Z"><i class="PUBLIC"></i><code><a href="api/javadng.javadoc.ClassInfo.html#addSub(javadng.javadoc.ClassInfo)">addSub</a></code><code class="a">(<code><a aria-label="javadng.javadoc.ClassInfo" href="api/javadng.javadoc.ClassInfo.html">ClassInfo</a></code><code class="parameterName">sub</code>)</code><i class="P"><code>void</code></i></li>
+				</ul>
+			</div>
+		</aside>
+		<footer class="Q"/>
+	</body>
+	<script src="root.js"></script>
+	<script src="main.js" type="module"></script>
+</html>

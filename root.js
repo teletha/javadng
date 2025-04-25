@@ -4,9 +4,9 @@ const root = {
 	"packages": [
 		"javadng",
 		"javadng.design",
+		"javadng.javadoc",
 		"javadng.js",
 		"javadng.page",
-		"javadng.parser",
 		"javadng.repository"
 	],
 	"types": [
@@ -28,7 +28,7 @@ const root = {
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "ClassInfo",
-			"packageName": "javadng.parser",
+			"packageName": "javadng.javadoc",
 			"type": "Class"
 		},
 		{
@@ -49,14 +49,14 @@ const root = {
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "Data",
-			"packageName": "javadng.parser",
+			"packageName": "javadng.javadoc",
 			"type": "Class"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "Data.Doc",
-			"packageName": "javadng.parser",
+			"packageName": "javadng.javadoc",
 			"type": "Class"
 		},
 		{
@@ -70,7 +70,7 @@ const root = {
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "DocumentInfo",
-			"packageName": "javadng.parser",
+			"packageName": "javadng.javadoc",
 			"type": "Class"
 		},
 		{
@@ -84,14 +84,14 @@ const root = {
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "ExecutableInfo",
-			"packageName": "javadng.parser",
+			"packageName": "javadng.javadoc",
 			"type": "Class"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "FieldInfo",
-			"packageName": "javadng.parser",
+			"packageName": "javadng.javadoc",
 			"type": "Class"
 		},
 		{
@@ -196,14 +196,14 @@ const root = {
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "MemberInfo",
-			"packageName": "javadng.parser",
+			"packageName": "javadng.javadoc",
 			"type": "AbstractClass"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "MethodInfo",
-			"packageName": "javadng.parser",
+			"packageName": "javadng.javadoc",
 			"type": "Class"
 		},
 		{
@@ -217,14 +217,14 @@ const root = {
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "ParameterizableInfo",
-			"packageName": "javadng.parser",
+			"packageName": "javadng.javadoc",
 			"type": "AbstractClass"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "SampleInfo",
-			"packageName": "javadng.parser",
+			"packageName": "javadng.javadoc",
 			"type": "Class"
 		},
 		{
@@ -238,7 +238,7 @@ const root = {
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "SourceCode",
-			"packageName": "javadng.parser",
+			"packageName": "javadng.javadoc",
 			"type": "Class"
 		},
 		{
@@ -252,21 +252,21 @@ const root = {
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "TemplateStore",
-			"packageName": "javadng.parser",
+			"packageName": "javadng.javadoc",
 			"type": "Class"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "TypeResolver",
-			"packageName": "javadng.parser",
+			"packageName": "javadng.javadoc",
 			"type": "Class"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "Util",
-			"packageName": "javadng.parser",
+			"packageName": "javadng.javadoc",
 			"type": "Class"
 		}
 	]
