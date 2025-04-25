@@ -60,6 +60,7 @@ import icy.manipulator.Icy;
 import javadng.Document;
 import javadng.SiteBuilder;
 import javadng.design.JavadngDesignScheme;
+import javadng.js.CodeHighlight;
 import javadng.parser.ClassInfo;
 import javadng.parser.Data;
 import javadng.parser.Data.Doc;
@@ -70,7 +71,6 @@ import javadng.parser.TemplateStore;
 import javadng.parser.TypeResolver;
 import javadng.parser.Util;
 import javadng.repository.CodeRepository;
-import javadng.web.CodeHighlighter;
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
 import jdk.javadoc.doclet.Reporter;
@@ -812,7 +812,7 @@ public abstract class JavadocModel {
                 // build JS
                 site.build("main.js", SiteBuilder.class.getResourceAsStream("main.js"));
                 site.build("mimic.js", SiteBuilder.class.getResourceAsStream("mimic.js"));
-                site.build("highlight.js", SiteBuilder.class.getResourceAsStream("highlight.js"), CodeHighlighter.build());
+                site.build("highlight.js", SiteBuilder.class.getResourceAsStream("highlight.js"), CodeHighlight.build());
 
                 // build SVG
                 site.build("main.svg", SiteBuilder.class.getResourceAsStream("main.svg"));

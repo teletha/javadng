@@ -7,7 +7,7 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.web;
+package javadng.js;
 
 import java.util.HashSet;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.Set;
 
 import kiss.I;
 
-public class CodeHighlighter {
+public class CodeHighlight {
 
     /** The language set to highlight code. */
     private static final Set<String> languages = new HashSet();
@@ -37,10 +37,10 @@ public class CodeHighlighter {
      * @return
      */
     public static List<String> build() {
-        return I.signal(languages)
-                .flatMap(x -> I.http("https://unpkg.com/@highlightjs/cdn-assets@11.7.0/es/languages/" + x + ".min.js", String.class)
-                        .waitForTerminate()
-                        .map(text -> text.replaceAll("export default hljsGrammar", "J.registerLanguage('" + x + "', hljsGrammar)")))
-                .toList();
+        return I.signal(languages).flatMap(x -> {
+            return I.http("https://unpkg.com/@highlightjs/cdn-assets@11.7.0/es/languages/" + x + ".min.js", String.class)
+                    .waitForTerminate()
+                    .map(text -> text.replaceAll("export default hljsGrammar", "J.registerLanguage('" + x + "', hljsGrammar)"));
+        }).toList();
     }
 }

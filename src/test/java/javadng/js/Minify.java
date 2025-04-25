@@ -7,7 +7,7 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.web;
+package javadng.js;
 
 import java.io.BufferedReader;
 import java.io.IOException;

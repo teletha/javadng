@@ -71,7 +71,7 @@ import com.sun.source.doctree.VersionTree;
 import com.sun.source.util.SimpleDocTreeVisitor;
 
 import javadng.design.Styles;
-import javadng.web.CodeHighlighter;
+import javadng.js.CodeHighlight;
 import kiss.I;
 import kiss.Variable;
 import kiss.XML;
@@ -589,9 +589,9 @@ public class DocumentInfo {
             if (node.getName().contentEquals("class")) {
                 for (String lang : node.getValue().toString().split(" ")) {
                     if (lang.startsWith("lang-")) {
-                        CodeHighlighter.addLanguage(lang.substring(5));
+                        CodeHighlight.addLanguage(lang.substring(5));
                     } else if (lang.startsWith("language-")) {
-                        CodeHighlighter.addLanguage(lang.substring(9));
+                        CodeHighlight.addLanguage(lang.substring(9));
                     }
                 }
             }
@@ -833,7 +833,7 @@ public class DocumentInfo {
         private void writeSourceCode(String code, String lang) {
             lang = lang.trim().toLowerCase();
 
-            CodeHighlighter.addLanguage(lang);
+            CodeHighlight.addLanguage(lang);
 
             text.append("<pre class='lang-").append(lang).append("'><code>");
             text.append(resolve(code.trim()));
