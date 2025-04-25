@@ -7,8 +7,14 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser.dummy;
+package javadng.javadoc.dummy;
 
-public class Sub21 extends Sub2<String, Sub21> {
+public class Sub2<P, Q extends Sub2<P, Q>> extends Parameterized<P, Q> {
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void close() throws Exception {
+    }
 }

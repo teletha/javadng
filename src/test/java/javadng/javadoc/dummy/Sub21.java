@@ -7,10 +7,8 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser.dummy;
+package javadng.javadoc.dummy;
 
-public interface InterfaceC<T extends AutoCloseable> extends InterfaceD<T> {
+public class Sub21 extends Sub2<String, Sub21> {
 
-    default void clear() {
-    }
 }

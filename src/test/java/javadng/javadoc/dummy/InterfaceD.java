@@ -7,7 +7,7 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser.dummy;
+package javadng.javadoc.dummy;
 
 /**
  * Pellentesque ut odio erat. Vestibulum erat neque, semper mollis gravida vel, efficitur eu diam.

@@ -7,14 +7,9 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser.dummy;
+package javadng.javadoc.dummy;
 
-public class Sub2<P, Q extends Sub2<P, Q>> extends Parameterized<P, Q> {
+public enum Enn {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void close() throws Exception {
-    }
+    One, Two, Three;
 }

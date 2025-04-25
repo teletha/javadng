@@ -7,9 +7,9 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser.dummy;
+package javadng.javadoc.dummy;
 
-public enum Enn {
+import kiss.Extensible;
 
-    One, Two, Three;
+public interface InterfaceB extends InterfaceRoot, Extensible {
 }

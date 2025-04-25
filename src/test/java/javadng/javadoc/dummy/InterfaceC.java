@@ -7,9 +7,10 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser.dummy;
+package javadng.javadoc.dummy;
 
-import kiss.Extensible;
+public interface InterfaceC<T extends AutoCloseable> extends InterfaceD<T> {
 
-public interface InterfaceB extends InterfaceRoot, Extensible {
+    default void clear() {
+    }
 }

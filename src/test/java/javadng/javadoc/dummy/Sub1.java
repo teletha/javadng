@@ -7,7 +7,7 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser.dummy;
+package javadng.javadoc.dummy;
 
 public class Sub1<P, Q extends Sub1<P, Q>> extends Parameterized<P, Q> {
 
