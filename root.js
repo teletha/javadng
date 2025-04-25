@@ -27,13 +27,6 @@ const root = {
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "BlogLayout",
-			"packageName": "javadng.page",
-			"type": "Class"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "ClassInfo",
 			"packageName": "javadng.parser",
 			"type": "Class"
@@ -50,13 +43,6 @@ const root = {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "CodeRepository",
 			"packageName": "javadng.repository",
-			"type": "AbstractClass"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "Component",
-			"packageName": "javadng.page",
 			"type": "AbstractClass"
 		},
 		{
