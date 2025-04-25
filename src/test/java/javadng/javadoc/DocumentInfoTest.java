@@ -7,7 +7,7 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser;
+package javadng.javadoc;
 
 import java.io.IOError;
 
@@ -171,7 +171,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkTagInternalType() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "' aria-label='javadng.parser.DocumentInfoTest'>DocumentInfoTest</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "' aria-label='javadng.javadoc.DocumentInfoTest'>DocumentInfoTest</a></code></span>");
     }
 
     /**
@@ -180,7 +180,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkTagInternalMethod() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#linkTagInternalMethod()' aria-label='javadng.parser.DocumentInfoTest'>#linkTagInternalMethod()</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#linkTagInternalMethod()' aria-label='javadng.javadoc.DocumentInfoTest'>#linkTagInternalMethod()</a></code></span>");
     }
 
     /**
@@ -189,7 +189,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkTagInternalTypeAndMethod() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#linkTagInternalTypeAndMethod()' aria-label='javadng.parser.DocumentInfoTest'>DocumentInfoTest#linkTagInternalTypeAndMethod()</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#linkTagInternalTypeAndMethod()' aria-label='javadng.javadoc.DocumentInfoTest'>DocumentInfoTest#linkTagInternalTypeAndMethod()</a></code></span>");
     }
 
     /**
@@ -197,7 +197,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
      */
     public void linkTagInternalSiblingType() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#linkTagInternalTypeAndMethod()' aria-label='javadng.parser.DocumentInfoTest'>DocumentInfoTest#linkTagInternalTypeAndMethod()</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#linkTagInternalTypeAndMethod()' aria-label='javadng.javadoc.DocumentInfoTest'>DocumentInfoTest#linkTagInternalTypeAndMethod()</a></code></span>");
     }
 
     static class SiblingType {
@@ -245,7 +245,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkplainTagInternalType() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "' aria-label='javadng.parser.DocumentInfoTest'>DocumentInfoTest</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "' aria-label='javadng.javadoc.DocumentInfoTest'>DocumentInfoTest</a></code></span>");
     }
 
     /**
@@ -254,7 +254,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkplainTagInternalMethod() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#linkplainTagInternalMethod()' aria-label='javadng.parser.DocumentInfoTest'>#linkplainTagInternalMethod()</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#linkplainTagInternalMethod()' aria-label='javadng.javadoc.DocumentInfoTest'>#linkplainTagInternalMethod()</a></code></span>");
     }
 
     /**
@@ -263,7 +263,7 @@ public class DocumentInfoTest extends JavadocTestSupport {
     @Test
     public void linkplainTagInternalTypeAndMethod() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#linkplainTagInternalTypeAndMethod()' aria-label='javadng.parser.DocumentInfoTest'>DocumentInfoTest#linkplainTagInternalTypeAndMethod()</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#linkplainTagInternalTypeAndMethod()' aria-label='javadng.javadoc.DocumentInfoTest'>DocumentInfoTest#linkplainTagInternalTypeAndMethod()</a></code></span>");
     }
 
     /**

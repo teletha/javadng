@@ -7,7 +7,7 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser;
+package javadng.javadoc;
 
 import java.util.Map;
 import java.util.function.Consumer;
@@ -27,7 +27,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void param() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#param(java.lang.String)' aria-label='javadng.parser.CanonicalizeParamTest'>#param(String)</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#param(java.lang.String)' aria-label='javadng.javadoc.CanonicalizeParamTest'>#param(String)</a></code></span>");
     }
 
     native void param(String param);
@@ -38,7 +38,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void primitives() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#param(int,long,float,double,boolean,char,short,byte)' aria-label='javadng.parser.CanonicalizeParamTest'>#param(int, long, float, double, boolean, char, short, byte)</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#param(int,long,float,double,boolean,char,short,byte)' aria-label='javadng.javadoc.CanonicalizeParamTest'>#param(int, long, float, double, boolean, char, short, byte)</a></code></span>");
     }
 
     native void param(int i, long l, float f, double d, boolean b, char c, short s, byte by);
@@ -49,7 +49,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void array() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#array(java.lang.String[])' aria-label='javadng.parser.CanonicalizeParamTest'>#array(String[])</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#array(java.lang.String[])' aria-label='javadng.javadoc.CanonicalizeParamTest'>#array(String[])</a></code></span>");
     }
 
     native void array(String[] param);
@@ -60,7 +60,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void multiDimensionArray() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#arrayMulti(java.lang.String[][][])' aria-label='javadng.parser.CanonicalizeParamTest'>#arrayMulti(String[][][])</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#arrayMulti(java.lang.String[][][])' aria-label='javadng.javadoc.CanonicalizeParamTest'>#arrayMulti(String[][][])</a></code></span>");
     }
 
     native void arrayMulti(String[][][] param);
@@ -71,7 +71,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void varArg() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#arrayVarArge(java.lang.String...)' aria-label='javadng.parser.CanonicalizeParamTest'>#arrayVarArge(String...)</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#arrayVarArge(java.lang.String...)' aria-label='javadng.javadoc.CanonicalizeParamTest'>#arrayVarArge(String...)</a></code></span>");
     }
 
     native void arrayVarArge(String... param);
@@ -82,7 +82,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void primitiveArray() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#array(int[])' aria-label='javadng.parser.CanonicalizeParamTest'>#array(int[])</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#array(int[])' aria-label='javadng.javadoc.CanonicalizeParamTest'>#array(int[])</a></code></span>");
     }
 
     native void array(int[] param);
@@ -93,7 +93,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void parameterized() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#parameterized(java.util.function.Function)' aria-label='javadng.parser.CanonicalizeParamTest'>#parameterized(Function)</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#parameterized(java.util.function.Function)' aria-label='javadng.javadoc.CanonicalizeParamTest'>#parameterized(Function)</a></code></span>");
     }
 
     native <X> void parameterized(Function<X, String> param);
@@ -104,7 +104,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void parameterizedArray() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#parameterizedArray(java.util.function.Function[],java.util.function.Consumer...)' aria-label='javadng.parser.CanonicalizeParamTest'>#parameterizedArray(Function[], Consumer...)</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#parameterizedArray(java.util.function.Function[],java.util.function.Consumer...)' aria-label='javadng.javadoc.CanonicalizeParamTest'>#parameterizedArray(Function[], Consumer...)</a></code></span>");
     }
 
     native <X> void parameterizedArray(Function<X, String>[] param, Consumer<X>... vararg);
@@ -115,7 +115,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void wildcard() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#wildcard(java.lang.Object,java.lang.CharSequence,java.util.Map)' aria-label='javadng.parser.CanonicalizeParamTest'>#wildcard(Object, CharSequence, Map)</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#wildcard(java.lang.Object,java.lang.CharSequence,java.util.Map)' aria-label='javadng.javadoc.CanonicalizeParamTest'>#wildcard(Object, CharSequence, Map)</a></code></span>");
     }
 
     native <X, Y extends CharSequence, Z extends Map<String, String>> void wildcard(X x, Y y, Z z);
@@ -126,7 +126,7 @@ public class CanonicalizeParamTest extends JavadocTestSupport {
     @Test
     public void wildcardArray() {
         ExecutableInfo info = currentMethod();
-        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#wildcardArray(java.lang.Object[],java.lang.Object...)' aria-label='javadng.parser.CanonicalizeParamTest'>#wildcardArray(Object[], Object...)</a></code></span>");
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#wildcardArray(java.lang.Object[],java.lang.Object...)' aria-label='javadng.javadoc.CanonicalizeParamTest'>#wildcardArray(Object[], Object...)</a></code></span>");
     }
 
     native <X> void wildcardArray(X[] x, X... v);

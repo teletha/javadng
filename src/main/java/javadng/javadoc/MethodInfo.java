@@ -7,7 +7,7 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser;
+package javadng.javadoc;
 
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.type.TypeKind;

@@ -11,7 +11,7 @@ package javadng.page;
 
 import javadng.HTML;
 import javadng.design.JavadngDSL;
-import javadng.parser.ClassInfo;
+import javadng.javadoc.ClassInfo;
 import stylist.Query;
 import stylist.Style;
 import stylist.Stylist;

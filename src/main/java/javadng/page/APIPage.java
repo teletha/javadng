@@ -14,12 +14,12 @@ import java.util.stream.IntStream;
 
 import javadng.design.JavadngDSL;
 import javadng.design.Styles;
-import javadng.parser.ClassInfo;
-import javadng.parser.ExecutableInfo;
-import javadng.parser.FieldInfo;
-import javadng.parser.MemberInfo;
-import javadng.parser.MethodInfo;
-import javadng.parser.SampleInfo;
+import javadng.javadoc.ClassInfo;
+import javadng.javadoc.ExecutableInfo;
+import javadng.javadoc.FieldInfo;
+import javadng.javadoc.MemberInfo;
+import javadng.javadoc.MethodInfo;
+import javadng.javadoc.SampleInfo;
 import kiss.XML;
 import stylist.Style;
 import stylist.value.Color;

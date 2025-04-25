@@ -7,12 +7,13 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser;
+package javadng.javadoc;
 
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import javadng.javadoc.SourceCode;
 import kiss.I;
 
 class SourceCodeTest {

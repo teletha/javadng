@@ -7,12 +7,13 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.parser;
+package javadng.javadoc;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
+import javadng.javadoc.ExecutableInfo;
 import javadng.page.JavadocTestSupport;
 
 public class ExecutableInfoTest extends JavadocTestSupport {
