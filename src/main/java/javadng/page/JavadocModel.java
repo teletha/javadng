@@ -86,10 +86,10 @@ import stylist.Stylist;
 public abstract class JavadocModel {
 
     /** The default JDK API's location. */
-    public static final String JDK = "https://docs.oracle.com/en/java/javase/19/docs/api/";
+    public static final String JDK = "https://docs.oracle.com/en/java/javase/24/docs/api/";
 
     /** The name pattern of document. */
-    private static final Pattern DocName = Pattern.compile("(.+)Doc$");
+    private static final Pattern DocName = Pattern.compile("(.*)Manual$");
 
     /** The scanned data. */
     public final Data data = new Data();
@@ -352,7 +352,7 @@ public abstract class JavadocModel {
                             : classpath().stream().map(psychopath.Location::asJavaFile).collect(Collectors.toList()));
 
                     List<JavaFileObject> files = I.signal(m.list(SOURCE_PATH, "", Set.of(SOURCE), true))
-                            .take(o -> accept(o.getName()) && (o.getName().endsWith("Test.java") || o.getName().endsWith("Doc.java")))
+                            .take(o -> accept(o.getName()) && (o.getName().endsWith("Test.java") || o.getName().endsWith("Manual.java")))
                             .toList();
 
                     if (!files.isEmpty()) {

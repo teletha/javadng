@@ -193,6 +193,18 @@ public class DocumentInfoTest extends JavadocTestSupport {
     }
 
     /**
+     * {@link SiblingType}
+     */
+    @Test
+    public void linkTagInternalSiblingType() {
+        ExecutableInfo info = currentMethod();
+        assert sameXML(info.comment, "<span class='B'><code><a href='" + BASE + "#linkTagInternalTypeAndMethod()' aria-label='javadng.parser.DocumentInfoTest'>DocumentInfoTest#linkTagInternalTypeAndMethod()</a></code></span>");
+    }
+
+    static class SiblingType {
+    }
+
+    /**
      * {@link String}
      */
     @Test
