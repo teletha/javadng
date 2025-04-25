@@ -17,13 +17,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.lang.model.element.Modifier;
-
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 
-import javadng.page.DocumentProvider;
+import javadng.Document;
 import kiss.I;
 import kiss.JSON;
 import kiss.XML;
@@ -98,7 +96,7 @@ class Github extends CodeRepository {
      * {@inheritDoc}
      */
     @Override
-    public DocumentProvider getChangeLog(String text) {
+    public Document getChangeLog(String text) {
         // Parse markdown and convert to structured HTML
         Node root = Parser.builder().build().parse(text);
         String html = HtmlRenderer.builder().escapeHtml(true).build().render(root);
@@ -154,9 +152,9 @@ class Github extends CodeRepository {
     /**
      * Document for change log.
      */
-    private class ChangeLogProvider implements DocumentProvider {
+    private class ChangeLogProvider implements Document {
 
-        private final List<DocumentProvider> children = new ArrayList();
+        private final List<Document> children = new ArrayList();
 
         private final String title;
 
@@ -200,7 +198,7 @@ class Github extends CodeRepository {
          * {@inheritDoc}
          */
         @Override
-        public int nestLevel() {
+        public int level() {
             return nest;
         }
 
@@ -208,7 +206,7 @@ class Github extends CodeRepository {
          * {@inheritDoc}
          */
         @Override
-        public String filePath() {
+        public String file() {
             return "";
         }
 
@@ -216,7 +214,7 @@ class Github extends CodeRepository {
          * {@inheritDoc}
          */
         @Override
-        public boolean hasDocument() {
+        public boolean hasContents() {
             return 2 <= nest;
         }
 
@@ -224,7 +222,7 @@ class Github extends CodeRepository {
          * {@inheritDoc}
          */
         @Override
-        public int[] documentLine() {
+        public int[] line() {
             return new int[0];
         }
 
@@ -232,7 +230,7 @@ class Github extends CodeRepository {
          * {@inheritDoc}
          */
         @Override
-        public XML document() {
+        public XML contents() {
             return doc;
         }
 
@@ -240,7 +238,7 @@ class Github extends CodeRepository {
          * {@inheritDoc}
          */
         @Override
-        public List<? extends DocumentProvider> children(Modifier... modifier) {
+        public List<? extends Document> children() {
             return children;
         }
     }
@@ -248,7 +246,7 @@ class Github extends CodeRepository {
     /**
      * 
      */
-    private class AssetProvider implements DocumentProvider {
+    private class AssetProvider implements Document {
 
         private final String version;
 
@@ -276,7 +274,7 @@ class Github extends CodeRepository {
          * {@inheritDoc}
          */
         @Override
-        public int nestLevel() {
+        public int level() {
             return 3;
         }
 
@@ -284,7 +282,7 @@ class Github extends CodeRepository {
          * {@inheritDoc}
          */
         @Override
-        public XML document() {
+        public XML contents() {
             return I.xml("<ul><li><a href=\"https://github.com/" + owner + "/" + name + "/archive/refs/tags/v" + version + ".zip\">Source code</a> (zip)</li></ul>");
         }
     }

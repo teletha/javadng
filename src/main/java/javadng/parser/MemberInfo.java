@@ -174,7 +174,7 @@ public abstract class MemberInfo extends DocumentInfo {
      */
     public String title() {
         // compute from heading text in javadoc
-        if (hasDocument()) {
+        if (hasContents()) {
             XML first = comment.v.first().firstChild();
             if (first.name().equals("h") || first.name().matches("h\\d")) {
                 return first.text();

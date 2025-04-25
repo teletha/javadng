@@ -253,7 +253,7 @@ public class DocumentInfo {
      * 
      * @return
      */
-    public final XML document() {
+    public final XML contents() {
         return comment.isAbsent() ? null : comment.v.clone();
     }
 
@@ -262,7 +262,7 @@ public class DocumentInfo {
      * 
      * @return
      */
-    public final int[] documentLine() {
+    public final int[] line() {
         return documentLines;
     }
 
@@ -271,7 +271,7 @@ public class DocumentInfo {
      * 
      * @return
      */
-    public final boolean hasDocument() {
+    public final boolean hasContents() {
         return comment.isPresent();
     }
 

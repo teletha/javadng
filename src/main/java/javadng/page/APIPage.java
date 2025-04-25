@@ -88,7 +88,7 @@ public class APIPage extends Page<ClassInfo> {
                 }
             });
 
-            $(contents.document());
+            $(contents.contents());
         });
 
         for (FieldInfo field : contents.fields()) {
@@ -119,7 +119,7 @@ public class APIPage extends Page<ClassInfo> {
                 if (type != null) $("i", css.Return, type);
             });
 
-            $(member.document());
+            $(member.contents());
 
             List<SampleInfo> list = model.samples.get(contents.id() + "#" + member.id());
             if (list != null) {
@@ -184,7 +184,7 @@ public class APIPage extends Page<ClassInfo> {
                     });
                 });
             }
-            $(member.document());
+            $(member.contents());
 
             List<SampleInfo> list = model.samples.get(contents.id() + "#" + member.id());
             if (list != null) {

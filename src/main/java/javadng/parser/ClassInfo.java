@@ -32,12 +32,12 @@ import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.SimpleElementVisitor9;
 
-import javadng.page.DocumentProvider;
+import javadng.Document;
 import kiss.I;
 import kiss.Variable;
 import kiss.XML;
 
-public class ClassInfo extends ParameterizableInfo implements DocumentProvider, Comparable<ClassInfo> {
+public class ClassInfo extends ParameterizableInfo implements Document, Comparable<ClassInfo> {
 
     /** The type-info mapping. */
     private static final Map<Element, ClassInfo> infos = new HashMap();
@@ -221,7 +221,7 @@ public class ClassInfo extends ParameterizableInfo implements DocumentProvider, 
     }
 
     @Override
-    public int nestLevel() {
+    public int level() {
         int level = 0;
         ClassInfo most = outermost();
         ClassInfo now = this;
@@ -238,8 +238,8 @@ public class ClassInfo extends ParameterizableInfo implements DocumentProvider, 
      * @return
      */
     @Override
-    public List<? extends DocumentProvider> children(Modifier... modifiers) {
-        return I.signal(inners).take(m -> m.is(modifiers)).toList();
+    public List<? extends Document> children() {
+        return I.signal(inners).take(m -> m.is(Modifier.PUBLIC)).toList();
     }
 
     /**
@@ -341,7 +341,7 @@ public class ClassInfo extends ParameterizableInfo implements DocumentProvider, 
      * @return
      */
     @Override
-    public final String filePath() {
+    public final String file() {
         ClassInfo root = outermost();
 
         StringJoiner join = new StringJoiner("/");

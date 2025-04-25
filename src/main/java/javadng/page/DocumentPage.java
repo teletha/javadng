@@ -9,8 +9,7 @@
  */
 package javadng.page;
 
-import javax.lang.model.element.Modifier;
-
+import javadng.Document;
 import javadng.design.JavadngDSL;
 import javadng.design.Styles;
 import kiss.I;
@@ -18,14 +17,14 @@ import kiss.XML;
 import stylist.Style;
 import stylist.value.Numeric;
 
-public class DocumentPage extends Page<DocumentProvider> {
+public class DocumentPage extends Page<Document> {
 
     /**
      * @param depth
      * @param model
      * @param content
      */
-    public DocumentPage(int depth, JavadocModel model, DocumentProvider content) {
+    public DocumentPage(int depth, JavadocModel model, Document content) {
         super(depth, model, content);
     }
 
@@ -35,21 +34,21 @@ public class DocumentPage extends Page<DocumentProvider> {
     @Override
     protected void declareContents() {
         try {
-            if (contents.hasDocument()) {
+            if (contents.hasContents()) {
                 $("section", Styles.Section, Styles.JavadocComment, () -> {
                     write(contents, S.SectionLevel1, true);
                 });
             }
 
-            for (DocumentProvider child : contents.children(Modifier.PUBLIC)) {
-                if (child.hasDocument()) {
+            for (Document child : contents.children()) {
+                if (child.hasContents()) {
                     $("div", Styles.Section, () -> {
                         $("section", id(child.id()), Styles.JavadocComment, () -> {
                             write(child, S.SectionLevel1, true);
                         });
 
-                        for (DocumentProvider foot : child.children(Modifier.PUBLIC)) {
-                            if (foot.hasDocument()) {
+                        for (Document foot : child.children()) {
+                            if (foot.hasContents()) {
                                 $("section", id(foot.id()), Styles.JavadocComment, S.foot, () -> {
                                     write(foot, S.SectionLevel2, false);
                                 });
@@ -64,12 +63,12 @@ public class DocumentPage extends Page<DocumentProvider> {
         }
     }
 
-    private void write(DocumentProvider provider, Style additionalStyle, boolean useIcons) {
-        XML doc = provider.document();
+    private void write(Document provider, Style additionalStyle, boolean useIcons) {
+        XML doc = provider.contents();
         XML heading = doc.find("h,h1,h2,h3").first().remove();
 
         $("header", Styles.JavadocComment, additionalStyle, () -> {
-            $(xml(heading.size() != 0 ? heading : I.xml("h" + provider.nestLevel()).text(provider.title())));
+            $(xml(heading.size() != 0 ? heading : I.xml("h" + provider.level()).text(provider.title())));
             if (useIcons) {
                 $("div", S.meta, () -> {
                     $("span", clazz("perp"), S.icon, () -> {
@@ -80,7 +79,7 @@ public class DocumentPage extends Page<DocumentProvider> {
                         $(svg("twitter"));
                     });
 
-                    String editor = model.repository().locateEditor(provider.filePath(), provider.documentLine());
+                    String editor = model.repository().locateEditor(provider.file(), provider.line());
                     if (editor != null) {
                         $("a", href(editor), clazz("edit"), S.icon, () -> {
                             $(svg("edit"));

@@ -41,7 +41,6 @@ import java.util.stream.Collectors;
 
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.Modifier;
 import javax.lang.model.element.ModuleElement;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
@@ -58,6 +57,7 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpServer;
 
 import icy.manipulator.Icy;
+import javadng.Document;
 import javadng.SiteBuilder;
 import javadng.design.JavadngDesignScheme;
 import javadng.parser.ClassInfo;
@@ -736,7 +736,7 @@ public abstract class JavadocModel {
                         for (XML see : method.getSeeTags()) {
                             String[] id = info.identify(see.text());
                             SampleInfo sample = new SampleInfo(id[0], id[1], code);
-                            sample.comment.set(method.document());
+                            sample.comment.set(method.contents());
 
                             samples.computeIfAbsent(sample.id(), x -> new ArrayList()).add(sample);
                         }
@@ -784,13 +784,13 @@ public abstract class JavadocModel {
                 doc.path = "doc/" + info.id() + ".html";
                 data.docs.add(doc);
 
-                for (DocumentProvider child : info.children(Modifier.PUBLIC)) {
+                for (Document child : info.children()) {
                     Doc childDoc = new Doc();
                     childDoc.title = child.title();
                     childDoc.path = "doc/" + info.id() + ".html#" + child.id();
                     doc.subs.add(childDoc);
 
-                    for (DocumentProvider foot : child.children(Modifier.PUBLIC)) {
+                    for (Document foot : child.children()) {
                         Doc footDoc = new Doc();
                         footDoc.title = foot.title();
                         footDoc.path = "doc/" + info.id() + ".html#" + foot.id();

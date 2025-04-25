@@ -11,7 +11,7 @@ package javadng.repository;
 
 import java.net.URI;
 
-import javadng.page.DocumentProvider;
+import javadng.Document;
 
 public abstract class CodeRepository {
 
@@ -56,7 +56,7 @@ public abstract class CodeRepository {
      * @param text
      * @return
      */
-    public abstract DocumentProvider getChangeLog(String text);
+    public abstract Document getChangeLog(String text);
 
     /**
      * Build the published date for latest version.

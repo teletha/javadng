@@ -7,16 +7,14 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.page;
+package javadng;
 
 import java.util.Collections;
 import java.util.List;
 
-import javax.lang.model.element.Modifier;
-
 import kiss.XML;
 
-public interface DocumentProvider {
+public interface Document {
 
     /**
      * Compute its identifier.
@@ -37,32 +35,23 @@ public interface DocumentProvider {
      * 
      * @return
      */
-    int nestLevel();
+    int level();
 
     /**
      * Compute the file path.
      * 
      * @return
      */
-    default String filePath() {
+    default String file() {
         return null;
     }
 
     /**
-     * Determines if this provider has any contents.
+     * Get the line positions of document for this element.
      * 
      * @return
      */
-    default boolean hasDocument() {
-        return document() != null;
-    }
-
-    /**
-     * Get the line positions of documentation comments for this element.
-     * 
-     * @return
-     */
-    default int[] documentLine() {
+    default int[] line() {
         return new int[0];
     }
 
@@ -71,14 +60,23 @@ public interface DocumentProvider {
      * 
      * @return
      */
-    XML document();
+    XML contents();
+
+    /**
+     * Determines if this provider has any contents.
+     * 
+     * @return
+     */
+    default boolean hasContents() {
+        return contents() != null;
+    }
 
     /**
      * List up all sub contents with the specified modifiers.
      * 
      * @return
      */
-    default List<? extends DocumentProvider> children(Modifier... modifier) {
+    default List<? extends Document> children() {
         return Collections.EMPTY_LIST;
     }
 }

@@ -9,6 +9,8 @@
  */
 package javadng.page;
 
+import javadng.Document;
+
 public class ActivityPage extends DocumentPage {
 
     /**
@@ -16,7 +18,7 @@ public class ActivityPage extends DocumentPage {
      * @param model
      * @param content
      */
-    public ActivityPage(int depth, JavadocModel model, DocumentProvider content) {
+    public ActivityPage(int depth, JavadocModel model, Document content) {
         super(depth, model, content);
     }
 
