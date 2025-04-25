@@ -13,6 +13,8 @@ import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
+
+import javadng.JavadocModel;
 import javadng.page.Javadoc;
 import javadng.repository.CodeRepository;
 import javax.tools.DiagnosticListener;
@@ -48,7 +50,7 @@ public class Javadoc extends JavadocModel {
      */
     private static final MethodHandle invoker(String name, Class... parameterTypes)  {
         try {
-            Method method = javadng.page.JavadocModel.class.getDeclaredMethod(name, parameterTypes);
+            Method method = javadng.JavadocModel.class.getDeclaredMethod(name, parameterTypes);
             method.setAccessible(true);
             return MethodHandles.lookup().unreflect(method);
         } catch (Throwable e) {

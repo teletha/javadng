@@ -7,7 +7,7 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.page;
+package javadng;
 
 import java.lang.StackWalker.Option;
 import java.lang.StackWalker.StackFrame;
@@ -23,7 +23,9 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javadng.JavadocModel;
 import javadng.javadoc.MethodInfo;
+import javadng.page.Javadoc;
 import kiss.I;
 import kiss.Variable;
 import kiss.XML;

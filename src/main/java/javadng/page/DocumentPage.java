@@ -10,6 +10,7 @@
 package javadng.page;
 
 import javadng.Document;
+import javadng.JavadocModel;
 import javadng.design.JavadngDSL;
 import javadng.design.Styles;
 import kiss.I;

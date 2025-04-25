@@ -10,6 +10,7 @@
 package javadng.page;
 
 import javadng.Document;
+import javadng.JavadocModel;
 
 public class ActivityPage extends DocumentPage {
 

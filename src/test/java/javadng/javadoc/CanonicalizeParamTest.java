@@ -15,7 +15,7 @@ import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 
-import javadng.page.JavadocTestSupport;
+import javadng.JavadocTestSupport;
 
 public class CanonicalizeParamTest extends JavadocTestSupport {
 

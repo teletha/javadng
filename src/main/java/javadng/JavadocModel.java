@@ -7,7 +7,7 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.page;
+package javadng;
 
 import static javax.tools.Diagnostic.Kind.*;
 import static javax.tools.Diagnostic.Kind.OTHER;
@@ -57,19 +57,21 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpServer;
 
 import icy.manipulator.Icy;
-import javadng.Document;
-import javadng.SiteBuilder;
 import javadng.design.JavadngDesignScheme;
 import javadng.javadoc.ClassInfo;
 import javadng.javadoc.Data;
+import javadng.javadoc.Data.Doc;
 import javadng.javadoc.MethodInfo;
 import javadng.javadoc.SampleInfo;
 import javadng.javadoc.SourceCode;
 import javadng.javadoc.TemplateStore;
 import javadng.javadoc.TypeResolver;
 import javadng.javadoc.Util;
-import javadng.javadoc.Data.Doc;
 import javadng.js.CodeHighlight;
+import javadng.page.APIPage;
+import javadng.page.ActivityPage;
+import javadng.page.DocumentPage;
+import javadng.page.Javadoc;
 import javadng.repository.CodeRepository;
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
@@ -101,7 +103,7 @@ public abstract class JavadocModel {
     private final List<ClassInfo> docs = new ArrayList();
 
     /** MethodID-SampleCode mapping. */
-    final Map<String, List<SampleInfo>> samples = new HashMap();
+    public final Map<String, List<SampleInfo>> samples = new HashMap();
 
     /** PackageName-URL pair. */
     private final Map<String, String> externals = new HashMap();

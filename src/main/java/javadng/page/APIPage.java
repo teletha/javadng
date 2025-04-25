@@ -12,6 +12,7 @@ package javadng.page;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import javadng.JavadocModel;
 import javadng.design.JavadngDSL;
 import javadng.design.Styles;
 import javadng.javadoc.ClassInfo;

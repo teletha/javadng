@@ -10,6 +10,7 @@
 package javadng.page;
 
 import javadng.HTML;
+import javadng.JavadocModel;
 import javadng.design.JavadngDSL;
 import javadng.javadoc.ClassInfo;
 import stylist.Query;
