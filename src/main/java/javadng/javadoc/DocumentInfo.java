@@ -82,7 +82,7 @@ public class DocumentInfo {
     private static final Pattern CLASS_ASSIGN = Pattern.compile("^\\[!([A-Z]+)\\]\\R+");
 
     /** The associated element. */
-    protected final Element e;
+    public final Element e;
 
     protected final Variable<XML> comment = Variable.empty();
 

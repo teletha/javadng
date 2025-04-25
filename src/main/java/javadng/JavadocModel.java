@@ -59,8 +59,6 @@ import com.sun.net.httpserver.HttpServer;
 import icy.manipulator.Icy;
 import javadng.design.JavadngDesignScheme;
 import javadng.javadoc.ClassInfo;
-import javadng.javadoc.Data;
-import javadng.javadoc.Data.Doc;
 import javadng.javadoc.MethodInfo;
 import javadng.javadoc.SampleInfo;
 import javadng.javadoc.SourceCode;

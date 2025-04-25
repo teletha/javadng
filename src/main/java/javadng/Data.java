@@ -7,7 +7,7 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.javadoc;
+package javadng;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,9 @@ import java.util.Set;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.type.TypeMirror;
+
+import javadng.javadoc.ClassInfo;
+import javadng.javadoc.Util;
 
 /**
  * Scanned data repository.
@@ -44,9 +47,6 @@ public final class Data {
         }
     }
 
-    /**
-     * 
-     */
     public void connectSubType() {
         for (ClassInfo type : types) {
             for (Set<TypeMirror> uppers : Util.getAllTypes(type.e)) {
@@ -61,17 +61,5 @@ public final class Data {
                 }
             }
         }
-    }
-
-    /**
-     * Scanned doc data.
-     */
-    public static class Doc {
-
-        public String title;
-
-        public String path;
-
-        public List<Doc> subs = new ArrayList();
     }
 }
