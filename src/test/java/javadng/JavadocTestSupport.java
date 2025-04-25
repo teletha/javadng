@@ -23,9 +23,8 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javadng.JavadocModel;
+import javadng.javadoc.ClassInfo;
 import javadng.javadoc.MethodInfo;
-import javadng.page.Javadoc;
 import kiss.I;
 import kiss.Variable;
 import kiss.XML;
@@ -33,7 +32,7 @@ import psychopath.Directory;
 
 public class JavadocTestSupport {
 
-    private static final JavadocModel doc = Javadoc.with.sources("src/test/java")
+    private static final Javadoc doc = Javadoc.with.sources("src/test/java")
             .output((Directory) null)
             .product("test")
             .project("test")
@@ -42,7 +41,7 @@ public class JavadocTestSupport {
             })
             .build();
 
-    private static final JavadocModel docEx = Javadoc.with.sources("src/test/java")
+    private static final Javadoc docEx = Javadoc.with.sources("src/test/java")
             .output((Directory) null)
             .product("test")
             .project("test")
@@ -55,8 +54,7 @@ public class JavadocTestSupport {
     protected final MethodInfo currentMethod() {
         StackFrame frame = caller();
 
-        return doc.findByClassName(frame.getClassName())
-                .exact()
+        return findByClassName(doc, frame.getClassName()).exact()
                 .findByMethodSignature(frame.getMethodName(), frame.getMethodType().parameterArray())
                 .exact();
     }
@@ -64,8 +62,7 @@ public class JavadocTestSupport {
     protected final MethodInfo currentMethodEx() {
         StackFrame frame = caller();
 
-        return docEx.findByClassName(frame.getClassName())
-                .exact()
+        return findByClassName(docEx, frame.getClassName()).exact()
                 .findByMethodSignature(frame.getMethodName(), frame.getMethodType().parameterArray())
                 .exact();
     }
@@ -73,7 +70,7 @@ public class JavadocTestSupport {
     protected final MethodInfo method(String name) {
         StackFrame frame = caller();
 
-        return doc.findByClassName(frame.getClassName()).exact().findByMethodSignature(name).exact();
+        return findByClassName(doc, frame.getClassName()).exact().findByMethodSignature(name).exact();
     }
 
     /**
@@ -194,6 +191,20 @@ public class JavadocTestSupport {
      */
     private String error(XML actualXML, XML expectedXML) {
         return "\r\n=============== ACTUAL ===============\r\n" + actualXML + "\r\n\r\n=============== EXPECTED ===============\r\n" + expectedXML + "\r\n";
+    }
+
+    /**
+     * Find class by its name.
+     * 
+     * @param className
+     */
+    final Variable<ClassInfo> findByClassName(Javadoc doc, String className) {
+        for (ClassInfo info : doc.data.types) {
+            if (info.id().equals(className)) {
+                return Variable.of(info);
+            }
+        }
+        return Variable.empty();
     }
 
     /**

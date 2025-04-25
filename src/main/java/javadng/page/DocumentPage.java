@@ -37,7 +37,7 @@ public class DocumentPage extends Page<Document> {
         try {
             if (contents.hasContents()) {
                 $("section", Styles.Section, Styles.JavadocComment, () -> {
-                    write(contents, S.SectionLevel1, true);
+                    write(2, contents, S.SectionLevel1, true);
                 });
             }
 
@@ -45,13 +45,13 @@ public class DocumentPage extends Page<Document> {
                 if (child.hasContents()) {
                     $("div", Styles.Section, () -> {
                         $("section", id(child.id()), Styles.JavadocComment, () -> {
-                            write(child, S.SectionLevel1, true);
+                            write(2, child, S.SectionLevel1, true);
                         });
 
                         for (Document foot : child.children()) {
                             if (foot.hasContents()) {
                                 $("section", id(foot.id()), Styles.JavadocComment, S.foot, () -> {
-                                    write(foot, S.SectionLevel2, false);
+                                    write(3, foot, S.SectionLevel2, false);
                                 });
                             }
                         }
@@ -59,17 +59,16 @@ public class DocumentPage extends Page<Document> {
                 }
             }
         } catch (Throwable e) {
-            e.printStackTrace();
             throw I.quiet(e);
         }
     }
 
-    private void write(Document provider, Style additionalStyle, boolean useIcons) {
-        XML doc = provider.contents();
+    private void write(int level, Document document, Style additionalStyle, boolean useIcons) {
+        XML doc = document.contents();
         XML heading = doc.find("h,h1,h2,h3").first().remove();
 
         $("header", Styles.JavadocComment, additionalStyle, () -> {
-            $(xml(heading.size() != 0 ? heading : I.xml("h" + provider.level()).text(provider.title())));
+            $(xml(heading.size() != 0 ? heading : I.xml("h" + level).text(document.title())));
             if (useIcons) {
                 $("div", S.meta, () -> {
                     $("span", clazz("perp"), S.icon, () -> {
@@ -80,12 +79,15 @@ public class DocumentPage extends Page<Document> {
                         $(svg("twitter"));
                     });
 
-                    String editor = model.repository().locateEditor(provider.file(), provider.line());
-                    if (editor != null) {
-                        $("a", href(editor), clazz("edit"), S.icon, () -> {
-                            $(svg("edit"));
-                        });
-                    }
+                    document.region().ifPresent(area -> {
+                        String editor = model.repository().locateEditor(area);
+                        if (editor != null) {
+                            $("a", href(editor), clazz("edit"), S.icon, () -> {
+                                $(svg("edit"));
+                            });
+                        }
+                    });
+
                 });
             }
         });

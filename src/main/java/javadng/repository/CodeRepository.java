@@ -11,6 +11,7 @@ package javadng.repository;
 
 import java.net.URI;
 
+import javadng.Region;
 import javadng.Document;
 
 public abstract class CodeRepository {
@@ -48,7 +49,7 @@ public abstract class CodeRepository {
      * 
      * @return
      */
-    public abstract String locateEditor(String file, int[] lines);
+    public abstract String locateEditor(Region region);
 
     /**
      * Build the document for change log.

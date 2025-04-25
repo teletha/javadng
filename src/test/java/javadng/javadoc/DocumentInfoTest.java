@@ -14,8 +14,8 @@ import java.io.IOError;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Text;
 
+import javadng.Javadoc;
 import javadng.JavadocTestSupport;
-import javadng.page.Javadoc;
 import kiss.XML;
 import kiss.Ⅱ;
 

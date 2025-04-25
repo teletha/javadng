@@ -11,6 +11,7 @@ package javadng;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import kiss.XML;
 
@@ -30,29 +31,8 @@ public interface Document {
      */
     String title();
 
-    /**
-     * Compute its nest level.
-     * 
-     * @return
-     */
-    int level();
-
-    /**
-     * Compute the file path.
-     * 
-     * @return
-     */
-    default String file() {
-        return null;
-    }
-
-    /**
-     * Get the line positions of document for this element.
-     * 
-     * @return
-     */
-    default int[] line() {
-        return new int[0];
+    default Optional<Region> region() {
+        return Optional.empty();
     }
 
     /**

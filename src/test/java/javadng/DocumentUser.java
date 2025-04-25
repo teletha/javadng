@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javadng.page.Javadoc;
 import javadng.repository.CodeRepository;
 import psychopath.Locator;
 
@@ -35,7 +34,7 @@ public class DocumentUser {
         path.add(repo + "org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar");
         path.add(repo + "com/github/teletha/antibug/1.0.3/antibug-1.0.3.jar");
 
-        Javadoc.with.sources("../sinobu/src/main/java")
+        Javadoc doc = Javadoc.with.sources("../sinobu/src/main/java")
                 .output("docs")
                 .product("Sinobu")
                 .project("Sinobu")
@@ -45,7 +44,8 @@ public class DocumentUser {
                 .classpath(path.toArray(String[]::new))
                 .repository(CodeRepository.of("https://github.com/teletha/sinobu"))
                 .useExternalJDKDoc()
-                .build()
-                .show();
+                .build();
+
+        Launcher.launch(doc.output);
     }
 }

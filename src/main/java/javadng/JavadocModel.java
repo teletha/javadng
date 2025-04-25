@@ -15,16 +15,10 @@ import static javax.tools.DocumentationTool.Location.*;
 import static javax.tools.JavaFileObject.Kind.*;
 import static javax.tools.StandardLocation.*;
 
-import java.awt.Desktop;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
-import java.net.BindException;
-import java.net.InetSocketAddress;
-import java.net.URI;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -53,9 +47,6 @@ import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
-import com.sun.net.httpserver.Headers;
-import com.sun.net.httpserver.HttpServer;
-
 import icy.manipulator.Icy;
 import javadng.design.JavadngDesignScheme;
 import javadng.javadoc.ClassInfo;
@@ -69,13 +60,11 @@ import javadng.js.CodeHighlight;
 import javadng.page.APIPage;
 import javadng.page.ActivityPage;
 import javadng.page.DocumentPage;
-import javadng.page.Javadoc;
 import javadng.repository.CodeRepository;
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
 import jdk.javadoc.doclet.Reporter;
 import kiss.I;
-import kiss.Variable;
 import kiss.XML;
 import psychopath.Directory;
 import psychopath.Locator;
@@ -422,75 +411,6 @@ public abstract class JavadocModel {
     }
 
     /**
-     * Show the generated document in your browser.
-     * 
-     * @return
-     */
-    public final Javadoc show() {
-        try {
-            psychopath.File checker = output().file("index.html");
-            long[] modified = {checker.lastModifiedMilli()};
-            String prefix = "/application/";
-
-            HttpServer server = HttpServer.create(new InetSocketAddress(9321), 0);
-            server.createContext("/live", context -> {
-                long time = checker.lastModifiedMilli();
-                if (modified[0] < time) {
-                    modified[0] = time;
-                    context.sendResponseHeaders(200, 1);
-                    I.copy(new ByteArrayInputStream("0".getBytes()), context.getResponseBody(), true);
-                } else {
-                    context.sendResponseHeaders(204, -1);
-                }
-            });
-            server.createContext(prefix, context -> {
-                psychopath.File file = output().file(context.getRequestURI().getPath().substring(prefix.length()));
-                byte[] body = file.text().getBytes(StandardCharsets.UTF_8);
-
-                Headers headers = context.getResponseHeaders();
-                headers.set("Content-Type", mime(file));
-                context.sendResponseHeaders(200, body.length);
-                I.copy(new ByteArrayInputStream(body), context.getResponseBody(), true);
-            });
-            server.start();
-
-            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-                try {
-                    Desktop.getDesktop().browse(new URI("http://localhost:9321" + prefix + "index.html"));
-                } catch (Exception e) {
-                    throw I.quiet(e);
-                }
-            }
-        } catch (BindException e) {
-            // already launched
-        } catch (Exception e) {
-            throw I.quiet(e);
-        }
-        return (Javadoc) this;
-    }
-
-    /**
-     * Detect mime-type.
-     * 
-     * @param file
-     * @return
-     */
-    private String mime(psychopath.File file) {
-        switch (file.extension()) {
-        case "css":
-            return "text/css";
-        case "js":
-            return "application/javascript";
-        case "html":
-            return "text/html";
-        case "svg":
-            return "image/svg+xml";
-        default:
-            return "text/plain";
-        }
-    }
-
-    /**
      * 
      */
     private class ToListener extends Writer {
@@ -677,39 +597,13 @@ public abstract class JavadocModel {
     }
 
     /**
-     * Find class by its name.
-     * 
-     * @param className
-     */
-    final Variable<ClassInfo> findByClassName(String className) {
-        for (ClassInfo info : data.types) {
-            if (info.id().equals(className)) {
-                return Variable.of(info);
-            }
-        }
-        return Variable.empty();
-    }
-
-    /**
-     * Find all package names in the source directory.
-     * 
-     * @return
-     */
-    final Set<String> findSourcePackages() {
-        // collect internal package names
-        Set<String> packages = new HashSet();
-
-        I.signal(sources()).flatMap(Directory::walkDirectoryWithBase).to(sub -> {
-            packages.add(sub.ⅰ.relativize(sub.ⅱ).toString().replace(File.separatorChar, '.'));
-        });
-        return packages;
-    }
-
-    /**
      * Initialization phase.
      */
     private void initialize() {
-        internals.addAll(findSourcePackages());
+        // Find all package names in the source directory.
+        I.signal(sources()).flatMap(Directory::walkDirectoryWithBase).to(sub -> {
+            internals.add(sub.ⅰ.relativize(sub.ⅱ).toString().replace(File.separatorChar, '.'));
+        });
     }
 
     /**

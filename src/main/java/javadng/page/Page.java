@@ -9,10 +9,10 @@
  */
 package javadng.page;
 
+import javadng.Document;
 import javadng.HTML;
 import javadng.JavadocModel;
 import javadng.design.JavadngDSL;
-import javadng.javadoc.ClassInfo;
 import stylist.Query;
 import stylist.Style;
 import stylist.Stylist;
@@ -73,7 +73,7 @@ public abstract class Page<T> extends HTML {
                 $("header", css.header, attr("date", published), attr("ver", model.version()), () -> {
                     $("h1", css.title, code(model.product()));
                     $("nav", css.links, () -> {
-                        for (ClassInfo info : model.docs()) {
+                        for (Document info : model.docs()) {
                             $("a", attr("href", "doc/" + info.children().get(0).id() + ".html"), svg("text"), text("Document"));
                         }
                         $("a", href("api/"), svg("package"), id("API"));

@@ -25,7 +25,7 @@ public abstract class MemberInfo extends DocumentInfo {
     public final String name;
 
     /** The modifier of this member. */
-    public final Set<Modifier> modifiers;
+    private final Set<Modifier> modifiers;
 
     /** The source type. */
     private final DocumentInfo parent;

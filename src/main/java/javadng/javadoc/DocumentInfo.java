@@ -82,7 +82,7 @@ public class DocumentInfo {
     private static final Pattern CLASS_ASSIGN = Pattern.compile("^\\[!([A-Z]+)\\]\\R+");
 
     /** The associated element. */
-    public final Element e;
+    public transient final Element e;
 
     protected final Variable<XML> comment = Variable.empty();
 
@@ -255,15 +255,6 @@ public class DocumentInfo {
      */
     public final XML contents() {
         return comment.isAbsent() ? null : comment.v.clone();
-    }
-
-    /**
-     * Get the line positions of documentation comments for this element.
-     * 
-     * @return
-     */
-    public final int[] line() {
-        return documentLines;
     }
 
     /**

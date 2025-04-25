@@ -14,8 +14,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
-import java.util.StringJoiner;
 import java.util.TreeSet;
 
 import javax.lang.model.element.Element;
@@ -32,6 +32,7 @@ import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.SimpleElementVisitor9;
 
+import javadng.Region;
 import javadng.Document;
 import kiss.I;
 import kiss.Variable;
@@ -220,18 +221,6 @@ public class ClassInfo extends ParameterizableInfo implements Document, Comparab
         }
     }
 
-    @Override
-    public int level() {
-        int level = 0;
-        ClassInfo most = outermost();
-        ClassInfo now = this;
-        while (now != most) {
-            now = now.outer;
-            level++;
-        }
-        return level;
-    }
-
     /**
      * List up all inner types with the specified modifiers.
      * 
@@ -336,18 +325,12 @@ public class ClassInfo extends ParameterizableInfo implements Document, Comparab
     }
 
     /**
-     * Compute the file path.
-     * 
-     * @return
+     * {@inheritDoc}
      */
     @Override
-    public final String file() {
+    public Optional<Region> region() {
         ClassInfo root = outermost();
-
-        StringJoiner join = new StringJoiner("/");
-        join.add(root.packageName.replace('.', '/'));
-        join.add(root.name + ".java");
-        return join.toString();
+        return Optional.of(new Region(root.packageName.replace('.', '/') + "/" + root.name + ".java", documentLines[0], documentLines[1]));
     }
 
     /**

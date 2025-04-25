@@ -22,6 +22,7 @@ import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 
 import javadng.Document;
+import javadng.Region;
 import kiss.I;
 import kiss.JSON;
 import kiss.XML;
@@ -85,11 +86,8 @@ class Github extends CodeRepository {
      * {@inheritDoc}
      */
     @Override
-    public String locateEditor(String file, int[] lines) {
-        if (lines == null || lines.length == 0) {
-            return null;
-        }
-        return locate() + "/edit/" + branch + "/src/test/java/" + file + "#L" + lines[0] + "-L" + lines[1];
+    public String locateEditor(Region region) {
+        return locate() + "/edit/" + branch + "/src/test/java/" + region.location() + "#L" + region.startLine() + "-L" + region.endLine();
     }
 
     /**
@@ -198,32 +196,8 @@ class Github extends CodeRepository {
          * {@inheritDoc}
          */
         @Override
-        public int level() {
-            return nest;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public String file() {
-            return "";
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
         public boolean hasContents() {
             return 2 <= nest;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public int[] line() {
-            return new int[0];
         }
 
         /**
@@ -268,14 +242,6 @@ class Github extends CodeRepository {
         @Override
         public String title() {
             return "Assets";
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public int level() {
-            return 3;
         }
 
         /**
