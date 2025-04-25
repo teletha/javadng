@@ -182,14 +182,14 @@ const root = {
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "JavadocModel",
-			"packageName": "javadng.page",
+			"packageName": "javadng",
 			"type": "AbstractClass"
 		},
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "JavadocModel.Internal",
-			"packageName": "javadng.page",
+			"packageName": "javadng",
 			"type": "Class"
 		},
 		{
