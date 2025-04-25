@@ -4,10 +4,10 @@ const root = {
 	"packages": [
 		"javadng",
 		"javadng.design",
+		"javadng.js",
 		"javadng.page",
 		"javadng.parser",
-		"javadng.repository",
-		"javadng.web"
+		"javadng.repository"
 	],
 	"types": [
 		{
@@ -34,8 +34,8 @@ const root = {
 		{
 			"modifiers": {
 				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "CodeHighlighter",
-			"packageName": "javadng.web",
+			"name": "CodeHighlight",
+			"packageName": "javadng.js",
 			"type": "Class"
 		},
 		{
@@ -204,13 +204,6 @@ const root = {
 				"#": "java.util.Collections$UnmodifiableSet",},
 			"name": "MethodInfo",
 			"packageName": "javadng.parser",
-			"type": "Class"
-		},
-		{
-			"modifiers": {
-				"#": "java.util.Collections$UnmodifiableSet",},
-			"name": "Minify",
-			"packageName": "javadng.web",
 			"type": "Class"
 		},
 		{
