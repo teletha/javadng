@@ -9,10 +9,12 @@
  */
 package javadng.page;
 
-import javadng.Document;
 import javadng.HTML;
 import javadng.JavadocModel;
+import javadng.NavigationLink;
+import javadng.SiteSetting;
 import javadng.design.JavadngDSL;
+import kiss.I;
 import stylist.Query;
 import stylist.Style;
 import stylist.Stylist;
@@ -28,6 +30,8 @@ public abstract class Page<T> extends HTML {
     protected final JavadocModel model;
 
     protected final T contents;
+
+    protected final SiteSetting site = I.make(SiteSetting.class);
 
     private final String base;
 
@@ -51,14 +55,14 @@ public abstract class Page<T> extends HTML {
             $("head", () -> {
                 $("meta", charset("UTF-8"));
                 $("meta", name("viewport"), content("width=device-width, initial-scale=1"));
-                $("meta", name("description"), content("Explains how to use " + model.product() + " and its API. " + model.description()));
+                $("meta", name("description"), content(site.description));
                 $("link", rel("preconnect"), href("https://cdn.jsdelivr.net"));
                 $("link", rel("preconnect"), href("https://fonts.googleapis.com"));
                 $("link", rel("preconnect"), href("https://fonts.gstatic.com"), attr("crossorigin"));
                 for (Font font : Font.fromGoogle()) {
                     stylesheetAsync(font.uri);
                 }
-                $("title", text(model.product() + " API"));
+                $("title", text(site.name));
                 $("base", href(base));
                 module("mimic.js");
                 stylesheet(Stylist.NormalizeCSS);
@@ -71,15 +75,12 @@ public abstract class Page<T> extends HTML {
                 String published = model.repository().getLatestPublishedDate();
 
                 $("header", css.header, attr("date", published), attr("ver", model.version()), () -> {
-                    $("h1", css.title, code(model.product()));
+                    $("h1", css.title, code(site.name));
                     $("nav", css.links, () -> {
-                        for (Document info : model.docs()) {
-                            $("a", attr("href", "doc/" + info.children().get(0).id() + ".html"), svg("text"), text("Document"));
+                        for (NavigationLink link : site.links()) {
+                            String target = link.path().startsWith("http") ? "_blank" : "";
+                            $("a", href(link.path()), svg(link.icon()), id(link.id()), attr("target", target));
                         }
-                        $("a", href("api/"), svg("package"), id("API"));
-                        $("a", href(model.repository().locateCommunity()), attr("target", "_blank"), svg("user"), id("Community"));
-                        $("a", href("doc/changelog.html"), svg("activity"), id("Activity"));
-                        $("a", href(model.repository().locate()), attr("target", "_blank"), svg("github"), id("Repository"));
                     });
                     $("div", css.controls, () -> {
                         $("a", id("theme"), attr("aria-label", "Change color scheme"), () -> {

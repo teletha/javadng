@@ -406,10 +406,6 @@ public abstract class JavadocModel {
         return Internal.class;
     }
 
-    public final Set<ClassInfo> docs() {
-        return I.signal(docs).map(ClassInfo::outermost).skipNull().toSet();
-    }
-
     /**
      * 
      */
@@ -694,7 +690,20 @@ public abstract class JavadocModel {
             }
 
             if (output() != null) {
+                SiteSetting setting = I.make(SiteSetting.class);
+                setting.name = product();
+                setting.description = description();
+
                 SiteBuilder site = SiteBuilder.root(output()).guard("index.html", "main.css", "mocha.html", "mimic.test.js");
+
+                for (ClassInfo info : I.signal(docs).map(ClassInfo::outermost).skipNull().toSet()) {
+                    setting.register(new NavigationLink(info.name, "doc/" + info.children().get(0).id() + ".html", "text"));
+                }
+
+                setting.register(new NavigationLink("API", "api/", "package"))
+                        .register(new NavigationLink("Activity", "doc/changelog.html", "activity"))
+                        .register(new NavigationLink("Community", repository().locateCommunity(), "user"))
+                        .register(new NavigationLink("Repository", repository().locate(), "github"));
 
                 // build CSS
                 I.load(SiteBuilder.class);
