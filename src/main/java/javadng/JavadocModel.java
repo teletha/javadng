@@ -284,6 +284,11 @@ public abstract class JavadocModel {
         return Variable.empty();
     }
 
+    @Icy.Overload("host")
+    private Variable<Hosting> host(String uri) {
+        return Hosting.of(uri);
+    }
+
     /**
      * Use JDK as the resolvable external document.
      * 

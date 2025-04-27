@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javadng.host.Hosting;
 import psychopath.Locator;
 
 public class DocumentUser {
@@ -42,7 +41,7 @@ public class DocumentUser {
                 .description("Sinobu is not obsolete framework but utility, which can manipulate objects as a extremely-condensed facade.")
                 .sample("../sinobu/src/test/java")
                 .classpath(path.toArray(String[]::new))
-                .host(Hosting.of("https://github.com/teletha/sinobu"))
+                .host("https://github.com/teletha/sinobu")
                 .useExternalJDKDoc()
                 .build();
 
