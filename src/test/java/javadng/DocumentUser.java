@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javadng.repository.CodeRepository;
+import javadng.host.Hosting;
 import psychopath.Locator;
 
 public class DocumentUser {
@@ -42,7 +42,7 @@ public class DocumentUser {
                 .description("Sinobu is not obsolete framework but utility, which can manipulate objects as a extremely-condensed facade.")
                 .sample("../sinobu/src/test/java")
                 .classpath(path.toArray(String[]::new))
-                .repository(CodeRepository.of("https://github.com/teletha/sinobu"))
+                .host(Hosting.of("https://github.com/teletha/sinobu"))
                 .useExternalJDKDoc()
                 .build();
 

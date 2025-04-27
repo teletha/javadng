@@ -79,15 +79,16 @@ public class DocumentPage extends Page<Document> {
                         $(svg("twitter"));
                     });
 
-                    document.region().ifPresent(area -> {
-                        String editor = model.repository().locateEditor(area);
-                        if (editor != null) {
-                            $("a", href(editor), clazz("edit"), S.icon, () -> {
-                                $(svg("edit"));
-                            });
-                        }
+                    model.host().to(repo -> {
+                        document.region().ifPresent(area -> {
+                            String editor = repo.locateEditor(area);
+                            if (editor != null) {
+                                $("a", href(editor), clazz("edit"), S.icon, () -> {
+                                    $(svg("edit"));
+                                });
+                            }
+                        });
                     });
-
                 });
             }
         });

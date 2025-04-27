@@ -9,12 +9,12 @@
  */
 package javadng.page;
 
+import java.time.LocalDate;
+
 import javadng.HTML;
 import javadng.JavadocModel;
-import javadng.NavigationLink;
-import javadng.SiteSetting;
 import javadng.design.JavadngDSL;
-import kiss.I;
+import javadng.host.Hosting;
 import stylist.Query;
 import stylist.Style;
 import stylist.Stylist;
@@ -30,8 +30,6 @@ public abstract class Page<T> extends HTML {
     protected final JavadocModel model;
 
     protected final T contents;
-
-    protected final SiteSetting site = I.make(SiteSetting.class);
 
     private final String base;
 
@@ -53,16 +51,16 @@ public abstract class Page<T> extends HTML {
     public void declare() {
         $("html", attr("lang", "en"), () -> {
             $("head", () -> {
-                $("meta", charset("UTF-8"));
+                $("meta", charset(model.encoding().displayName()));
                 $("meta", name("viewport"), content("width=device-width, initial-scale=1"));
-                $("meta", name("description"), content(site.description));
+                $("meta", name("description"), content("Explains how to use " + model.product() + " and its API. " + model.description()));
                 $("link", rel("preconnect"), href("https://cdn.jsdelivr.net"));
                 $("link", rel("preconnect"), href("https://fonts.googleapis.com"));
                 $("link", rel("preconnect"), href("https://fonts.gstatic.com"), attr("crossorigin"));
                 for (Font font : Font.fromGoogle()) {
                     stylesheetAsync(font.uri);
                 }
-                $("title", text(site.name));
+                $("title", text(model.product() + " API"));
                 $("base", href(base));
                 module("mimic.js");
                 stylesheet(Stylist.NormalizeCSS);
@@ -72,15 +70,19 @@ public abstract class Page<T> extends HTML {
                 // =============================
                 // Top Navigation
                 // =============================
-                String published = model.repository().getLatestPublishedDate();
+                String published = model.host().map(Hosting::getLatestPublishedDate).or(LocalDate.now()).toString();
 
                 $("header", css.header, attr("date", published), attr("ver", model.version()), () -> {
-                    $("h1", css.title, code(site.name));
+                    $("h1", css.title, code(model.product()));
                     $("nav", css.links, () -> {
-                        for (NavigationLink link : site.links()) {
-                            String target = link.path().startsWith("http") ? "_blank" : "";
-                            $("a", href(link.path()), svg(link.icon()), id(link.id()), attr("target", target));
-                        }
+                        model.doc().to(doc -> link(doc.name, ("doc/" + doc.children().get(0).id() + ".html"), "text"));
+                        model.api().to(api -> link("API", "api/", "package"));
+                        link("Activity", "doc/changelog.html", "activity");
+
+                        model.host().to(repo -> {
+                            link("Community", repo.locateCommunity(), "user");
+                            link("Repository", repo.locate(), "github");
+                        });
                     });
                     $("div", css.controls, () -> {
                         $("a", id("theme"), attr("aria-label", "Change color scheme"), () -> {
@@ -120,6 +122,15 @@ public abstract class Page<T> extends HTML {
             script("root.js", model.data);
             module("main.js");
         });
+
+    }
+
+    private void link(String id, String path, String icon) {
+        if (path.startsWith("http")) {
+            $("a", href(path), svg(icon), id(id), attr("target", "_blank"));
+        } else {
+            $("a", href(path), svg(icon), id(id));
+        }
 
     }
 

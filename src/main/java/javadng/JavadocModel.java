@@ -49,6 +49,7 @@ import javax.tools.ToolProvider;
 
 import icy.manipulator.Icy;
 import javadng.design.JavadngDesignScheme;
+import javadng.host.Hosting;
 import javadng.javadoc.ClassInfo;
 import javadng.javadoc.MethodInfo;
 import javadng.javadoc.SampleInfo;
@@ -60,11 +61,11 @@ import javadng.js.CodeHighlight;
 import javadng.page.APIPage;
 import javadng.page.ActivityPage;
 import javadng.page.DocumentPage;
-import javadng.repository.CodeRepository;
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
 import jdk.javadoc.doclet.Reporter;
 import kiss.I;
+import kiss.Variable;
 import kiss.XML;
 import psychopath.Directory;
 import psychopath.Locator;
@@ -279,8 +280,8 @@ public abstract class JavadocModel {
      * @return
      */
     @Icy.Property
-    public CodeRepository repository() {
-        return null;
+    public Variable<Hosting> host() {
+        return Variable.empty();
     }
 
     /**
@@ -400,10 +401,18 @@ public abstract class JavadocModel {
      * 
      * @return
      */
-    public final Class<? extends Doclet> buildDocletClass() {
+    public final Class<? extends Doclet> buildDoclet() {
         Internal.model = this;
 
         return Internal.class;
+    }
+
+    public final Variable<ClassInfo> doc() {
+        return I.signal(docs).map(ClassInfo::outermost).skipNull().first().to();
+    }
+
+    public final Variable<ClassInfo> api() {
+        return I.signal(data.types).first().to();
     }
 
     /**
@@ -690,20 +699,7 @@ public abstract class JavadocModel {
             }
 
             if (output() != null) {
-                SiteSetting setting = I.make(SiteSetting.class);
-                setting.name = product();
-                setting.description = description();
-
                 SiteBuilder site = SiteBuilder.root(output()).guard("index.html", "main.css", "mocha.html", "mimic.test.js");
-
-                for (ClassInfo info : I.signal(docs).map(ClassInfo::outermost).skipNull().toSet()) {
-                    setting.register(new NavigationLink(info.name, "doc/" + info.children().get(0).id() + ".html", "text"));
-                }
-
-                setting.register(new NavigationLink("API", "api/", "package"))
-                        .register(new NavigationLink("Activity", "doc/changelog.html", "activity"))
-                        .register(new NavigationLink("Community", repository().locateCommunity(), "user"))
-                        .register(new NavigationLink("Repository", repository().locate(), "github"));
 
                 // build CSS
                 I.load(SiteBuilder.class);
@@ -729,8 +725,10 @@ public abstract class JavadocModel {
                 }
 
                 // build change log
-                I.http(repository().locateChangeLog(), String.class).waitForTerminate().skipError().to(md -> {
-                    site.buildHTML("doc/changelog.html", new ActivityPage(1, this, repository().getChangeLog(md)));
+                host().to(repo -> {
+                    I.http(repo.locateChangeLog(), String.class).waitForTerminate().skipError().to(md -> {
+                        site.buildHTML("doc/changelog.html", new ActivityPage(1, this, repo.getChangeLog(md)));
+                    });
                 });
 
                 // create at last for live reload

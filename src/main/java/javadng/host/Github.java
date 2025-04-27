@@ -7,7 +7,7 @@
  *
  *          https://opensource.org/licenses/MIT
  */
-package javadng.repository;
+package javadng.host;
 
 import java.net.URI;
 import java.time.LocalDate;
@@ -27,10 +27,7 @@ import kiss.I;
 import kiss.JSON;
 import kiss.XML;
 
-/**
- * 
- */
-class Github extends CodeRepository {
+class Github implements Hosting {
 
     private final String owner;
 
@@ -38,7 +35,7 @@ class Github extends CodeRepository {
 
     private final String branch;
 
-    private String published;
+    private LocalDate published;
 
     Github(URI uri) {
         String path = uri.getPath();
@@ -132,17 +129,14 @@ class Github extends CodeRepository {
      * {@inheritDoc}
      */
     @Override
-    public synchronized String getLatestPublishedDate() {
+    public synchronized LocalDate getLatestPublishedDate() {
         if (published == null) {
-            String date = I.http("https://github.com/" + owner + "/" + name + "/releases/latest", XML.class)
-                    .waitForTerminate()
-                    .map(html -> html.find(".markdown-body h2").first().text())
-                    .to()
-                    .or(LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
-
-            int start = date.indexOf('(');
-            int end = date.lastIndexOf(')');
-            published = start == -1 ? date : date.substring(start + 1, end);
+            published = I.http("https://github.com/" + owner + "/" + name + "/releases/latest", XML.class).waitForTerminate().map(html -> {
+                String text = html.find(".markdown-body h2").first().text();
+                int start = text.indexOf('(');
+                int end = text.lastIndexOf(')');
+                return LocalDate.parse(text.substring(start + 1, end), DateTimeFormatter.ISO_LOCAL_DATE);
+            }).to().or(LocalDate.now());
         }
         return published;
     }
