@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.6.0](https://github.com/teletha/javadng/compare/2.5.0...2.6.0) (2025-04-25)
+
+
+### Features
+
+* change document suffix from Doc to Manual ([930d796](https://github.com/teletha/javadng/commit/930d79693e3eb3cf7da6752288f002d4d2d8a2fa))
+
+
+### Bug Fixes
+
+* remove unused classes ([ae0458a](https://github.com/teletha/javadng/commit/ae0458a79cad525d3028e5ba641a737e249782be))
+
 ## [2.5.0](https://github.com/teletha/javadng/compare/2.4.4...2.5.0) (2025-04-24)
 
 
